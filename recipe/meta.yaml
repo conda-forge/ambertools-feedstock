@@ -27,10 +27,19 @@ requirements:
     - bison
     - openmp
   host:
+    - python >=3.7
+    - pip
+    - numpy
+    - scipy
+    - matplotlib
     - boost
     - bzip2
     - zlib
   run:
+    - python >=3.7
+    - numpy
+    - scipy
+    - matplotlib
     - apbs
 
 test:
@@ -39,6 +48,8 @@ test:
     - teLeap -h
     - tleap -h
     - parmchk2 -h
+  imports:
+    - pytraj
 
 about:
   home: http://ambermd.org/AmberTools.php
@@ -56,3 +67,4 @@ about:
 extra:
   recipe-maintainers:
     - simonbray
+
