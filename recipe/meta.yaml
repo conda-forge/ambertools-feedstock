@@ -11,7 +11,7 @@ source:
   sha256: 8315929b8e1d597907405ddab31d41c556a777f7df7df98745ee9d08c980bae5
 
 build:
-  number: 0
+  number: 1
   skip: True  # [win or osx]
 
 requirements:
@@ -27,10 +27,19 @@ requirements:
     - bison
     - openmp
   host:
+    - python >=3.7
+    - pip
+    - numpy
+    - scipy
+    - matplotlib
     - boost
     - bzip2
     - zlib
   run:
+    - python >=3.7
+    - numpy
+    - scipy
+    - matplotlib
     - apbs
 
 test:
@@ -39,6 +48,8 @@ test:
     - teLeap -h
     - tleap -h
     - parmchk2 -h
+  imports:
+    - pytraj
 
 about:
   home: http://ambermd.org/AmberTools.php
