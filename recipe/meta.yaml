@@ -12,7 +12,7 @@ source:
 
 build:
   number: 1
-  skip: True  # [win or osx]
+  skip: True  # [win or py2k or osx]
 
 requirements:
   build:
@@ -27,7 +27,7 @@ requirements:
     - bison
     - openmp
   host:
-    - python >=3
+    - python
     - pip
     - numpy
     - scipy
@@ -36,7 +36,7 @@ requirements:
     - bzip2
     - zlib
   run:
-    - python >=3
+    - python
     - numpy
     - scipy
     - matplotlib
