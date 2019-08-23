@@ -40,7 +40,6 @@ requirements:
     - numpy
     - scipy
     - matplotlib
-    - apbs
 
 test:
   commands:
