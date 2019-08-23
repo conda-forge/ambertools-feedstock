@@ -14,7 +14,3 @@ cp -rf bin/* $PREFIX/bin/
 cp -rf dat/* $PREFIX/dat/
 cp -rf lib/* $PREFIX/lib/
 cp -rf include/* $PREFIX/include/
-
-rm ${PREFIX}/bin/gcc
-rm ${PREFIX}/bin/g++
-rm ${PREFIX}/bin/gfortran
