@@ -12,7 +12,7 @@ source:
 
 build:
   number: 3
-  skip: True  # [win or py2k]
+  skip: True  # [win or osx or py2k]
 
 requirements:
   build:
@@ -27,7 +27,6 @@ requirements:
     - openmp
   host:
     - python
-    - pip
     - numpy
     - scipy
     - matplotlib
