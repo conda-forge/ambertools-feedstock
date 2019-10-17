@@ -1,5 +1,5 @@
 {% set name = "AmberTools" %}
-{% set version = "19" %}
+{% set version = "19.0" %}
 
 package:
   name: {{ name|lower }}
@@ -11,8 +11,8 @@ source:
   sha256: 8315929b8e1d597907405ddab31d41c556a777f7df7df98745ee9d08c980bae5
 
 build:
-  number: 3
-  skip: True  # [win or osx or py2k]
+  number: 0
+  skip: True  # [win or py2k]
 
 requirements:
   build:
@@ -50,8 +50,7 @@ test:
 
 about:
   home: http://ambermd.org/AmberTools.php
-  license: GPL
-  license_family: GPL
+  license: Multiple
   license_file: AmberTools/LICENSE
   summary: 'AmberTools is a set of programs for biomolecular simulation and analysis'
   description: |
@@ -63,4 +62,5 @@ about:
 
 extra:
   recipe-maintainers:
+    - dacase
     - simonbray
