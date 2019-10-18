@@ -1,0 +1,13 @@
+diff --git a/AmberTools/src/configure2 b/AmberTools/src/configure2
+index ad4a541..85d30ab 100755
+--- a/AmberTools/src/configure2
++++ b/AmberTools/src/configure2
+@@ -519,7 +519,7 @@ readline='readline/libreadline.a'
+ pic="-fPIC"
+ pmemd_openmp='no'
+ cpptrajcxxflags=''
+-ldflags=''
++ldflags='$LDFLAGS'
+ build_sanderapi='build_sanderapi'
+ moft='yes'
+ #------------------------------------------------------------------------------
