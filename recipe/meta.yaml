@@ -7,8 +7,8 @@ package:
 
 source:
   # the tool is GPL licensed but the download is not possible without registration, so we use a copy here
-  url: https://bitbucket.org/simonbray/ambertools/raw/9e3a9289ca97a2ba0f58cebdfb102c88e8912d9f/AmberTools19.tar.bz2
-  sha256: 8315929b8e1d597907405ddab31d41c556a777f7df7df98745ee9d08c980bae5
+  url: https://bitbucket.org/simonbray/ambertools/get/master.tar.bz2
+  sha256: e696ff7b4db45da6c34f39bd03e7b7db2a5e99708d813a6dc5edfc7eab6d40cc
   patches:
     - configure.patch
 
