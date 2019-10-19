@@ -4,13 +4,13 @@ Date: Sat, 19 Oct 2019 12:36:42 +0200
 Subject: [PATCH 1/2] r
 
 ---
- AmberTools/src/configure2 | 2 +-
+ amber18/AmberTools/src/configure2 | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/AmberTools/src/configure2 b/AmberTools/src/configure2
+diff --git a/amber18/AmberTools/src/configure2 b/amber18/AmberTools/src/configure2
 index 797380b..32470b5 100644
---- a/AmberTools/src/configure2
-+++ b/AmberTools/src/configure2
+--- a/amber18/AmberTools/src/configure2
++++ b/amber18/AmberTools/src/configure2
 @@ -469,7 +469,7 @@ installtype='serial'
  intel_compiler_flag_mkl='no'
  intelmpi='no'
@@ -30,13 +30,13 @@ Date: Sat, 19 Oct 2019 13:19:28 +0200
 Subject: [PATCH 2/2] q
 
 ---
- AmberTools/src/configure2 | 10 +++++-----
+ amber18/AmberTools/src/configure2 | 10 +++++-----
  1 file changed, 5 insertions(+), 5 deletions(-)
 
-diff --git a/AmberTools/src/configure2 b/AmberTools/src/configure2
+diff --git a/amber18/AmberTools/src/configure2 b/amber18/AmberTools/src/configure2
 index 32470b5..3ed06f8 100644
---- a/AmberTools/src/configure2
-+++ b/AmberTools/src/configure2
+--- a/amber18/AmberTools/src/configure2
++++ b/amber18/AmberTools/src/configure2
 @@ -408,11 +408,11 @@ EOF
  
  # Test for the presence of /bin/csh, since it's needed for installation
