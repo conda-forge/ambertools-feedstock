@@ -24,6 +24,32 @@ index 797380b..32470b5 100644
 2.17.1
 
 
+From 2e7efb4f14215466cbd61eaaee5411359e3b0ef2 Mon Sep 17 00:00:00 2001
+From: Simon Bray <sbray1371@gmail.com>
+Date: Sat, 19 Oct 2019 15:41:34 +0200
+Subject: [PATCH] w
+
+---
+ amber18/AmberTools/src/configure2 | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/amber18/AmberTools/src/configure2 b/amber18/AmberTools/src/configure2
+index 3ed06f8..571cf49 100644
+--- a/amber18/AmberTools/src/configure2
++++ b/amber18/AmberTools/src/configure2
+@@ -817,7 +817,7 @@ cplusplus=CC
+ cxxflags="$pic $CXXFLAGS"
+ cxxnooptflags=
+ cxxoptflags="$pic -O"
+-fflags="$pic $FFLAGS"
++fflags="$pic $FFLAGS -Wl,-rpath,${PREFIX}/lib"
+ ambercxxflags=
+ fc_cxx_link_flag="-lstdc++"
+ pycflags=
+-- 
+2.17.1
+
+
 From a8ba9ba188d5a5574c2d9b6e0a37463cf874a3b0 Mon Sep 17 00:00:00 2001
 From: Simon Bray <sbray1371@gmail.com>
 Date: Sat, 19 Oct 2019 13:19:28 +0200
