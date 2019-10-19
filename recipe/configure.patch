@@ -16,7 +16,7 @@ index 797380b..32470b5 100644
  intelmpi='no'
  is_mac='no'
 -ldflags=''
-+ldflags='$LDFLAGS'
++ldflags='-Wl,-rpath,${PREFIX}/lib'
  ld='ld '
  lfs='yes'
  lm='-lm'
