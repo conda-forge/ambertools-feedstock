@@ -1,5 +1,6 @@
 {% set name = "AmberTools" %}
-{% set version = "19" %}
+# Versioning scheme uses AmberTools major release as MAJOR version number, patch level as MINOR version number
+{% set version = "19.0" %}
 
 package:
   name: {{ name|lower }}
@@ -11,8 +12,8 @@ source:
   sha256: 8315929b8e1d597907405ddab31d41c556a777f7df7df98745ee9d08c980bae5
 
 build:
-  number: 3
-  skip: True  # [win or osx or py2k]
+  number: 0
+  #skip: True  # [win or osx or py2k]
 
 requirements:
   build:
@@ -55,11 +56,11 @@ about:
   license_file: AmberTools/LICENSE
   summary: 'AmberTools is a set of programs for biomolecular simulation and analysis'
   description: |
-    AmberTools is a set of programs for biomolecular simulation and analysis. 
-    They are designed to work well with each other, and with the “regular” Amber 
-    suite of programs.  You can perform many simulation tasks with AmberTools, 
-    and you can do more extensive simulations with the combination of AmberTools 
-    and Amber itself. 
+    AmberTools is a set of programs for biomolecular simulation and analysis.
+    They are designed to work well with each other, and with the “regular” Amber
+    suite of programs.  You can perform many simulation tasks with AmberTools,
+    and you can do more extensive simulations with the combination of AmberTools
+    and Amber itself.
 
 extra:
   recipe-maintainers:
