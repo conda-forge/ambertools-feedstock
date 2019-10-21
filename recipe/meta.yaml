@@ -52,8 +52,7 @@ test:
 
 about:
   home: http://ambermd.org/AmberTools.php
-  license: GPL
-  license_family: GPL
+  license: Multiple
   license_file: AmberTools/LICENSE
   summary: 'AmberTools is a set of programs for biomolecular simulation and analysis'
   description: |
