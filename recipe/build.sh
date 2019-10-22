@@ -6,7 +6,14 @@ if [ $(uname) == "Linux" ]; then
     export COMPILER_SET="gnu"
 fi
 
-cd amber18
+# Upgrade AmberTools source to the patch level specified by the MINOR version in $PKG_VERSION
+for n in {1..5}; do # try up to five times before failing
+    export PATCH_LEVEL=$(echo $PKG_VERSION | cut -d. -f2)
+    echo "Upgrading source to patch level $PATCH_LEVEL"
+    ./update_amber --update-to=AmberTools.${PATCH_LEVEL} && break
+done
+
+# Build AmberTools without further patching
 echo 'N' | ./configure  -noX11 -norism --with-python ${PREFIX}/bin/python --python-install local $COMPILER_SET
 # using the -openmp flag causes packages not to be included in the build
 # however, the RISM model requires OpenMP, so -norism is set

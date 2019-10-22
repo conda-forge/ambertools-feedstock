@@ -47,6 +47,7 @@ Current build status
                   <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/ambertools-feedstock?branchName=master&jobName=linux&configuration=linux_python3.7" alt="variant">
                 </a>
               </td>
+<<<<<<< HEAD
             </tr><tr>
               <td>osx_python3.6</td>
               <td>
@@ -61,10 +62,18 @@ Current build status
                   <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/ambertools-feedstock?branchName=master&jobName=osx&configuration=osx_python3.7" alt="variant">
                 </a>
               </td>
+=======
+>>>>>>> upstream/master
             </tr>
           </tbody>
         </table>
       </details>
+    </td>
+  </tr>
+  <tr>
+    <td>OSX</td>
+    <td>
+      <img src="https://img.shields.io/badge/OSX-disabled-lightgrey.svg" alt="OSX disabled">
     </td>
   </tr>
   <tr>
