@@ -7,9 +7,11 @@ if [ $(uname) == "Linux" ]; then
 fi
 
 # Upgrade AmberTools source to the patch level specified by the MINOR version in $PKG_VERSION
-export PATCH_LEVEL=$(echo $PKG_VERSION | cut -d. -f2)
-echo "Upgrading source to patch level $PATCH_LEVEL"
-./update_amber --update-to=AmberTools.${PATCH_LEVEL}
+for n in {1..5}; do
+    export PATCH_LEVEL=$(echo $PKG_VERSION | cut -d. -f2)
+    echo "Upgrading source to patch level $PATCH_LEVEL"
+    ./update_amber --update-to=AmberTools.${PATCH_LEVEL} && break
+done
 
 # Build AmberTools without further patching
 echo 'N' | ./configure  -noX11 -norism --with-python ${PREFIX}/bin/python --python-install local $COMPILER_SET
