@@ -31,7 +31,7 @@ requirements:
     - python
     - numpy
     - scipy
-    - matplotlib
+    - matplotlib-base
     - boost
     - bzip2
     - zlib
@@ -39,7 +39,7 @@ requirements:
     - python
     - numpy
     - scipy
-    - matplotlib
+    - matplotlib-base
 
 test:
   commands:
