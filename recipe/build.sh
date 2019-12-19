@@ -6,6 +6,8 @@ if [ $(uname) == "Linux" ]; then
     export COMPILER_SET="gnu"
 fi
 
+export LDFLAGS="${LDFLAGS}"
+
 # tar -xf AmberTools19.tar.bz2.cmlqap
 # cd amber18
 
