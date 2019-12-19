@@ -9,10 +9,10 @@ package:
   version: {{ version }}
 
 source:
-  url: https://ambermd.org/downloads/AmberTools19.tar.bz2.cmlqap
+  url: https://ambermd.org/downloads/AmberTools19.tar.bz2
   sha256: 0c86937904854b64e4831e047851f504ec45b42e593db4ded92c1bee5973e699
-  # patches:
-  #   - configure.patch
+  patches:
+    - configure.patch
 
 build:
   number: 0
@@ -55,7 +55,8 @@ test:
 about:
   home: http://ambermd.org/AmberTools.php
   license: Multiple
-  license_file: amber18/AmberTools/LICENSE
+  # license_file: amber18/AmberTools/LICENSE
+  license_file: AmberTools/LICENSE
   summary: 'AmberTools is a set of programs for biomolecular simulation and analysis'
   description: |
     AmberTools is a set of programs for biomolecular simulation and analysis.

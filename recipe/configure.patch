@@ -16,69 +16,10 @@ index 797380b..32470b5 100644
  intelmpi='no'
  is_mac='no'
 -ldflags=''
-+ldflags='-Wl,-rpath,${PREFIX}/lib'
++ldflags=$LDFLAGS
  ld='ld '
  lfs='yes'
  lm='-lm'
--- 
-2.17.1
-
-
-From 2e7efb4f14215466cbd61eaaee5411359e3b0ef2 Mon Sep 17 00:00:00 2001
-From: Simon Bray <sbray1371@gmail.com>
-Date: Sat, 19 Oct 2019 15:41:34 +0200
-Subject: [PATCH] w
-
-
-From 2ebd28c47e0c47ced1588af1b34304a92d8ad8be Mon Sep 17 00:00:00 2001
-From: Simon Bray <sbray1371@gmail.com>
-Date: Sat, 19 Oct 2019 16:03:55 +0200
-Subject: [PATCH] k
-
----
- amber18/AmberTools/src/configure2 | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/amber18/AmberTools/src/configure2 b/amber18/AmberTools/src/configure2
-index 571cf49..6eb81db 100644
---- a/amber18/AmberTools/src/configure2
-+++ b/amber18/AmberTools/src/configure2
-@@ -809,12 +809,12 @@ esac
- #  e.g. not to fftw3, netcdf, boost, etc.
-
- cc=cc
--cflags="$pic $CFLAGS"
-+cflags="$pic $CFLAGS -Wl,-rpath,${PREFIX}/lib"
- cnooptflags=
- coptflags=-O
- ambercflags=
- cplusplus=CC
--cxxflags="$pic $CXXFLAGS"
-+cxxflags="$pic $CXXFLAGS -Wl,-rpath,${PREFIX}/lib"
- cxxnooptflags=
- cxxoptflags="$pic -O"
- fflags="$pic $FFLAGS -Wl,-rpath,${PREFIX}/lib"
--- 
-2.17.1
-
-
----
- amber18/AmberTools/src/configure2 | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/amber18/AmberTools/src/configure2 b/amber18/AmberTools/src/configure2
-index 3ed06f8..571cf49 100644
---- a/amber18/AmberTools/src/configure2
-+++ b/amber18/AmberTools/src/configure2
-@@ -817,7 +817,7 @@ cplusplus=CC
- cxxflags="$pic $CXXFLAGS"
- cxxnooptflags=
- cxxoptflags="$pic -O"
--fflags="$pic $FFLAGS"
-+fflags="$pic $FFLAGS -Wl,-rpath,${PREFIX}/lib"
- ambercxxflags=
- fc_cxx_link_flag="-lstdc++"
- pycflags=
 -- 
 2.17.1
 
