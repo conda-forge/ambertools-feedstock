@@ -25,7 +25,7 @@ requirements:
     - patch
     - tcsh
     - bison
-    - llvm-openmp
+    - llvm-openmp  # [osx]
   host:
     - python
     - numpy
