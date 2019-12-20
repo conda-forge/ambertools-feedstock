@@ -28,8 +28,8 @@ echo 'N' | ./configure  -noX11 -norism --with-python ${PREFIX}/bin/python --pyth
 
 bash amber.sh
 
-make LDFLAGS=$LDFLAGS
-make install LDFLAGS=$LDFLAGS
+make LDFLAGS="$LDFLAGS"
+make install LDFLAGS="$LDFLAGS"
 
 mkdir $PREFIX/dat
 

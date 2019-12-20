@@ -1,14 +1,14 @@
-From 7330111e04424b1fd185b7375a71912a11e58a99 Mon Sep 17 00:00:00 2001
+From af8c3879c438d800d7d08968b2b704ddab89b47f Mon Sep 17 00:00:00 2001
 From: Simon Bray <sbray1371@gmail.com>
-Date: Sat, 19 Oct 2019 12:36:42 +0200
-Subject: [PATCH 1/2] r
+Date: Fri, 20 Dec 2019 15:39:34 +0100
+Subject: [PATCH] t
 
 ---
- amber18/AmberTools/src/configure2 | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ amber18/AmberTools/src/configure2 | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/amber18/AmberTools/src/configure2 b/amber18/AmberTools/src/configure2
-index 797380b..32470b5 100644
+index 31a6403..ea430b1 100755
 --- a/amber18/AmberTools/src/configure2
 +++ b/amber18/AmberTools/src/configure2
 @@ -469,7 +469,7 @@ installtype='serial'
@@ -16,10 +16,19 @@ index 797380b..32470b5 100644
  intelmpi='no'
  is_mac='no'
 -ldflags=''
-+ldflags=$LDFLAGS
++ldflags="$LDFLAGS"
  ld='ld '
  lfs='yes'
  lm='-lm'
+@@ -519,7 +519,7 @@ readline='readline/libreadline.a'
+ pic="-fPIC"
+ pmemd_openmp='no'
+ cpptrajcxxflags=''
+-cpptrajldflags=''
++cpptrajldflags="$LDFLAGS"
+ build_sanderapi='build_sanderapi'
+ moft='yes'
+ #------------------------------------------------------------------------------
 -- 
 2.17.1
 
