@@ -31,8 +31,11 @@ requirements:
     - make
     - libnetcdf
     - netcdf-fortran
+    - perl
   host:
     - python
+    - cython
+    - setuptools
     - numpy
     - boost-cpp
     - bzip2
@@ -44,7 +47,8 @@ requirements:
     - python
     - numpy
     - scipy
-    - matplotlib-base
+    - matplotlib
+    - cython
 
 test:
   commands:
