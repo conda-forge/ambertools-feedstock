@@ -12,6 +12,7 @@ source:
   sha256: 0c86937904854b64e4831e047851f504ec45b42e593db4ded92c1bee5973e699
   patches:
     - configure.patch
+    - fftw-as-ppc64.patch  # [ppc64le]
 
 build:
   number: 1
@@ -27,15 +28,18 @@ requirements:
     - patch
     - tcsh
     - bison
-    - llvm-openmp  # [osx]
+    - make
+    - libnetcdf
+    - netcdf-fortran
   host:
     - python
     - numpy
-    - scipy
-    - matplotlib-base
     - boost-cpp
     - bzip2
     - zlib
+    - libnetcdf
+    - netcdf-fortran
+    - llvm-openmp  # [osx]
   run:
     - python
     - numpy

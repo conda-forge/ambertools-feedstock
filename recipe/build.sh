@@ -1,10 +1,18 @@
-if [ $(uname) == "Darwin" ]; then
+if [[ "$target_platform" == osx* ]]; then
     export COMPILER_SET="clang"
 fi
 
-if [ $(uname) == "Linux" ]; then
+if [[ "$target_platform" == linux* ]]; then
     export COMPILER_SET="gnu"
 fi
+
+NO_SSE=""
+if [[ "$target_platform" == linux-ppc64le ]]; then
+    # needed in ppc64le because otherwise fftw-3.3 does not compile
+    NO_SSE="-nosse"
+fi
+
+
 
 # Upgrade AmberTools source to the patch level specified by the MINOR version in $PKG_VERSION
 for n in {1..5}; do
@@ -14,7 +22,7 @@ for n in {1..5}; do
 done
 
 # Build AmberTools without further patching
-echo 'N' | ./configure  -noX11 -norism --with-python ${PREFIX}/bin/python --python-install local $COMPILER_SET
+echo 'N' | ./configure $NO_SSE -noX11 -norism --with-netcdf ${PREFIX} --with-python ${PYTHON} --python-install local $COMPILER_SET
 # using the -openmp flag causes packages not to be included in the build
 # however, the RISM model requires OpenMP, so -norism is set
 # the --prefix tag does not work, so copy the files manually to $PREFIX
