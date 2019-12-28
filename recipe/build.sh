@@ -10,6 +10,8 @@ NO_SSE=""
 if [[ "$target_platform" == linux-ppc64le ]]; then
     # needed in ppc64le because otherwise fftw-3.3 does not compile
     NO_SSE="-nosse"
+    # needed for boost arch detection
+    export TOOLSET="gcc"
 fi
 
 

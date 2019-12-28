@@ -49,6 +49,8 @@ requirements:
     - scipy
     - matplotlib
     - cython
+    - libnetcdf
+    - netcdf-fortran
 
 test:
   commands:
