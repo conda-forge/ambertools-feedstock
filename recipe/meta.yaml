@@ -12,7 +12,7 @@ source:
   sha256: 0c86937904854b64e4831e047851f504ec45b42e593db4ded92c1bee5973e699
   patches:
     - configure.patch
-    - ppc_fixes.patch  # [ppc64le]
+    - do_not_build_boost.patch
 
 build:
   number: 1
@@ -42,6 +42,10 @@ requirements:
     - zlib
     - libnetcdf
     - netcdf-fortran
+    - fftw
+    - xorg-libxt
+    - xorg-libxext
+    - readline
     - llvm-openmp  # [osx]
   run:
     - python
@@ -51,6 +55,10 @@ requirements:
     - cython
     - libnetcdf
     - netcdf-fortran
+    - fftw
+    - xorg-libxt
+    - xorg-libxext
+    - readline
 
 test:
   commands:

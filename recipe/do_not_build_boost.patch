@@ -1,0 +1,68 @@
+diff --git a/AmberTools/src/configure2 b/AmberTools/src/configure2
+index 797380b5..ed58f8e2 100755
+--- a/AmberTools/src/configure2
++++ b/AmberTools/src/configure2
+@@ -3155,34 +3155,35 @@ fi
+ #--------------------------------------------------------------------------
+ #  Configure boost
+ #--------------------------------------------------------------------------
+-if [ "$cuda" = "no" ]; then
+-  printf "\nConfiguring boost (may be time-consuming)..."
+-  cd boost
+-  ./bootstrap.sh --prefix=$amberprefix > ../boost_config.log
+-  ncerror=$?
+-  if [ $ncerror -gt 0 ]; then
+-      printf "\nError: Boost bootstrap returned $ncerror\n"
+-      printf "       Check $AMBEHROME/src/boost_config.log\n"
+-      printf "       memembed and moft will not be built\n"
+-      memembed=''
+-  else
+-      printf "OK\n"
+-      printf "Compiling boost (may be time-consuming)..."
+-      ./b2 --with-program_options --with-iostreams --with-regex \
+-           --with-system --with-timer --with-chrono --with-filesystem \
+-           --with-graph --with-thread link=static install >> ../boost_config.log
+-      if [ $? -ne 0 ]; then
+-         printf "\nError: Boost compile failed.\n"
+-         printf "       Check $AMBERHOME/src/boost_config.log\n"
+-         printf "       memembed and moft will not be built\n"
+-         memembed=''
+-      else
+-         printf "OK\n"
+-         memembed='yes'
+-      fi
+-  fi
+-  cd ..
+-fi
++# if [ "$cuda" = "no" ]; then
++#   printf "\nConfiguring boost (may be time-consuming)..."
++#   cd boost
++#   ./bootstrap.sh --prefix=$amberprefix --with-toolset=gcc > ../boost_config.log
++#   ncerror=$?
++#   if [ $ncerror -gt 0 ]; then
++#       printf "\nError: Boost bootstrap returned $ncerror\n"
++#       printf "       Check $AMBEHROME/src/boost_config.log\n"
++#       printf "       memembed and moft will not be built\n"
++#       memembed=''
++#   else
++#       printf "OK\n"
++#       printf "Compiling boost (may be time-consuming)..."
++#       ./b2 --with-program_options --with-iostreams --with-regex \
++#            --with-system --with-timer --with-chrono --with-filesystem \
++#            --with-graph --with-thread link=static install >> ../boost_config.log
++#       if [ $? -ne 0 ]; then
++#          printf "\nError: Boost compile failed.\n"
++#          printf "       Check $AMBERHOME/src/boost_config.log\n"
++#          printf "       memembed and moft will not be built\n"
++#          memembed=''
++#       else
++#          printf "OK\n"
++#          memembed='yes'
++#       fi
++#   fi
++#   cd ..
++# fi
++memembed='yes'
+ 
+ #--------------------------------------------------------------------------
+ #  Configure XBLAS
