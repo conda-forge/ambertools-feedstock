@@ -11,9 +11,10 @@ source:
   url: https://ambermd.org/downloads/AmberTools19.tar.bz2
   sha256: 0c86937904854b64e4831e047851f504ec45b42e593db4ded92c1bee5973e699
   patches:
-    - configure.patch
-    - do_not_build_boost.patch
-    - fix_memembed_includes.patch
+    - patches/configure.patch
+    - patches/fix_memembed_includes.patch
+    - patches/do_not_build_boost.patch
+    - patches/do_not_build_arpack.patch  # [not ppc64le]
 
 build:
   number: 1
@@ -45,7 +46,7 @@ requirements:
     - netcdf-fortran
     - fftw
     - liblapack
-    - arpack
+    - arpack  # [not ppc64le]
     - xorg-libxt
     - xorg-libxext
     - readline
