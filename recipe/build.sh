@@ -36,6 +36,8 @@ sed -e "s|MEMEMBED=.*|MEMEMBED=yes|" \
     -e "s|MAKE_XLEAP=.*|MAKE_XLEAP=install_xleap|" \
     -e "s|XHOME=.*|XHOME=${PREFIX}|" \
     -e "s|XLIBS=.*|XLIBS=${PREFIX}/lib|" \
+    -e "s|LAPACK=.*|LAPACK=skip|" \
+    -e "s|BLAS=.*|BLAS=skip|" \
     -e "\$aCONDA_PREFIX=${PREFIX}" \
     -i config.h
 

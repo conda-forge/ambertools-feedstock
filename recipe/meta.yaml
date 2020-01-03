@@ -44,6 +44,8 @@ requirements:
     - libnetcdf
     - netcdf-fortran
     - fftw
+    - liblapack
+    - arpack
     - xorg-libxt
     - xorg-libxext
     - readline
