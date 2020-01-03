@@ -36,32 +36,35 @@ requirements:
     - perl
   host:
     - python
-    - cython
     - setuptools
+    - cython
     - numpy
-    - boost-cpp
     - bzip2
     - zlib
+    - boost-cpp
     - libnetcdf
     - netcdf-fortran
     - fftw
     - liblapack
-    - arpack  # [not ppc64le]
     - xorg-libxt
     - xorg-libxext
+    - xorg-libx11
     - readline
     - llvm-openmp  # [osx]
   run:
     - python
+    - cython
     - numpy
     - scipy
     - matplotlib
-    - cython
+    - boost-cpp
     - libnetcdf
     - netcdf-fortran
     - fftw
+    - liblapack
     - xorg-libxt
     - xorg-libxext
+    - xorg-libx11
     - readline
 
 test:
