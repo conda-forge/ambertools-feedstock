@@ -14,7 +14,7 @@ source:
     - patches/configure.patch
     - patches/fix_memembed_includes.patch
     - patches/do_not_build_boost.patch
-    - patches/do_not_build_arpack.patch  # [not ppc64le]
+    # - patches/do_not_build_arpack.patch  # [not ppc64le]
 
 build:
   number: 1
