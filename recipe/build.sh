@@ -41,6 +41,9 @@ sed -e "s|MEMEMBED=.*|MEMEMBED=yes|" \
     -e "\$aCONDA_PREFIX=${PREFIX}" \
     -i config.h
 
+echo "Resulting config.h..."
+cat config.h
+
 bash amber.sh
 
 make
