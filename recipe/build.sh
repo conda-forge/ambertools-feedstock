@@ -41,6 +41,9 @@ sed -e "s|MEMEMBED=.*|MEMEMBED=yes|" \
     -e "\$aCONDA_PREFIX=${PREFIX}" \
     -i config.h
 
+cp -f config.h AmberTools/src
+cp -f config.h AmberTools/src/cphstats
+
 echo "Resulting config.h..."
 cat config.h
 
