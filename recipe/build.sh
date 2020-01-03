@@ -57,5 +57,6 @@ cp -rf lib/* $PREFIX/lib/
 cp -rf include/* $PREFIX/include/
 
 # Export AMBERHOME automatically
+mkdir -p ${PREFIX}/etc/conda/{activate,deactivate}.d
 cp ${RECIPE_DIR}/activate.sh ${PREFIX}/etc/conda/activate.d/ambertools.sh
 cp ${RECIPE_DIR}/deactivate.sh ${PREFIX}/etc/conda/deactivate.d/ambertools.sh
