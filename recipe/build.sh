@@ -30,14 +30,14 @@ echo 'N' | ./configure $NO_SSE -noX11 -norism -nofftw3 --with-netcdf ${PREFIX} -
 # that boost and fftw3 have been compiled from source. We are providing
 # conda packages instead. Point to the correct X11 libs location too.
 echo "Patching config.h..."
-sed -e "s|MEMEMBED=.*|MEMEMBED=yes|" \
-    -e "s|FFTW3=.*|FFTW3=$PREFIX/lib/libfftw3.a|" \
-    -e "s|FFTWLIB=.*|FFTWLIB=-lfftw3|" \
-    -e "s|MAKE_XLEAP=.*|MAKE_XLEAP=install_xleap|" \
-    -e "s|XHOME=.*|XHOME=${PREFIX}|" \
-    -e "s|XLIBS=.*|XLIBS=${PREFIX}/lib|" \
-    -e "s|LAPACK=.*|LAPACK=skip|" \
-    -e "s|BLAS=.*|BLAS=skip|" \
+sed -e "s|^MEMEMBED=.*|MEMEMBED=yes|" \
+    -e "s|^FFTW3=.*|FFTW3=|" \
+    -e "s|^FFTWLIB=.*|FFTWLIB=-lfftw3|" \
+    -e "s|^MAKE_XLEAP=.*|MAKE_XLEAP=install_xleap|" \
+    -e "s|^XHOME=.*|XHOME=${PREFIX}|" \
+    -e "s|^XLIBS=.*|XLIBS=${PREFIX}/lib|" \
+    -e "s|^LAPACK=.*|LAPACK=skip|" \
+    -e "s|^BLAS=.*|BLAS=skip|" \
     -e "\$aCONDA_PREFIX=${PREFIX}" \
     -i config.h
 
