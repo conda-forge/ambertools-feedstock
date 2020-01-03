@@ -1,0 +1,15 @@
+diff --git a/AmberTools/src/packmol_memgen/packmol_memgen/lib/memembed/Makefile b/AmberTools/src/packmol_memgen/packmol_memgen/lib/memembed/Makefile
+index 70503b0b..994df994 100644
+--- a/AmberTools/src/packmol_memgen/packmol_memgen/lib/memembed/Makefile
++++ b/AmberTools/src/packmol_memgen/packmol_memgen/lib/memembed/Makefile
+@@ -9,8 +9,8 @@ ifndef AMBER_SOURCE
+ INC = -Isrc
+ LIBS = -lboost_thread -lboost_system -lpthread
+ else
+-INC = -Isrc -I$(INCDIR)
+-LIBS = -L$(LIBDIR) -lboost_thread -lboost_system -lpthread
++INC = -Isrc -I$(CONDA_PREFIX)/include -I$(INCDIR)
++LIBS = -L$(CONDA_PREFIX)/lib -L$(LIBDIR) -lboost_thread -lboost_system -lpthread
+ endif
+ 
+ all: memembed
