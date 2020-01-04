@@ -50,11 +50,6 @@ cat config.h
 make
 make install
 
-pushd .
-export AMBERHOME=$(pwd)
-cd AmberTools/test && make fast
-popd
-
 mkdir $PREFIX/dat
 cp -rf bin/* $PREFIX/bin/
 cp -rf dat/* $PREFIX/dat/
