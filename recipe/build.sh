@@ -51,8 +51,8 @@ make
 make install
 
 pushd .
-cd AmberTools/test
-AMBERHOME=$(pwd) make fast
+export AMBERHOME=$(pwd)
+cd AmberTools/test && make fast
 popd
 
 mkdir $PREFIX/dat
