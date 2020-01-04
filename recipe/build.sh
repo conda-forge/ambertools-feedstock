@@ -52,7 +52,7 @@ bash amber.sh
 make
 make install
 
-pushd
+pushd .
 cd AmberTools/test && make fast
 popd
 
