@@ -62,6 +62,7 @@ requirements:
     - netcdf-fortran
     - fftw
     - liblapack
+    - libopenblas
     - xorg-libxt
     - xorg-libxext
     - xorg-libx11
@@ -70,11 +71,22 @@ requirements:
 test:
   commands:
     - antechamber -h
+    - cpptraj -h
+    - ffgbsa -h
+    - MCPB.py -h
+    - mdnab -h
+    - minab -h
+    - mmpbsa_py_energy -h
+    - parmchk2 -h
+    - parmed -h
+    - pdb4amber -h
+    - respgen -h
+    - sqm -h
     - teLeap -h
     - tleap -h
-    - parmchk2 -h
   imports:
     - pytraj
+    - parmed
 
 about:
   home: http://ambermd.org/AmberTools.php
@@ -91,3 +103,4 @@ about:
 extra:
   recipe-maintainers:
     - simonbray
+    - jaimergp

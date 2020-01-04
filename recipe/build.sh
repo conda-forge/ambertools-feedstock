@@ -52,8 +52,11 @@ bash amber.sh
 make
 make install
 
-mkdir $PREFIX/dat
+pushd
+cd AmberTools/test && make fast
+popd
 
+mkdir $PREFIX/dat
 cp -rf bin/* $PREFIX/bin/
 cp -rf dat/* $PREFIX/dat/
 cp -rf lib/* $PREFIX/lib/
