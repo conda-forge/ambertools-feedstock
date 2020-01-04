@@ -47,13 +47,12 @@ cp -f config.h AmberTools/src/cphstats
 echo "Resulting config.h..."
 cat config.h
 
-bash amber.sh
-
 make
 make install
 
 pushd .
-cd AmberTools/test && make fast
+cd AmberTools/test
+AMBERHOME=$(pwd) make fast
 popd
 
 mkdir $PREFIX/dat
