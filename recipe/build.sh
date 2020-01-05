@@ -21,10 +21,15 @@ for n in {1..5}; do
 done
 
 # Build AmberTools without further patching
-echo 'N' | ./configure $NO_SSE -noX11 -norism -nofftw3 --with-netcdf ${PREFIX} --with-python ${PYTHON} --python-install local $COMPILER_SET
 # using the -openmp flag causes packages not to be included in the build
 # however, the RISM model requires OpenMP, so -norism is set
 # the --prefix tag does not work, so copy the files manually to $PREFIX
+echo 'N' | ./configure $NO_SSE -noX11 -norism -nofftw3 \
+            --with-netcdf ${PREFIX} \
+            --with-python ${PYTHON} \
+            --prefix ${PREFIX} \
+            --python-install local \
+            $COMPILER_SET
 
 # Patch config.h after ./configure has run to trick make into thinking
 # that boost and fftw3 have been compiled from source. We are providing
