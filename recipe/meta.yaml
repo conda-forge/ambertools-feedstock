@@ -61,6 +61,7 @@ requirements:
     - libnetcdf
     - netcdf-fortran
     - fftw
+    - libblas
     - liblapack
     - libopenblas
     - xorg-libxt
