@@ -10,11 +10,11 @@ package:
 source:
   url: https://ambermd.org/downloads/AmberTools19.tar.bz2
   sha256: 0c86937904854b64e4831e047851f504ec45b42e593db4ded92c1bee5973e699
-  patches:
-    - patches/configure.patch
-    - patches/fix_memembed_includes.patch
-    - patches/do_not_build_boost.patch
-    # - patches/do_not_build_arpack.patch  # [not ppc64le]
+  # patches:
+    # - patches/configure.patch
+    # - patches/fix_memembed_includes.patch
+    # - patches/do_not_build_boost.patch
+    # - patches/enable_cmake.patch
 
 build:
   number: 1
@@ -31,19 +31,23 @@ requirements:
     - tcsh
     - bison
     - make
-    - libnetcdf
-    - netcdf-fortran
+    - cmake
     - perl
   host:
     - python
     - setuptools
     - cython
     - numpy
+    - scipy
+    - matplotlib
     - bzip2
     - zlib
     - boost-cpp
     - libnetcdf
     - netcdf-fortran
+    - pthread-stubs
+    - openmpi
+    - openmp
     - fftw
     - liblapack
     - xorg-libxt
