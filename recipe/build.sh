@@ -7,7 +7,10 @@ for n in {1..5}; do
     ./update_amber --update-to=AmberTools.${PATCH_LEVEL} && break
 done
 
-# Build AmberTools without further patching
+# Patch manually
+patch --verbose -p1 --ignore-whitespace -t -i ${RECIPE_DIR}/patches/amber19-fix-cmake.patch
+
+# Build AmberTools with cmake
 mkdir build
 cd build
 cmake ${SRC_DIR} \
