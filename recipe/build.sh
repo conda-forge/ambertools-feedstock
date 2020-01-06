@@ -1,14 +1,16 @@
 set -euxo pipefail
 
+# Patch manually to avoid issues with newlines
+sed -i 's/\r$//g' ${RECIPE_DIR}/patches/amber19-fix-cmake.patch \
+                  ${SRC_DIR}/cmake/*.cmake
+patch -p1 --ignore-whitespace -t -i ${RECIPE_DIR}/patches/amber19-fix-cmake.patch || true
+
 # Upgrade AmberTools source to the patch level specified by the MINOR version in $PKG_VERSION
 for n in {1..5}; do
     export PATCH_LEVEL=$(echo $PKG_VERSION | cut -d. -f2)
     echo "Upgrading source to patch level $PATCH_LEVEL"
     ./update_amber --update-to=AmberTools.${PATCH_LEVEL} && break
 done
-
-# Patch manually (errors seem to be unimportant)
-# patch -p1 --ignore-whitespace -t -i ${RECIPE_DIR}/patches/amber19-fix-cmake.patch || true
 
 # Build AmberTools with cmake
 mkdir build
