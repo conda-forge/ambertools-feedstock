@@ -10,7 +10,8 @@ package:
 source:
   url: https://ambermd.org/downloads/AmberTools19.tar.bz2
   sha256: 0c86937904854b64e4831e047851f504ec45b42e593db4ded92c1bee5973e699
-  # patches:
+  patches:
+    - patches/do_not_use_global_conda_prefix.patch
   #   - patches/amber19-fix-cmake.patch
 
 build:
