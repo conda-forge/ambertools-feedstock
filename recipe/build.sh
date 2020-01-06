@@ -15,9 +15,7 @@ cmake ${SRC_DIR} \
     -DCOMPILER=MANUAL \
     -DPYTHON_EXECUTABLE=${PYTHON} \
     -DDOWNLOAD_MINICONDA=FALSE \
-    -DCHECK_UPDATES=FALSE \
-    -DMPI=TRUE \
-    -DOPENMP=TRUE
+    -DCHECK_UPDATES=FALSE
 #    -DFORCE_EXTERNAL_LIBS="netcdf;netcdf-fortran"
 
 make && make install

@@ -46,15 +46,12 @@ requirements:
     - libnetcdf
     - netcdf-fortran
     - pthread-stubs
-    - openmpi
-    - openmp
     - fftw
     - liblapack
     - xorg-libxt
     - xorg-libxext
     - xorg-libx11
     - readline
-    - llvm-openmp  # [osx]
   run:
     - python
     - cython
