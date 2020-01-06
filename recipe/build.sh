@@ -31,3 +31,6 @@ cp ${RECIPE_DIR}/activate.sh ${PREFIX}/etc/conda/activate.d/ambertools.sh
 cp ${RECIPE_DIR}/activate.fish ${PREFIX}/etc/conda/activate.d/ambertools.fish
 cp ${RECIPE_DIR}/deactivate.sh ${PREFIX}/etc/conda/deactivate.d/ambertools.sh
 cp ${RECIPE_DIR}/deactivate.fish ${PREFIX}/etc/conda/deactivate.d/ambertools.fish
+
+# Fix missing file
+cp dat/leap/cmd/leaprc.protein.ff12pol ${PREFIX}/dat/leap/cmd/leaprc.protein.ff12pol || true
