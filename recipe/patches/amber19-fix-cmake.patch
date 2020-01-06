@@ -1,0 +1,1593 @@
+diff --git a/AmberTools/src/cifparse/CMakeLists.txt b/AmberTools/src/cifparse/CMakeLists.txt
+index e2f684b8c3..0074c510c0 100644
+--- a/AmberTools/src/cifparse/CMakeLists.txt
++++ b/AmberTools/src/cifparse/CMakeLists.txt
+@@ -5,7 +5,7 @@ set(LEXED_FILES_DIR ${CMAKE_CURRENT_BINARY_DIR})
+
+ # Flex and bison
+ flex_target(CifLex cifparse.l "${LEXED_FILES_DIR}/lex.cif.c" COMPILE_FLAGS -Pcifp)
+-byacc_target(CifYacc cifparse.y ${LEXED_FILES_DIR} GENERATE_HEADER COMPILE_FLAGS -pcifp FILE_PREFIX cifp)
++bison_target(CifYacc cifparse.y "${LEXED_FILES_DIR}/cifp.tab.c" COMPILE_FLAGS -pcifp)
+ add_flex_bison_dependency(CifLex CifYacc)
+
+ #build the library
+diff --git a/AmberTools/src/fftw-3.3/CMakeLists.txt b/AmberTools/src/fftw-3.3/CMakeLists.txt
+index 932f8a26fe..2ca0f413cc 100644
+--- a/AmberTools/src/fftw-3.3/CMakeLists.txt
++++ b/AmberTools/src/fftw-3.3/CMakeLists.txt
+@@ -215,7 +215,7 @@ if(DEFINED INCOMING_STACK_BOUNDARY)
+
+ 	check_c_compiler_flag(${ISB_FLAG} SUPPORTS_ISB_FLAG)
+
+-	if(NOT SUPPORTS_AVX_FLAG)
++	if(NOT SUPPORTS_ISB_FLAG)
+ 		message(SEND_ERROR "You requested to set the incoming stack boundary, but the compiler flag to do that doesn't work")
+ 	endif()
+
+diff --git a/AmberTools/src/leap/src/leap/CMakeLists.txt b/AmberTools/src/leap/src/leap/CMakeLists.txt
+index bbf166e0f6..14807f7505 100644
+--- a/AmberTools/src/leap/src/leap/CMakeLists.txt
++++ b/AmberTools/src/leap/src/leap/CMakeLists.txt
+@@ -108,7 +108,7 @@ else() #build the leap programs
+
+ 	#---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+-	byacc_target(leap_yacc parser.y ${CMAKE_CURRENT_BINARY_DIR})
++	bison_target(LeapYacc parser.y ${YACC_PARSER_FILE})
+
+ 	#---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ 	add_library(leap_common_obj OBJECT ${COMMON_SOURCE})
+diff --git a/AmberTools/src/nab/CMakeLists.txt b/AmberTools/src/nab/CMakeLists.txt
+index 6c79b6c806..7beabd278a 100644
+--- a/AmberTools/src/nab/CMakeLists.txt
++++ b/AmberTools/src/nab/CMakeLists.txt
+@@ -137,8 +137,8 @@ set(INTERMED_DIR ${CMAKE_CURRENT_BINARY_DIR}/lex-intermediates)
+ file(MAKE_DIRECTORY ${INTERMED_DIR})
+
+ set(DG_OPTIONS_SOURCE dg_options.l)
+-set(DG_OPTIONS_INTERMEDIATE ${INTERMED_DIR}/lex.dg_options.c)
+-set(DG_OPTIONS_LEXED ${CMAKE_CURRENT_BINARY_DIR}/lex.dg_options.c)
++set(DG_OPTIONS_INTERMEDIATE ${INTERMED_DIR}/lex.dgo.c)
++set(DG_OPTIONS_LEXED ${CMAKE_CURRENT_BINARY_DIR}/lex.dgo.c)
+
+ #default compile flags
+ set_property(DIRECTORY PROPERTY COMPILE_OPTIONS ${NO_OPT_CFLAGS})
+@@ -192,7 +192,7 @@ endif()
+ #make the lex/yacc parser (needed by checkexpr)
+ flex_target(NabLex ${NAB_LEX_SOURCE} ${NAB_LEX_LEXED})
+ flex_target(DgOptionsLex ${DG_OPTIONS_SOURCE} ${DG_OPTIONS_INTERMEDIATE} COMPILE_FLAGS -Pdgo)
+-byacc_target(NabYacc ${NAB_YACC} ${CMAKE_CURRENT_BINARY_DIR} GENERATE_HEADER)
++bison_target(NabYacc ${NAB_YACC} ${NAB_COMPILED_YACC_C})
+ add_flex_bison_dependency(NabLex NabYacc)
+
+ #do the textual replaces on dg_options
+diff --git a/AmberTools/src/nab/semantics/parse2.c b/AmberTools/src/nab/semantics/parse2.c
+index 7e25ec111b..3cf81ad46d 100644
+--- a/AmberTools/src/nab/semantics/parse2.c
++++ b/AmberTools/src/nab/semantics/parse2.c
+@@ -420,7 +420,7 @@ static	int	getsyms( FILE *fp, DEF_T symtab[] )
+ 	DEF_T	*sp;
+
+ 	for( sp = symtab; fgets( line, sizeof( line ), fp ); sp++ ){
+-		sscanf( line, "# define %s %d", sp->d_name, &sp->d_val );
++		sscanf( line, "     %s = %d,", sp->d_name, &sp->d_val );
+ 		sp->d_used = FALSE;
+ 	}
+ 	return( (int)(sp - symtab) );
+diff --git a/AmberTools/src/netcdf-4.6.1/CMakeLists.txt b/AmberTools/src/netcdf-4.6.1/CMakeLists.txt
+index 99a9faea7f..6865bae773 100644
+--- a/AmberTools/src/netcdf-4.6.1/CMakeLists.txt
++++ b/AmberTools/src/netcdf-4.6.1/CMakeLists.txt
+@@ -11,7 +11,6 @@ cmake_minimum_required(VERSION 3.6.1)
+
+ #Project Name
+ project(netCDF C)
+-set(PACKAGE "netCDF" CACHE STRING "")
+
+ #####
+ # Version Info:
+@@ -56,8 +55,8 @@ ENDIF()
+ # For ctest scripts, we can use CTEST_BUILD_NAME.
+ ###
+
+-SET(BUILDNAME_PREFIX "" CACHE STRING "")
+-SET(BUILDNAME_SUFFIX "" CACHE STRING "")
++SET(BUILDNAME_PREFIX "")
++SET(BUILDNAME_SUFFIX "")
+
+ IF(BUILDNAME_PREFIX)
+   SET(TMP_BUILDNAME "${BUILDNAME_PREFIX}-${TMP_BUILDNAME}")
+@@ -68,7 +67,7 @@ IF(BUILDNAME_SUFFIX)
+ ENDIF()
+
+ IF(NOT BUILDNAME)
+-  SET(BUILDNAME "${TMP_BUILDNAME}" CACHE STRING "Build name variable for CDash")
++  SET(BUILDNAME "${TMP_BUILDNAME}")
+ ENDIF()
+ ###
+ # End BUILDNAME customization.
+@@ -82,8 +81,7 @@ IF(MSVC)
+ ENDIF()
+
+ #Add custom CMake Module
+-SET(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake/modules/"
+-  CACHE INTERNAL "Location of our custom CMake modules.")
++SET(CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules/")
+
+ # auto-configure style checks, other CMake modules.
+ INCLUDE(CheckLibraryExists)
+@@ -119,12 +117,6 @@ ENDMACRO()
+ FIND_PACKAGE(MakeDist)
+ # End 'enable dist and distcheck'
+
+-# Set the build type.
+-IF(NOT CMAKE_BUILD_TYPE)
+-  SET(CMAKE_BUILD_TYPE DEBUG CACHE STRING "Choose the type of build, options are: None, Debug, Release."
+-    FORCE)
+-ENDIF()
+-
+ # Set build type uppercase
+ STRING(TOUPPER ${CMAKE_BUILD_TYPE} CMAKE_BUILD_TYPE)
+
+@@ -165,12 +157,12 @@ ENABLE_TESTING()
+ INCLUDE(CTest)
+
+ # Copy the CTest customization file into binary directory, as required.
+-FILE(COPY ${CMAKE_SOURCE_DIR}/CTestCustom.cmake DESTINATION ${CMAKE_BINARY_DIR})
++FILE(COPY ${CMAKE_CURRENT_SOURCE_DIR}/CTestCustom.cmake DESTINATION ${CMAKE_BINARY_DIR})
+
+ # Set Memory test program for non-MSVC based builds.
+ # Assume valgrind for now.
+ IF(NOT MSVC)
+-  SET(CTEST_MEMORYCHECK_COMMAND valgrind CACHE STRING "")
++  SET(CTEST_MEMORYCHECK_COMMAND valgrind)
+ ENDIF()
+
+ # Set variable to define the build type.
+@@ -190,26 +182,25 @@ INCLUDE(GenerateExportHeader)
+ # BUILD_SHARED_LIBS is provided by/used by
+ # CMake directly.
+ ##
+-OPTION(BUILD_SHARED_LIBS "Configure netCDF as a shared library." ON)
+ IF(BUILD_SHARED_LIBS)
+   SET(CMAKE_POSITION_INDEPENDENT_CODE ON)
+ ENDIF()
+
+-OPTION(NC_FIND_SHARED_LIBS "Find dynamically-built versions of dependent libraries" ${BUILD_SHARED_LIBS})
++set(NC_FIND_SHARED_LIBS ${BUILD_SHARED_LIBS})
+
+ ##
+ # We've had a request to allow for non-versioned shared libraries.
+ # This seems reasonable enough to accomodate.  See
+ # https://github.com/Unidata/netcdf-c/issues/228 for more info.
+ ##
+-OPTION(ENABLE_SHARED_LIBRARY_VERSION "Encode the library SO version in the file name of the generated library file." ON)
++set(ENABLE_SHARED_LIBRARY_VERSION ON)
+
+ # Set some default linux gcc & apple compiler options for
+ # debug builds.
+ IF(CMAKE_COMPILER_IS_GNUCC OR APPLE)
+-  OPTION(ENABLE_COVERAGE_TESTS "Enable compiler flags needed to perform coverage tests." OFF)
+-  OPTION(ENABLE_CONVERSION_WARNINGS "Enable warnings for implicit conversion from 64 to 32-bit datatypes." ON)
+-  OPTION(ENABLE_LARGE_FILE_TESTS "Enable large file tests." OFF)
++  set(ENABLE_COVERAGE_TESTS FALSE)
++  set(ENABLE_CONVERSION_WARNINGS TRUE)
++  set(ENABLE_LARGE_FILE_TESTS FALSE)
+
+   # Debugging flags
+   SET(CMAKE_C_FLAGS_DEBUG "${CMAKE_C_FLAGS_DEBUG} -Wall")
+@@ -258,10 +249,10 @@ ENDIF()
+ #####
+ # System inspection checks
+ #####
+-INCLUDE_DIRECTORIES(${CMAKE_SOURCE_DIR}/include)
+-INCLUDE_DIRECTORIES(${CMAKE_SOURCE_DIR}/oc2)
+-INCLUDE_DIRECTORIES(${CMAKE_SOURCE_DIR}/libsrc)
+-SET(CMAKE_REQUIRED_INCLUDES ${CMAKE_SOURCE_DIR}/libsrc)
++INCLUDE_DIRECTORIES(${CMAKE_CURRENT_SOURCE_DIR}/include)
++INCLUDE_DIRECTORIES(${CMAKE_CURRENT_SOURCE_DIR}/oc2)
++INCLUDE_DIRECTORIES(${CMAKE_CURRENT_SOURCE_DIR}/libsrc)
++SET(CMAKE_REQUIRED_INCLUDES ${CMAKE_CURRENT_SOURCE_DIR}/libsrc)
+
+ ################################
+ # End Compiler Configuration
+@@ -307,14 +298,14 @@ ENDIF()
+ ################################
+
+ # HDF5 cache variables.
+-SET(DEFAULT_CHUNK_SIZE 4194304 CACHE STRING "Default Chunk Cache Size.")
+-SET(DEFAULT_CHUNKS_IN_CACHE 10 CACHE STRING "Default number of chunks in cache.")
+-SET(CHUNK_CACHE_SIZE 4194304 CACHE STRING "Default Chunk Cache Size.")
+-SET(CHUNK_CACHE_NELEMS 1009 CACHE STRING "Default maximum number of elements in cache.")
+-SET(CHUNK_CACHE_PREEMPTION 0.75 CACHE STRING "Default file chunk cache preemption policy for HDf5 files(a number between 0 and 1, inclusive.")
+-SET(MAX_DEFAULT_CACHE_SIZE 67108864 CACHE STRING "Default maximum cache size.")
+-SET(NETCDF_LIB_NAME "" CACHE STRING "Default name of the netcdf library.")
+-SET(TEMP_LARGE "." CACHE STRING "Where to put large temp files if large file tests are run.")
++SET(DEFAULT_CHUNK_SIZE 4194304)
++SET(DEFAULT_CHUNKS_IN_CACHE 10)
++SET(CHUNK_CACHE_SIZE 4194304)
++SET(CHUNK_CACHE_NELEMS 1009)
++SET(CHUNK_CACHE_PREEMPTION 0.75)
++SET(MAX_DEFAULT_CACHE_SIZE 67108864)
++SET(NETCDF_LIB_NAME "")
++SET(TEMP_LARGE ".")
+
+ IF(NOT NETCDF_LIB_NAME STREQUAL "")
+   SET(MOD_NETCDF_NAME ON)
+@@ -356,7 +347,7 @@ ENDMACRO()
+
+ # Option to use Static Runtimes in MSVC
+ IF(MSVC)
+-  OPTION(NC_USE_STATIC_CRT "Use static CRT Libraries ('\\MT')." OFF)
++  set(NC_USE_STATIC_CRT FALSE)
+   IF(NC_USE_STATIC_CRT)
+     SET(USE_STATIC_CRT ON)
+     specify_static_crt_flag()
+@@ -373,23 +364,23 @@ ELSE(NOT ENABLE_V2_API)
+ ENDIF(NOT ENABLE_V2_API)
+
+ # Option to build utilities
+-OPTION(BUILD_UTILITIES "Build ncgen, ncgen3, ncdump." ON)
++set(BUILD_UTILITIES TRUE)
+
+ # Option to use MMAP
+-OPTION(ENABLE_MMAP "Use MMAP." ON)
++set(ENABLE_MMAP TRUE)
+
+ # Option to use examples.
+-OPTION(ENABLE_EXAMPLES "Build Examples" ON)
++set(ENABLE_EXAMPLES FALSE)
+
+ # Option to use Diskless
+-OPTION(ENABLE_DISKLESS "Build Diskless." ON)
++set(ENABLE_DISKLESS FALSE)
+ IF(ENABLE_DISKLESS)
+   SET(BUILD_DISKLESS ON)
+   SET(USE_DISKLESS ON)
+ ENDIF()
+
+ # Option Logging, only valid for netcdf4.
+-OPTION(ENABLE_LOGGING "Enable Logging." OFF)
++set(ENABLE_LOGGING FALSE)
+ IF(ENABLE_LOGGING)
+   ADD_DEFINITIONS(-DLOGGING)
+   SET(LOGGING ON)
+@@ -397,12 +388,12 @@ ENDIF()
+
+ # Option to automatically build netcdf-fortran.
+ IF(NOT MSVC)
+-  OPTION(ENABLE_REMOTE_FORTRAN_BOOTSTRAP "Download and build netcdf-fortran automatically (EXPERIMENTAL)." OFF)
++  set(ENABLE_REMOTE_FORTRAN_BOOTSTRAP FALSE)
+   IF(ENABLE_REMOTE_FORTRAN_BOOTSTRAP)
+     SET(BUILD_FORTRAN ON)
+   ENDIF()
+   IF(BUILD_FORTRAN)
+-    CONFIGURE_FILE("${CMAKE_SOURCE_DIR}/postinstall.sh.in"
++    CONFIGURE_FILE("${CMAKE_CURRENT_SOURCE_DIR}/postinstall.sh.in"
+       "${CMAKE_BINARY_DIR}/postinstall.sh"
+       @ONLY)
+
+@@ -424,7 +415,7 @@ ENDIF()
+ # Allow the user to specify libraries
+ # to link against, similar to automakes 'LIBS' variable.
+ ###
+-SET(NC_EXTRA_DEPS "" CACHE STRING "Additional libraries to link against.")
++SET(NC_EXTRA_DEPS "")
+ IF(NC_EXTRA_DEPS)
+   STRING(REPLACE " " ";" DEPS_LIST ${NC_EXTRA_DEPS})
+   FOREACH(_DEP ${DEPS_LIST})
+@@ -447,7 +438,7 @@ ENDIF()
+ ###
+
+ # Option to use HDF4
+-OPTION(ENABLE_HDF4 "Build netCDF-4 with HDF4 read capability(HDF4, HDF5 and Zlib required)." OFF)
++set(ENABLE_HDF4 FALSE)
+ IF(ENABLE_HDF4)
+   SET(USE_HDF4 ON)
+   # Check for include files, libraries.
+@@ -482,7 +473,7 @@ IF(ENABLE_HDF4)
+   IF(NOT JPEGLIB_H_INCLUDE_DIR)
+     MESSAGE(FATAL_ERROR "HDF4 Support enabled but cannot find jpeglib.h")
+   ELSE()
+-    SET(HAVE_JPEGLIB_H ON CACHE BOOL "")
++    SET(HAVE_JPEGLIB_H ON)
+     SET(HAVE_LIBJPEG TRUE)
+     INCLUDE_DIRECTORIES(${JPEGLIB_H_INCLUDE_DIR})
+   ENDIF()
+@@ -495,7 +486,7 @@ IF(ENABLE_HDF4)
+   MESSAGE(STATUS "Found JPEG libraries: ${JPEG_LIB}")
+
+   # Option to enable HDF4 file tests.
+-  OPTION(ENABLE_HDF4_FILE_TESTS "Run HDF4 file tests.  This fetches sample HDF4 files from the Unidata ftp site to test with (requires curl)." ON)
++  set(ENABLE_HDF4_FILE_TESTS FALSE)
+   IF(ENABLE_HDF4_FILE_TESTS)
+     FIND_PROGRAM(PROG_CURL NAMES curl)
+     IF(PROG_CURL)
+@@ -509,42 +500,43 @@ ENDIF()
+
+ # Option to Build DLL
+ IF(WIN32)
+-  OPTION(ENABLE_DLL "Build a Windows DLL." ${BUILD_SHARED_LIBS})
++  set(ENABLE_DLL ${BUILD_SHARED_LIBS})
+   IF(ENABLE_DLL)
+-    SET(BUILD_DLL ON CACHE BOOL "")
++    SET(BUILD_DLL ON)
+     ADD_DEFINITIONS(-DDLL_NETCDF)
+     ADD_DEFINITIONS(-DDLL_EXPORT)
+     ADD_DEFINITIONS(-DUTF8PROC_DLLEXPORT)
+   ENDIF()
+ ENDIF()
+ # Did the user specify a default minimum blocksize for posixio?
+-SET(NCIO_MINBLOCKSIZE 256 CACHE STRING "Minimum I/O Blocksize for netCDF classic and 64-bit offset format files.")
++SET(NCIO_MINBLOCKSIZE 256)
+
+ # Build netCDF4
+-OPTION(ENABLE_NETCDF_4 "Enable netCDF-4" ON)
++set(ENABLE_NETCDF_4 FALSE)
+ IF(ENABLE_NETCDF_4)
+-  SET(USE_NETCDF4 ON CACHE BOOL "")
+-  SET(ENABLE_NETCDF_4 ON CACHE BOOL "")
+-  SET(ENABLE_NETCDF4 ON CACHE BOOL "")
++  SET(USE_NETCDF4 ON)
++  SET(ENABLE_NETCDF_4 ON)
++  SET(ENABLE_NETCDF4 ON)
+ ELSE()
+   SET(USE_HDF4_FILE_TESTS OFF)
+   SET(USE_HDF4 OFF)
++  SET(USE_NETCDF4 OFF)
+   SET(ENABLE_HDF4_FILE_TESTS OFF)
+   SET(ENABLE_HDF4 OFF)
+ ENDIF()
+
+ # Option to allow for strict null file padding.
+ # See https://github.com/Unidata/netcdf-c/issues/657 for more information
+-OPTION(ENABLE_STRICT_NULL_BYTE_HEADER_PADDING "Enable strict null byte header padding." OFF)
++set(ENABLE_STRICT_NULL_BYTE_HEADER_PADDING FALSE)
+
+ IF(ENABLE_STRICT_NULL_BYTE_HEADER_PADDING)
+-  SET(USE_STRICT_NULL_BYTE_HEADER_PADDING ON CACHE BOOL "")
++  SET(USE_STRICT_NULL_BYTE_HEADER_PADDING ON)
+ ENDIF(ENABLE_STRICT_NULL_BYTE_HEADER_PADDING)
+
+ # Option for building RPC
+-OPTION(ENABLE_RPC "Enable RPC Client and Server." OFF)
++set(ENABLE_RPC FALSE)
+ IF(ENABLE_RPC)
+-  SET(BUILD_RPC ON CACHE BOOL "")
++  SET(BUILD_RPC ON)
+ ENDIF()
+
+ ##
+@@ -564,7 +556,7 @@ ENDIF()
+ # * HDF5_INCLUDE_DIR
+ # *
+ ##
+-OPTION(USE_HDF5 "Use HDF5." ${ENABLE_NETCDF_4})
++set(USE_HDF5 FALSE)
+ IF(USE_HDF5 OR ENABLE_NETCDF_4)
+   SET(USE_HDF5 ON)
+   SET(USE_NETCDF4 ON)
+@@ -741,7 +733,7 @@ IF(USE_HDF5 OR ENABLE_NETCDF_4)
+   ENDIF()
+
+   SET(H5_USE_16_API 1)
+-  OPTION(NC_ENABLE_HDF_16_API "Enable HDF5 1.6.x Compatibility(Required)" ON)
++  set(NC_ENABLE_HDF_16_API FALSE)
+   IF(NOT NC_ENABLE_HDF_16_API)
+     SET(H5_USE_16_API 0)
+   ENDIF()
+@@ -760,22 +752,22 @@ IF(USE_HDF5 OR ENABLE_NETCDF_4)
+ ENDIF(USE_HDF5 OR ENABLE_NETCDF_4)
+
+ # Option to turn on CDF5 support.
+-OPTION(ENABLE_CDF5 "Enable CDF5 Support." OFF)
++set(ENABLE_CDF5 FALSE)
+ IF(ENABLE_CDF5)
+-    SET(USE_CDF5 ON CACHE BOOL "")
++    SET(USE_CDF5 ON)
+ ENDIF(ENABLE_CDF5)
+
+ # Option to Build DAP2+DAP4 Clients
+-OPTION(ENABLE_DAP "Enable DAP2 and DAP4 Client." ON)
++set(ENABLE_DAP FALSE)
+ IF(ENABLE_DAP)
+-  SET(USE_DAP ON CACHE BOOL "")
+-  SET(ENABLE_DAP2 ON CACHE BOOL "")
++  SET(USE_DAP ON)
++  SET(ENABLE_DAP2 ON)
+
+
+   IF(ENABLE_NETCDF_4)
+-    SET(ENABLE_DAP4 ON CACHE BOOL "")
++    SET(ENABLE_DAP4 ON)
+   ELSE(ENABLE_NETCDF_4)
+-    SET(ENABLE_DAP4 OFF CACHE BOOL "")
++    SET(ENABLE_DAP4 OFF)
+   ENDIF(ENABLE_NETCDF_4)
+
+   FIND_PACKAGE(CURL)
+@@ -822,29 +814,20 @@ ELSE()
+ ENDIF()
+
+
+-# Check for the math library so it can be explicitly linked.
+-IF(NOT WIN32)
+-  FIND_LIBRARY(HAVE_LIBM NAMES math m libm)
+-  MESSAGE(STATUS "Found Math library: ${HAVE_LIBM}")
+-  IF(NOT HAVE_LIBM)
+-    MESSAGE(FATAL_ERROR "Unable to find the math library.")
+-  ENDIF()
+-ENDIF()
+-
+ # Option to Enable DAP long tests, remote tests.
+-OPTION(ENABLE_DAP_LONG_TESTS "Enable DAP long tests." OFF)
+-OPTION(ENABLE_DAP_REMOTE_TESTS "Enable DAP remote tests." ON)
+-SET(REMOTETESTSERVERS "remotetest.unidata.ucar.edu,jetstream.unidata.ucar.edu" CACHE STRING "test servers to use for remote test")
++set(ENABLE_DAP_LONG_TESTS OFF)
++set(ENABLE_DAP_REMOTE_TESTS FALSE)
++SET(REMOTETESTSERVERS "remotetest.unidata.ucar.edu,jetstream.unidata.ucar.edu")
+
+ # If netCDF4 and DAP, Option for DAP groups.
+ IF(ENABLE_NETCDF_4 AND ENABLE_DAP2)
+-  OPTION(ENABLE_DAP_GROUPS "Whether netcdf4 group names should be enabled." ON)
++  set(ENABLE_DAP_GROUPS TRUE)
+ ELSE()
+-  SET(ENABLE_DAP_GROUPS OFF CACHE BOOL "Whether netcdf4 group names should be enabled.")
++  SET(ENABLE_DAP_GROUPS OFF)
+ ENDIF()
+
+ # Enable some developer-only tests
+-OPTION(ENABLE_EXTRA_TESTS "Enable Extra tests. Some may not work because of known issues. Developers only." OFF)
++set(ENABLE_EXTRA_TESTS FALSE)
+ IF(ENABLE_EXTRA_TESTS)
+   SET(EXTRA_TESTS ON)
+ ENDIF()
+@@ -852,9 +835,9 @@ ENDIF()
+ # Option to use bundled XGetopt in place of getopt(). This is mostly useful
+ # for MSVC builds. If not building utilities, getopt() isn't required at all.
+ IF(MSVC)
+-  OPTION(ENABLE_XGETOPT "Enable bundled XGetOpt instead of external getopt()." ON)
++  set(ENABLE_XGETOPT TRUE)
+   IF(ENABLE_XGETOPT)
+-    SET(USE_X_GETOPT ON CACHE BOOL "")
++    SET(USE_X_GETOPT ON)
+   ENDIF()
+ ENDIF()
+
+@@ -862,29 +845,29 @@ SET(MATH "")
+ IF(NOT WIN32)
+
+   # STDIO instead of posixio.
+-  OPTION(ENABLE_STDIO "If true, use stdio instead of posixio (ex. on the Cray)" OFF)
++  set(ENABLE_STDIO FALSE)
+   IF(ENABLE_STDIO)
+-    SET(USE_STDIO ON CACHE BOOL "")
++    SET(USE_STDIO ON)
+   ENDIF()
+
+   # FFIO insteaad of PosixIO
+-  OPTION(ENABLE_FFIO "If true, use ffio instead of posixio" OFF)
++  set(ENABLE_FFIO FALSE)
+   IF(ENABLE_FFIO)
+-    SET(USE_FFIO ON CACHE BOOL "")
++    SET(USE_FFIO ON)
+   ENDIF()
+ ENDIF()
+
+ ##
+ # Enable Tests
+ ##
+-OPTION(ENABLE_TESTS "Enable basic tests, run with 'make test'." ON)
++set(ENABLE_TESTS FALSE)
+ IF(ENABLE_TESTS)
+-  SET(BUILD_TESTSETS ON CACHE BOOL "")
++  SET(BUILD_TESTSETS ON)
+
+   # Options for CTest-based tests, dashboards.
+-  SET(NC_CTEST_PROJECT_NAME "netcdf-c" CACHE STRING "Project Name for CTest-based testing purposes.")
+-  SET(NC_CTEST_DROP_SITE "cdash.unidata.ucar.edu" CACHE STRING "Dashboard location for CTest-based testing purposes.")
+-  SET(NC_CTEST_DROP_LOC_PREFIX "" CACHE STRING "Prefix for Dashboard location on remote server when using CTest-based testing.")
++  SET(NC_CTEST_PROJECT_NAME "netcdf-c")
++  SET(NC_CTEST_DROP_SITE "cdash.unidata.ucar.edu")
++  SET(NC_CTEST_DROP_LOC_PREFIX "")
+
+   FIND_PROGRAM(HOSTNAME_CMD NAMES hostname)
+   IF(NOT MSVC)
+@@ -892,11 +875,11 @@ IF(ENABLE_TESTS)
+   ENDIF()
+   IF(HOSTNAME_CMD)
+     EXEC_PROGRAM(${HOSTNAME_CMD} ARGS "${HOSTNAME_ARG}" OUTPUT_VARIABLE HOSTNAME)
+-    SET(NC_CTEST_SITE "${HOSTNAME}" CACHE STRING "Hostname of test machine.")
++    SET(NC_CTEST_SITE "${HOSTNAME}")
+   ENDIF()
+
+   IF(NC_CTEST_SITE)
+-    SET(SITE "${NC_CTEST_SITE}" CACHE STRING "")
++    SET(SITE "${NC_CTEST_SITE}")
+   ENDIF()
+
+   # Create a CTestConfig file from the template.
+@@ -920,7 +903,7 @@ IF(ENABLE_TESTS)
+   # which are known to fail.
+   ###
+
+-  OPTION(ENABLE_FAILING_TESTS "Run tests which are known to fail, check to see if any have been fixed." OFF)
++  set(ENABLE_FAILING_TESTS FALSE)
+
+   ###
+   # End known-failures.
+@@ -931,7 +914,7 @@ ENDIF()
+ ###
+ # Option to enable extreme numbers during testing.
+ ###
+-OPTION(ENABLE_EXTREME_NUMBERS "Enable extreme numbers during testing, such as MAX_INT-1" ON)
++set(ENABLE_EXTREME_NUMBERS TRUE)
+ IF(ENABLE_EXTREME_NUMBERS)
+   SET(USE_EXTREME_NUMBERS ON)
+ ENDIF()
+@@ -942,22 +925,22 @@ IF(ENABLE_LARGE_FILE_TESTS)
+ ENDIF()
+
+ # Location for large file tests.
+-SET(TEMP_LARGE "." CACHE STRING "Location to store large file tests.")
++SET(TEMP_LARGE ".")
+
+-OPTION(ENABLE_FSYNC "Enable experimental fsync code." OFF)
++set(ENABLE_FSYNC FALSE)
+ IF(ENABLE_FSYNC)
+   SET(USE_FSYNC ON)
+ ENDIF()
+
+ # Temporary
+-OPTION (ENABLE_JNA "Enable jna bug fix code." OFF)
++set (ENABLE_JNA FALSE)
+ IF(ENABLE_JNA)
+   SET(JNA ON)
+ ENDIF()
+
+ # Linux specific large file support flags.
+ # Modelled after check in CMakeLists.txt for hdf5.
+-OPTION(ENABLE_LARGE_FILE_SUPPORT "Enable large file support." ON)
++set(ENABLE_LARGE_FILE_SUPPORT TRUE)
+ IF(ENABLE_LARGE_FILE_SUPPORT)
+   IF(MSVC)
+     SET(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} /LARGEADDRESSAWARE")
+@@ -968,41 +951,41 @@ IF(ENABLE_LARGE_FILE_SUPPORT)
+   ENDIF()
+ ENDIF()
+
+-OPTION(ENABLE_EXAMPLE_TESTS "Run extra example tests.  Requires GNU Sed. Ignored if netCDF-4 is not Enabled" OFF)
++set(ENABLE_EXAMPLE_TESTS FALSE)
+ IF(NOT ENABLE_NETCDF_4 AND ENABLE_EXAMPLE_TESTS)
+   SET(ENABLE_EXAMPLE_TESTS OFF)
+ ENDIF()
+
+ # Enable Parallel (different than pnetcdf).
+ SET(STATUS_PARALLEL "OFF")
+-OPTION(ENABLE_PARALLEL4 "Build netCDF-4 with parallel IO" "${HDF5_PARALLEL}")
++set(ENABLE_PARALLEL4 FALSE)
+ IF(ENABLE_PARALLEL4 AND ENABLE_NETCDF_4)
+   IF(NOT HDF5_PARALLEL)
+-    SET(USE_PARALLEL OFF CACHE BOOL "")
++    SET(USE_PARALLEL OFF)
+     MESSAGE(STATUS "Cannot find HDF5 library built with parallel support. Disabling parallel build.")
+   ELSE()
+-    SET(HDF5_PARALLEL ON CACHE BOOL "")
+-    SET(USE_PARALLEL ON CACHE BOOL "")
+-    SET(USE_PARALLEL4 ON CACHE BOOL "")
++    SET(HDF5_PARALLEL ON)
++    SET(USE_PARALLEL ON)
++    SET(USE_PARALLEL4 ON)
+     SET(STATUS_PARALLEL "ON")
+   ENDIF()
+ ENDIF()
+
+ # Options to enable parallel IO, tests.
+ SET(STATUS_PNETCDF "OFF")
+-OPTION(ENABLE_PNETCDF "Build with parallel I/O for classic and 64-bit offset files using parallel-netcdf." OFF)
++set(ENABLE_PNETCDF FALSE)
+
+ IF(ENABLE_PNETCDF)
+   # Check for ncmpi_create in libpnetcdf, define USE_PNETCDF
+   # Does the user want to turn on PNETCDF read ability?
+-  SET(USE_PNETCDF ON CACHE BOOL "")
++  SET(USE_PNETCDF ON)
+   FIND_LIBRARY(PNETCDF NAMES pnetcdf)
+   FIND_PATH(PNETCDF_INCLUDE_DIR pnetcdf.h)
+   IF(NOT PNETCDF)
+     MESSAGE(STATUS "Cannot find PnetCDF library. Disabling PnetCDF support.")
+-    SET(USE_PNETCDF OFF CACHE BOOL "")
++    SET(USE_PNETCDF OFF)
+   ELSE(NOT PNETCDF)
+-    SET(USE_PARALLEL ON CACHE BOOL "")
++    SET(USE_PARALLEL ON)
+
+     # Check PnetCDF version. Must be >= 1.6.0
+     set(pnetcdf_h "${PNETCDF_INCLUDE_DIR}/pnetcdf.h" )
+@@ -1032,7 +1015,7 @@ ENDIF()
+
+ # Options to enable use of fill values for elements casuing NC_ERANGE
+ SET(STATUS_ERANGE_FILL "OFF")
+-OPTION(ENABLE_ERANGE_FILL "Enable use of fill value when out-of-range type conversion causes NC_ERANGE error." OF)
++set(ENABLE_ERANGE_FILL FALSE)
+ IF(ENABLE_ERANGE_FILL)
+   SET(STATUS_ERANGE_FILL "ON")
+   ADD_DEFINITIONS(-DERANGE_FILL)
+@@ -1040,7 +1023,7 @@ ENDIF()
+
+ # Options to use a more relaxed coordinate argument boundary check
+ SET(STATUS_RELAX_COORD_BOUND "OFF")
+-OPTION(ENABLE_ZERO_LENGTH_COORD_BOUND "Enable a more relaxed boundary error check NC_EINVALCOORDS to allow coordinate start argument equal to dimension size when argument count is zero." OFF)
++set(ENABLE_ZERO_LENGTH_COORD_BOUND FALSE)
+ IF(ENABLE_ZERO_LENGTH_COORD_BOUND)
+   SET(STATUS_RELAX_COORD_BOUND "ON")
+ ENDIF()
+@@ -1076,7 +1059,7 @@ IF(STATUS_PNETCDF)
+ ENDIF()
+
+ IF(STATUS_ERANGE_FILL)
+-  SET(M4FLAGS "-DERANGE_FILL" CACHE STRING "")
++  SET(M4FLAGS "-DERANGE_FILL")
+ ENDIF()
+
+ IF(STATUS_RELAX_COORD_BOUND)
+@@ -1085,11 +1068,11 @@ IF(STATUS_RELAX_COORD_BOUND)
+ ENDIF()
+
+ # Enable Parallel Tests.
+-OPTION(ENABLE_PARALLEL_TESTS "Enable Parallel IO Tests. Requires HDF5/NetCDF4 with parallel I/O Support." ${USE_PARALLEL})
++set(ENABLE_PARALLEL_TESTS FALSE)
+ IF(ENABLE_PARALLEL_TESTS AND USE_PARALLEL)
+-  SET(TEST_PARALLEL ON CACHE BOOL "")
++  SET(TEST_PARALLEL ON)
+   IF(USE_NETCDF4)
+-    SET(TEST_PARALLEL4 ON CACHE BOOL "")
++    SET(TEST_PARALLEL4 ON)
+   ENDIF()
+ ENDIF()
+
+@@ -1098,26 +1081,18 @@ IF (ENABLE_PARALLEL_TESTS AND NOT USE_PARALLEL)
+ ENDIF()
+
+ # Enable special filter test; experimental when using cmake.
+-OPTION(ENABLE_FILTER_TESTING "Enable filter testing. Ignored if shared libraries or netCDF4 are not enabled" OFF)
+-IF(NOT ENABLE_NETCDF4)
+-  MESSAGE(WARNING "ENABLE_FILTER_TESTING requires netCDF-4. Disabling.")
+-  SET(ENABLE_FILTER_TESTING OFF CACHE BOOL "")
+-ENDIF()
+-IF(NOT BUILD_SHARED_LIBS)
+-  MESSAGE(WARNING "ENABLE_FILTER_TESTING requires shared libraries. Disabling.")
+-  SET(ENABLE_FILTER_TESTING OFF CACHE BOOL "")
+-ENDIF()
++set(ENABLE_FILTER_TESTING OFF)
+
+ # Determine whether or not to generate documentation.
+-OPTION(ENABLE_DOXYGEN "Enable generation of doxygen-based documentation." OFF)
++set(ENABLE_DOXYGEN FALSE)
+ IF(ENABLE_DOXYGEN)
+   FIND_PACKAGE(Doxygen REQUIRED)
+   # Offer the option to build internal documentation.
+-  OPTION(ENABLE_INTERNAL_DOCS "Build internal documentation. This is of interest to developers only." OFF)
++  set(ENABLE_INTERNAL_DOCS FALSE)
+   IF(ENABLE_INTERNAL_DOCS)
+-    SET(BUILD_INTERNAL_DOCS YES CACHE STRING "")
++    SET(BUILD_INTERNAL_DOCS YES)
+   ELSE()
+-    SET(BUILD_INTERNAL_DOCS NO CACHE STRING "")
++    SET(BUILD_INTERNAL_DOCS NO)
+   ENDIF()
+
+   ###
+@@ -1125,57 +1100,57 @@ IF(ENABLE_DOXYGEN)
+   # If we are building release documentation, we need to set some
+   # variables that will be used in the Doxygen.in template.
+   ###
+-  OPTION(ENABLE_DOXYGEN_BUILD_RELEASE_DOCS "Build release documentation.  This is of interest only to the netCDF developers." OFF)
++  set(ENABLE_DOXYGEN_BUILD_RELEASE_DOCS OFF)
+   IF(ENABLE_DOXYGEN_BUILD_RELEASE_DOCS)
+-    SET(DOXYGEN_CSS_FILE "${CMAKE_SOURCE_DIR}/docs/release.css" CACHE STRING "")
+-    SET(DOXYGEN_HEADER_FILE "${CMAKE_SOURCE_DIR}/docs/release_header.html" CACHE STRING "")
+-    SET(DOXYGEN_SEARCHENGINE "NO" CACHE STRING "")
+-    SET(ENABLE_DOXYGEN_SERVER_BASED_SEARCH NO CACHE STRING "")
++    SET(DOXYGEN_CSS_FILE "${CMAKE_CURRENT_SOURCE_DIR}/docs/release.css")
++    SET(DOXYGEN_HEADER_FILE "${CMAKE_CURRENT_SOURCE_DIR}/docs/release_header.html")
++    SET(DOXYGEN_SEARCHENGINE "NO")
++    SET(ENABLE_DOXYGEN_SERVER_BASED_SEARCH NO)
+   ELSE()
+-    SET(DOXYGEN_CSS_FILE "" CACHE STRING "")
+-    SET(DOXYGEN_HEADER_FILE "" CACHE STRING "")
+-    SET(DOXYGEN_SEARCHENGINE "YES" CACHE STRING "")
++    SET(DOXYGEN_CSS_FILE "")
++    SET(DOXYGEN_HEADER_FILE "")
++    SET(DOXYGEN_SEARCHENGINE "YES")
+
+     # If not using release document configuration,
+     # provide an option for server-based search.
+-    OPTION(ENABLE_DOXYGEN_SERVER_SIDE_SEARCH "Configure Doxygen with server-based search." OFF)
++    set(ENABLE_DOXYGEN_SERVER_SIDE_SEARCH FALSE)
+     IF(ENABLE_DOXYGEN_SERVER_SIDE_SEARCH)
+-      SET(DOXYGEN_SERVER_BASED_SEARCH "YES" CACHE STRING "")
++      SET(DOXYGEN_SERVER_BASED_SEARCH "YES")
+     ELSE()
+-      SET(DOXYGEN_SERVER_BASED_SEARCH "NO" CACHE STRING "")
++      SET(DOXYGEN_SERVER_BASED_SEARCH "NO")
+     ENDIF(ENABLE_DOXYGEN_SERVER_SIDE_SEARCH)
+
+
+   ENDIF(ENABLE_DOXYGEN_BUILD_RELEASE_DOCS)
+   # Option to turn on the TODO list in the doxygen-generated documentation.
+-  OPTION(DOXYGEN_ENABLE_TASKS "Turn on test, todo, bug lists in documentation. This is of interest to developers only." OFF)
++  set(DOXYGEN_ENABLE_TASKS FALSE)
+   IF(DOXYGEN_ENABLE_TASKS)
+-    SET(SHOW_DOXYGEN_TAG_LIST YES CACHE STRING "")
++    SET(SHOW_DOXYGEN_TAG_LIST YES)
+   ELSE(DOXYGEN_ENABLE_TASKS)
+-    SET(SHOW_DOXYGEN_TODO_LIST NO CACHE STRING "")
++    SET(SHOW_DOXYGEN_TODO_LIST NO)
+   ENDIF(DOXYGEN_ENABLE_TASKS)
+
+-  OPTION(ENABLE_DOXYGEN_PDF_OUTPUT "[EXPERIMENTAL] Turn on PDF output for Doxygen-generated documentation." OFF)
++  set(ENABLE_DOXYGEN_PDF_OUTPUT FALSE)
+
+   IF(ENABLE_DOXYGEN_PDF_OUTPUT)
+-    SET(NC_ENABLE_DOXYGEN_PDF_OUTPUT "YES" CACHE STRING "")
++    SET(NC_ENABLE_DOXYGEN_PDF_OUTPUT "YES")
+   ELSE()
+-    SET(NC_ENABLE_DOXYGEN_PDF_OUTPUT "NO" CACHE STRING "")
++    SET(NC_ENABLE_DOXYGEN_PDF_OUTPUT "NO")
+   ENDIF()
+
+   FIND_PROGRAM(NC_DOT NAMES dot)
+   # Specify whether or not 'dot' was found on the system path.
+   IF(NC_DOT)
+-    SET(HAVE_DOT YES CACHE STRING "")
++    SET(HAVE_DOT YES)
+   ELSE(NC_DOT)
+-    SET(HAVE_DOT NO CACHE STRING "")
++    SET(HAVE_DOT NO)
+   ENDIF(NC_DOT)
+ ENDIF()
+
+ # By default, MSVC has a stack size of 1000000.
+ # Allow a user to override this.
+ IF(MSVC)
+-  SET(NC_MSVC_STACK_SIZE 40000000 CACHE STRING "Default stack size for MSVC-based projects.")
++  SET(NC_MSVC_STACK_SIZE 40000000)
+   # By default, CMake sets the stack to 1000000.
+   # Remove this limitation.
+   # See here for more details:
+@@ -1289,7 +1264,7 @@ CHECK_TYPE_SIZE("ssize_t"   HAVE_SSIZE_T)
+ CHECK_TYPE_SIZE("__int64"   SIZEOF___INT_64)
+ CHECK_TYPE_SIZE("int64_t"   SIZEOF_INT64_T)
+ CHECK_TYPE_SIZE("uint64_t"  SIZEOF_UINT64_T)
+-CHECK_TYPE_SIZE("unsigned char"      SIZEOF_UCHAR)
++CHECK_TYPE_SIZE("unsigned char"      SIZEOF_UNSIGNED_CHAR)
+ CHECK_TYPE_SIZE("unsigned short int" SIZEOF_UNSIGNED_SHORT_INT)
+ CHECK_TYPE_SIZE("unsigned int"       SIZEOF_UNSIGNED_INT)
+ CHECK_TYPE_SIZE("long long"          SIZEOF_LONGLONG)
+@@ -1385,7 +1360,7 @@ MACRO(add_bin_env_temp_large_test prefix F)
+       )
+   ENDIF()
+
+-  ADD_TEST(${prefix}_${F} bash "-c" "TEMP_LARGE=${CMAKE_SOURCE_DIR} ${CMAKE_CURRENT_BINARY_DIR}/${prefix}_${F}")
++  ADD_TEST(${prefix}_${F} bash "-c" "TEMP_LARGE=${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_BINARY_DIR}/${prefix}_${F}")
+   IF(MSVC)
+     SET_PROPERTY(TARGET ${prefix}_${F} PROPERTY FOLDER "tests")
+     SET_TARGET_PROPERTIES(${prefix}_${F} PROPERTIES RUNTIME_OUTPUT_DIRECTORY
+@@ -1410,7 +1385,7 @@ MACRO(add_bin_env_test prefix F)
+       )
+   ENDIF()
+
+-  ADD_TEST(${prefix}_${F} bash "-c" "TOPSRCDIR=${CMAKE_SOURCE_DIR} ${CMAKE_CURRENT_BINARY_DIR}/${prefix}_${F}")
++  ADD_TEST(${prefix}_${F} bash "-c" "TOPSRCDIR=${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_BINARY_DIR}/${prefix}_${F}")
+   IF(MSVC)
+     SET_PROPERTY(TARGET ${prefix}_${F} PROPERTY FOLDER "tests")
+   ENDIF()
+@@ -1552,7 +1527,7 @@ ENDIF()
+
+ MACRO(add_sh_test prefix F)
+   IF(HAVE_BASH)
+-    ADD_TEST(${prefix}_${F} bash "-c" "export srcdir=${CMAKE_CURRENT_SOURCE_DIR};export TOPSRCDIR=${CMAKE_SOURCE_DIR};${CMAKE_CURRENT_BINARY_DIR}/${F}.sh")
++    ADD_TEST(${prefix}_${F} bash "-c" "export srcdir=${CMAKE_CURRENT_SOURCE_DIR};export TOPSRCDIR=${CMAKE_CURRENT_SOURCE_DIR};${CMAKE_CURRENT_BINARY_DIR}/${F}.sh")
+   ENDIF()
+ ENDMACRO()
+
+@@ -1774,6 +1749,7 @@ INSTALL(FILES ${netCDF_BINARY_DIR}/netcdf.pc
+ INSTALL(PROGRAMS ${netCDF_BINARY_DIR}/nc-config
+   DESTINATION ${CMAKE_INSTALL_BINDIR}
+   COMPONENT utilities)
++
+
+ ###
+ # End pkgconfig, nc-config file creation.
+@@ -1782,11 +1758,11 @@ INSTALL(PROGRAMS ${netCDF_BINARY_DIR}/nc-config
+ ##
+ # Print the configuration summary
+ ##
+-print_conf_summary()
++#print_conf_summary()
+
+ # Enable Makedist files.
+-ADD_MAKEDIST()
+-ENABLE_MAKEDIST(README.md COPYRIGHT RELEASE_NOTES.md INSTALL INSTALL.cmake test_prog.c lib_flags.am cmake CMakeLists.txt COMPILE.cmake.txt config.h.cmake.in cmake_uninstall.cmake.in netcdf-config-version.cmake.in netcdf-config.cmake.in FixBundle.cmake.in nc-config.cmake.in configure configure.ac install-sh config.h.in config.sub CTestConfig.cmake.in)
++#ADD_MAKEDIST()
++#ENABLE_MAKEDIST(README.md COPYRIGHT RELEASE_NOTES.md INSTALL INSTALL.cmake test_prog.c lib_flags.am cmake CMakeLists.txt COMPILE.cmake.txt config.h.cmake.in cmake_uninstall.cmake.in netcdf-config-version.cmake.in netcdf-config.cmake.in FixBundle.cmake.in nc-config.cmake.in configure configure.ac install-sh config.h.in config.sub CTestConfig.cmake.in)
+
+ #####
+ # Configure and print the libnetcdf.settings file.
+@@ -1799,7 +1775,7 @@ SET(host_cpu "${cpu}")
+ SET(host_vendor "${osname}")
+ SET(host_os "${osrel}")
+ SET(abs_top_builddir "${CMAKE_BINARY_DIR}")
+-SET(abs_top_srcdir "${CMAKE_SOURCE_DIR}")
++SET(abs_top_srcdir "${CMAKE_CURRENT_SOURCE_DIR}")
+
+ SET(CC_VERSION "${CMAKE_C_COMPILER}")
+
+@@ -1843,7 +1819,7 @@ CONFIGURE_FILE("${CMAKE_CURRENT_SOURCE_DIR}/libnetcdf.settings.in"
+ # might also work on Windows.
+ FILE(READ "${CMAKE_CURRENT_BINARY_DIR}/libnetcdf.settings"
+   LIBNETCDF_SETTINGS)
+-MESSAGE(${LIBNETCDF_SETTINGS})
++#MESSAGE(${LIBNETCDF_SETTINGS})
+
+ # Install libnetcdf.settings file into same location
+ # as the libraries.
+@@ -1868,16 +1844,16 @@ FILE(COPY ${netCDF_SOURCE_DIR}/include/netcdf_meta.h
+ #####
+ # Build test_common.sh
+ #####
+-SET(EXTRA_DIST ${EXTRA_DIST} ${CMAKE_SOURCE_DIR}/test_common.in)
+-SET(TOPSRCDIR "${CMAKE_SOURCE_DIR}")
++SET(EXTRA_DIST ${EXTRA_DIST} ${CMAKE_CURRENT_SOURCE_DIR}/test_common.in)
++SET(TOPSRCDIR "${CMAKE_CURRENT_SOURCE_DIR}")
+ SET(TOPBUILDDIR "${CMAKE_BINARY_DIR}")
+-configure_file(${CMAKE_SOURCE_DIR}/test_common.in ${CMAKE_BINARY_DIR}/test_common.sh @ONLY NEWLINE_STYLE LF)
++configure_file(${CMAKE_CURRENT_SOURCE_DIR}/test_common.in ${CMAKE_BINARY_DIR}/test_common.sh @ONLY NEWLINE_STYLE LF)
+
+ #####
+ # Build nc_test4/findplugin.sh
+ #####
+ SET(ISCMAKE "1")
+-configure_file(${CMAKE_SOURCE_DIR}/nc_test4/findplugin.in ${CMAKE_BINARY_DIR}/nc_test4/findplugin.sh @ONLY NEWLINE_STYLE LF)
++configure_file(${CMAKE_CURRENT_SOURCE_DIR}/nc_test4/findplugin.in ${CMAKE_BINARY_DIR}/nc_test4/findplugin.sh @ONLY NEWLINE_STYLE LF)
+
+
+ ####
+@@ -1934,4 +1910,4 @@ install(
+
+ # CPack inclusion must come last.
+ # INCLUDE(CPack)
+-INCLUDE(CMakeInstallation.cmake)
++#INCLUDE(CMakeInstallation.cmake)
+diff --git a/AmberTools/src/netcdf-4.6.1/config.h.cmake.in b/AmberTools/src/netcdf-4.6.1/config.h.cmake.in
+index 35be9ca461..9317c9a71f 100644
+--- a/AmberTools/src/netcdf-4.6.1/config.h.cmake.in
++++ b/AmberTools/src/netcdf-4.6.1/config.h.cmake.in
+@@ -335,8 +335,8 @@ are set when opening a binary file on Windows. */
+ /* Define to 1 if you have the <sys/types.h> header file. */
+ #cmakedefine HAVE_SYS_TYPES_H 1
+
+-/* Define to 1 if the system has the type `uchar'. */
+-#cmakedefine HAVE_UCHAR 1
++/* Define to 1 if the system has the type `unsigned char'. */
++#cmakedefine HAVE_UNSIGNED_CHAR 1
+
+ /* Define to 1 if the system has the type `uint'. */
+ #cmakedefine HAVE_UINT 1
+@@ -422,7 +422,7 @@ are set when opening a binary file on Windows. */
+ #cmakedefine SIZEOF_CHAR @SIZEOF_CHAR@
+
+ /* The size of `uchar` as computed by sizeof. */
+-#cmakedefine SIZEOF_UCHAR @SIZEOF_UCHAR@
++#cmakedefine SIZEOF_UNSIGNED_CHAR @SIZEOF_UNSIGNED_CHAR@
+
+ /* The size of `__int64` found on Windows systems. */
+ #cmakedefine SIZEOF___INT64 ${SIZEOF___INT64}
+diff --git a/AmberTools/src/netcdf-4.6.1/config.h.in b/AmberTools/src/netcdf-4.6.1/config.h.in
+index d0d2fea38b..d5a8818bba 100644
+--- a/AmberTools/src/netcdf-4.6.1/config.h.in
++++ b/AmberTools/src/netcdf-4.6.1/config.h.in
+@@ -256,8 +256,8 @@
+ /* Define to 1 if you have the <sys/types.h> header file. */
+ #undef HAVE_SYS_TYPES_H
+
+-/* Define to 1 if the system has the type `uchar'. */
+-#undef HAVE_UCHAR
++/* Define to 1 if the system has the type `unsigned char'. */
++#undef HAVE_UNSIGNED_CHAR
+
+ /* Define to 1 if the system has the type `uint'. */
+ #undef HAVE_UINT
+@@ -365,9 +365,6 @@
+ /* The size of `ssize_t', as computed by sizeof. */
+ #undef SIZEOF_SSIZE_T
+
+-/* The size of `uchar', as computed by sizeof. */
+-#undef SIZEOF_UCHAR
+-
+ /* The size of `uint', as computed by sizeof. */
+ #undef SIZEOF_UINT
+
+diff --git a/AmberTools/src/netcdf-4.6.1/include/ncconfigure.h b/AmberTools/src/netcdf-4.6.1/include/ncconfigure.h
+index 0b20bb5f9b..8438dc96db 100644
+--- a/AmberTools/src/netcdf-4.6.1/include/ncconfigure.h
++++ b/AmberTools/src/netcdf-4.6.1/include/ncconfigure.h
+@@ -47,9 +47,9 @@ char *nulldup(const char* s);
+ #endif
+
+ #ifndef HAVE_STRLCAT
+-#ifdef _MSC_VER
++#if defined(_MSC_VER) || defined(__MINGW32__)
+ /* Windows strlcat_s is equivalent to strlcat, but different arg order */
+-#define strlcat(d,s,n) strcat_s((d),(n),(s))
++#define strlcat(d,s,n) strcat_s(d,n,s)
+ #else
+ extern size_t strlcat(char* dst, const char* src, size_t dsize);
+ #endif
+diff --git a/AmberTools/src/netcdf-4.6.1/libdispatch/dstring.c b/AmberTools/src/netcdf-4.6.1/libdispatch/dstring.c
+index 2a3cece0d5..516713a4ad 100644
+--- a/AmberTools/src/netcdf-4.6.1/libdispatch/dstring.c
++++ b/AmberTools/src/netcdf-4.6.1/libdispatch/dstring.c
+@@ -319,7 +319,8 @@ strdup(const char* s)
+  */
+
+ #ifndef HAVE_STRLCAT
+-#ifndef _MSC_VER /* We will use strcat_s */
++#if !defined(_MSC_VER) && !defined(__MINGW32__)
++
+ /*
+  * Appends src to string dst of size dsize (unlike strncat, dsize is the
+  * full size of dst, not space left).  At most dsize-1 characters
+diff --git a/AmberTools/src/netcdf-4.6.1/liblib/CMakeLists.txt b/AmberTools/src/netcdf-4.6.1/liblib/CMakeLists.txt
+index 1afc85486c..f10ec6f2da 100644
+--- a/AmberTools/src/netcdf-4.6.1/liblib/CMakeLists.txt
++++ b/AmberTools/src/netcdf-4.6.1/liblib/CMakeLists.txt
+@@ -51,7 +51,11 @@ ENDIF()
+
+ SET(TLL_LIBS "")
+
+-SET(TLL_LIBS ${TLL_LIBS} ${HAVE_LIBM} ${ZLIB_LIBRARY})
++SET(TLL_LIBS ${TLL_LIBS} ${ZLIB_LIBRARY})
++
++if(libm_ENABLED)
++	list(APPEND TLL_LIBS libm)
++endif()
+
+ # Add extra dependencies specified via NC_EXTRA_DEPS
+ SET(TLL_LIBS ${TLL_LIBS} ${EXTRA_DEPS})
+@@ -117,6 +121,9 @@ IF(ENABLE_SHARED_LIBRARY_VERSION)
+     )
+ ENDIF(ENABLE_SHARED_LIBRARY_VERSION)
+
++# attach the NetCDF include directory to the NetCDF library
++target_include_directories(netcdf INTERFACE $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../include>)
++
+ ###
+ # The INCLUDES directive was introduced in 2.8.12.
+ # However, 2.8.11 is still the default on some
+diff --git a/AmberTools/src/netcdf-4.6.1/libsrc/CMakeLists.txt b/AmberTools/src/netcdf-4.6.1/libsrc/CMakeLists.txt
+index 4dc6e1aae3..3119f0885c 100644
+--- a/AmberTools/src/netcdf-4.6.1/libsrc/CMakeLists.txt
++++ b/AmberTools/src/netcdf-4.6.1/libsrc/CMakeLists.txt
+@@ -50,17 +50,3 @@ IF (BUILD_PARALLEL)
+   SET(ARGS_MANPAGE ${ARGS_MANPAGE} -DPARALLEL_IO=TRUE)
+ ENDIF(BUILD_PARALLEL)
+
+-# Generate the man page.
+-IF(HAVE_M4)
+-
+-  FILE(GLOB libsrc_MANPAGE ${CMAKE_SOURCE_DIR}/docs/netcdf.m4)
+-  FILE(COPY ${libsrc_MANPAGE} DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
+-
+-  ADD_CUSTOM_TARGET(manpage ALL
+-
+-    COMMAND ${NC_M4} ${ARGS_MANPAGE} '${CMAKE_CURRENT_BINARY_DIR}/netcdf.m4' > '${CMAKE_CURRENT_BINARY_DIR}/netcdf.3'
+-    WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
+-    )
+-
+-  INSTALL(FILES ${CMAKE_CURRENT_BINARY_DIR}/netcdf.3 DESTINATION "share/man/man3" COMPONENT documentation)
+-ENDIF()
+diff --git a/AmberTools/src/netcdf-4.6.1/nc_test/CMakeLists.txt b/AmberTools/src/netcdf-4.6.1/nc_test/CMakeLists.txt
+index 06943c5c87..e504dca909 100644
+--- a/AmberTools/src/netcdf-4.6.1/nc_test/CMakeLists.txt
++++ b/AmberTools/src/netcdf-4.6.1/nc_test/CMakeLists.txt
+@@ -24,10 +24,11 @@ SET (nc_test_SRC
+   )
+
+ ADD_EXECUTABLE(nc_test ${nc_test_SRC})
+-TARGET_LINK_LIBRARIES(nc_test
+-  netcdf
+-  ${HAVE_LIBM}
+-  )
++TARGET_LINK_LIBRARIES(nc_test netcdf)
++
++if(libm_ENABLED)
++	target_link_libraries(nc_test libm)
++endif()
+
+ # Some extra stand-alone tests
+ SET(TESTS t_nc tst_small tst_misc tst_norm tst_names tst_nofill tst_nofill2 tst_nofill3 tst_meta tst_inq_type tst_utf8_validate tst_utf8_phrases tst_global_fillval tst_max_var_dims tst_formats tst_def_var_fill)
+diff --git a/AmberTools/src/pbsa/CMakeLists.txt b/AmberTools/src/pbsa/CMakeLists.txt
+index d271663bad..a37b0b140e 100644
+--- a/AmberTools/src/pbsa/CMakeLists.txt
++++ b/AmberTools/src/pbsa/CMakeLists.txt
+@@ -2,22 +2,22 @@ project(pbsa C Fortran)
+
+ set(EXECUTABLE_SOURCES dsvdc.F90  pbsa.F90 pb_read.F90 pb_write.F90 getcoor.F90
+ 	runmd.F90 runmin.F90 force.F90 pbsa_lib.F90 pb_init.F90 density.F90 np_force.F90 pb_force.F90
+-	pb_p3m.F90 pb_fdfrc.F90 pb_crgview.F90 pb_fddrv.F90 pb_iimdrv.F90 pb_anaiim.F90 pb_nlsolver.F90
++	pb_p3m.F90 pb_fdfrc.F90 pb_crgview.F90 pb_fddrv.F90 pb_anaiim.F90 pb_nhadrv.F90 pb_iimdrv.F90 pb_augdrv.F90 pb_nlsolver.F90
+ 	pb_bldsys.F90 pb_mpfrc.F90 pb_direct.F90 pb_list.F90 timer.F90
+ 	egb.F90 ene.F90 locmem.F90 myopen.F90 rdparm.F90 pb_lsolver.F90
+ 	decomp.F90 rgroup.F90 rfree.F90 debug.F90
+ 	irre32.F90  phidev.F90  project.F90  qld.F90
+ 	irre31.F90  miniop.F90
+ 	transf.F90 curv.F90 GrToPr.F90 jumps.F90
+-	regular.F90 gmres.F90 sa_driver.F90
+-	daxpy.F90  ddot.F90    dheqr.F90  dpigmr.F90  dscal.F90   dslui2.F90  dxlcal.F90
+-	dchkw.F90  dgmres.F90  dnrm2.F90  drlcal.F90  dsilus.F90  dslui.F90   isdgmr.F90
+-	dcopy.F90  dhels.F90   dorth.F90  ds2y.F90    dslugm.F90  dsmv.F90    qs2i1d.F90
+-	d1mach.F90  fdump.F90   i1mach.F90  j4save.F90  xercnt.F90  xerhlt.F90  xermsg.F90
+-	xerprn.F90  xersve.F90  xgetua.F90
+-	bicg.F90 dbcg.F90 dslui4.F90 dsluti.F90 dsmtv.F90 dslubc.F90 isdbcg.F90
++	regular.F90 bicg.F90 gmres.F90 sa_driver.F90
++	daxpy.F90  ddot.F90    dheqr.F90  dpigmr.F90  dxlcal.F90
++	dchkw.F90  dgmres.F90  dnrm2.F90  drlcal.F90  isdgmr.F90
++	dcopy.F90 dhels.F90 dorth.F90
++        ds2y.F90 dscal.F90 dsilus.F90 dslugm.F90 dslui.F90 dslui2.F90 dsmv.F90 qs2i1d.F90
++	d1mach.F90 fdump.F90 i1mach.F90 j4save.F90 xercnt.F90 xerhlt.F90 xermsg.F90
++        xerprn.F90 xersve.F90 xgetua.F90
+ 	pb_chkfrc.F90 svdcmp.F90 svbksb.F90 pythag.F90
+-	pb_augdrv.F90 interpX.F90 gen_dx_file.F90
++	interpX.F90 gen_dx_file.F90
+ 	parms.F90 memory_module.F90 rdpqr.F90)
+
+ #sources for libpbsa
+@@ -42,8 +42,8 @@ set(SANDER_PBSA_SOURCES interpX.F90 np_force.F90  pb_fdfrc.F90 pb_force.F90 pb_i
+ 	svbksb.F90 svdcmp.F90 transf.F90)
+
+ # sources or libpbsa_cuda
+-set(PBSA_CUDA_CUDA_SOURCES cuda_cg_wrapper.cu cuda_mg_wrapper.cu)
+-set(PBSA_CUDA_CXX_SOURCES band2csr.cpp)
++set(PBSA_CUDA_CUDA_SOURCES cusp_LinearSolvers.cu cusparse_LinearSolvers.cu cuda_pb.cu kLinearSolvers.cu cuda_LinearSolvers.cu)
++set(PBSA_CUDA_CXX_SOURCES )
+
+ #------------------------------------------------------------------------------------------
+
+@@ -133,7 +133,7 @@ if(CUDA)
+ 		-DCUDA_MG) # [DCUDA_MG, NULL - for other CUDA solvers]
+
+ 	cuda_add_executable(pbsa.cuda ${EXECUTABLE_SOURCES} ${PBSA_CUDA_CUDA_SOURCES} ${PBSA_CUDA_CXX_SOURCES} OPTIONS ${PBSA_CUDA_DEFINITIONS})
+-	target_link_libraries(pbsa.cuda cublas netlib amber_common netcdff netcdf)
++	target_link_libraries(pbsa.cuda cublas cusparse netlib amber_common netcdff netcdf)
+
+ 	config_module_dirs(pbsa.cuda ${PBSAEXE_MOD_DIR} ${AMBER_COMMON_MOD_DIR})
+
+@@ -141,7 +141,7 @@ if(CUDA)
+ 	target_compile_definitions(pbsa.cuda PRIVATE CUDA)
+
+ 	# it seems like CMake sometimes gets confused about which compiler to use for linking
+-	set_property(TARGET pbsa.cuda PROPERTY LINKER_LANGUAGE Fortran)
++	set_property(TARGET pbsa.cuda PROPERTY LINKER_LANGUAGE CXX)
+
+ 	install(TARGETS pbsa.cuda DESTINATION ${BINDIR} COMPONENT CUDA)
+ endif()
+diff --git a/AmberTools/src/rism/CMakeLists.txt b/AmberTools/src/rism/CMakeLists.txt
+index 028d71cb4f..6838075447 100644
+--- a/AmberTools/src/rism/CMakeLists.txt
++++ b/AmberTools/src/rism/CMakeLists.txt
+@@ -47,6 +47,20 @@ set(RISM_INTERFACE_SOURCES amber_rism_interface.F90)
+
+ apply_optimization_declarations(${RISM_LIB_SOURCES} ${RISM_MPI_SOURCES} ${RISM_THERMO_SOURCES} ${RISM_INTERFACE_SOURCES})
+
++#---------------------------------------------------------------------------------------------------------------------------------------------------------------------
++
++flex_target(rism_options_lex rism_options.l lex.rism.c)
++
++add_custom_target(rism_lex ALL DEPENDS lex.rism.c) #give CMake a reason to do the lexing
++
++#---------------------------------------------------------------------------------------------------------------------------------------------------------------------
++
++# detect missing getline() and fix it
++check_all_functions(getline)
++
++if(NOT HAVE_GETLINE)
++	list(APPEND SINGLE_POINT_SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/getline/getline.c)
++endif()
+
+ #---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+@@ -76,10 +90,17 @@ make_pic_if_needed(sff_rism_interface)
+
+ # rism3d.snglpnt
+ add_executable(rism3d.snglpnt ${SINGLE_POINT_SOURCES})
++add_dependencies(rism3d.snglpnt rism_lex) # make sure lexing is done first
+ set_property(TARGET rism3d.snglpnt PROPERTY COMPILE_OPTIONS ${OPT_CFLAGS})
+ target_link_libraries(rism3d.snglpnt sff rism fftw netlib amber_common xblas)
+ install(TARGETS rism3d.snglpnt DESTINATION ${BINDIR})
+
++if(NOT HAVE_GETLINE)
++	target_include_directories(rism3d.snglpnt PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/getline)
++	target_compile_definitions(rism3d.snglpnt PRIVATE USE_INTERNAL_GETLINE)
++
++endif()
++
+ #rism 1D executable
+ add_executable(rism1d ${RISM1D_SOURCES})
+ config_module_dirs(rism1d ${RISM1D_MOD_DIR} ${RISMLIB_MOD_DIR} ${AMBER_COMMON_MOD_DIR})
+diff --git a/AmberTools/src/rism/getline/getline.c b/AmberTools/src/rism/getline/getline.c
+new file mode 100644
+index 0000000000..73b320ed6d
+--- /dev/null
++++ b/AmberTools/src/rism/getline/getline.c
+@@ -0,0 +1,55 @@
++/* This code is public domain -- Will Hartung 4/9/09 */
++#include "getline.h"
++
++ssize_t getline(char **lineptr, size_t *n, FILE *stream)
++{
++    char *bufptr = NULL;
++    char *p = bufptr;
++    size_t size;
++    int c;
++
++    if (lineptr == NULL) {
++        return -1;
++    }
++    if (stream == NULL) {
++        return -1;
++    }
++    if (n == NULL) {
++        return -1;
++    }
++    bufptr = *lineptr;
++    size = *n;
++
++    c = fgetc(stream);
++    if (c == EOF) {
++        return -1;
++    }
++    if (bufptr == NULL) {
++        bufptr = malloc(128);
++        if (bufptr == NULL) {
++            return -1;
++        }
++        size = 128;
++    }
++    p = bufptr;
++    while(c != EOF) {
++        if ((p - bufptr + 1) > size) {
++            size = size + 128;
++            bufptr = realloc(bufptr, size);
++            if (bufptr == NULL) {
++                return -1;
++            }
++        }
++        *p++ = c;
++        if (c == '\n') {
++            break;
++        }
++        c = fgetc(stream);
++    }
++
++    *p++ = '\0';
++    *lineptr = bufptr;
++    *n = size;
++
++    return p - bufptr - 1;
++}
+diff --git a/AmberTools/src/rism/getline/getline.h b/AmberTools/src/rism/getline/getline.h
+new file mode 100644
+index 0000000000..9c10d4fcff
+--- /dev/null
++++ b/AmberTools/src/rism/getline/getline.h
+@@ -0,0 +1,6 @@
++#include <stdio.h>
++#include <stdlib.h>
++
++// Amber's portable getline() for systems that lack it
++
++ssize_t getline(char **lineptr, size_t *n, FILE *stream);
+diff --git a/AmberTools/src/rism/rism3d.snglpnt.c b/AmberTools/src/rism/rism3d.snglpnt.c
+index 1167aead94..b98abe9228 100644
+--- a/AmberTools/src/rism/rism3d.snglpnt.c
++++ b/AmberTools/src/rism/rism3d.snglpnt.c
+@@ -17,6 +17,10 @@
+ #include "../sff/sff.h"
+ #include "../sff/timer.h"
+
++#ifdef USE_INTERNAL_GETLINE
++#include <getline.h>
++#endif
++
+ #ifdef MPI
+ int mpierror(int);
+ int mpifinalize(void);
+diff --git a/AmberTools/src/sff/CMakeLists.txt b/AmberTools/src/sff/CMakeLists.txt
+index b2f21d1b94..6bad31cb89 100644
+--- a/AmberTools/src/sff/CMakeLists.txt
++++ b/AmberTools/src/sff/CMakeLists.txt
+@@ -26,9 +26,9 @@ set(LEXED_FILES_DIR "${CMAKE_BINARY_DIR}/AmberTools/src/sff")
+ set(LEX_INTERMEDIATES_DIR "${LEXED_FILES_DIR}/intermediates")
+ file(MAKE_DIRECTORY ${LEX_INTERMEDIATES_DIR})
+
+-set(INTERMEDIATE_LEXED_FILE "${LEX_INTERMEDIATES_DIR}/yy.mm_options.c")
++set(INTERMEDIATE_LEXED_FILE "${LEX_INTERMEDIATES_DIR}/yy.mmo.c")
+
+-set(FINAL_LEXED_FILE "${LEXED_FILES_DIR}/lex.mm_options.c")
++set(FINAL_LEXED_FILE "${LEXED_FILES_DIR}/lex.mmo.c")
+
+ flex_target(mm_options_lex mm_options.l ${INTERMEDIATE_LEXED_FILE} COMPILE_FLAGS -Pmmo)
+
+@@ -75,8 +75,6 @@ add_dependencies(sff sff_lex)
+ make_pic_if_needed(sff)
+ target_include_directories(sff INTERFACE .)
+
+-
+-
+ #these files have alternate code (enabled with the SQM flag) for SANDER and SQM.
+ add_library(sff_fortran ${SFF_FORTRAN_C_SOURCES} $<TARGET_OBJECTS:dsarpack_obj>)
+ set_property(TARGET sff_fortran PROPERTY COMPILE_DEFINITIONS SQM)
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index ec8a7d225b..0a26e6bc6c 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -76,9 +76,6 @@ if(BUILD_HOST_TOOLS) #include only the couple of files needed for building the h
+
+ 	include(AmberBuildSystem2ndInit)
+
+-	# code for using built-in tools
+-	include(byacc)
+-
+ 	include(CppVectorGen)
+ 	include(ExternalPrograms)
+
+@@ -98,8 +95,8 @@ if(BUILD_HOST_TOOLS) #include only the couple of files needed for building the h
+ 	set(BUNDLE_SIGNATURE AMHT)
+ 	include(Packaging)
+
+-	# Tools we need to build: ucpp, byacc, rule_parse, nab2c, and utilMakeHelp
+-	set(AMBER_TOOLS ucpp-1.3 byacc nab leap)
++	# Tools we need to build: ucpp, rule_parse, nab2c, and utilMakeHelp
++	set(AMBER_TOOLS ucpp-1.3 nab leap)
+
+ else() #include all configuration segments
+
+@@ -112,7 +109,6 @@ else() #include all configuration segments
+ 	include(AmberBuildSystem2ndInit)
+
+ 	# code for using built-in tools
+-	include(byacc)
+ 	include(nab)
+
+ 	#configuration code
+@@ -130,7 +126,7 @@ else() #include all configuration segments
+
+ 	# 3rd party tools
+ 	# --------------------------------------------------------------------
+-	set(REQUIRED_3RDPARTY_TOOLS ucpp byacc netcdf netcdf-fortran xblas zlib)
++	set(REQUIRED_3RDPARTY_TOOLS ucpp netcdf netcdf-fortran xblas zlib)
+ 	if(USE_FFT)
+ 		list(APPEND REQUIRED_3RDPARTY_TOOLS fftw)
+ 	endif()
+@@ -138,7 +134,7 @@ else() #include all configuration segments
+ 	# whether blas and lapack are required
+ 	set(LINALG_LIBS_REQUIRED TRUE)
+ 	# programs where INTERNAL is a valid status
+-	set(BUNDLED_3RDPARTY_TOOLS blas lapack arpack byacc ucpp c9x-complex netcdf netcdf-fortran pnetcdf fftw readline xblas mpi4py perlmol)
++	set(BUNDLED_3RDPARTY_TOOLS blas lapack arpack ucpp c9x-complex netcdf netcdf-fortran pnetcdf fftw readline xblas mpi4py perlmol)
+ 	include(3rdPartyTools)
+
+ 	# --------------------------------------------------------------------
+diff --git a/cmake/3rdPartyTools.cmake b/cmake/3rdPartyTools.cmake
+index fd6b060927..5ee0671364 100644
+--- a/cmake/3rdPartyTools.cmake
++++ b/cmake/3rdPartyTools.cmake
+@@ -9,7 +9,6 @@ set(3RDPARTY_TOOLS
+ blas
+ lapack
+ arpack
+-byacc
+ ucpp
+ c9x-complex
+ netcdf
+@@ -34,7 +33,6 @@ set(3RDPARTY_TOOL_USES
+ "for fundamental linear algebra calculations"
+ "for fundamental linear algebra calculations"
+ "for fundamental linear algebra calculations"
+-"for compiling Amber's yacc parsers"
+ "used as a preprocessor for the NAB compiler"
+ "used as a support library on systems that do not have C99 complex.h support"
+ "for creating trajectory data files"
+@@ -161,20 +159,6 @@ if(NEED_ucpp)
+ 	endif()
+ endif()
+
+-#------------------------------------------------------------------------------
+-# check for byacc
+-# Amber needs Berkeley YACC.  It will NOT build with GNU bison.
+-#------------------------------------------------------------------------------
+-if(NEED_byacc)
+-	find_program(BYACC_LOCATION byacc DOC "Path to a Berkeley YACC.  GNU Bison will NOT work.")
+-
+-	if(${BYACC_LOCATION})
+-		set_3rdparty(byacc EXTERNAL)
+-	else()
+-		set_3rdparty(byacc INTERNAL)
+-	endif()
+-endif()
+-
+ #------------------------------------------------------------------------------
+ #  Readline
+ #------------------------------------------------------------------------------
+@@ -688,15 +672,6 @@ elseif(ucpp_INTERNAL)
+ 	list(APPEND 3RDPARTY_SUBDIRS ucpp-1.3)
+ endif()
+
+-#------------------------------------------------------------------------------
+-# byacc
+-#------------------------------------------------------------------------------
+-if(byacc_EXTERNAL)
+-	import_executable(byacc ${UCPP_LOCATION})
+-elseif(byacc_INTERNAL)
+-	list(APPEND 3RDPARTY_SUBDIRS byacc)
+-endif()
+-
+ #------------------------------------------------------------------------------
+ #  Readline
+ #------------------------------------------------------------------------------
+@@ -793,7 +768,7 @@ elseif(netcdf_INTERNAL)
+ 		 On cray systems you can usually load the system NetCDF with 'module load cray-netcdf' or 'module load netcdf'.")
+ 	endif()
+
+-	list(APPEND 3RDPARTY_SUBDIRS netcdf-4.3.0)
++	list(APPEND 3RDPARTY_SUBDIRS netcdf-4.6.1)
+ endif()
+
+ if(netcdf-fortran_EXTERNAL)
+diff --git a/cmake/AmberBuildSystemInit.cmake b/cmake/AmberBuildSystemInit.cmake
+index ebd71a869b..5f13a68cc8 100644
+--- a/cmake/AmberBuildSystemInit.cmake
++++ b/cmake/AmberBuildSystemInit.cmake
+@@ -56,7 +56,7 @@ include(CMakeParseArguments)
+ include(Utils)
+ include(Shorthand)
+ include(ColorMessage)
+-include(Policies)
++include(Policies NO_POLICY_SCOPE)
+
+ # get install directories
+ include(InstallDirs)
+diff --git a/cmake/CompilerFlags.cmake b/cmake/CompilerFlags.cmake
+index 914eddbbb7..1a49da16a3 100644
+--- a/cmake/CompilerFlags.cmake
++++ b/cmake/CompilerFlags.cmake
+@@ -289,6 +289,11 @@ if("${CMAKE_Fortran_COMPILER_ID}" STREQUAL "Intel")
+ 		set(CMAKE_Fortran_FLAGS_DEBUG "-g -debug all")
+
+ 		set(OPT_FFLAGS -ip -O3)
++
++		if("${CMAKE_Fortran_COMPILER_VERSION}" VERSION_EQUAL 18)
++			message(WARNING "Significant test failures were experienced with 2018 versions of Intel compilers!  Workarounds for these known problems have been implemented.  \
++However, we do not recommend building Amber with icc version 18. Versions 19, 17, and 16 are much more stable.")
++		endif()
+
+ 		if(SSE)
+
+diff --git a/cmake/CudaConfig.cmake b/cmake/CudaConfig.cmake
+index 6ae0a65eb2..e091f86c2c 100644
+--- a/cmake/CudaConfig.cmake
++++ b/cmake/CudaConfig.cmake
+@@ -19,15 +19,10 @@ else()
+
+ 		set(CUDA_HOST_COMPILER ${CMAKE_CXX_COMPILER})
+
+-		option(VOLTA "Build the CUDA version of pmemd with special optimizations for the Volta architecture (this will be deprecated as the optimizations become standardized in a later release)" FALSE)
+-		if(VOLTA AND (${CUDA_VERSION} VERSION_LESS 9.0))
+-			message(FATAL_ERROR "Volta optimizations cannot be built with this CUDA version.  Please disable the VOLTA option, or upgrade CUDA.")
+-		endif()
+-
+ 		#Note at present we do not include SM3.5 or SM3.7 since they sometimes show performance
+ 		#regressions over just using SM3.0.
+ 		#SM7.0 = V100 and Volta Geforce / GTX Ampere?
+-		set(SM70FLAGS -gencode arch=compute_60,code=sm_70)
++		set(SM70FLAGS -gencode arch=compute_70,code=sm_70)
+ 		#SM6.2 = ???
+ 		set(SM62FLAGS -gencode arch=compute_62,code=sm_62)
+ 		#SM6.1 = GP106 = GTX-1070, GP104 = GTX-1080, GP102 = Titan-X[P]
+@@ -56,21 +51,14 @@ else()
+
+ 		elseif(${CUDA_VERSION} VERSION_EQUAL 8.0)
+ 			message(STATUS "Configuring CUDA for SM3.0, SM5.0, SM5.2, SM5.3, SM6.0, SM6.1 and SM6.2")
+-			message(STATUS "BE AWARE: CUDA 8.0 does not support V100, Volta Gefore / GTX Ampere? or other Volta based GPUs.")
++			message(STATUS "BE AWARE: CUDA 8.0 does not support V100, GV100, Titan-V or later GPUs")
+ 		  	list(APPEND CUDA_NVCC_FLAGS ${SM30FLAGS} ${SM50FLAGS} ${SM52FLAGS} ${SM53FLAGS} ${SM60FLAGS} ${SM61FLAGS} -Wno-deprecated-gpu-targets)
+
+-		elseif((${CUDA_VERSION} VERSION_EQUAL 9.0) OR (${CUDA_VERSION} VERSION_EQUAL 9.1))
+-
+-			if(VOLTA)
+-				message(STATUS "Configuring for SM7.0 only with special optimizations")
+-				list(APPEND CUDA_NVCC_FLAGS ${SM70FLAGS} -DVOLTAOPT)
+-			else()
+-				message(STATUS "Configuring CUDA for SM3.0, SM5.0, SM5.2, SM5.3, SM6.0, SM6.1, and SM7.0")
+-			  	list(APPEND CUDA_NVCC_FLAGS ${SM30FLAGS} ${SM50FLAGS} ${SM52FLAGS} ${SM53FLAGS} ${SM60FLAGS} ${SM61FLAGS} ${SM70FLAGS} -Wno-deprecated-gpu-targets)
+-		  	endif()
+-
++		elseif(((${CUDA_VERSION} VERSION_EQUAL 9.0) OR (${CUDA_VERSION} VERSION_GREATER 9.0)) AND (${CUDA_VERSION} VERSION_EQUAL 10.2 OR ${CUDA_VERSION} VERSION_LESS 10.2))
++			message(STATUS "Configuring for SM3.0, SM3.5, SM3.7, SM5.0, SM5.2, SM5.3, SM6.0, SM6.1 and SM7.0")
++			list(APPEND CUDA_NVCC_FLAGS ${SM30FLAGS} ${SM50FLAGS} ${SM52FLAGS} ${SM53FLAGS} ${SM60FLAGS} ${SM61FLAGS} ${SM70FLAGS} -Wno-deprecated-gpu-targets -Wno-deprecated-declarations)
+ 		else()
+-			message(FATAL_ERROR "Error: Unsupported CUDA version. AMBER requires CUDA version >= 7.5.
++			message(FATAL_ERROR "Error: Unsupported CUDA version. AMBER requires CUDA version >= 7.5 and <= 10.2.
+ 				Please upgrade your CUDA installation or disable building with CUDA.")
+ 		endif()
+
+@@ -85,6 +73,7 @@ else()
+ 		import_libraries(cufft LIBRARIES ${CUDA_CUFFT_LIBRARIES})
+
+ 		import_library(curand ${CUDA_curand_LIBRARY})
++		import_library(cusparse ${CUDA_cusparse_LIBRARY})
+
+ 		# Before CMake 3.7, FindCUDA did not automatically link libcudadevrt, as is required for seperable compilation.
+ 		# Finder code copied from here: https://github.com/Kitware/CMake/commit/891e0ebdcea547b10689eee9fd008a27e4afd3b9
+diff --git a/cmake/ExternalPrograms.cmake b/cmake/ExternalPrograms.cmake
+index 5ee53798be..52038903f5 100644
+--- a/cmake/ExternalPrograms.cmake
++++ b/cmake/ExternalPrograms.cmake
+@@ -17,6 +17,11 @@ find_program(M4 m4)
+ #------------------------------------------------------------------------------
+ find_package(FLEX REQUIRED)
+
++#------------------------------------------------------------------------------
++#  Bison
++#------------------------------------------------------------------------------
++find_package(BISON REQUIRED)
++
+ #------------------------------------------------------------------------------
+ #  bash, for running shell scripts
+ #------------------------------------------------------------------------------
+diff --git a/cmake/FixCondaShebang/CMakeLists.txt b/cmake/FixCondaShebang/CMakeLists.txt
+index 32a2a7fbc7..83ff55672c 100644
+--- a/cmake/FixCondaShebang/CMakeLists.txt
++++ b/cmake/FixCondaShebang/CMakeLists.txt
+@@ -2,7 +2,7 @@
+
+ # The Miniconda shebang fixer script neds to run after all other install rules.
+ # Unfortuantely, CMake does not have any way to make a custom install rule be installed after subdirectories.
+-# So, this is a dummy subdirectory for CMake to process as the last to-level subdirectory.
++# So, this is a dummy subdirectory for CMake to process as the last top-level subdirectory.
+
+ # All we have to do is
+ # create an install rule to invoke FixCondaShebang.cmake
+diff --git a/cmake/PMEMDCompilerFlags.cmake b/cmake/PMEMDCompilerFlags.cmake
+index 9d9fa81f08..7c24005b79 100644
+--- a/cmake/PMEMDCompilerFlags.cmake
++++ b/cmake/PMEMDCompilerFlags.cmake
+@@ -40,7 +40,7 @@ set(EMIL_MIC_FLAGS "")
+ #  and a new pmemd.<value> executable will be created
+ #-------------------------------------------------------------------------------
+
+-set(PMEMD_CUDA_PRECISIONS SPFP DPFP SPXP)
++set(PMEMD_CUDA_PRECISIONS SPFP DPFP)
+
+ #precision of pmemd which gets installed as pmemd.cuda
+ set(PMEMD_DEFAULT_PRECISION SPFP)
+diff --git a/cmake/PythonInterpreterConfig.cmake b/cmake/PythonInterpreterConfig.cmake
+index 57843ab1bf..be5c725a27 100644
+--- a/cmake/PythonInterpreterConfig.cmake
++++ b/cmake/PythonInterpreterConfig.cmake
+@@ -50,7 +50,7 @@ if(DOWNLOAD_MINICONDA)
+ 		unset(ENV{_CONDA_PYTHON2})
+ 	endif()
+
+-	set(MINICONDA_VERSION 4.3.21)
++	set(MINICONDA_VERSION 4.5.11)
+ 	option(MINICONDA_USE_PY3 "If true, Amber will download a Python 3 miniconda when DOWNLOAD_MINICONDA is enabled.  Otherwise, Python 2.7 Miniconda will get downloaded." FALSE)
+
+ 	include(UseMiniconda)
+diff --git a/cmake/Replace.cmake b/cmake/Replace.cmake
+index 64122f9167..0f52af02e1 100644
+--- a/cmake/Replace.cmake
++++ b/cmake/Replace.cmake
+@@ -37,6 +37,7 @@ function(buildtime_file_replace INPUTFILE OUTPUTFILE)
+ 	add_custom_command(
+ 		OUTPUT ${OUTPUTFILE}
+ 		COMMAND ${CMAKE_COMMAND} -DTO_REPLACE=${REPLACE_TO_REPLACE} -DREPLACEMENT=${REPLACE_REPLACEMENT} -DINPUTFILE=${INPUTFILE} -DOUTPUTFILE=${OUTPUTFILE} -P ${CMAKE_SOURCE_DIR}/cmake/Replace-runtime.cmake VERBATIM
++		COMMENT "Processing ${INPUTFILE} to ${OUTPUTFILE}"
+ 		DEPENDS ${INPUTFILE})
+
+
+diff --git a/cmake/RunnablePrograms.cmake b/cmake/RunnablePrograms.cmake
+index 6fea4aa610..436494236a 100644
+--- a/cmake/RunnablePrograms.cmake
++++ b/cmake/RunnablePrograms.cmake
+@@ -3,7 +3,7 @@
+
+ # Must be included after MPIConfig
+
+-set(EXECUTABLES_TO_IMPORT byacc ucpp utilMakeHelp nab2c mpinab2c rule_parse)
++set(EXECUTABLES_TO_IMPORT ucpp utilMakeHelp nab2c mpinab2c rule_parse)
+
+ set(EXECUTABLES_TO_IMPORT_REQUIRED TRUE TRUE TRUE TRUE ${MPI} TRUE) # true if the corresponding executable is needed to build Amber
+
+diff --git a/cmake/UseMiniconda.cmake b/cmake/UseMiniconda.cmake
+index 73e9989ff2..fe10b0bec5 100644
+--- a/cmake/UseMiniconda.cmake
++++ b/cmake/UseMiniconda.cmake
+@@ -154,7 +154,7 @@ function(download_and_use_miniconda)
+ 		execute_process(COMMAND ${CONDA} install -y nomkl)
+ 	endif()
+
+-	execute_process(COMMAND ${CONDA} install -y  conda-build numpy scipy cython=0.25 ipython notebook pytest RESULT_VARIABLE PACKAGE_INSTALL_RETVAL)
++	execute_process(COMMAND ${CONDA} install -y -q conda-build numpy scipy cython=0.25 ipython notebook pytest RESULT_VARIABLE PACKAGE_INSTALL_RETVAL)
+ 	if(NOT ${PACKAGE_INSTALL_RETVAL} EQUAL 0)
+ 		message(FATAL_ERROR "Installation of packages failed!  Please fix what's wrong, or disable Miniconda.")
+ 	endif()
+diff --git a/cmake/byacc.cmake b/cmake/byacc.cmake
+deleted file mode 100644
+index 28db4230ca..0000000000
+--- a/cmake/byacc.cmake
++++ /dev/null
+@@ -1,61 +0,0 @@
+-#Modified version of BISON_TARGET (from FindBison) which uses AMBER's in-tree byacc
+-#some yacc programs in AMBER use syntax that won't compile with GNU bison, so we have to use byacc.  Believe me, I've tried.
+-
+-#usage: byacc_target(<target name> <input file> <output directory> [GENERATE_HEADER] [COMPILE_FLAGS <flags...>] [FILE_PREFIX <prefix (default 'y')>])
+-#always generates the ${FILE_PREFIX}.tab.c (and possibly ${FILE_PREFIX}.tab.h) in the output directory
+-#input file is relative to the current source directory
+-
+-#GENERATE_HEADER: also generate ${FILE_PREFIX}.tab.h
+-
+-#Targets created by this macro work with add_flex_bison_dependency()
+-
+-macro(byacc_target NAME INPUT OUTPUT_DIR)
+-	set(BYACC_TARGET_output_header "")
+-	set(BYACC_TARGET_cmdopt "")
+-
+-	cmake_parse_arguments(
+-		BYACC_TARGET_ARG
+-		GENERATE_HEADER
+-	 	FILE_PREFIX
+-		COMPILE_FLAGS
+-		${ARGN})
+-
+-	if(NOT "${BYACC_TARGET_ARG_UNPARSED_ARGUMENTS}" STREQUAL "")
+-	  message(SEND_ERROR "Incorrect Usage")
+-	else()
+-
+-		if(NOT "${BYACC_TARGET_ARG_COMPILE_FLAGS}" STREQUAL "")
+-			list(APPEND BYACC_TARGET_cmdopt ${BYACC_TARGET_ARG_COMPILE_FLAGS})
+-		endif()
+-
+-		if("${BYACC_TARGET_ARG_FILE_PREFIX}" STREQUAL "")
+-			set(BYACC_TARGET_ARG_FILE_PREFIX y)
+-		else()
+-			list(APPEND BYACC_TARGET_cmdopt -b ${BYACC_TARGET_ARG_FILE_PREFIX})
+-		endif()
+-
+-		set(BYACC_TARGET_outputs ${OUTPUT_DIR}/${BYACC_TARGET_ARG_FILE_PREFIX}.tab.c)
+-
+-		if(${BYACC_TARGET_ARG_GENERATE_HEADER})
+-			list(APPEND BYACC_TARGET_cmdopt -d)
+-			list(APPEND BYACC_TARGET_outputs ${OUTPUT_DIR}/${BYACC_TARGET_ARG_FILE_PREFIX}.tab.h)
+-		endif()
+-
+-		add_custom_command(OUTPUT ${BYACC_TARGET_outputs}
+-			COMMAND ${RUNNABLE_byacc} ${BYACC_TARGET_cmdopt} ${CMAKE_CURRENT_SOURCE_DIR}/${INPUT}
+-			VERBATIM
+-			DEPENDS ${INPUT}
+-			COMMENT "[BYACC][${NAME}] Building parser with berkeley yacc"
+-			WORKING_DIRECTORY ${OUTPUT_DIR})
+-
+-	  # define target variables
+-	  # use "BISON" for compatibility with bison_target
+-	  set(BISON_${NAME}_DEFINED TRUE)
+-	  set(BISON_${NAME}_INPUT ${INPUT})
+-	  set(BISON_${NAME}_OUTPUTS ${BYACC_TARGET_outputs})
+-	  set(BISON_${NAME}_COMPILE_FLAGS ${BYACC_TARGET_cmdopt})
+-	  set(BISON_${NAME}_OUTPUT_SOURCE ${OUTPUT_DIR}/${BYACC_TARGET_ARG_FILE_PREFIX}.tab.c)
+-	  set(BISON_${NAME}_OUTPUT_HEADER ${OUTPUT_DIR}/${BYACC_TARGET_ARG_FILE_PREFIX}.tab.h)
+-
+-	endif()
+-endmacro()
