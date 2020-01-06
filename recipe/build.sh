@@ -7,8 +7,8 @@ for n in {1..5}; do
     ./update_amber --update-to=AmberTools.${PATCH_LEVEL} && break
 done
 
-# Patch manually
-patch --verbose -p1 --ignore-whitespace -t -i ${RECIPE_DIR}/patches/amber19-fix-cmake.patch
+# Patch manually (errors seem to be unimportant)
+# patch -p1 --ignore-whitespace -t -i ${RECIPE_DIR}/patches/amber19-fix-cmake.patch || true
 
 # Build AmberTools with cmake
 mkdir build

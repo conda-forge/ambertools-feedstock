@@ -1346,19 +1346,6 @@ index fd6b060927..5ee0671364 100644
  endif()
 
  if(netcdf-fortran_EXTERNAL)
-diff --git a/cmake/AmberBuildSystemInit.cmake b/cmake/AmberBuildSystemInit.cmake
-index ebd71a869b..5f13a68cc8 100644
---- a/cmake/AmberBuildSystemInit.cmake
-+++ b/cmake/AmberBuildSystemInit.cmake
-@@ -56,7 +56,7 @@ include(CMakeParseArguments)
- include(Utils)
- include(Shorthand)
- include(ColorMessage)
--include(Policies)
-+include(Policies NO_POLICY_SCOPE)
-
- # get install directories
- include(InstallDirs)
 diff --git a/cmake/CompilerFlags.cmake b/cmake/CompilerFlags.cmake
 index 914eddbbb7..1a49da16a3 100644
 --- a/cmake/CompilerFlags.cmake
@@ -1431,22 +1418,6 @@ index 6ae0a65eb2..e091f86c2c 100644
 
  		# Before CMake 3.7, FindCUDA did not automatically link libcudadevrt, as is required for seperable compilation.
  		# Finder code copied from here: https://github.com/Kitware/CMake/commit/891e0ebdcea547b10689eee9fd008a27e4afd3b9
-diff --git a/cmake/ExternalPrograms.cmake b/cmake/ExternalPrograms.cmake
-index 5ee53798be..52038903f5 100644
---- a/cmake/ExternalPrograms.cmake
-+++ b/cmake/ExternalPrograms.cmake
-@@ -17,6 +17,11 @@ find_program(M4 m4)
- #------------------------------------------------------------------------------
- find_package(FLEX REQUIRED)
-
-+#------------------------------------------------------------------------------
-+#  Bison
-+#------------------------------------------------------------------------------
-+find_package(BISON REQUIRED)
-+
- #------------------------------------------------------------------------------
- #  bash, for running shell scripts
- #------------------------------------------------------------------------------
 diff --git a/cmake/FixCondaShebang/CMakeLists.txt b/cmake/FixCondaShebang/CMakeLists.txt
 index 32a2a7fbc7..83ff55672c 100644
 --- a/cmake/FixCondaShebang/CMakeLists.txt
@@ -1473,19 +1444,6 @@ index 9d9fa81f08..7c24005b79 100644
 
  #precision of pmemd which gets installed as pmemd.cuda
  set(PMEMD_DEFAULT_PRECISION SPFP)
-diff --git a/cmake/PythonInterpreterConfig.cmake b/cmake/PythonInterpreterConfig.cmake
-index 57843ab1bf..be5c725a27 100644
---- a/cmake/PythonInterpreterConfig.cmake
-+++ b/cmake/PythonInterpreterConfig.cmake
-@@ -50,7 +50,7 @@ if(DOWNLOAD_MINICONDA)
- 		unset(ENV{_CONDA_PYTHON2})
- 	endif()
-
--	set(MINICONDA_VERSION 4.3.21)
-+	set(MINICONDA_VERSION 4.5.11)
- 	option(MINICONDA_USE_PY3 "If true, Amber will download a Python 3 miniconda when DOWNLOAD_MINICONDA is enabled.  Otherwise, Python 2.7 Miniconda will get downloaded." FALSE)
-
- 	include(UseMiniconda)
 diff --git a/cmake/Replace.cmake b/cmake/Replace.cmake
 index 64122f9167..0f52af02e1 100644
 --- a/cmake/Replace.cmake
