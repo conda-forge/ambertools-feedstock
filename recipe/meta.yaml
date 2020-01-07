@@ -13,6 +13,7 @@ source:
   patches:
     - patches/do_not_use_global_conda_prefix.patch
     - patches/do_not_symlink_missing_ff12pol.patch
+    - patches/use_external_netcdf.patch
     # this one has to be applied manually in build.sh
     # - patches/amber19-fix-cmake.patch
 

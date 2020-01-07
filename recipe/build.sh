@@ -20,8 +20,8 @@ cmake ${SRC_DIR} \
     -DCOMPILER=MANUAL \
     -DPYTHON_EXECUTABLE=${PYTHON} \
     -DDOWNLOAD_MINICONDA=FALSE \
+    -DBUILD_GUI=TRUE \
     -DCHECK_UPDATES=FALSE
-#    -DFORCE_EXTERNAL_LIBS="netcdf;netcdf-fortran"
 
 make && make install
 

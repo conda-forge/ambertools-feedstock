@@ -1,0 +1,13 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index ec8a7d22..286883fa 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -138,7 +138,7 @@ else() #include all configuration segments
+ 	# whether blas and lapack are required
+ 	set(LINALG_LIBS_REQUIRED TRUE)
+ 	# programs where INTERNAL is a valid status
+-	set(BUNDLED_3RDPARTY_TOOLS blas lapack arpack byacc ucpp c9x-complex netcdf netcdf-fortran pnetcdf fftw readline xblas mpi4py perlmol)
++	set(BUNDLED_3RDPARTY_TOOLS blas lapack arpack byacc ucpp c9x-complex fftw readline xblas mpi4py perlmol)
+ 	include(3rdPartyTools)
+ 	
+ 	# --------------------------------------------------------------------
