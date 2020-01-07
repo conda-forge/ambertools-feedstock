@@ -8,11 +8,11 @@ for n in {1..5}; do
 done
 
 # Patch manually to avoid issues with newlines
-if [[ $target_plaform == linux* ]]; then
+if [[ $target_platform == linux* ]]; then
     sed 's/\r$//g' ${RECIPE_DIR}/patches/amber19-fix-cmake.patch > amber19-fix-cmake.patch
     sed -i 's/\r$//g' ${SRC_DIR}/cmake/*.cmake
 fi
-if [[ $target_plaform == osx* ]]; then
+if [[ $target_platform == osx* ]]; then
     sed -i.bak $'s/\r//' ${RECIPE_DIR}/patches/amber19-fix-cmake.patch > amber19-fix-cmake.patch
 
     sed -i.bak $'s/\r//' ${SRC_DIR}/cmake/*.cmake
