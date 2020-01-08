@@ -12,10 +12,16 @@ perl -p  -e 's/\r$//g' ${RECIPE_DIR}/patches/amber19-fix-cmake.patch > amber19-f
 perl -pi -e 's/\r$//g' ${SRC_DIR}/cmake/*.cmake
 patch -p1 --ignore-whitespace -t -i amber19-fix-cmake.patch || true
 
+if [[ "$target_platform" == osx* ]]; then
+    CMAKE_FLAGS+=" -DCMAKE_OSX_SYSROOT=${CONDA_BUILD_SYSROOT}"
+    CMAKE_FLAGS+=" -DCMAKE_OSX_DEPLOYMENT_TARGET=${MACOSX_DEPLOYMENT_TARGET}"
+    export FFLAGS="-isysroot ${CONDA_BUILD_SYSROOT} ${FFLAGS}"
+fi
+
 # Build AmberTools with cmake
-mkdir build
+mkdir -p build
 cd build
-cmake ${SRC_DIR} \
+cmake ${SRC_DIR} ${CMAKE_FLAGS} \
     -DCMAKE_INSTALL_PREFIX=${PREFIX} \
     -DCOMPILER=MANUAL \
     -DPYTHON_EXECUTABLE=${PYTHON} \
