@@ -8,15 +8,8 @@ for n in {1..5}; do
 done
 
 # Patch manually to avoid issues with newlines
-if [[ $target_platform == linux* ]]; then
-    sed 's/\r$//g' ${RECIPE_DIR}/patches/amber19-fix-cmake.patch > amber19-fix-cmake.patch
-    sed -i 's/\r$//g' ${SRC_DIR}/cmake/*.cmake
-fi
-if [[ $target_platform == osx* ]]; then
-    sed -i.bak $'s/\r//' ${RECIPE_DIR}/patches/amber19-fix-cmake.patch > amber19-fix-cmake.patch
-
-    sed -i.bak $'s/\r//' ${SRC_DIR}/cmake/*.cmake
-fi
+perl -p  -e 's/\r$//g' ${RECIPE_DIR}/patches/amber19-fix-cmake.patch > amber19-fix-cmake.patch
+perl -pi -e 's/\r$//g' ${SRC_DIR}/cmake/*.cmake
 patch -p1 --ignore-whitespace -t -i amber19-fix-cmake.patch || true
 
 # Build AmberTools with cmake
