@@ -12,6 +12,7 @@ perl -p  -e 's/\r$//g' ${RECIPE_DIR}/patches/amber19-fix-cmake.patch > amber19-f
 perl -pi -e 's/\r$//g' ${SRC_DIR}/cmake/*.cmake
 patch -p1 --ignore-whitespace -t -i amber19-fix-cmake.patch || true
 
+CMAKE_FLAGS=""
 if [[ "$target_platform" == osx* ]]; then
     CMAKE_FLAGS+=" -DCMAKE_OSX_SYSROOT=${CONDA_BUILD_SYSROOT}"
     CMAKE_FLAGS+=" -DCMAKE_OSX_DEPLOYMENT_TARGET=${MACOSX_DEPLOYMENT_TARGET}"
