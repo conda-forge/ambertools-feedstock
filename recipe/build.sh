@@ -20,7 +20,7 @@ if [[ "$target_platform" == osx* ]]; then
     export PATH="${PATH}:${RECIPE_DIR}/fake-bin"
     CMAKE_FLAGS+=" -DCMAKE_OSX_SYSROOT=${CONDA_BUILD_SYSROOT}"
     CMAKE_FLAGS+=" -DCMAKE_OSX_DEPLOYMENT_TARGET=${MACOSX_DEPLOYMENT_TARGET}"
-    export FFLAGS="-isysroot ${CONDA_BUILD_SYSROOT} ${FFLAGS}"
+    # export FFLAGS="-isysroot ${CONDA_BUILD_SYSROOT} ${FFLAGS}"
 fi
 
 # Build AmberTools with cmake
