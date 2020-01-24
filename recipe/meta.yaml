@@ -71,7 +71,6 @@ requirements:
     - fftw
     - libblas
     - liblapack
-    - libopenblas
     - xorg-libxt
     - xorg-libxext
     - readline
