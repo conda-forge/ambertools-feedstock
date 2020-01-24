@@ -20,12 +20,6 @@ if [[ "$target_platform" == osx* ]]; then
     # Taken from https://github.com/awvwgk/staged-recipes/tree/dftd4/recipes/dftd4
     # See contents of fake-bin/cc1 for an explanation
     export PATH="${PATH}:${RECIPE_DIR}/fake-bin"
-    # # Workaround https://github.com/conda-forge/tk-feedstock/issues/15
-    # set +eux
-    # conda remove -p ${PREFIX} --force tk
-    # conda install -p ${PREFIX} --force-reinstall --clobber --yes \
-    #               xorg-libxt xorg-libxext xorg-libx11
-    # set -eux
 fi
 
 # Build AmberTools with cmake
