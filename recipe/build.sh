@@ -21,7 +21,10 @@ if [[ "$target_platform" == osx* ]]; then
     # See contents of fake-bin/cc1 for an explanation
     export PATH="${PATH}:${RECIPE_DIR}/fake-bin"
     # Workaround https://github.com/conda-forge/tk-feedstock/issues/15
-    conda install -p ${PREFIX} --force --yes xorg-libxt xorg-libxext xorg-libx11
+    set +eux
+    conda install -p ${PREFIX} --force-reinstall --clobber --yes \
+                  xorg-libxt xorg-libxext xorg-libx11
+    set -eux
 fi
 
 # Build AmberTools with cmake
