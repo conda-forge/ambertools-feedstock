@@ -14,6 +14,7 @@ source:
     - patches/do_not_use_global_conda_prefix.patch
     - patches/do_not_symlink_missing_ff12pol.patch
     - patches/use_external_netcdf.patch
+    - patches/do_not_override_osx_deployment_target.patch
     # The following patch was downloaded from this GH issue:
     #   https://github.com/Amber-MD/cmake-buildscripts/issues/131#issuecomment-561280272
     # It needs to be applied manually in build.sh
