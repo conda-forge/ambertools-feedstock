@@ -22,6 +22,7 @@ if [[ "$target_platform" == osx* ]]; then
     export PATH="${PATH}:${RECIPE_DIR}/fake-bin"
     # Workaround https://github.com/conda-forge/tk-feedstock/issues/15
     set +eux
+    conda remove -p ${PREFIX} tk
     conda install -p ${PREFIX} --force-reinstall --clobber --yes \
                   xorg-libxt xorg-libxext xorg-libx11
     set -eux
