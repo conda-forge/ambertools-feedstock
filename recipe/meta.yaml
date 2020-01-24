@@ -56,8 +56,8 @@ requirements:
     - pthread-stubs
     - fftw
     - liblapack
-    - xorg-libxt
-    - xorg-libxext
+    - xorg-libxt  # [linux]
+    - xorg-libxext   # [linux]
     - readline
   run:
     - python
@@ -71,8 +71,8 @@ requirements:
     - fftw
     - libblas
     - liblapack
-    - xorg-libxt
-    - xorg-libxext
+    - xorg-libxt  # [linux]
+    - xorg-libxext  # [linux]
     - readline
 
 test:
