@@ -58,7 +58,6 @@ requirements:
     - liblapack
     - xorg-libxt
     - xorg-libxext
-    - xorg-libx11  # [linux]
     - readline
   run:
     - python
@@ -75,7 +74,6 @@ requirements:
     - libopenblas
     - xorg-libxt
     - xorg-libxext
-    - xorg-libx11  # [linux]
     - readline
 
 test:
