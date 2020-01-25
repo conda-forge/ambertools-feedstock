@@ -24,7 +24,7 @@ source:
     # - patches/amber19-fix-cmake.patch
 
 build:
-  number: 0
+  number: 1
   skip: True  # [win or py2k]
 
 requirements:
