@@ -14,14 +14,18 @@ source:
     - patches/do_not_use_global_conda_prefix.patch
     - patches/do_not_symlink_missing_ff12pol.patch
     - patches/use_external_netcdf.patch
+    - patches/do_not_override_osx_deployment_target.patch  # [osx]
+    # Fix weird bug described here:
+    #   https://github.com/conda-forge/ambertools-feedstock/pull/11#issuecomment-570618741
+    - patches/delete_xdrfile_version.patch  # [osx]
     # The following patch was downloaded from this GH issue:
     #   https://github.com/Amber-MD/cmake-buildscripts/issues/131#issuecomment-561280272
     # It needs to be applied manually in build.sh
     # - patches/amber19-fix-cmake.patch
 
 build:
-  number: 0
-  skip: True  # [win or py2k or osx]
+  number: 1
+  skip: True  # [win or py2k]
 
 requirements:
   build:
@@ -52,9 +56,8 @@ requirements:
     - pthread-stubs
     - fftw
     - liblapack
-    - xorg-libxt
-    - xorg-libxext
-    - xorg-libx11
+    - xorg-libxt  # [linux]
+    - xorg-libxext   # [linux]
     - readline
   run:
     - python
@@ -68,10 +71,8 @@ requirements:
     - fftw
     - libblas
     - liblapack
-    - libopenblas
-    - xorg-libxt
-    - xorg-libxext
-    - xorg-libx11
+    - xorg-libxt  # [linux]
+    - xorg-libxext  # [linux]
     - readline
 
 test:

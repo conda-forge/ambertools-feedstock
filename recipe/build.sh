@@ -13,10 +13,15 @@ perl -pi -e 's/\r$//g' ${SRC_DIR}/cmake/*.cmake
 patch -p1 --ignore-whitespace -t -i amber19-fix-cmake.patch || true
 
 CMAKE_FLAGS=""
+BUILD_GUI="TRUE"
 if [[ "$target_platform" == osx* ]]; then
     CMAKE_FLAGS+=" -DCMAKE_OSX_SYSROOT=${CONDA_BUILD_SYSROOT}"
     CMAKE_FLAGS+=" -DCMAKE_OSX_DEPLOYMENT_TARGET=${MACOSX_DEPLOYMENT_TARGET}"
-    export FFLAGS="-isysroot ${CONDA_BUILD_SYSROOT} ${FFLAGS}"
+    BUILD_GUI="FALSE"
+    # Hack around https://github.com/conda-forge/gfortran_osx-64-feedstock/issues/11
+    # Taken from https://github.com/awvwgk/staged-recipes/tree/dftd4/recipes/dftd4
+    # See contents of fake-bin/cc1 for an explanation
+    export PATH="${PATH}:${RECIPE_DIR}/fake-bin"
 fi
 
 # Build AmberTools with cmake
@@ -27,7 +32,7 @@ cmake ${SRC_DIR} ${CMAKE_FLAGS} \
     -DCOMPILER=MANUAL \
     -DPYTHON_EXECUTABLE=${PYTHON} \
     -DDOWNLOAD_MINICONDA=FALSE \
-    -DBUILD_GUI=TRUE \
+    -DBUILD_GUI=${BUILD_GUI} \
     -DCHECK_UPDATES=FALSE
 
 make && make install
