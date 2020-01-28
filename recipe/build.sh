@@ -43,3 +43,20 @@ cp ${RECIPE_DIR}/activate.sh ${PREFIX}/etc/conda/activate.d/ambertools.sh
 cp ${RECIPE_DIR}/activate.fish ${PREFIX}/etc/conda/activate.d/ambertools.fish
 cp ${RECIPE_DIR}/deactivate.sh ${PREFIX}/etc/conda/deactivate.d/ambertools.sh
 cp ${RECIPE_DIR}/deactivate.fish ${PREFIX}/etc/conda/deactivate.d/ambertools.fish
+
+cat << EOF > ${PREFIX}/config.h
+INSTALLTYPE=serial
+AMBER_SOURCE=${SRC_DIR}
+AMBER_PREFIX=${PREFIX}
+BINDIR=${PREFIX}/bin
+DATDIR=${PREFIX}/dat
+LIBDIR=${PREFIX}/lib
+INCDIR=${PREFIX}/include
+PYTHON=python
+SKIP_PYTHON=no
+SHARED_SUFFIX=${SHLIB_EXT}
+EOF
+
+export AMBERHOME=${PREFIX}
+cd ${SRC_DIR}/AmberTools/test
+make test
