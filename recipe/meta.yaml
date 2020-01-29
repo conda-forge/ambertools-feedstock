@@ -25,7 +25,7 @@ source:
 
 build:
   number: 1
-  skip: True  # [win or py2k]
+  skip: True  # [win or osx or ppc64le or py!=37]
 
 requirements:
   build:
@@ -59,6 +59,7 @@ requirements:
     - xorg-libxt  # [linux]
     - xorg-libxext   # [linux]
     - readline
+    - util-linux  # [linux64]
   run:
     - python
     - cython
