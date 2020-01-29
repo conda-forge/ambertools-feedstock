@@ -77,6 +77,9 @@ requirements:
     - readline
 
 test:
+  requires:
+  # Try to force a library incompatibility error
+    - lxml
   commands:
     - antechamber -h
     - cpptraj -h
