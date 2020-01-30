@@ -59,7 +59,6 @@ requirements:
     - xorg-libxt  # [linux]
     - xorg-libxext   # [linux]
     - readline
-    - util-linux  # [linux64]
   run:
     - python
     - cython
@@ -77,6 +76,10 @@ requirements:
     - readline
 
 test:
+  requires:
+    - util-linux  # [linux64]
+  source_files:
+    - "*"
   commands:
     - antechamber -h
     - cpptraj -h

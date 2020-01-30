@@ -43,35 +43,3 @@ cp ${RECIPE_DIR}/activate.sh ${PREFIX}/etc/conda/activate.d/ambertools.sh
 cp ${RECIPE_DIR}/activate.fish ${PREFIX}/etc/conda/activate.d/ambertools.fish
 cp ${RECIPE_DIR}/deactivate.sh ${PREFIX}/etc/conda/deactivate.d/ambertools.sh
 cp ${RECIPE_DIR}/deactivate.fish ${PREFIX}/etc/conda/deactivate.d/ambertools.fish
-
-# Begin testing - this will never be merged
-
-cat << EOF > ${PREFIX}/config.h
-INSTALLTYPE=serial
-AMBER_SOURCE=${SRC_DIR}
-AMBER_PREFIX=${PREFIX}
-BINDIR=${PREFIX}/bin
-DATDIR=${PREFIX}/dat
-LIBDIR=${PREFIX}/lib
-INCDIR=${PREFIX}/include
-PYTHON=python
-SKIP_PYTHON=no
-SHARED_SUFFIX=${SHLIB_EXT}
-EOF
-
-set +eux
-export AMBERHOME=${PREFIX}
-export LD_LIBRARY_PATH="${PREFIX}/lib:$LD_LIBRARY_PATH"
-export PERL5LIB="${PREFIX}/lib/perl:$PERL5LIB"
-cd ${SRC_DIR}/AmberTools/test
-make test
-
-# Show output
-echo "************"
-echo "Test summary"
-echo "************"
-cat ${PREFIX}/logs/test_at_serial/at_summary
-echo "***************"
-echo "Detected errors"
-echo "***************"
-grep -ihn9 -e "error" -e "failed" --color=always ${PREFIX}/logs/test_at_serial/*.log | sed "s|${PREFIX}|<PREFIX>|g"
