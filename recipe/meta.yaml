@@ -41,13 +41,15 @@ requirements:
     - make
     - cmake
     - perl
+    - llvm-openmp  # [osx]
+    - libgomp      # [linux and not aarch64]
   host:
     - python
     - setuptools
     - cython
     - numpy
     - scipy
-    - matplotlib
+    - matplotlib-base
     - bzip2
     - zlib
     - boost-cpp
@@ -55,16 +57,19 @@ requirements:
     - netcdf-fortran
     - pthread-stubs
     - fftw
+    - libblas
     - liblapack
     - xorg-libxt  # [linux]
     - xorg-libxext   # [linux]
     - readline
+    - llvm-openmp  # [osx]
+    - libgomp      # [linux and not aarch64]
   run:
     - python
     - cython
     - numpy
     - scipy
-    - matplotlib
+    - matplotlib-base
     - boost-cpp
     - libnetcdf
     - netcdf-fortran
@@ -74,6 +79,8 @@ requirements:
     - xorg-libxt  # [linux]
     - xorg-libxext  # [linux]
     - readline
+    - llvm-openmp  # [osx]
+    - libgomp      # [linux and not aarch64]
 
 test:
   requires:
