@@ -77,6 +77,9 @@ requirements:
 
 test:
   requires:
+    - {{ compiler('fortran') }}
+    - {{ compiler('c') }}
+    - {{ compiler('cxx') }}
     - util-linux  # [linux64]
   source_files:
     - "*"
