@@ -15,7 +15,8 @@ source:
     - patches/do_not_symlink_missing_ff12pol.patch
     - patches/use_external_netcdf.patch
     - patches/do_not_override_osx_deployment_target.patch  # [osx]
-    # - patches/do_not_bundle_osx_libs.patch  # [osx]
+    # See #22 for more details on this patch:
+    - patches/do_not_bundle_osx_libs.patch  # [osx]
     # Fix weird bug described here:
     #   https://github.com/conda-forge/ambertools-feedstock/pull/11#issuecomment-570618741
     - patches/delete_xdrfile_version.patch  # [osx]
@@ -78,9 +79,9 @@ requirements:
 
 test:
   requires:
-  # Try to force a library incompatibility error
-    - lxml
-    - rdkit
+  # Try to force a library incompatibility error in osx (see #22)
+    - lxml  # [osx]
+    - rdkit  # [osx]
   commands:
     - antechamber -h
     - cpptraj -h
@@ -99,8 +100,8 @@ test:
   imports:
     - pytraj
     - parmed
-    - rdkit
-    - rdkit.Chem.AllChem
+    - rdkit  # [osx]
+    - rdkit.Chem.AllChem  # [osx]
 
 about:
   home: http://ambermd.org/AmberTools.php
