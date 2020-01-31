@@ -80,6 +80,7 @@ test:
   requires:
   # Try to force a library incompatibility error
     - lxml
+    - rdkit
   commands:
     - antechamber -h
     - cpptraj -h
@@ -98,6 +99,8 @@ test:
   imports:
     - pytraj
     - parmed
+    - rdkit
+    - rdkit.Chem.AllChem
 
 about:
   home: http://ambermd.org/AmberTools.php
