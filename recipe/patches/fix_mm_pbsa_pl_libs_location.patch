@@ -1,0 +1,11 @@
+diff --git a/AmberTools/src/mm_pbsa/CMakeLists.txt b/AmberTools/src/mm_pbsa/CMakeLists.txt
+index 44a41902..675cc65c 100644
+--- a/AmberTools/src/mm_pbsa/CMakeLists.txt
++++ b/AmberTools/src/mm_pbsa/CMakeLists.txt
+@@ -28,5 +28,5 @@ set_property(TARGET mm_pbsa_nabnmode PROPERTY INCLUDE_DIRECTORIES ${NAB_HEADER_D
+ 
+ install(TARGETS make_crd_hg mm_pbsa_nabnmode DESTINATION ${BINDIR})
+ install(PROGRAMS ${MM_PBSA_PERL_PROGS} DESTINATION ${BINDIR})
+-install(FILES ${MM_PBSA_PERL_MODULES} DESTINATION ${PERL_MODULE_INSTALL_DIR})
++install(FILES ${MM_PBSA_PERL_MODULES} DESTINATION ${PERL_MODULE_INSTALL_DIR}/mm_pbsa)
+ 

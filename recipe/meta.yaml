@@ -14,13 +14,20 @@ source:
     - patches/do_not_use_global_conda_prefix.patch
     - patches/do_not_symlink_missing_ff12pol.patch
     - patches/use_external_netcdf.patch
+    - patches/use_env_perl_in_mmpbsa.patch
+    - patches/fix_mm_pbsa_pl_libs_location.patch
     - patches/do_not_override_osx_deployment_target.patch  # [osx]
     # Fix weird bug described here:
     #   https://github.com/conda-forge/ambertools-feedstock/pull/11#issuecomment-570618741
     - patches/delete_xdrfile_version.patch  # [osx]
-    # The following patch was downloaded from this GH issue:
+    ## Tests
+    - patches/do_not_use_AS_envvar_in_tests.patch
+    - patches/fix_run_nef_tests.patch
+    ## /Tests
+    ## IMPORTANT:
+    # The following patch needs to be applied manually in build.sh
+    # It was downloaded from this GH issue - it might be included by default in future updates
     #   https://github.com/Amber-MD/cmake-buildscripts/issues/131#issuecomment-561280272
-    # It needs to be applied manually in build.sh
     # - patches/amber19-fix-cmake.patch
 
 build:
@@ -66,6 +73,7 @@ requirements:
     - libgomp      # [linux and not aarch64]
   run:
     - python
+    - perl
     - cython
     - numpy
     - scipy

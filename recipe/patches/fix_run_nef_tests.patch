@@ -1,0 +1,13 @@
+diff --git a/test/rdc/Run.nef b/test/rdc/Run.nef
+index 9c03c5d2..02067371 100755
+--- a/test/rdc/Run.nef
++++ b/test/rdc/Run.nef
+@@ -5,7 +5,7 @@
+ #TEST-STATE   undocumented
+ 
+ ${AMBERHOME}/bin/nef_to_RST -nef 2L9R.nef -pdb 2L9R.1.pdb -rst RST_2L9R \
+-                            -rdc RST_dip_2L9R || goto error
++                            -rdc RST_dip_2L9R -map ${AMBERHOME}/dat/map.NEF-AMBER || goto error
+ 
+ ../dacdif RST_2L9R.save RST_2L9R
+ ../dacdif RST_dip_2L9R.save RST_dip_2L9R

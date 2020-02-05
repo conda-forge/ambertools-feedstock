@@ -16,9 +16,12 @@ EOF
 cp ${PREFIX}/config.h ${SRC_DIR}/config.h
 cp ${PREFIX}/config.h ${SRC_DIR}/AmberTools/config.h
 
-export AMBERHOME=${PREFIX}
+# Some amber software will segfault with too long paths, 
+# so we can't use AMBERHOME=$PREFIX within conda-build
+export AMBERHOME=${HOME}/amber
+ln -s ${PREFIX} ${AMBERHOME}
 export LD_LIBRARY_PATH="${PREFIX}/lib:$LD_LIBRARY_PATH"
-# export PERL5LIB="${PREFIX}/lib/perl:$PERL5LIB"
+
 cd ${SRC_DIR}/AmberTools/test
 make test
 
