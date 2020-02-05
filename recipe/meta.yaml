@@ -17,6 +17,8 @@ source:
     - patches/use_env_perl_in_mmpbsa.patch
     - patches/fix_mm_pbsa_pl_libs_location.patch
     - patches/do_not_override_osx_deployment_target.patch  # [osx]
+    # See #22 for more details on this patch:
+    - patches/do_not_bundle_osx_libs.patch  # [osx]
     # Fix weird bug described here:
     #   https://github.com/conda-forge/ambertools-feedstock/pull/11#issuecomment-570618741
     - patches/delete_xdrfile_version.patch  # [osx]
@@ -31,7 +33,7 @@ source:
     # - patches/amber19-fix-cmake.patch
 
 build:
-  number: 1
+  number: 3
   skip: True  # [win or osx or ppc64le or py!=37]
 
 requirements:
@@ -96,7 +98,9 @@ test:
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}
     - util-linux  # [linux64]
-    - perl
+  # Try to force a library incompatibility error in osx (see #22)
+    - lxml  # [osx]
+    - rdkit  # [osx]
   source_files:
     - "*"
   commands:
@@ -117,6 +121,8 @@ test:
   imports:
     - pytraj
     - parmed
+    - rdkit  # [osx]
+    - rdkit.Chem.AllChem  # [osx]
 
 about:
   home: http://ambermd.org/AmberTools.php
