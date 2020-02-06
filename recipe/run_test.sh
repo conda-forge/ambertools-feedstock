@@ -1,13 +1,18 @@
 # Begin testing - this will never be merged
 
-cat << EOF > ${PREFIX}/config.h
+# Some amber software will segfault with too long paths, 
+# so we can't use AMBERHOME=$PREFIX within conda-build
+export AMBERHOME=${HOME}/amber
+ln -s ${PREFIX} ${AMBERHOME}
+
+cat << EOF > ${AMBERHOME}/config.h
 INSTALLTYPE=serial
 AMBER_SOURCE=${SRC_DIR}
-AMBER_PREFIX=${PREFIX}
-BINDIR=${PREFIX}/bin
-DATDIR=${PREFIX}/dat
-LIBDIR=${PREFIX}/lib
-INCDIR=${PREFIX}/include
+AMBER_PREFIX=${AMBERHOME}
+BINDIR=${AMBERHOME}/bin
+DATDIR=${AMBERHOME}/dat
+LIBDIR=${AMBERHOME}/lib
+INCDIR=${AMBERHOME}/include
 PYTHON=python
 SKIP_PYTHON=no
 SHARED_SUFFIX=${SHLIB_EXT}
@@ -16,10 +21,6 @@ EOF
 cp ${PREFIX}/config.h ${SRC_DIR}/config.h
 cp ${PREFIX}/config.h ${SRC_DIR}/AmberTools/config.h
 
-# Some amber software will segfault with too long paths, 
-# so we can't use AMBERHOME=$PREFIX within conda-build
-export AMBERHOME=${HOME}/amber
-ln -s ${PREFIX} ${AMBERHOME}
 export LD_LIBRARY_PATH="${PREFIX}/lib:$LD_LIBRARY_PATH"
 
 cd ${SRC_DIR}/AmberTools/test
