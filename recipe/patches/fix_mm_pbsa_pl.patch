@@ -1,0 +1,25 @@
+diff --git a/AmberTools/src/mm_pbsa/CMakeLists.txt b/AmberTools/src/mm_pbsa/CMakeLists.txt
+index 44a41902..f7901351 100644
+--- a/AmberTools/src/mm_pbsa/CMakeLists.txt
++++ b/AmberTools/src/mm_pbsa/CMakeLists.txt
+@@ -15,10 +15,12 @@ set(MM_PBSA_PERL_MODULES mm_pbsa_createinput.pm  mm_pbsa_statistics.pm
+ #------------------------------------------------------------------------------------------
+ 
+ #I'm assuming that the mm_pbsa programs should be optimized.
++#JRG: Turns out it segfaults if -O2 is applied...
++string(REPLACE "-O2" "" MAKECRD_NOOPT_FFLAGS ${OPT_FFLAGS})
+ 
+ #make_crd_hg executable
+ add_executable(make_crd_hg ${MAKE_CRD_HG_SOURCES})
+-set_property(TARGET make_crd_hg PROPERTY COMPILE_OPTIONS ${OPT_FFLAGS})
++set_property(TARGET make_crd_hg PROPERTY COMPILE_OPTIONS ${MAKECRD_NOOPT_FFLAGS})
+ target_link_libraries(make_crd_hg amber_common)
+ 
+ #mm_pbsa
+@@ -28,5 +30,5 @@ set_property(TARGET mm_pbsa_nabnmode PROPERTY INCLUDE_DIRECTORIES ${NAB_HEADER_D
+ 
+ install(TARGETS make_crd_hg mm_pbsa_nabnmode DESTINATION ${BINDIR})
+ install(PROGRAMS ${MM_PBSA_PERL_PROGS} DESTINATION ${BINDIR})
+-install(FILES ${MM_PBSA_PERL_MODULES} DESTINATION ${PERL_MODULE_INSTALL_DIR})
++install(FILES ${MM_PBSA_PERL_MODULES} DESTINATION ${PERL_MODULE_INSTALL_DIR}/mm_pbsa)
+ 
