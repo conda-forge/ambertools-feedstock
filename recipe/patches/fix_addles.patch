@@ -1,0 +1,22 @@
+diff --git a/AmberTools/src/addles/CMakeLists.txt b/AmberTools/src/addles/CMakeLists.txt
+index 8c7a07ae..a17b5c9d 100644
+--- a/AmberTools/src/addles/CMakeLists.txt
++++ b/AmberTools/src/addles/CMakeLists.txt
+@@ -12,9 +12,16 @@ set(ADDLES_SOURCES lesmain.F addspace.F readprm.F
+ 		MISC.h UNITS.h DEBUG.h 
+ 		T3TOP.h SIZE.h TEMP.h)
+ 
++#JRG: Turns out it segfaults if -fopenmp is applied...
++string(REPLACE "-fopenmp" "" ADDLES_NOOPENMP_FFLAGS ${CMAKE_Fortran_FLAGS})
++SET (ORIGINAL_CMAKE_Fortran_FLAGS ${CMAKE_Fortran_FLAGS})
++SET (CMAKE_Fortran_FLAGS ${ADDLES_NOOPENMP_FFLAGS})
++
+ apply_optimization_declarations(${ADDLES_SOURCES})
+ add_executable(addles ${ADDLES_SOURCES})
+ 		
+ target_link_libraries(addles amber_common)
+ 		
+ install(TARGETS addles DESTINATION ${BINDIR})
++
++SET (CMAKE_Fortran_FLAGS ${ORIGINAL_CMAKE_Fortran_FLAGS})
+\ No newline at end of file

@@ -1,12 +1,13 @@
 diff --git a/AmberTools/src/mm_pbsa/CMakeLists.txt b/AmberTools/src/mm_pbsa/CMakeLists.txt
-index 44a41902..092ed972 100644
+index 44a41902..661815b9 100644
 --- a/AmberTools/src/mm_pbsa/CMakeLists.txt
 +++ b/AmberTools/src/mm_pbsa/CMakeLists.txt
-@@ -15,10 +15,13 @@ set(MM_PBSA_PERL_MODULES mm_pbsa_createinput.pm  mm_pbsa_statistics.pm
+@@ -15,11 +15,16 @@ set(MM_PBSA_PERL_MODULES mm_pbsa_createinput.pm  mm_pbsa_statistics.pm
  #------------------------------------------------------------------------------------------
  
  #I'm assuming that the mm_pbsa programs should be optimized.
 +#JRG: Turns out it segfaults if -fopenmp is applied...
++SET (ORIGINAL_CMAKE_Fortran_FLAGS ${CMAKE_Fortran_FLAGS})
 +string(REPLACE "-fopenmp" "" MAKECRD_NOOPENMP_FFLAGS ${CMAKE_Fortran_FLAGS})
 +SET (CMAKE_Fortran_FLAGS ${MAKECRD_NOOPENMP_FFLAGS})
  
@@ -15,9 +16,11 @@ index 44a41902..092ed972 100644
 -set_property(TARGET make_crd_hg PROPERTY COMPILE_OPTIONS ${OPT_FFLAGS})
 +# set_property(TARGET make_crd_hg PROPERTY COMPILE_OPTIONS ${OPT_FFLAGS})
  target_link_libraries(make_crd_hg amber_common)
++SET (CMAKE_Fortran_FLAGS ${ORIGINAL_CMAKE_Fortran_FLAGS})
  
  #mm_pbsa
-@@ -28,5 +31,5 @@ set_property(TARGET mm_pbsa_nabnmode PROPERTY INCLUDE_DIRECTORIES ${NAB_HEADER_D
+ add_nab_executable(mm_pbsa_nabnmode NAB_SOURCES ${MM_PBSA_NAB_SOURCES})
+@@ -28,5 +33,5 @@ set_property(TARGET mm_pbsa_nabnmode PROPERTY INCLUDE_DIRECTORIES ${NAB_HEADER_D
  
  install(TARGETS make_crd_hg mm_pbsa_nabnmode DESTINATION ${BINDIR})
  install(PROGRAMS ${MM_PBSA_PERL_PROGS} DESTINATION ${BINDIR})
