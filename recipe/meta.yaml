@@ -26,6 +26,7 @@ source:
     ## Tests
     - patches/do_not_use_AS_envvar_in_tests.patch
     - patches/fix_run_nef_tests.patch
+    - patches/fix_sander_1ahoa_pme_test.patch
     ## /Tests
     ## IMPORTANT:
     # The following patch needs to be applied manually in build.sh
