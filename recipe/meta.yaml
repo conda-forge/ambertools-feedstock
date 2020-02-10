@@ -35,7 +35,7 @@ source:
 
 build:
   number: 3
-  skip: True  # [win or py!=37]
+  skip: True  # [win or py2k]
 
 requirements:
   build:
