@@ -102,8 +102,9 @@ test:
   # Try to force a library incompatibility error in osx (see #22)
     - lxml  # [osx]
     - rdkit  # [osx]
-  source_files:
-    - "*"
+  # # Uncomment these two lines below if test suite is ever re-enabled
+  # source_files:
+  #   - "*"
   commands:
     - antechamber -h
     - cpptraj -h
