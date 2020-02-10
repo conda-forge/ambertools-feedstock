@@ -2,28 +2,29 @@ diff --git a/AmberTools/src/mm_pbsa/CMakeLists.txt b/AmberTools/src/mm_pbsa/CMak
 index 44a41902..661815b9 100644
 --- a/AmberTools/src/mm_pbsa/CMakeLists.txt
 +++ b/AmberTools/src/mm_pbsa/CMakeLists.txt
-@@ -15,11 +15,16 @@ set(MM_PBSA_PERL_MODULES mm_pbsa_createinput.pm  mm_pbsa_statistics.pm
- #------------------------------------------------------------------------------------------
- 
- #I'm assuming that the mm_pbsa programs should be optimized.
-+#JRG: Turns out it segfaults if -fopenmp is applied...
-+SET (ORIGINAL_CMAKE_Fortran_FLAGS ${CMAKE_Fortran_FLAGS})
-+string(REPLACE "-fopenmp" "" MAKECRD_NOOPENMP_FFLAGS ${CMAKE_Fortran_FLAGS})
-+SET (CMAKE_Fortran_FLAGS ${MAKECRD_NOOPENMP_FFLAGS})
- 
- #make_crd_hg executable
- add_executable(make_crd_hg ${MAKE_CRD_HG_SOURCES})
--set_property(TARGET make_crd_hg PROPERTY COMPILE_OPTIONS ${OPT_FFLAGS})
-+# set_property(TARGET make_crd_hg PROPERTY COMPILE_OPTIONS ${OPT_FFLAGS})
- target_link_libraries(make_crd_hg amber_common)
-+SET (CMAKE_Fortran_FLAGS ${ORIGINAL_CMAKE_Fortran_FLAGS})
- 
- #mm_pbsa
- add_nab_executable(mm_pbsa_nabnmode NAB_SOURCES ${MM_PBSA_NAB_SOURCES})
 @@ -28,5 +33,5 @@ set_property(TARGET mm_pbsa_nabnmode PROPERTY INCLUDE_DIRECTORIES ${NAB_HEADER_D
  
  install(TARGETS make_crd_hg mm_pbsa_nabnmode DESTINATION ${BINDIR})
  install(PROGRAMS ${MM_PBSA_PERL_PROGS} DESTINATION ${BINDIR})
 -install(FILES ${MM_PBSA_PERL_MODULES} DESTINATION ${PERL_MODULE_INSTALL_DIR})
 +install(FILES ${MM_PBSA_PERL_MODULES} DESTINATION ${PERL_MODULE_INSTALL_DIR}/mm_pbsa)
+diff --git a/AmberTools/src/mm_pbsa/mm_pbsa.pl b/AmberTools/src/mm_pbsa/mm_pbsa.pl
+index c920a96a..fe90f0e8 100755
+--- a/AmberTools/src/mm_pbsa/mm_pbsa.pl
++++ b/AmberTools/src/mm_pbsa/mm_pbsa.pl
+@@ -1,4 +1,4 @@
+-#!/usr/bin/perl -w
++#!/usr/bin/env perl
+ #
+ # Script to perform mm_pbsa
+ #
+@@ -19,7 +19,7 @@
+ #
+ ########################################################################
  
+-use strict;
++use strict; use warnings;
+ use lib ("$ENV{AMBERHOME}/lib/perl/mm_pbsa");
+ use mm_pbsa_global       qw(@GC_PAR);
+ use mm_pbsa_util         qw(init_data final_clean_up);
+
