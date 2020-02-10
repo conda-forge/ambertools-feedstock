@@ -71,6 +71,7 @@ requirements:
     - liblapack
     - xorg-libxt  # [linux]
     - xorg-libxext   # [linux]
+    - xorg-libx11   # [linux]
     - readline
     - llvm-openmp  # [osx]
     - libgomp      # [linux and not aarch64]
@@ -89,6 +90,7 @@ requirements:
     - liblapack
     - xorg-libxt  # [linux]
     - xorg-libxext  # [linux]
+    - xorg-libx11   # [linux]
     - readline
     - llvm-openmp  # [osx]
     - libgomp      # [linux and not aarch64]
