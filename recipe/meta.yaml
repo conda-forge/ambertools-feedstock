@@ -14,19 +14,27 @@ source:
     - patches/do_not_use_global_conda_prefix.patch
     - patches/do_not_symlink_missing_ff12pol.patch
     - patches/use_external_netcdf.patch
+    - patches/fix_mm_pbsa_pl.patch
+    - patches/fix_cpinutil_pKa_comparison_bug.patch
     - patches/do_not_override_osx_deployment_target.patch  # [osx]
     # See #22 for more details on this patch:
     - patches/do_not_bundle_osx_libs.patch  # [osx]
     # Fix weird bug described here:
     #   https://github.com/conda-forge/ambertools-feedstock/pull/11#issuecomment-570618741
     - patches/delete_xdrfile_version.patch  # [osx]
-    # The following patch was downloaded from this GH issue:
+    ## Tests
+    - patches/do_not_use_AS_envvar_in_tests.patch
+    - patches/fix_run_nef_tests.patch
+    - patches/fix_sander_1ahoa_pme_test.patch
+    ## /Tests
+    ## IMPORTANT:
+    # The following patch needs to be applied manually in build.sh
+    # It was downloaded from this GH issue - it might be included by default in future updates
     #   https://github.com/Amber-MD/cmake-buildscripts/issues/131#issuecomment-561280272
-    # It needs to be applied manually in build.sh
     # - patches/amber19-fix-cmake.patch
 
 build:
-  number: 2
+  number: 3
   skip: True  # [win or py2k]
 
 requirements:
@@ -43,13 +51,15 @@ requirements:
     - make
     - cmake
     - perl
+    - llvm-openmp  # [osx]
+    - libgomp      # [linux and not aarch64]
   host:
     - python
     - setuptools
     - cython
     - numpy
     - scipy
-    - matplotlib
+    - matplotlib-base
     - bzip2
     - zlib
     - boost-cpp
@@ -57,16 +67,21 @@ requirements:
     - netcdf-fortran
     - pthread-stubs
     - fftw
+    - libblas
     - liblapack
     - xorg-libxt  # [linux]
     - xorg-libxext   # [linux]
+    - xorg-libx11   # [linux]
     - readline
+    - llvm-openmp  # [osx]
+    - libgomp      # [linux and not aarch64]
   run:
     - python
+    - perl
     - cython
     - numpy
     - scipy
-    - matplotlib
+    - matplotlib-base
     - boost-cpp
     - libnetcdf
     - netcdf-fortran
@@ -75,10 +90,17 @@ requirements:
     - liblapack
     - xorg-libxt  # [linux]
     - xorg-libxext  # [linux]
+    - xorg-libx11   # [linux]
     - readline
+    - llvm-openmp  # [osx]
+    - libgomp      # [linux and not aarch64]
 
 test:
   requires:
+    - {{ compiler('fortran') }}
+    - {{ compiler('c') }}
+    - {{ compiler('cxx') }}
+    - util-linux  # [linux64]
   # Try to force a library incompatibility error in osx (see #22)
     - lxml  # [osx]
     - rdkit  # [osx]

@@ -12,6 +12,12 @@ perl -p  -e 's/\r$//g' ${RECIPE_DIR}/patches/amber19-fix-cmake.patch > amber19-f
 perl -pi -e 's/\r$//g' ${SRC_DIR}/cmake/*.cmake
 patch -p1 --ignore-whitespace -t -i amber19-fix-cmake.patch || true
 
+# Some Fortran binaries segfault because of this flag (addles, make_crd_hg... maybe sander?)
+# See PR #24 -- this might be against CF conventions; might also disappear when we provide openmp/mpi
+export FFLAGS=${FFLAGS//-fopenmp }
+export FORTRANFLAGS=${FORTRANFLAGS//-fopenmp }
+export DEBUG_FFLAGS=${DEBUG_FFLAGS//-fopenmp }
+
 CMAKE_FLAGS=""
 BUILD_GUI="TRUE"
 if [[ "$target_platform" == osx* ]]; then
