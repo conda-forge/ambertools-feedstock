@@ -122,16 +122,7 @@ test:
     - teLeap -h
     - tleap -h
   # This extra dependency SHOULD make the installation FAIL
-    - |
-      set +e
-      conda install -c omnia ambermini;
-      if [[ $? == 0 ]]; then
-        echo "This command should have FAILED!";
-        false;
-      else
-        true;
-      fi;
-      set -e
+    - conda install -c conda-forge -c omnia ambermini 2>&1 | tee | grep -q "PackagesNotFoundError"
   imports:
     - pytraj
     - parmed
