@@ -94,6 +94,8 @@ requirements:
     - readline
     - llvm-openmp  # [osx]
     - libgomp      # [linux and not aarch64]
+  run_constrained:
+    - ambermini ==9999999999
 
 test:
   requires:
@@ -119,6 +121,17 @@ test:
     - sqm -h
     - teLeap -h
     - tleap -h
+  # This extra dependency SHOULD make the installation FAIL
+    - |
+      set +e
+      conda install -c omnia ambermini;
+      if [[ $? == 0 ]]; then
+        echo "This command should have FAILED!";
+        false;
+      else
+        true;
+      fi;
+      set -e
   imports:
     - pytraj
     - parmed
