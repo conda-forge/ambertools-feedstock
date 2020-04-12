@@ -121,8 +121,6 @@ test:
     - sqm -h
     - teLeap -h
     - tleap -h
-  # This extra dependency SHOULD make the installation FAIL; remove later?
-    - conda install --yes omnia::ambermini ambertools>=19.10 || true
   imports:
     - pytraj
     - parmed
