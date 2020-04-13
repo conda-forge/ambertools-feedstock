@@ -1,6 +1,8 @@
+#!/bin/bash
+
 set -euxo pipefail
 
-### Commented commands can't be tested from CLI without input arguments
+### These commands can't be tested from CLI without input arguments
 # addles -h
 # AddToBox -h
 # cestats --help
@@ -46,10 +48,13 @@ set -euxo pipefail
 # saxs_rism -h
 # senergy -h
 # simplepbsa
+# sviol2 -h
 # xaLeap -h ## REQUIRES DISPLAY
 # xleap -h ## REQUIRES DISPLAY
 # xparmed -h ## REQUIRES DISPLAY
 # XrayPrep ## REQUIRES PHENIX
+
+# These run fine if prompted for help or version messages
 add_pdb -h
 add_xray -h
 am1bcc -h
@@ -100,12 +105,16 @@ reduce -V
 resp -h
 respgen -h
 saxs_md -h
-sgldinfo.sh -h
-sgldwt.sh -h
 softcore_setup.py -h
 sqm -h
 sviol -h
-sviol2 -h
 teLeap -h
 tleap -h
 UnitCell
+
+if [[ $target_platform == linux-64 ]]; then
+    # These two commands need csh, but CF only has tcsh
+    ln -s ${PREFIX}/bin/tcsh ${PREFIX}/bin/csh
+    sgldwt.sh -h
+    sgldinfo.sh -h
+fi
