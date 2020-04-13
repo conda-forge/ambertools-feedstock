@@ -100,8 +100,8 @@ test:
     # Try to force a library incompatibility error in osx (see #22)
     - lxml  # [osx]
     - rdkit  # [osx]
-  commands:
-    - run_all_executables.sh
+  # commands:
+  # ... check run_test.sh for CLI tests
   imports:
     - parmed
     - pdb4amber
