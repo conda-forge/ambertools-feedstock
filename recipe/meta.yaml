@@ -11,12 +11,15 @@ source:
   url: http://ambermd.org/downloads/AmberTools20.RC2.tar.bz2
   sha256: 075b844fd33b276d1aaee0b0ac3a65831d6a4976b587a7073aaee5754fdaac70
   patches:
-    - patches/disable_boost_checks.patch
-    # - patches/do_not_symlink_missing_ff12pol.patch
-    # - patches/fix_cpinutil_pKa_comparison_bug.patch
+    # From AT19.11
     # Fix weird bug described here:
     #   https://github.com/conda-forge/ambertools-feedstock/pull/11#issuecomment-570618741
     - patches/delete_xdrfile_version.patch  # [osx]
+    # From AT20RC2
+    - patches/disable_boost_checks.patch
+    - patches/env_shebang.patch
+    - patches/mm_pbsa_statistics_lib.sh
+    # - patches/fix_cpinutil_pKa_comparison_bug.patch
     # ## Tests
     # - patches/fix_run_nef_tests.patch
     # - patches/fix_sander_1ahoa_pme_test.patch
@@ -92,29 +95,80 @@ test:
     - {{ compiler('fortran') }}
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}
+    - tcsh  # [linux64]
     - util-linux  # [linux64]
-  # Try to force a library incompatibility error in osx (see #22)
+    # Try to force a library incompatibility error in osx (see #22)
     - lxml  # [osx]
     - rdkit  # [osx]
   commands:
+    - add_pdb -h
+    - add_xray -h
+    - am1bcc -h
+    - amb2chm_par.py -h
+    - amb2chm_psf_crd.py -h
+    - amb2gro_top_gro.py -h
+    - ambmask -h
     - ambpdb -h
+    - ante-MMPBSA.py -h
     - antechamber -h
+    - atomtype -h
+    - bondtype -h
+    - car_to_files.py -h
+    - CartHess2FC.py -h
+    - ceinutil.py -h
+    - cpeinutil.py -h
+    - cpinutil.py -h
     - cpptraj -h
+    - draw_membrane2
+    - espgen -h
+    - espgen.py -h
+    - FEW.pl -h
     - ffgbsa -h
+    - finddgref.py -h
+    - fitpkaeo.py -h
+    - fixremdcouts.py -h
+    - genremdinputs.py -h
+    - IPMach.py -h
+    - makeANG_RST -help
     - MCPB.py -h
+    - mdgx -h
     - mdnab -h
+    - mdout2pymbar.pl -h
+    - metalpdb2mol2.py -h
     - minab -h
-    - mmpbsa_py_energy -h
-    - parmchk2 -h
+    - MMPBSA.py -h
+    - mol2rtf.py -h
+    - nfe-umbrella-slice -h
+    - packmol-memgen -h
     - parmed -h
     - pdb4amber -h
+    - PdbSearcher.py -h
+    - prepgen -h
+    - ProScrs.py -h
+    - pymdpbsa -h
+    - pytleap -h
+    - reduce -V
+    - resp -h
     - respgen -h
+    - saxs_md -h
+    - softcore_setup.py -h
     - sqm -h
+    - sviol -h
+    - sviol2 -h
     - teLeap -h
     - tleap -h
+    - UnitCell
+    # These two commands need csh, but CF only has tcsh
+    - ln -s ${PREFIX}/bin/tcsh ${PREFIX}/bin/csh  # [linux64]
+    - sgldinfo.sh  # [linux64]
+    - sgldwt.sh  # [linux64]
   imports:
-    - pytraj
     - parmed
+    - pdb4amber
+    - pymsmt
+    - pytraj
+    - sander
+    # Try to force a library incompatibility error in osx (see #22)
     - rdkit  # [osx]
     - rdkit.Chem.AllChem  # [osx]
 
@@ -125,7 +179,7 @@ about:
   summary: 'AmberTools is a set of programs for biomolecular simulation and analysis'
   description: |
     AmberTools is a set of programs for biomolecular simulation and analysis.
-    They are designed to work well with each other, and with the “regular” Amber
+    They are designed to work well with each other, and with the "regular" Amber
     suite of programs. You can perform many simulation tasks with AmberTools,
     and you can do more extensive simulations with the combination of AmberTools
     and Amber itself.
