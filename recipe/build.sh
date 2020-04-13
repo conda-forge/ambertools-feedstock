@@ -13,6 +13,10 @@ export FFLAGS=${FFLAGS//-fopenmp }
 export FORTRANFLAGS=${FORTRANFLAGS//-fopenmp }
 export DEBUG_FFLAGS=${DEBUG_FFLAGS//-fopenmp }
 
+# memembed requires -pthread
+# from: https://github.com/facebook/Surround360/issues/3
+export CPPFLAGS="${CPPFLAGS} -pthread"
+
 CMAKE_FLAGS=""
 BUILD_GUI="TRUE"
 if [[ "$target_platform" == osx* ]]; then
