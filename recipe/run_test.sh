@@ -112,9 +112,7 @@ teLeap -h
 tleap -h
 UnitCell
 
-if [[ $target_platform == linux-64 ]]; then
-    # These two commands need csh, but CF only has tcsh
-    ln -s ${PREFIX}/bin/tcsh ${PREFIX}/bin/csh
-    sgldwt.sh -h
-    sgldinfo.sh -h
-fi
+# These two commands need csh, but CF only has tcsh
+ln -s ${PREFIX}/bin/tcsh ${PREFIX}/bin/csh
+sgldwt.sh -h
+sgldinfo.sh -h
