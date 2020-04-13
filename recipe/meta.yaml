@@ -18,7 +18,7 @@ source:
     # From AT20RC2
     - patches/disable_boost_checks.patch
     - patches/env_shebang.patch
-    - patches/mm_pbsa_statistics_lib.sh
+    - patches/mm_pbsa_statistics_lib.patch
     # - patches/fix_cpinutil_pKa_comparison_bug.patch
     # ## Tests
     # - patches/fix_run_nef_tests.patch
