@@ -1,0 +1,29 @@
+diff --git a/cmake/3rdPartyTools.cmake b/cmake/3rdPartyTools.cmake
+index fd98791f..7f3369f3 100644
+--- a/cmake/3rdPartyTools.cmake
++++ b/cmake/3rdPartyTools.cmake
+@@ -975,15 +975,15 @@ if(boost_EXTERNAL)
+ 		message(FATAL_ERROR "boost was set to be sourced externally, but it was not found.")
+ 	endif()
+ 
+-	import_library(boost_thread ${Boost_THREAD_LIBRARY} ${Boost_INCLUDE_DIRS})
+-	import_library(boost_system ${Boost_SYSTEM_LIBRARY} ${Boost_INCLUDE_DIRS})
+-	import_library(boost_program_options ${Boost_PROGRAM_OPTIONS_LIBRARY} ${Boost_INCLUDE_DIRS})
+-	import_library(boost_iostreams ${Boost_IOSTREAMS_LIBRARY} ${Boost_INCLUDE_DIRS})
+-	import_library(boost_regex ${Boost_REGEX_LIBRARY} ${Boost_INCLUDE_DIRS})
+-	import_library(boost_timer ${Boost_THREAD_LIBRARY} ${Boost_INCLUDE_DIRS})
+-	import_library(boost_chrono ${Boost_CHRONO_LIBRARY} ${Boost_INCLUDE_DIRS})
+-	import_library(boost_filesystem ${Boost_FILESYSTEM_LIBRARY} ${Boost_INCLUDE_DIRS})
+-	import_library(boost_graph ${Boost_GRAPH_LIBRARY} ${Boost_INCLUDE_DIRS})
++	# import_library(boost_thread ${Boost_THREAD_LIBRARY} ${Boost_INCLUDE_DIRS})
++	# import_library(boost_system ${Boost_SYSTEM_LIBRARY} ${Boost_INCLUDE_DIRS})
++	# import_library(boost_program_options ${Boost_PROGRAM_OPTIONS_LIBRARY} ${Boost_INCLUDE_DIRS})
++	# import_library(boost_iostreams ${Boost_IOSTREAMS_LIBRARY} ${Boost_INCLUDE_DIRS})
++	# import_library(boost_regex ${Boost_REGEX_LIBRARY} ${Boost_INCLUDE_DIRS})
++	# import_library(boost_timer ${Boost_THREAD_LIBRARY} ${Boost_INCLUDE_DIRS})
++	# import_library(boost_chrono ${Boost_CHRONO_LIBRARY} ${Boost_INCLUDE_DIRS})
++	# import_library(boost_filesystem ${Boost_FILESYSTEM_LIBRARY} ${Boost_INCLUDE_DIRS})
++	# import_library(boost_graph ${Boost_GRAPH_LIBRARY} ${Boost_INCLUDE_DIRS})
+ 
+ 	# header interface library
+ 	add_library(boost_headers INTERFACE)

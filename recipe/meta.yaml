@@ -11,27 +11,16 @@ source:
   url: http://ambermd.org/downloads/AmberTools20.RC2.tar.bz2
   sha256: 075b844fd33b276d1aaee0b0ac3a65831d6a4976b587a7073aaee5754fdaac70
   patches:
-    # - patches/do_not_use_global_conda_prefix.patch
+    - patches/disable_boost_checks.patch
     # - patches/do_not_symlink_missing_ff12pol.patch
-    # - patches/use_external_netcdf.patch
-    # - patches/fix_mm_pbsa_pl.patch
     # - patches/fix_cpinutil_pKa_comparison_bug.patch
-    # - patches/do_not_override_osx_deployment_target.patch  # [osx]
-    # # See #22 for more details on this patch:
-    # - patches/do_not_bundle_osx_libs.patch  # [osx]
     # Fix weird bug described here:
     #   https://github.com/conda-forge/ambertools-feedstock/pull/11#issuecomment-570618741
     - patches/delete_xdrfile_version.patch  # [osx]
     # ## Tests
-    # - patches/do_not_use_AS_envvar_in_tests.patch
     # - patches/fix_run_nef_tests.patch
     # - patches/fix_sander_1ahoa_pme_test.patch
     # ## /Tests
-    # ## IMPORTANT:
-    # # The following patch needs to be applied manually in build.sh
-    # # It was downloaded from this GH issue - it might be included by default in future updates
-    # #   https://github.com/Amber-MD/cmake-buildscripts/issues/131#issuecomment-561280272
-    # # - patches/amber19-fix-cmake.patch
 
 build:
   number: 0
@@ -67,6 +56,7 @@ requirements:
     - netcdf-fortran
     - pthread-stubs
     - fftw
+    - arpack  # [not ppc64le]
     - libblas
     - liblapack
     - xorg-libxt  # [linux]
@@ -107,6 +97,7 @@ test:
     - lxml  # [osx]
     - rdkit  # [osx]
   commands:
+    - ambpdb -h
     - antechamber -h
     - cpptraj -h
     - ffgbsa -h

@@ -7,11 +7,6 @@ for n in {1..5}; do
     ./update_amber --update-to=AmberTools.${PATCH_LEVEL} && break
 done
 
-# # Patch manually to avoid issues with newlines
-# perl -p  -e 's/\r$//g' ${RECIPE_DIR}/patches/amber19-fix-cmake.patch > amber19-fix-cmake.patch
-# perl -pi -e 's/\r$//g' ${SRC_DIR}/cmake/*.cmake
-# patch -p1 --ignore-whitespace -t -i amber19-fix-cmake.patch || true
-
 # Some Fortran binaries segfault because of this flag (addles, make_crd_hg... maybe sander?)
 # See PR #24 -- this might be against CF conventions; might also disappear when we provide openmp/mpi
 export FFLAGS=${FFLAGS//-fopenmp }
@@ -37,7 +32,6 @@ cmake ${SRC_DIR} ${CMAKE_FLAGS} \
     -DCMAKE_INSTALL_PREFIX=${PREFIX} \
     -DCOMPILER=MANUAL \
     -DPYTHON_EXECUTABLE=${PYTHON} \
-    -DDOWNLOAD_MINICONDA=FALSE \
     -DBUILD_GUI=${BUILD_GUI} \
     -DCHECK_UPDATES=FALSE \
     -DTRUST_SYSTEM_LIBS=TRUE
