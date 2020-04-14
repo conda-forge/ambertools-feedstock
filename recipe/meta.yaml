@@ -92,10 +92,15 @@ requirements:
 
 test:
   requires:
-    - tcsh
+    - {{ compiler('fortran') }}
+    - {{ compiler('c') }}
+    - {{ compiler('cxx') }}
+    - util-linux  # [linux64]
     # Try to force a library incompatibility error in osx (see #22)
     - lxml  # [osx]
     - rdkit  # [osx]
+  source_files:
+    - "*"
   # commands: check run_test.sh for CLI tests
   imports:
     - parmed
