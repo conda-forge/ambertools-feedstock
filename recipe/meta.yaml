@@ -19,7 +19,6 @@ source:
     # From AT20RC2
     - patches/disable_boost_checks.patch
     - patches/env_shebang.patch
-    - patches/mm_pbsa_statistics_lib.patch
     # ## Tests
     # - patches/fix_run_nef_tests.patch
     # - patches/fix_sander_1ahoa_pme_test.patch

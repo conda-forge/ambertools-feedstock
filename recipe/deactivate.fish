@@ -1,3 +1,9 @@
 #!/bin/bash
 
 set -e AMBERHOME
+if set -q _PRE_AMBERTOOLS_PERL5LIBS
+    set -gx PERL5LIBS "$_PRE_AMBERTOOLS_PERL5LIBS"
+    set -e _PRE_AMBERTOOLS_PERL5LIBS
+else
+    set -e PERL5LIBS
+end
