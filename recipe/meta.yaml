@@ -15,11 +15,11 @@ source:
     # Fix weird bug described here:
     #   https://github.com/conda-forge/ambertools-feedstock/pull/11#issuecomment-570618741
     - patches/delete_xdrfile_version.patch  # [osx]
+    - patches/fix_cpinutil_pKa_comparison_bug.patch
     # From AT20RC2
     - patches/disable_boost_checks.patch
     - patches/env_shebang.patch
     - patches/mm_pbsa_statistics_lib.patch
-    # - patches/fix_cpinutil_pKa_comparison_bug.patch
     # ## Tests
     # - patches/fix_run_nef_tests.patch
     # - patches/fix_sander_1ahoa_pme_test.patch
