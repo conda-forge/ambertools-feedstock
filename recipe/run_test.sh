@@ -114,5 +114,5 @@ UnitCell
 
 # These two commands need csh, but CF only has tcsh
 ln -s ${PREFIX}/bin/tcsh ${PREFIX}/bin/csh
-sgldwt.sh -h
-sgldinfo.sh -h
+sgldwt.sh
+sgldinfo.sh
