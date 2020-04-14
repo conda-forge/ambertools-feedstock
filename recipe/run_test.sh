@@ -1,7 +1,5 @@
 #!/bin/bash
 
-set -euxo pipefail
-
 ### These commands can't be tested from CLI without input arguments
 # addles -h
 # AddToBox -h
