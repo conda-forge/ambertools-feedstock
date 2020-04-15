@@ -148,6 +148,7 @@ INCDIR=${AMBERHOME}/include
 PYTHON=python
 SKIP_PYTHON=no
 SHARED_SUFFIX=${SHLIB_EXT}
+PMEMD_GEM=yes
 EOF
 
 cp ${PREFIX}/config.h ${SRC_DIR}/config.h
