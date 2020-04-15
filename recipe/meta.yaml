@@ -12,13 +12,16 @@ source:
   sha256: 075b844fd33b276d1aaee0b0ac3a65831d6a4976b587a7073aaee5754fdaac70
   patches:
     # From AT19.11
-    # Fix weird bug described here:
+    # Fix weird bug described here
     #   https://github.com/conda-forge/ambertools-feedstock/pull/11#issuecomment-570618741
     - patches/delete_xdrfile_version.patch  # [osx]
+    # ^ will be fixed in RC3
     - patches/fix_cpinutil_pKa_comparison_bug.patch
     # From AT20RC2
     - patches/disable_boost_checks.patch
+    # ^ will be fixed in RC3
     - patches/env_shebang.patch
+    # ^ will be fixed in RC3
     # ## Tests
     # - patches/fix_run_nef_tests.patch
     # - patches/fix_sander_1ahoa_pme_test.patch
@@ -91,16 +94,23 @@ requirements:
 
 test:
   requires:
+{% if unit_tests == "run" %}
     - {{ compiler('fortran') }}
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}
     - util-linux  # [linux64]
+{% endif %}
     - tcsh
     # Try to force a library incompatibility error in osx (see #22)
     - lxml  # [osx]
     - rdkit  # [osx]
   source_files:
+{% if unit_tests == "run" %}
     - "*"
+{% else %}
+    # we need to copy at least one file, otherwise we can't use SRC_DIR in run_test.sh
+    - README
+{% endif %}
   # commands: check run_test.sh for CLI tests
   imports:
     - parmed

@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -euxo pipefail
+
 ### These commands can't be tested from CLI without input arguments
 # addles -h
 # AddToBox -h
@@ -110,14 +112,25 @@ teLeap -h
 tleap -h
 UnitCell
 
+# We still test these two to check the PERL5LIBS behavior
+mm_pbsa_statistics.pl || true
+mm_pbsa.pl || true
+
 # These two commands need csh, but CF only has tcsh
 ln -s ${PREFIX}/bin/tcsh ${PREFIX}/bin/csh
 sgldwt.sh
 sgldinfo.sh
+last_err_code=$?
 
+
+if [[ $unit_tests == skip ]]; then
+    exit $last_err_code
+fi
 
 ###### AMBERTOOLS UNIT TESTS ######
 # Begin testing - this will never be merged
+
+set +e
 
 # Some amber software will segfault with too long paths,
 # so we can't use AMBERHOME=$PREFIX within conda-build
@@ -140,10 +153,13 @@ EOF
 cp ${PREFIX}/config.h ${SRC_DIR}/config.h
 cp ${PREFIX}/config.h ${SRC_DIR}/AmberTools/config.h
 
+set +u
 export LD_LIBRARY_PATH="${PREFIX}/lib:$LD_LIBRARY_PATH"
+set -u
 
 cd ${SRC_DIR}/AmberTools/test
 make test
+test_err_code=$?
 
 # Show output
 echo "************"
@@ -154,3 +170,5 @@ echo "***************"
 echo "Detected errors"
 echo "***************"
 grep -ihn9 -e "error" -e "failed" --color=always ${PREFIX}/logs/test_at_serial/*.log | sed "s|${PREFIX}|<PREFIX>|g"
+
+exit $test_err_code
