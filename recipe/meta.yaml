@@ -19,10 +19,10 @@ source:
     - patches/fix_cpinutil_pKa_comparison_bug.patch
     # ^ reported, under investigation! might not be a good idea
     # From AT20RC2
-    # - patches/disable_boost_checks.patch
-    # ^ will be fixed in RC3
-    # - patches/env_shebang.patch
-    # ^ will be fixed in RC3
+    - patches/disable_boost_checks.patch
+    # ^ will be fixed in RC4
+    - patches/env_shebang.patch
+    # ^ will be fixed in RC4
     # ## Tests
     # - patches/fix_run_nef_tests.patch
     # - patches/fix_sander_1ahoa_pme_test.patch
