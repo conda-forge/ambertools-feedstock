@@ -14,10 +14,11 @@ source:
     # From AT19.11
     # Fix weird bug described here
     #   https://github.com/conda-forge/ambertools-feedstock/pull/11#issuecomment-570618741
-    # - patches/delete_xdrfile_version.patch  # [osx]
-    # ^ will be fixed in RC3
+    - patches/delete_xdrfile_version.patch  # [osx]
+    # ^ will be fixed in RC4
     - patches/fix_cpinutil_pKa_comparison_bug.patch
-    # ^ reported, under investigation! might not be a good idea
+    - patches/fix_ceinutil_Eo_comparison_bug.patch
+    # ^ submitted, will be fixed in RC4
     # From AT20RC2
     - patches/disable_boost_checks.patch
     # ^ will be fixed in RC4
