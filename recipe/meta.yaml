@@ -8,21 +8,21 @@ package:
   version: {{ version }}
 
 source:
-  url: http://ambermd.org/downloads/AmberTools20.RC3.tar.bz2
-  sha256: 40ba388f46dd367f4e9dc48f8aa0de34f647be231871562fc90c6651bf067289
+  url: http://ambermd.org/downloads/AmberTools20.RC4.tar.bz2
+  sha256: af667c3ebcf60f3405f8aaf7bfdfd3c072a1fef1f82eb53bf499d6ab5ae30f47
   patches:
     # From AT19.11
     # Fix weird bug described here
     #   https://github.com/conda-forge/ambertools-feedstock/pull/11#issuecomment-570618741
-    - patches/delete_xdrfile_version.patch  # [osx]
+    # - patches/delete_xdrfile_version.patch  # [osx]
     # ^ will be fixed in RC4
-    - patches/fix_cpinutil_pKa_comparison_bug.patch
-    - patches/fix_ceinutil_Eo_comparison_bug.patch
+    # - patches/fix_cpinutil_pKa_comparison_bug.patch
+    # - patches/fix_ceinutil_Eo_comparison_bug.patch
     # ^ submitted, will be fixed in RC4
     # From AT20RC2
-    - patches/disable_boost_checks.patch
+    # - patches/disable_boost_checks.patch
     # ^ will be fixed in RC4
-    - patches/env_shebang.patch
+    # - patches/env_shebang.patch
     # ^ will be fixed in RC4
     # ## Tests
     # - patches/fix_run_nef_tests.patch
