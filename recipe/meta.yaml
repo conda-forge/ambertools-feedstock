@@ -8,8 +8,8 @@ package:
   version: {{ version }}
 
 source:
-  url: http://ambermd.org/downloads/AmberTools20.RC5.tar.bz2
-  sha256: 23ecdb1ccbb4b2a3eee4d86a4846eb8f5c0eaae4a2c91a88aea3cbebd8f83aa1
+  url: https://ambermd.org/downloads/AmberTools20jlmrcc.tar.bz2
+  sha256: b1e1f8f277c54e88abc9f590e788bbb2f7a49bcff5e8d8a6eacfaf332a4890f9
 
 build:
   number: 0
