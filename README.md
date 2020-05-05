@@ -10,7 +10,7 @@ Feedstock license: BSD 3-Clause
 Summary: AmberTools is a set of programs for biomolecular simulation and analysis
 
 AmberTools is a set of programs for biomolecular simulation and analysis.
-They are designed to work well with each other, and with the “regular” Amber
+They are designed to work well with each other, and with the "regular" Amber
 suite of programs. You can perform many simulation tasks with AmberTools,
 and you can do more extensive simulations with the combination of AmberTools
 and Amber itself.
