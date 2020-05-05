@@ -1,40 +1,18 @@
 {% set name = "AmberTools" %}
 # Versioning scheme uses AmberTools major release as MAJOR version number, patch level as MINOR version number
 # Update the MINOR version number as new patch releases come out
-{% set version = "19.11" %}
+{% set version = "20.0" %}
 
 package:
   name: {{ name|lower }}
   version: {{ version }}
 
 source:
-  url: https://ambermd.org/downloads/AmberTools19.tar.bz2
-  sha256: 0c86937904854b64e4831e047851f504ec45b42e593db4ded92c1bee5973e699
-  patches:
-    - patches/do_not_use_global_conda_prefix.patch
-    - patches/do_not_symlink_missing_ff12pol.patch
-    - patches/use_external_netcdf.patch
-    - patches/fix_mm_pbsa_pl.patch
-    - patches/fix_cpinutil_pKa_comparison_bug.patch
-    - patches/do_not_override_osx_deployment_target.patch  # [osx]
-    # See #22 for more details on this patch:
-    - patches/do_not_bundle_osx_libs.patch  # [osx]
-    # Fix weird bug described here:
-    #   https://github.com/conda-forge/ambertools-feedstock/pull/11#issuecomment-570618741
-    - patches/delete_xdrfile_version.patch  # [osx]
-    ## Tests
-    - patches/do_not_use_AS_envvar_in_tests.patch
-    - patches/fix_run_nef_tests.patch
-    - patches/fix_sander_1ahoa_pme_test.patch
-    ## /Tests
-    ## IMPORTANT:
-    # The following patch needs to be applied manually in build.sh
-    # It was downloaded from this GH issue - it might be included by default in future updates
-    #   https://github.com/Amber-MD/cmake-buildscripts/issues/131#issuecomment-561280272
-    # - patches/amber19-fix-cmake.patch
+  url: https://ambermd.org/downloads/AmberTools20jlmrcc.tar.bz2
+  sha256: b1e1f8f277c54e88abc9f590e788bbb2f7a49bcff5e8d8a6eacfaf332a4890f9
 
 build:
-  number: 5
+  number: 0
   skip: True  # [win or py2k]
 
 requirements:
@@ -67,6 +45,7 @@ requirements:
     - netcdf-fortran
     - pthread-stubs
     - fftw
+    - arpack  # [not ppc64le]
     - libblas
     - liblapack
     - xorg-libxt  # [linux]
@@ -99,31 +78,31 @@ requirements:
 
 test:
   requires:
+{% if unit_tests == "run" %}
     - {{ compiler('fortran') }}
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}
     - util-linux  # [linux64]
-  # Try to force a library incompatibility error in osx (see #22)
+{% endif %}
+    - tcsh
+    # Try to force a library incompatibility error in osx (see #22)
     - lxml  # [osx]
     - rdkit  # [osx]
-  commands:
-    - antechamber -h
-    - cpptraj -h
-    - ffgbsa -h
-    - MCPB.py -h
-    - mdnab -h
-    - minab -h
-    - mmpbsa_py_energy -h
-    - parmchk2 -h
-    - parmed -h
-    - pdb4amber -h
-    - respgen -h
-    - sqm -h
-    - teLeap -h
-    - tleap -h
+  source_files:
+{% if unit_tests == "run" %}
+    - "*"
+{% else %}
+    # we need to copy at least one file, otherwise we can't use SRC_DIR in run_test.sh
+    - README
+{% endif %}
+  # commands: check run_test.sh for CLI tests
   imports:
-    - pytraj
     - parmed
+    - pdb4amber
+    - pymsmt
+    - pytraj
+    - sander
+    # Try to force a library incompatibility error in osx (see #22)
     - rdkit  # [osx]
     - rdkit.Chem.AllChem  # [osx]
 
@@ -134,7 +113,7 @@ about:
   summary: 'AmberTools is a set of programs for biomolecular simulation and analysis'
   description: |
     AmberTools is a set of programs for biomolecular simulation and analysis.
-    They are designed to work well with each other, and with the “regular” Amber
+    They are designed to work well with each other, and with the "regular" Amber
     suite of programs. You can perform many simulation tasks with AmberTools,
     and you can do more extensive simulations with the combination of AmberTools
     and Amber itself.
