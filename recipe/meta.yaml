@@ -45,7 +45,7 @@ requirements:
     - netcdf-fortran
     - pthread-stubs
     - fftw
-    - arpack  # [not ppc64le]
+    - arpack
     - libblas
     - liblapack
     - xorg-libxt  # [linux]
