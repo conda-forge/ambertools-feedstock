@@ -34,13 +34,9 @@ if [[ "$target_platform" == osx* ]]; then
     rm -rf ${PREFIX}/include/X11/{ap_keysym,keysym,keysymdef,Xlib,Xutil,cursorfont}.h
     #  2) Reinstall Xorg dependencies
     set +u
-    mv ${PREFIX}/etc/conda/{activate.d,activate.d.bak}
-    mv ${PREFIX}/etc/conda/{deactivate.d,deactivate.d.bak}
     mv ${BUILD_PREFIX}/etc/conda/{activate.d,activate.d.bak}
     mv ${BUILD_PREFIX}/etc/conda/{deactivate.d,deactivate.d.bak}
     conda install --yes --no-deps --force-reinstall -p ${PREFIX} xorg-xproto xorg-libx11
-    mv ${PREFIX}/etc/conda/{activate.d.bak,activate.d}
-    mv ${PREFIX}/etc/conda/{deactivate.d.bak,deactivate.d}
     mv ${BUILD_PREFIX}/etc/conda/{activate.d.bak,activate.d}
     mv ${BUILD_PREFIX}/etc/conda/{deactivate.d.bak,deactivate.d}
     set -u
