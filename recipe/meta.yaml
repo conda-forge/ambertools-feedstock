@@ -48,9 +48,9 @@ requirements:
     - arpack
     - libblas
     - liblapack
-    - xorg-libxt  # [linux]
-    - xorg-libxext   # [linux]
-    - xorg-libx11   # [linux]
+    - xorg-libxt  # [unix]
+    - xorg-libxext   # [unix]
+    - xorg-libx11   # [unix]
     - readline
     - llvm-openmp  # [osx]
     - libgomp      # [linux and not aarch64]
@@ -67,9 +67,9 @@ requirements:
     - fftw
     - libblas
     - liblapack
-    - xorg-libxt  # [linux]
-    - xorg-libxext  # [linux]
-    - xorg-libx11   # [linux]
+    - xorg-libxt  # [unix]
+    - xorg-libxext  # [unix]
+    - xorg-libx11   # [unix]
     - readline
     - llvm-openmp  # [osx]
     - libgomp      # [linux and not aarch64]
