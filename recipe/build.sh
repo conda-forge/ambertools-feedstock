@@ -33,7 +33,9 @@ if [[ "$target_platform" == osx* ]]; then
     rm -rf ${PREFIX}/include/X11/{DECkeysym,HPkeysym,Sunkeysym,X,XF86keysym,Xatom,Xfuncproto}.h
     rm -rf ${PREFIX}/include/X11/{ap_keysym,keysym,keysymdef,Xlib,Xutil,cursorfont}.h
     #  2) Reinstall Xorg dependencies
+    set +u
     conda install --yes --no-deps --force-reinstall -p ${PREFIX} xorg-xproto xorg-libx11
+    set -u
 fi
 
 # Build AmberTools with cmake
