@@ -22,11 +22,18 @@ BUILD_GUI="TRUE"
 if [[ "$target_platform" == osx* ]]; then
     CMAKE_FLAGS+=" -DCMAKE_OSX_SYSROOT=${CONDA_BUILD_SYSROOT}"
     CMAKE_FLAGS+=" -DCMAKE_OSX_DEPLOYMENT_TARGET=${MACOSX_DEPLOYMENT_TARGET}"
-    # BUILD_GUI="FALSE"
     # Hack around https://github.com/conda-forge/gfortran_osx-64-feedstock/issues/11
     # Taken from https://github.com/awvwgk/staged-recipes/tree/dftd4/recipes/dftd4
     # See contents of fake-bin/cc1 for an explanation
     export PATH="${PATH}:${RECIPE_DIR}/fake-bin"
+    # BUILD_GUI="FALSE"
+    # Workarounds for issue #20
+    #  In MacOS, `tk` ships some X11 headers that interfere with the X11 libraries
+    #  1) delete clobbered X11 headers (mix of tk and xorg)
+    rm -rf ${PREFIX}/include/X11/{DECkeysym,HPkeysym,Sunkeysym,X,XF86keysym,Xatom,Xfuncproto}.h
+    rm -rf ${PREFIX}/include/X11/{ap_keysym,keysym,keysymdef,Xlib,Xutil,cursorfont}.h
+    #  2) Reinstall Xorg dependencies
+    conda install --force-reinstall -p ${PREFIX} xorg-xproto xorg-libx11
 fi
 
 # Build AmberTools with cmake
