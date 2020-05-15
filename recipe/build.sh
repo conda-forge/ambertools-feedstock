@@ -33,6 +33,7 @@ if [[ "$target_platform" == osx* ]]; then
     rm -rf ${PREFIX}/include/X11/{DECkeysym,HPkeysym,Sunkeysym,X,XF86keysym,Xatom,Xfuncproto}.h
     rm -rf ${PREFIX}/include/X11/{ap_keysym,keysym,keysymdef,Xlib,Xutil,cursorfont}.h
     #  2) Reinstall Xorg dependencies
+    #     We temporarily disable the (de)activation scripts because they fail otherwise
     set +u
     mv ${BUILD_PREFIX}/etc/conda/{activate.d,activate.d.bak}
     mv ${BUILD_PREFIX}/etc/conda/{deactivate.d,deactivate.d.bak}
