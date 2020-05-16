@@ -8,11 +8,9 @@ python update_amber --update-to=AmberTools.%PATCH_LEVEL% || goto :error
 
 :: Additional build dependencies
 copy extra-bc\bin\bc.exe %BUILD_PREFIX%\Library\bin\bc.exe
-copy extra-flex\bin\flex.exe %BUILD_PREFIX%\Library\bin\flex.exe
-copy extra-m4\bin\m4.exe %BUILD_PREFIX%\Library\bin\m4.exe
-copy extra-bison\bin\bison.exe %BUILD_PREFIX%\Library\bin\bison.exe
 copy tcsh.exe %BUILD_PREFIX%\Library\bin\csh.exe
 copy libxblas.a %LIBRARY_PREFIX%\lib
+copy %LIBRARY_PREFIX%\lib\fftw3.lib %LIBRARY_PREFIX%\lib\fftw3.a
 
 :: Build AmberTools with cmake
 rm -rf build
@@ -32,8 +30,8 @@ mingw32-make || goto :error
 mingw32-make install || goto :error
 
 :: Export AMBERHOME automatically
-mkdir -p %PREFIX%/etc/conda/activate.d || goto :error
-mkdir -p %PREFIX%/etc/conda/deactivate.d || goto :error
+mkdir %PREFIX%/etc/conda/activate.d || goto :error
+mkdir %PREFIX%/etc/conda/deactivate.d || goto :error
 cp %RECIPE_DIR%/activate.sh %PREFIX%/etc/conda/activate.d/ambertools.sh || goto :error
 cp %RECIPE_DIR%/activate.fish %PREFIX%/etc/conda/activate.d/ambertools.fish || goto :error
 cp %RECIPE_DIR%/activate.bat %PREFIX%/etc/conda/activate.d/ambertools.bat || goto :error
