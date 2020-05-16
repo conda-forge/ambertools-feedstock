@@ -10,20 +10,14 @@ package:
 source:
   - url: https://ambermd.org/downloads/AmberTools20jlmrcc.tar.bz2
     sha256: b1e1f8f277c54e88abc9f590e788bbb2f7a49bcff5e8d8a6eacfaf332a4890f9
-    patches:
-      - patches/cmake-windows.patch
   - url: https://netix.dl.sourceforge.net/project/gnuwin32/bc/1.06-2/bc-1.06-2-bin.zip  # [win]
     sha256: 8a39075443173167b9cc8f88199c5ec09c4a8e22339e21917a6be0441e3f3183  # [win]
     folder: extra-bc  # [win]
-  - url: https://netix.dl.sourceforge.net/project/gnuwin32/flex/2.5.4a-1/flex-2.5.4a-1-bin.zip  # [win]
-    sha256: e2a6c737ebed34ca465219375bd4d083265f49b2b0d4d7d011f376f1a86de511  # [win]
-    folder: extra-flex  # [win]
-  - url: https://netix.dl.sourceforge.net/project/gnuwin32/bison/2.4.1/bison-2.4.1-bin.zip  # [win]
-    sha256: cd239ab43baea53cfdb1f2663ad0883586b97f22cee825c3780ad9bba7e6ee19  # [win]
-    folder: extra-bison  # [win]
   - url: http://ftp.funet.fi/pub/mirrors/ftp.astron.com/pub/tcsh/beta/tcsh-6.17.05-x64.exe.gz  # [win]
     sha256: 8c433763916f1ff5485e089cd6830ad8311b9cf6ace21f7c7d78053f3ed61de4  # [win]
     fn: tcsh.exe  # [win]
+  # Temporary workaround for xblas
+  # Link comes from http://ambermd.org/pmwiki/pmwiki.php/Main/CMake-On-Windows
   - url: https://drive.google.com/uc?id=0B7pOeX23vSjSY2RIU0RXUG5ENTQ&export=download  # [win]
     sha256: 0d6ccb27f136f9fcd7e56a641bef861e3b3ccd838ee157ee856a4ebb874a0a13  # [win]
     fn: libxblas.a  # [win]
@@ -44,14 +38,18 @@ requirements:
     - ld64 409.12 h3c32e8a_4   # [osx]
     - bc  # [unix]
     - flex  # [unix]
+    - m2-flex  # [win]
     - tcsh  # [unix]
     - bison  # [unix]
+    - m2-bison  # [win]
     - make  # [unix]
     - patch  # [unix]
+    - m2-m4  # [win]
     - cmake
     - perl
-    - llvm-openmp  # [osx or win]
+    - llvm-openmp  # [osx]
     - libgomp      # [linux and not aarch64]
+    - intel-openmp  # [win]
     - git  # [win]
   host:
     - python
@@ -69,15 +67,16 @@ requirements:
     - fftw
     - arpack
     - libblas  # [unix]
-    - libblas * *mkl # [win]
+    - libblas * *mkl  # [win]
     - liblapack  # [unix]
-    - liblapack * *mkl # [win]
+    - liblapack * *mkl  # [win]
     - xorg-libxt  # [unix]
-    - xorg-libxext   # [unix]
-    - xorg-libx11   # [unix]
+    - xorg-libxext  # [unix]
+    - xorg-libx11  # [unix]
     - readline  # [unix]
-    - llvm-openmp  # [osx or win]
-    - libgomp      # [linux and not aarch64]
+    - llvm-openmp  # [osx]
+    - libgomp  # [linux and not aarch64]
+    - intel-openmp  # [win]
   run:
     - python
     - perl
@@ -90,15 +89,16 @@ requirements:
     - netcdf-fortran  # [unix]
     - fftw
     - libblas  # [unix]
-    - libblas * *mkl # [win]
+    - libblas * *mkl  # [win]
     - liblapack  # [unix]
-    - liblapack * *mkl # [win]
+    - liblapack * *mkl  # [win]
     - xorg-libxt  # [unix]
     - xorg-libxext  # [unix]
-    - xorg-libx11   # [unix]
+    - xorg-libx11  # [unix]
     - readline  # [unix]
     - llvm-openmp  # [osx or win]
-    - libgomp      # [linux and not aarch64]
+    - libgomp  # [linux and not aarch64]
+    - intel-openmp  # [win]
   run_constrained:
     - ambermini ==9999999999
 
