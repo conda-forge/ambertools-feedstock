@@ -12,7 +12,7 @@ copy extra-flex\bin\flex.exe %BUILD_PREFIX%\Library\bin\flex.exe
 copy extra-m4\bin\m4.exe %BUILD_PREFIX%\Library\bin\m4.exe
 copy extra-bison\bin\bison.exe %BUILD_PREFIX%\Library\bin\bison.exe
 copy tcsh.exe %BUILD_PREFIX%\Library\bin\csh.exe
-copy libxblas.a %LIBRARY_PREFIX\lib
+copy libxblas.a %LIBRARY_PREFIX%\lib
 
 :: Build AmberTools with cmake
 rm -rf build
