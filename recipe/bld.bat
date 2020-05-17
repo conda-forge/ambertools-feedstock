@@ -1,4 +1,3 @@
-
 SET "CWD=%cd%"
 FOR /F "tokens=* USEBACKQ" %%F IN (`bash -c "echo $PKG_VERSION | cut -d. -f2"`) DO (
     SET PATCH_LEVEL=%%F || goto :error
@@ -13,11 +12,12 @@ copy libxblas.a %LIBRARY_PREFIX%\lib
 copy %LIBRARY_PREFIX%\lib\fftw3.lib %LIBRARY_PREFIX%\lib\fftw3.a
 
 :: Build AmberTools with cmake
-rm -rf build
+rmdir build /s /q
 mkdir build || goto :error
 cd build || goto :error
 set "CMAKE_GENERATOR=MinGW Makefiles"
 cmake %SRC_DIR% %CMAKE_FLAGS% ^
+    -DCMAKE_PREFIX_PATH=%PREFIX% ^
     -DCMAKE_INSTALL_PREFIX=%LIBRARY_PREFIX% ^
     -DCOMPILER=AUTO ^
     -DPYTHON_EXECUTABLE=%PYTHON% ^
