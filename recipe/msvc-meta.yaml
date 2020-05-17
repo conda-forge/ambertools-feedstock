@@ -1,0 +1,144 @@
+{% set name = "AmberTools" %}
+# Versioning scheme uses AmberTools major release as MAJOR version number, patch level as MINOR version number
+# Update the MINOR version number as new patch releases come out
+{% set version = "20.0" %}
+
+package:
+  name: {{ name|lower }}
+  version: {{ version }}
+
+source:
+  - url: https://ambermd.org/downloads/AmberTools20jlmrcc.tar.bz2
+    sha256: b1e1f8f277c54e88abc9f590e788bbb2f7a49bcff5e8d8a6eacfaf332a4890f9
+  - url: https://netix.dl.sourceforge.net/project/gnuwin32/bc/1.06-2/bc-1.06-2-bin.zip  # [win]
+    sha256: 8a39075443173167b9cc8f88199c5ec09c4a8e22339e21917a6be0441e3f3183  # [win]
+    folder: extra-bc  # [win]
+  - url: http://ftp.funet.fi/pub/mirrors/ftp.astron.com/pub/tcsh/beta/tcsh-6.17.05-x64.exe.gz  # [win]
+    sha256: 8c433763916f1ff5485e089cd6830ad8311b9cf6ace21f7c7d78053f3ed61de4  # [win]
+    fn: tcsh.exe  # [win]
+  # Temporary workaround for xblas
+  # Link comes from http://ambermd.org/pmwiki/pmwiki.php/Main/CMake-On-Windows
+  - url: https://drive.google.com/uc?id=0B7pOeX23vSjSY2RIU0RXUG5ENTQ&export=download  # [win]
+    sha256: 0d6ccb27f136f9fcd7e56a641bef861e3b3ccd838ee157ee856a4ebb874a0a13  # [win]
+    fn: libxblas.a  # [win]
+
+build:
+  number: 3
+  skip: True  # [unix or py2k]
+
+requirements:
+  build:
+    - {{ compiler('fortran') }}
+    - {{ compiler('c') }}
+    - {{ compiler('cxx') }}
+    - m2w64-dlfcn  # [win]
+    - ld64 409.12 h3c32e8a_4   # [osx]
+    - bc  # [unix]
+    - flex  # [unix]
+    - m2-flex  # [win]
+    - tcsh  # [unix]
+    - bison  # [unix]
+    - m2-bison  # [win]
+    - make  # [unix]
+    - patch  # [unix]
+    - m2-m4  # [win]
+    - cmake
+    - perl
+    - mkl-devel  # [win]
+    - llvm-openmp  # [osx]
+    - libgomp      # [linux and not aarch64]
+    - git  # [win]
+  host:
+    - python
+    - setuptools
+    - cython
+    - numpy
+    - scipy
+    - matplotlib-base
+    - bzip2
+    - zlib
+    - boost-cpp
+    - libnetcdf
+    - netcdf-fortran  # [unix]
+    - pthread-stubs
+    - fftw
+    - arpack
+    - libblas
+    - liblapack
+    - mkl-devel  # [win]
+    - xorg-libxt  # [unix]
+    - xorg-libxext  # [unix]
+    - xorg-libx11  # [unix]
+    - readline  # [unix]
+    - m2-libreadline  # [win]
+    - llvm-openmp  # [osx]
+    - libgomp  # [linux and not aarch64]
+  run:
+    - python
+    - perl
+    - cython
+    - numpy
+    - scipy
+    - matplotlib-base
+    - boost-cpp
+    - libnetcdf
+    - netcdf-fortran  # [unix]
+    - fftw
+    - libblas
+    - liblapack
+    - xorg-libxt  # [unix]
+    - xorg-libxext  # [unix]
+    - xorg-libx11  # [unix]
+    - readline  # [unix]
+    - m2-libreadline  # [win]
+    - llvm-openmp  # [osx]
+    - libgomp  # [linux and not aarch64]
+  run_constrained:
+    - ambermini ==9999999999
+
+test:
+  requires:
+{% if unit_tests == "run" %}
+    - {{ compiler('fortran') }}
+    - {{ compiler('c') }}
+    - {{ compiler('cxx') }}
+    - util-linux  # [linux64]
+{% endif %}
+    - tcsh  # [unix]
+    # Try to force a library incompatibility error in osx (see #22)
+    - lxml  # [osx]
+    - rdkit  # [osx]
+  source_files:
+{% if unit_tests == "run" %}
+    - "*"
+{% else %}
+    # we need to copy at least one file, otherwise we can't use SRC_DIR in run_test.sh
+    - README
+{% endif %}
+  # commands: check run_test.sh for CLI tests
+  imports:
+    - parmed
+    - pdb4amber
+    - pymsmt
+    - pytraj
+    - sander
+    # Try to force a library incompatibility error in osx (see #22)
+    - rdkit  # [osx]
+    - rdkit.Chem.AllChem  # [osx]
+
+about:
+  home: http://ambermd.org/AmberTools.php
+  license: Multiple
+  license_file: AmberTools/LICENSE
+  summary: 'AmberTools is a set of programs for biomolecular simulation and analysis'
+  description: |
+    AmberTools is a set of programs for biomolecular simulation and analysis.
+    They are designed to work well with each other, and with the "regular" Amber
+    suite of programs. You can perform many simulation tasks with AmberTools,
+    and you can do more extensive simulations with the combination of AmberTools
+    and Amber itself.
+
+extra:
+  recipe-maintainers:
+    - simonbray
+    - jaimergp
