@@ -10,8 +10,6 @@ package:
 source:
   - url: https://ambermd.org/downloads/AmberTools20jlmrcc.tar.bz2
     sha256: b1e1f8f277c54e88abc9f590e788bbb2f7a49bcff5e8d8a6eacfaf332a4890f9
-    patches:  # [win]
-      - cmake-windows.patch  # [win]
   - url: https://netix.dl.sourceforge.net/project/gnuwin32/bc/1.06-2/bc-1.06-2-bin.zip  # [win]
     sha256: 8a39075443173167b9cc8f88199c5ec09c4a8e22339e21917a6be0441e3f3183  # [win]
     folder: extra-bc  # [win]

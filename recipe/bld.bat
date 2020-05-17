@@ -10,6 +10,8 @@ copy extra-bc\bin\bc.exe %BUILD_PREFIX%\Library\bin\bc.exe
 copy tcsh.exe %BUILD_PREFIX%\Library\bin\csh.exe
 copy libxblas.a %LIBRARY_PREFIX%\lib
 copy %LIBRARY_PREFIX%\lib\fftw3.lib %LIBRARY_PREFIX%\lib\fftw3.a
+:: Poor man patch :)
+copy %RECIPE_DIR%\LibraryUtils.cmake.patched %SRC_DIR%\cmake\LibraryUtils.cmake
 
 :: Build AmberTools with cmake
 rmdir build /s /q
