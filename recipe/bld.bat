@@ -25,8 +25,9 @@ cmake %SRC_DIR% %CMAKE_FLAGS% ^
     -DPYTHON_EXECUTABLE=%PYTHON% ^
     -DBUILD_GUI=FALSE ^
     -DCHECK_UPDATES=FALSE ^
-    -DTRUST_SYSTEM_LIBS=TRUE ^
     || goto :error
+:: Disable for now
+:: -DTRUST_SYSTEM_LIBS=TRUE ^
 
 mingw32-make || goto :error
 mingw32-make install || goto :error
