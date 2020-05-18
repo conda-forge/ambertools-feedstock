@@ -8,19 +8,29 @@ python update_amber --update-to=AmberTools.%PATCH_LEVEL% || goto :error
 :: Additional build dependencies
 copy extra-bc\bin\bc.exe %BUILD_PREFIX%\Library\bin\bc.exe
 copy tcsh.exe %BUILD_PREFIX%\Library\bin\csh.exe
-copy libxblas.a %LIBRARY_PREFIX%\lib\libxblas.a
-copy %LIBRARY_PREFIX%\lib\fftw3.lib %LIBRARY_PREFIX%\lib\fftw3.a
+REM copy libxblas.a %LIBRARY_PREFIX%\lib\libxblas.a
+REM copy %LIBRARY_PREFIX%\lib\fftw3.lib %LIBRARY_PREFIX%\lib\fftw3.a
 :: Poor man patch :)
 :: This adds lines 74,75
 copy %RECIPE_DIR%\replacements\LibraryUtils.cmake.patched %SRC_DIR%\cmake\LibraryUtils.cmake
 :: This adds gcc as the default toolset for Boost (otherwise it picks msvc)
 copy %RECIPE_DIR%\replacements\Boost.cmake %SRC_DIR%\AmberTools\src\boost\CMakeLists.txt
+:: Python Extension patches
+:: + Distutils must be monkey-patched so it returns the correct vcruntime140 lib
+:: + We need to patch all Python Extension objects (setup.py) so they define
+::     -> library_dirs=[sys.prefix]
+copy %RECIPE_DIR%\replacements\parmed.setup.py %SRC_DIR%\AmberTools\src\parmed\setup.py
+copy %RECIPE_DIR%\replacements\pysander.setup.py %SRC_DIR%\AmberTools\src\pysander\setup.py
+
+
 
 :: Build AmberTools with cmake
 rmdir build /s /q
 mkdir build || goto :error
 cd build || goto :error
 set "CMAKE_GENERATOR=MinGW Makefiles"
+:: This does not work, but it should... that's why we need Boost.cmake replacement above
+set "BOOST_JAM_TOOLSET=gcc"
 cmake %SRC_DIR% %CMAKE_FLAGS% ^
     -DCMAKE_PREFIX_PATH=%PREFIX% ^
     -DCMAKE_INSTALL_PREFIX=%LIBRARY_PREFIX% ^
