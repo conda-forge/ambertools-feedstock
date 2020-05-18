@@ -1,0 +1,2 @@
+set "AMBERHOME="
+set "PERL5LIB="
