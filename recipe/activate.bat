@@ -1,2 +1,2 @@
-set "AMBERHOME=%CONDA_PREFIX%"
-set "PERL5LIB=%CONDA_PREFIX%\lib\perl\mm_pbsa"
+set "AMBERHOME=%CONDA_PREFIX%\Library"
+set "PERL5LIB=%CONDA_PREFIX%\Library\lib\perl\mm_pbsa"
