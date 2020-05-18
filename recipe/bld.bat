@@ -8,7 +8,7 @@ python update_amber --update-to=AmberTools.%PATCH_LEVEL% || goto :error
 :: Additional build dependencies
 copy extra-bc\bin\bc.exe %BUILD_PREFIX%\Library\bin\bc.exe
 copy tcsh.exe %BUILD_PREFIX%\Library\bin\csh.exe
-REM copy libxblas.a %LIBRARY_PREFIX%\lib\libxblas.a
+copy libxblas.a %LIBRARY_PREFIX%\lib\libxblas.a
 REM copy %LIBRARY_PREFIX%\lib\fftw3.lib %LIBRARY_PREFIX%\lib\fftw3.a
 :: Poor man patch :)
 :: This adds lines 74,75
@@ -37,7 +37,7 @@ cmake %SRC_DIR% %CMAKE_FLAGS% ^
     -DPYTHON_EXECUTABLE=%PYTHON% ^
     -DBUILD_GUI=FALSE ^
     -DCHECK_UPDATES=FALSE ^
-    -DSKIP_PYTHON_PACKAGE_CHECKS=TRUE ^
+    -DSKIP_PYTHON_PACKAGECHECKS=TRUE ^
     || goto :error
 :: Disable for now
 :: -DTRUST_SYSTEM_LIBS=TRUE ^
