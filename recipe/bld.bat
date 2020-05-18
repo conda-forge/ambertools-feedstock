@@ -8,9 +8,11 @@ python update_amber --update-to=AmberTools.%PATCH_LEVEL% || goto :error
 :: Additional build dependencies
 copy extra-bc\bin\bc.exe %BUILD_PREFIX%\Library\bin\bc.exe
 copy tcsh.exe %BUILD_PREFIX%\Library\bin\csh.exe
+:: TODO: Fix xblas build system or provide a conda-forge recipe as in:
+:: -> https://github.com/conda-forge/staged-recipes/pull/11644
 copy libxblas.a %LIBRARY_PREFIX%\lib\libxblas.a
 REM copy %LIBRARY_PREFIX%\lib\fftw3.lib %LIBRARY_PREFIX%\lib\fftw3.a
-:: Poor man patch :)
+:: Poor man patches :)
 :: This adds lines 74,75
 copy %RECIPE_DIR%\replacements\LibraryUtils.cmake.patched %SRC_DIR%\cmake\LibraryUtils.cmake
 :: This adds gcc as the default toolset for Boost (otherwise it picks msvc)

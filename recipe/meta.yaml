@@ -18,9 +18,9 @@ source:
     fn: tcsh.exe  # [win]
   # Temporary workaround for xblas
   # Link comes from http://ambermd.org/pmwiki/pmwiki.php/Main/CMake-On-Windows
-  # - url: https://drive.google.com/uc?id=0B7pOeX23vSjSY2RIU0RXUG5ENTQ&export=download  # [win]
-  #   sha256: 0d6ccb27f136f9fcd7e56a641bef861e3b3ccd838ee157ee856a4ebb874a0a13  # [win]
-  #   fn: libxblas.a  # [win]
+  - url: https://drive.google.com/uc?id=0B7pOeX23vSjSY2RIU0RXUG5ENTQ&export=download  # [win]
+    sha256: 0d6ccb27f136f9fcd7e56a641bef861e3b3ccd838ee157ee856a4ebb874a0a13  # [win]
+    fn: libxblas.a  # [win]
 
 build:
   number: 3
