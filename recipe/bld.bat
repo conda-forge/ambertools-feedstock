@@ -23,7 +23,6 @@ copy %RECIPE_DIR%\replacements\parmed.setup.py %SRC_DIR%\AmberTools\src\parmed\s
 copy %RECIPE_DIR%\replacements\pysander.setup.py %SRC_DIR%\AmberTools\src\pysander\setup.py
 
 
-
 :: Build AmberTools with cmake
 rmdir build /s /q
 mkdir build || goto :error
@@ -38,22 +37,24 @@ cmake %SRC_DIR% %CMAKE_FLAGS% ^
     -DPYTHON_EXECUTABLE=%PYTHON% ^
     -DBUILD_GUI=FALSE ^
     -DCHECK_UPDATES=FALSE ^
+    -DSKIP_PYTHON_PACKAGE_CHECKS=TRUE ^
     || goto :error
 :: Disable for now
 :: -DTRUST_SYSTEM_LIBS=TRUE ^
 
+mingw32-make
 mingw32-make || goto :error
 mingw32-make install || goto :error
 
 :: Export AMBERHOME automatically
-mkdir %PREFIX%/etc/conda/activate.d || goto :error
-mkdir %PREFIX%/etc/conda/deactivate.d || goto :error
-cp %RECIPE_DIR%/activate.sh %PREFIX%/etc/conda/activate.d/ambertools.sh || goto :error
-cp %RECIPE_DIR%/activate.fish %PREFIX%/etc/conda/activate.d/ambertools.fish || goto :error
-cp %RECIPE_DIR%/activate.bat %PREFIX%/etc/conda/activate.d/ambertools.bat || goto :error
-cp %RECIPE_DIR%/deactivate.sh %PREFIX%/etc/conda/deactivate.d/ambertools.sh || goto :error
-cp %RECIPE_DIR%/deactivate.fish %PREFIX%/etc/conda/deactivate.d/ambertools.fish || goto :error
-cp %RECIPE_DIR%/deactivate.bat %PREFIX%/etc/conda/deactivate.d/ambertools.bat || goto :error
+mkdir %PREFIX%\etc\conda\activate.d || goto :error
+mkdir %PREFIX%\etc\conda\deactivate.d || goto :error
+copy %RECIPE_DIR%\activate.sh %PREFIX%\etc\conda\activate.d\ambertools.sh || goto :error
+copy %RECIPE_DIR%\activate.fish %PREFIX%\etc\conda\activate.d\ambertools.fish || goto :error
+copy %RECIPE_DIR%\activate.bat %PREFIX%\etc\conda\activate.d\ambertools.bat || goto :error
+copy %RECIPE_DIR%\deactivate.sh %PREFIX%\etc\conda\deactivate.d\ambertools.sh || goto :error
+copy %RECIPE_DIR%\deactivate.fish %PREFIX%\etc\conda\deactivate.d\ambertools.fish || goto :error
+copy %RECIPE_DIR%\deactivate.bat %PREFIX%\etc\conda\deactivate.d\ambertools.bat || goto :error
 
 goto :EOF
 
