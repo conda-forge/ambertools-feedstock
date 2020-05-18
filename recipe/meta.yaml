@@ -99,6 +99,7 @@ requirements:
     - llvm-openmp  # [osx]
     - libgomp  # [linux and not aarch64]
     - intel-openmp  # [win]
+    - m2w64-dlfcn  # [win]
   run_constrained:
     - ambermini ==9999999999
 
@@ -129,7 +130,8 @@ test:
     - parmed
     - pdb4amber
     - pymsmt
-    - pytraj
+    # PyTraj cannot be compiled on Windows+MinGW
+    - pytraj  # [unix]
     - sander
     # Try to force a library incompatibility error in osx (see #22)
     - rdkit  # [osx]

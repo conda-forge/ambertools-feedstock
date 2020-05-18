@@ -71,9 +71,9 @@
 :: PropPDB -h
 :: :: Works
 :: residuegen -h
-:: :: DOES NOT WORK!!!! something libdl?
+:: :: Works
 :: sander -h
-:: :: DOES NOT WORK!!!! something libdl?
+:: :: Works
 :: sander.LES -h
 :: :: Works
 :: saxs_rism -h
@@ -114,10 +114,9 @@ cmd /c atomtype.bat -h
 IF %ERRORLEVEL% NEQ 0 exit 1
 cmd /c bondtype.bat -h
 IF %ERRORLEVEL% NEQ 0 exit 1
-REM :: Does not execute - errorlevel -1073741515
-REM cpptraj.exe -h
-REM IF %ERRORLEVEL% NEQ 0 exit 1
-REM :: Does not exist?
+cpptraj.exe -h
+IF %ERRORLEVEL% NEQ 0 exit 1
+REM :: ERROR - Does not exist?
 REM draw_membrane2.exe
 REM IF %ERRORLEVEL% NEQ 0 exit 1
 cmd /c espgen.bat -h
@@ -143,7 +142,7 @@ cmd /c prepgen.bat -h
 IF %ERRORLEVEL% NEQ 0 exit 1
 cmd /c reduce.bat -V
 IF %ERRORLEVEL% NEQ 0 exit 1
-REM :: Access denied???
+REM :: ERROR - Access denied???
 REM resp.exe -h
 REM IF %ERRORLEVEL% NEQ 0 exit 1
 cmd /c respgen.bat -h
