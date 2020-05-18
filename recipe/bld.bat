@@ -57,6 +57,11 @@ copy %RECIPE_DIR%\deactivate.sh %PREFIX%\etc\conda\deactivate.d\ambertools.sh ||
 copy %RECIPE_DIR%\deactivate.fish %PREFIX%\etc\conda\deactivate.d\ambertools.fish || goto :error
 copy %RECIPE_DIR%\deactivate.bat %PREFIX%\etc\conda\deactivate.d\ambertools.bat || goto :error
 
+
+:: Fix site-packages location
+robocopy %LIBRARY_PREFIX%\lib\site-packages %PREFIX%\lib\site-packages /E
+rmdir %LIBRARY_PREFIX%\lib\site-packages /s /q
+
 goto :EOF
 
 :error
