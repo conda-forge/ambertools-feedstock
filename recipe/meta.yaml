@@ -61,15 +61,15 @@ requirements:
     - matplotlib-base  # [unix]
     - bzip2
     - zlib
+    - pthread-stubs
     # Boost and netcdf are critical in Amber and
     # the conda-forge packages are not compatible
     # on Windows + MinGW until netcdf-fortran is available
     - boost-cpp  # [unix]
     - libnetcdf  # [unix]
     - netcdf-fortran  # [unix]
-    - pthread-stubs
-    - fftw
-    - arpack
+    - fftw  # [unix]
+    - arpack  # [unix]
     - libblas
     - liblapack
     - xorg-libxt  # [unix]
@@ -86,19 +86,17 @@ requirements:
     - numpy
     - scipy
     - matplotlib-base
-    - boost-cpp
-    - libnetcdf
+    - boost-cpp  # [unix]
+    - libnetcdf  # [unix]
     - netcdf-fortran  # [unix]
-    - fftw
-    - libblas  # [unix]
-    - libblas * *mkl  # [win]
-    - liblapack  # [unix]
-    - liblapack * *mkl  # [win]
+    - fftw  # [unix]
+    - libblas
+    - liblapack
     - xorg-libxt  # [unix]
     - xorg-libxext  # [unix]
     - xorg-libx11  # [unix]
     - readline  # [unix]
-    - llvm-openmp  # [osx or win]
+    - llvm-openmp  # [osx]
     - libgomp  # [linux and not aarch64]
     - intel-openmp  # [win]
   run_constrained:
