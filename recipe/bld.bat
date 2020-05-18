@@ -44,7 +44,6 @@ cmake %SRC_DIR% %CMAKE_FLAGS% ^
 :: Disable for now
 :: -DTRUST_SYSTEM_LIBS=TRUE ^
 
-mingw32-make
 mingw32-make || goto :error
 mingw32-make install || goto :error
 
