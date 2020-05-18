@@ -124,7 +124,7 @@ test:
     # we need to copy at least one file, otherwise we can't use SRC_DIR in run_test.sh
     - README
 {% endif %}
-  # commands: check run_test.sh for CLI tests
+  # commands: check run_test.{sh,bat} for CLI tests
   imports:
     - parmed
     - pdb4amber
