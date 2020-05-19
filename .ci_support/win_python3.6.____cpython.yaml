@@ -1,21 +1,13 @@
-arpack:
-- '3.7'
-boost_cpp:
-- '1.72'
 bzip2:
 - '1'
 channel_sources:
 - conda-forge,defaults
 channel_targets:
 - conda-forge main
-fftw:
-- '3'
 libblas:
 - 3.8 *netlib
 liblapack:
 - 3.8.0 *netlib
-libnetcdf:
-- 4.7.4
 m2w64_c_compiler:
 - m2w64-toolchain
 m2w64_cxx_compiler:
@@ -27,13 +19,7 @@ numpy:
 perl:
 - 5.26.2
 pin_run_as_build:
-  arpack:
-    max_pin: x.x.x
-  boost-cpp:
-    max_pin: x.x.x
   bzip2:
-    max_pin: x
-  fftw:
     max_pin: x
   perl:
     max_pin: x.x.x
@@ -45,6 +31,6 @@ pin_run_as_build:
 python:
 - 3.6.* *_cpython
 unit_tests:
-- skip
+- run
 zlib:
 - '1.2'
