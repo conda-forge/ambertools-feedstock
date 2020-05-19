@@ -1,4 +1,3 @@
-
 :::::: These commands can't be tested from CLI without input arguments
 :: :: Works
 :: addles -h
@@ -140,24 +139,30 @@ for /f "usebackq tokens=*" %%a in (`where amb2chm_psf_crd.py`) do python %%a -h 
 for /f "usebackq tokens=*" %%a in (`where amb2gro_top_gro.py`) do python %%a -h  || goto :error
 for /f "usebackq tokens=*" %%a in (`where ante-MMPBSA.py`) do python %%a -h  || goto :error
 for /f "usebackq tokens=*" %%a in (`where car_to_files.py`) do python %%a -h  || goto :error
-for /f "usebackq tokens=*" %%a in (`where CartHess2FC.py`) do python %%a -h  || goto :error
+REM :: This won't work without scipy
+REM for /f "usebackq tokens=*" %%a in (`where CartHess2FC.py`) do python %%a -h  || goto :error
 for /f "usebackq tokens=*" %%a in (`where ceinutil.py`) do python %%a -h  || goto :error
 for /f "usebackq tokens=*" %%a in (`where cpeinutil.py`) do python %%a -h  || goto :error
 for /f "usebackq tokens=*" %%a in (`where cpinutil.py`) do python %%a -h  || goto :error
 for /f "usebackq tokens=*" %%a in (`where espgen.py`) do python %%a -h  || goto :error
 for /f "usebackq tokens=*" %%a in (`where finddgref.py`) do python %%a -h  || goto :error
-for /f "usebackq tokens=*" %%a in (`where fitpkaeo.py`) do python %%a -h  || goto :error
+REM :: This won't work without scipy
+REM for /f "usebackq tokens=*" %%a in (`where fitpkaeo.py`) do python %%a -h  || goto :error
 for /f "usebackq tokens=*" %%a in (`where fixremdcouts.py`) do python %%a -h  || goto :error
 for /f "usebackq tokens=*" %%a in (`where genremdinputs.py`) do python %%a -h  || goto :error
-for /f "usebackq tokens=*" %%a in (`where IPMach.py`) do python %%a -h  || goto :error
-for /f "usebackq tokens=*" %%a in (`where MCPB.py`) do python %%a -h  || goto :error
+REM :: This won't work without scipy
+REM for /f "usebackq tokens=*" %%a in (`where IPMach.py`) do python %%a -h  || goto :error
+REM :: This won't work without scipy
+REM for /f "usebackq tokens=*" %%a in (`where MCPB.py`) do python %%a -h  || goto :error
 for /f "usebackq tokens=*" %%a in (`where metalpdb2mol2.py`) do python %%a -h  || goto :error
 for /f "usebackq tokens=*" %%a in (`where MMPBSA.py`) do python %%a -h  || goto :error
 for /f "usebackq tokens=*" %%a in (`where mol2rtf.py`) do python %%a -h  || goto :error
 for /f "usebackq tokens=*" %%a in (`where PdbSearcher.py`) do python %%a -h  || goto :error
-for /f "usebackq tokens=*" %%a in (`where ProScrs.py`) do python %%a -h  || goto :error
+REM :: This won't work without scipy
+REM for /f "usebackq tokens=*" %%a in (`where ProScrs.py`) do python %%a -h  || goto :error
 for /f "usebackq tokens=*" %%a in (`where softcore_setup.py`) do python %%a -h  || goto :error
-for /f "usebackq tokens=*" %%a in (`where packmol-memgen`) do python %%a -h  || goto :error
+REM :: This won't work without scipy
+REM for /f "usebackq tokens=*" %%a in (`where packmol-memgen`) do python %%a -h  || goto :error
 for /f "usebackq tokens=*" %%a in (`where parmed`) do python %%a -h  || goto :error
 for /f "usebackq tokens=*" %%a in (`where pymdpbsa`) do python %%a -h  || goto :error
 for /f "usebackq tokens=*" %%a in (`where pytleap`) do python %%a -h  || goto :error
