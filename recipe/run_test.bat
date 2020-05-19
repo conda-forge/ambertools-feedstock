@@ -99,123 +99,105 @@
 :: XrayPrep :::: REQUIRES PHENIX
 
 :: These run fine if prompted for help or version messages
-add_pdb.exe -h
-IF %ERRORLEVEL% NEQ 0 exit 1
-add_xray.exe -h
-IF %ERRORLEVEL% NEQ 0 exit 1
-cmd /c am1bcc.bat -h
-IF %ERRORLEVEL% NEQ 0 exit 1
-ambmask.exe -h
-IF %ERRORLEVEL% NEQ 0 exit 1
+add_pdb.exe -h  || goto :error
+add_xray.exe -h  || goto :error
+cmd /c am1bcc.bat -h  || goto :error
+ambmask.exe -h  || goto :error
 ambpdb.exe -h
-cmd /c antechamber.bat -h
-IF %ERRORLEVEL% NEQ 0 exit 1
-cmd /c atomtype.bat -h
-IF %ERRORLEVEL% NEQ 0 exit 1
-cmd /c bondtype.bat -h
-IF %ERRORLEVEL% NEQ 0 exit 1
-cpptraj.exe -h
-IF %ERRORLEVEL% NEQ 0 exit 1
-REM :: ERROR - Does not exist?
-REM draw_membrane2.exe
-REM IF %ERRORLEVEL% NEQ 0 exit 1
-cmd /c espgen.bat -h
-IF %ERRORLEVEL% NEQ 0 exit 1
-REM :: Missing!
-REM FEW.pl -h
-REM IF %ERRORLEVEL% NEQ 0 exit 1
-ffgbsa.exe -h
-IF %ERRORLEVEL% NEQ 0 exit 1
-makeANG_RST.exe -help
-IF %ERRORLEVEL% NEQ 0 exit 1
-mdgx.exe -h
-IF %ERRORLEVEL% NEQ 0 exit 1
-mdnab.exe -h
-IF %ERRORLEVEL% NEQ 0 exit 1
-minab.exe -h
-IF %ERRORLEVEL% NEQ 0 exit 1
-nfe-umbrella-slice.exe -h
-IF %ERRORLEVEL% NEQ 0 exit 1
-pdb4amber.exe -h
-IF %ERRORLEVEL% NEQ 0 exit 1
-cmd /c prepgen.bat -h
-IF %ERRORLEVEL% NEQ 0 exit 1
-cmd /c reduce.bat -V
-IF %ERRORLEVEL% NEQ 0 exit 1
+cmd /c antechamber.bat -h  || goto :error
+cmd /c atomtype.bat -h  || goto :error
+cmd /c bondtype.bat -h  || goto :error
+cpptraj.exe -h  || goto :error
+REM :: Missing! This is not available on Windows
+REM :: until we get FEW to build (Perl deps needd)
+REM draw_membrane2.exe  || goto :error
+REM cmd /c espgen.bat -h  || goto :error
+REM :: Missing! This is not available on Windows.
+REM :: until we get FEW to build (Perl deps needd)
+REM FEW.pl -h  || goto :error
+REM ffgbsa.exe -h  || goto :error
+makeANG_RST.exe -help  || goto :error
+mdgx.exe -h  || goto :error
+mdnab.exe -h  || goto :error
+minab.exe -h  || goto :error
+nfe-umbrella-slice.exe -h  || goto :error
+pdb4amber.exe -h  || goto :error
+cmd /c prepgen.bat -h  || goto :error
+cmd /c reduce.bat -V  || goto :error
 REM :: ERROR - Access denied???
-REM resp.exe -h
-REM IF %ERRORLEVEL% NEQ 0 exit 1
-cmd /c respgen.bat -h
-IF %ERRORLEVEL% NEQ 0 exit 1
-saxs_md.exe -h
-IF %ERRORLEVEL% NEQ 0 exit 1
-sqm.exe -h
-IF %ERRORLEVEL% NEQ 0 exit 1
-teLeap.exe -h
-IF %ERRORLEVEL% NEQ 0 exit 1
-cmd /c tleap.bat -h
-IF %ERRORLEVEL% NEQ 0 exit 1
-UnitCell.exe
-IF %ERRORLEVEL% NEQ 0 exit 1
-rism3d.orave --help
-IF %ERRORLEVEL% NEQ 0 exit 1
+REM resp.exe -h  || goto :error
+REM cmd /c respgen.bat -h  || goto :error
+saxs_md.exe -h  || goto :error
+sqm.exe -h  || goto :error
+teLeap.exe -h  || goto :error
+cmd /c tleap.bat -h  || goto :error
+UnitCell.exe  || goto :error
+rism3d.orave --help  || goto :error
 
 :: Python scripts
-for /f "usebackq tokens=*" %%a in (`where amb2chm_par.py`) do echo %%a -h
-IF %ERRORLEVEL% NEQ 0 exit 1
-for /f "usebackq tokens=*" %%a in (`where amb2chm_psf_crd.py`) do python %%a -h
-IF %ERRORLEVEL% NEQ 0 exit 1
-for /f "usebackq tokens=*" %%a in (`where amb2gro_top_gro.py`) do python %%a -h
-IF %ERRORLEVEL% NEQ 0 exit 1
-for /f "usebackq tokens=*" %%a in (`where ante-MMPBSA.py`) do python %%a -h
-IF %ERRORLEVEL% NEQ 0 exit 1
-for /f "usebackq tokens=*" %%a in (`where car_to_files.py`) do python %%a -h
-IF %ERRORLEVEL% NEQ 0 exit 1
-for /f "usebackq tokens=*" %%a in (`where CartHess2FC.py`) do python %%a -h
-IF %ERRORLEVEL% NEQ 0 exit 1
-for /f "usebackq tokens=*" %%a in (`where ceinutil.py`) do python %%a -h
-IF %ERRORLEVEL% NEQ 0 exit 1
-for /f "usebackq tokens=*" %%a in (`where cpeinutil.py`) do python %%a -h
-IF %ERRORLEVEL% NEQ 0 exit 1
-for /f "usebackq tokens=*" %%a in (`where cpinutil.py`) do python %%a -h
-IF %ERRORLEVEL% NEQ 0 exit 1
-for /f "usebackq tokens=*" %%a in (`where espgen.py`) do python %%a -h
-IF %ERRORLEVEL% NEQ 0 exit 1
-for /f "usebackq tokens=*" %%a in (`where finddgref.py`) do python %%a -h
-IF %ERRORLEVEL% NEQ 0 exit 1
-for /f "usebackq tokens=*" %%a in (`where fitpkaeo.py`) do python %%a -h
-IF %ERRORLEVEL% NEQ 0 exit 1
-for /f "usebackq tokens=*" %%a in (`where fixremdcouts.py`) do python %%a -h
-IF %ERRORLEVEL% NEQ 0 exit 1
-for /f "usebackq tokens=*" %%a in (`where genremdinputs.py`) do python %%a -h
-IF %ERRORLEVEL% NEQ 0 exit 1
-for /f "usebackq tokens=*" %%a in (`where IPMach.py`) do python %%a -h
-IF %ERRORLEVEL% NEQ 0 exit 1
-for /f "usebackq tokens=*" %%a in (`where MCPB.py`) do python %%a -h
-IF %ERRORLEVEL% NEQ 0 exit 1
-for /f "usebackq tokens=*" %%a in (`where metalpdb2mol2.py`) do python %%a -h
-IF %ERRORLEVEL% NEQ 0 exit 1
-for /f "usebackq tokens=*" %%a in (`where MMPBSA.py`) do python %%a -h
-IF %ERRORLEVEL% NEQ 0 exit 1
-for /f "usebackq tokens=*" %%a in (`where mol2rtf.py`) do python %%a -h
-IF %ERRORLEVEL% NEQ 0 exit 1
-for /f "usebackq tokens=*" %%a in (`where PdbSearcher.py`) do python %%a -h
-IF %ERRORLEVEL% NEQ 0 exit 1
-for /f "usebackq tokens=*" %%a in (`where ProScrs.py`) do python %%a -h
-IF %ERRORLEVEL% NEQ 0 exit 1
-for /f "usebackq tokens=*" %%a in (`where softcore_setup.py`) do python %%a -h
-IF %ERRORLEVEL% NEQ 0 exit 1
-for /f "usebackq tokens=*" %%a in (`where packmol-memgen`) do python %%a -h
-IF %ERRORLEVEL% NEQ 0 exit 1
-for /f "usebackq tokens=*" %%a in (`where parmed`) do python %%a -h
-IF %ERRORLEVEL% NEQ 0 exit 1
-for /f "usebackq tokens=*" %%a in (`where pymdpbsa`) do python %%a -h
-IF %ERRORLEVEL% NEQ 0 exit 1
-for /f "usebackq tokens=*" %%a in (`where pytleap`) do python %%a -h
-IF %ERRORLEVEL% NEQ 0 exit 1
+for /f "usebackq tokens=*" %%a in (`where amb2chm_par.py`) do echo %%a -h  || goto :error
+for /f "usebackq tokens=*" %%a in (`where amb2chm_psf_crd.py`) do python %%a -h  || goto :error
+for /f "usebackq tokens=*" %%a in (`where amb2gro_top_gro.py`) do python %%a -h  || goto :error
+for /f "usebackq tokens=*" %%a in (`where ante-MMPBSA.py`) do python %%a -h  || goto :error
+for /f "usebackq tokens=*" %%a in (`where car_to_files.py`) do python %%a -h  || goto :error
+for /f "usebackq tokens=*" %%a in (`where CartHess2FC.py`) do python %%a -h  || goto :error
+for /f "usebackq tokens=*" %%a in (`where ceinutil.py`) do python %%a -h  || goto :error
+for /f "usebackq tokens=*" %%a in (`where cpeinutil.py`) do python %%a -h  || goto :error
+for /f "usebackq tokens=*" %%a in (`where cpinutil.py`) do python %%a -h  || goto :error
+for /f "usebackq tokens=*" %%a in (`where espgen.py`) do python %%a -h  || goto :error
+for /f "usebackq tokens=*" %%a in (`where finddgref.py`) do python %%a -h  || goto :error
+for /f "usebackq tokens=*" %%a in (`where fitpkaeo.py`) do python %%a -h  || goto :error
+for /f "usebackq tokens=*" %%a in (`where fixremdcouts.py`) do python %%a -h  || goto :error
+for /f "usebackq tokens=*" %%a in (`where genremdinputs.py`) do python %%a -h  || goto :error
+for /f "usebackq tokens=*" %%a in (`where IPMach.py`) do python %%a -h  || goto :error
+for /f "usebackq tokens=*" %%a in (`where MCPB.py`) do python %%a -h  || goto :error
+for /f "usebackq tokens=*" %%a in (`where metalpdb2mol2.py`) do python %%a -h  || goto :error
+for /f "usebackq tokens=*" %%a in (`where MMPBSA.py`) do python %%a -h  || goto :error
+for /f "usebackq tokens=*" %%a in (`where mol2rtf.py`) do python %%a -h  || goto :error
+for /f "usebackq tokens=*" %%a in (`where PdbSearcher.py`) do python %%a -h  || goto :error
+for /f "usebackq tokens=*" %%a in (`where ProScrs.py`) do python %%a -h  || goto :error
+for /f "usebackq tokens=*" %%a in (`where softcore_setup.py`) do python %%a -h  || goto :error
+for /f "usebackq tokens=*" %%a in (`where packmol-memgen`) do python %%a -h  || goto :error
+for /f "usebackq tokens=*" %%a in (`where parmed`) do python %%a -h  || goto :error
+for /f "usebackq tokens=*" %%a in (`where pymdpbsa`) do python %%a -h  || goto :error
+for /f "usebackq tokens=*" %%a in (`where pytleap`) do python %%a -h  || goto :error
 
 :: Perl scripts
-for /f "usebackq tokens=*" %%a in (`where mdout2pymbar.pl`) do perl %%a -h
-IF %ERRORLEVEL% NEQ 0 exit 1
-for /f "usebackq tokens=*" %%a in (`where sviol`) do perl %%a -h
-IF %ERRORLEVEL% NEQ 0 exit 1
+for /f "usebackq tokens=*" %%a in (`where mdout2pymbar.pl`) do perl %%a -h  || goto :error
+for /f "usebackq tokens=*" %%a in (`where sviol`) do perl %%a -h  || goto :error
+
+IF "%unit_tests%" == "skip" ( goto :EOF )
+
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+:: UNIT TEST SUITE
+:: to run it, set `unit_tests = run` in conda_build_config.yaml
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+@echo on
+
+conda install -yq -c jaimergp m2-tcsh
+
+set "SRC_DIR=%AMBERHOME%\..\..\test_tmp"
+:: Re-export in Unix-style paths
+for /f "usebackq tokens=*" %%a in (`cygpath -u %CONDA_PREFIX%`) do set "AMBERHOME=%%a"   || goto :error
+set "AMBERHOME=%AMBERHOME%/Library"
+:: Prepare environment
+bash -lc "mkdir /tmp"
+bash -l generate_config_win.sh || goto :error
+copy "%CONDA_PREFIX%\Library\config.h" "%SRC_DIR%\config.h"  || goto :error
+copy "%CONDA_PREFIX%\Library\config.h" "%SRC_DIR%\AmberTools\config.h"  || goto :error
+copy "%CONDA_PREFIX%\mingw-w64\bin\mingw32-make.exe" "%CONDA_PREFIX%\mingw-w64\bin\make.exe"
+
+:::: Wrapped command fixes
+:: NAB
+echo "${CONDA_PREFIX}/Library/bin/wrapped_progs/nab.exe" $@ > "%CONDA_PREFIX%\Library\bin\nab"
+
+:: Run!
+cd %SRC_DIR%\AmberTools\test  || goto :error
+bash -lc "make test" || goto :error
+
+goto :EOF
+
+:error
+echo Failed with error #%errorlevel%.
+exit /b %errorlevel%

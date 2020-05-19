@@ -84,7 +84,7 @@ requirements:
     - perl
     - cython
     - numpy
-    - scipy
+    - scipy  # [unix]
     - matplotlib-base
     - boost-cpp  # [unix]
     - libnetcdf  # [unix]
@@ -106,15 +106,27 @@ requirements:
 test:
   requires:
 {% if unit_tests == "run" %}
+    # UNIX deps
     - {{ compiler('fortran') }}  # [unix]
     - {{ compiler('c') }}  # [unix]
     - {{ compiler('cxx') }}  # [unix]
+    - util-linux  # [linux64]
+    - tcsh  # [unix]
+    # Windows Deps
     - {{ compiler('m2w64_fortran') }}  # [win]
     - {{ compiler('m2w64_c') }}  # [win]
     - {{ compiler('m2w64_cxx') }}  # [win]
-    - util-linux  # [linux64]
+    - m2-bash  # [win]
+    - m2-coreutils  # [win]
+    - m2-diffstat  # [win]
+    - m2-diffutils  # [win]
+    - m2-findutils  # [win]
+    - m2-gawk  # [win]
+    - m2-grep  # [win]
+    - m2-sed  # [win]
+    - m2-tar  # [win]
+    - m2-which  # [win]
 {% endif %}
-    - tcsh  # [unix]
     # Try to force a library incompatibility error in osx (see #22)
     - lxml  # [osx]
     - rdkit  # [osx]
