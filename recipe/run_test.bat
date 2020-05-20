@@ -180,7 +180,7 @@ IF "%unit_tests%" == "skip" ( goto :EOF )
 
 @echo on
 
-conda install -yq -c jaimergp m2-tcsh
+REM conda install -yq -c jaimergp m2-tcsh
 
 set "SRC_DIR=%AMBERHOME%\..\..\test_tmp"
 :: Re-export in Unix-style paths
@@ -188,10 +188,11 @@ for /f "usebackq tokens=*" %%a in (`cygpath -u %CONDA_PREFIX%`) do set "AMBERHOM
 set "AMBERHOME=%AMBERHOME%/Library"
 :: Prepare environment
 bash -lc "mkdir /tmp"
-bash -l generate_config_win.sh || goto :error
+:: Conda Build won't copy *.sh files on Windows... hence the .sh.bat extension
+bash -l generate_test_config_win.sh.bat || goto :error
 copy "%CONDA_PREFIX%\Library\config.h" "%SRC_DIR%\config.h"  || goto :error
 copy "%CONDA_PREFIX%\Library\config.h" "%SRC_DIR%\AmberTools\config.h"  || goto :error
-copy "%CONDA_PREFIX%\mingw-w64\bin\mingw32-make.exe" "%CONDA_PREFIX%\mingw-w64\bin\make.exe"
+copy "%CONDA_PREFIX%\Library\mingw-w64\bin\mingw32-make.exe" "%CONDA_PREFIX%\Library\mingw-w64\bin\make.exe"
 
 :::: Wrapped command fixes
 :: NAB

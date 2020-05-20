@@ -125,6 +125,7 @@ test:
     - m2-grep  # [win]
     - m2-sed  # [win]
     - m2-tar  # [win]
+    - m2-tcsh  # [win]
     - m2-which  # [win]
 {% endif %}
     # Try to force a library incompatibility error in osx (see #22)
