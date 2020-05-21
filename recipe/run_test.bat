@@ -187,9 +187,9 @@ set "SRC_DIR=%AMBERHOME%\..\..\test_tmp"
 for /f "usebackq tokens=*" %%a in (`cygpath -u %CONDA_PREFIX%`) do set "AMBERHOME=%%a"   || goto :error
 set "AMBERHOME=%AMBERHOME%/Library"
 :: Prepare environment
-bash -lc "mkdir /tmp"
+bash -c "mkdir /tmp"
 :: Conda Build won't copy *.sh files on Windows... hence the .sh.bat extension
-bash -l generate_test_config_win.sh.bat || goto :error
+bash generate_test_config_win.sh.bat || goto :error
 copy "%CONDA_PREFIX%\Library\config.h" "%SRC_DIR%\config.h"  || goto :error
 copy "%CONDA_PREFIX%\Library\config.h" "%SRC_DIR%\AmberTools\config.h"  || goto :error
 copy "%CONDA_PREFIX%\Library\mingw-w64\bin\mingw32-make.exe" "%CONDA_PREFIX%\Library\mingw-w64\bin\make.exe"
@@ -197,10 +197,12 @@ copy "%CONDA_PREFIX%\Library\mingw-w64\bin\mingw32-make.exe" "%CONDA_PREFIX%\Lib
 :::: Wrapped command fixes
 :: NAB
 echo "${CONDA_PREFIX}/Library/bin/wrapped_progs/nab.exe" $@ > "%CONDA_PREFIX%\Library\bin\nab"
+:: tleap
+echo "${CONDA_PREFIX}/Library/bin/teLeap" -I${CONDA_PREFIX}/Library/dat/leap/prep -I${CONDA_PREFIX}/Library/dat/leap/lib -I${CONDA_PREFIX}/Library/dat/leap/parm -I${CONDA_PREFIX}/Library/dat/leap/cmd $@ > "%CONDA_PREFIX%\Library\bin\tleap"
 
 :: Run!
 cd %SRC_DIR%\AmberTools\test  || goto :error
-bash -lc "make test" || goto :error
+bash -c "make test" || goto :error
 
 goto :EOF
 

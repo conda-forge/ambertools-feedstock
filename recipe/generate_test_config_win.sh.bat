@@ -1,3 +1,5 @@
+set -eux
+
 srcdir=$(cygpath -u ${SRC_DIR})
 amber_home=$(cygpath -u ${CONDA_PREFIX})/Library
 cat << EOF > $amber_home/config.h
