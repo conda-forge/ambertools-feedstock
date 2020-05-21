@@ -188,8 +188,9 @@ for /f "usebackq tokens=*" %%a in (`cygpath -u %CONDA_PREFIX%`) do set "AMBERHOM
 set "AMBERHOME=%AMBERHOME%/Library"
 :: Prepare environment
 bash -c "mkdir /tmp"
-:: Conda Build won't copy *.sh files on Windows... hence the .sh.bat extension
-bash generate_test_config_win.sh.bat || goto :error
+
+copy "%RECIPE_DIR%\generate_test_config_win.sh.bat" generate_test_config_win.sh
+bash generate_test_config_win.sh || goto :error
 copy "%CONDA_PREFIX%\Library\config.h" "%SRC_DIR%\config.h"  || goto :error
 copy "%CONDA_PREFIX%\Library\config.h" "%SRC_DIR%\AmberTools\config.h"  || goto :error
 copy "%CONDA_PREFIX%\Library\mingw-w64\bin\mingw32-make.exe" "%CONDA_PREFIX%\Library\mingw-w64\bin\make.exe"
