@@ -180,8 +180,6 @@ IF "%unit_tests%" == "skip" ( goto :EOF )
 
 @echo on
 
-REM conda install -yq -c jaimergp m2-tcsh
-
 set "SRC_DIR=%AMBERHOME%\..\..\test_tmp"
 :: Re-export in Unix-style paths
 for /f "usebackq tokens=*" %%a in (`cygpath -u %CONDA_PREFIX%`) do set "AMBERHOME=%%a"   || goto :error
@@ -196,10 +194,12 @@ copy "%CONDA_PREFIX%\Library\config.h" "%SRC_DIR%\AmberTools\config.h"  || goto 
 copy "%CONDA_PREFIX%\Library\mingw-w64\bin\mingw32-make.exe" "%CONDA_PREFIX%\Library\mingw-w64\bin\make.exe"
 
 :::: Wrapped command fixes
-:: NAB
-echo "${CONDA_PREFIX}/Library/bin/wrapped_progs/nab.exe" $@ > "%CONDA_PREFIX%\Library\bin\nab"
-:: tleap
-echo "${CONDA_PREFIX}/Library/bin/teLeap" -I${CONDA_PREFIX}/Library/dat/leap/prep -I${CONDA_PREFIX}/Library/dat/leap/lib -I${CONDA_PREFIX}/Library/dat/leap/parm -I${CONDA_PREFIX}/Library/dat/leap/cmd $@ > "%CONDA_PREFIX%\Library\bin\tleap"
+REM for /R "%CONDA_PREFIX%\Library\bin" %%f in (*.exe) do (
+REM     echo $^(cygpath -u ${CONDA_PREFIX}^)/Library/bin/%%~nxf $* > "%CONDA_PREFIX%\Library\bin\%%~nf"
+REM )
+for /R "%CONDA_PREFIX%\Library\bin" %%f in (*.bat) do (
+    echo $^(cygpath -u ${CONDA_PREFIX}^)/Library/bin/%%~nxf $* > "%CONDA_PREFIX%\Library\bin\%%~nf"
+)
 
 :: Run!
 cd %SRC_DIR%\AmberTools\test  || goto :error
