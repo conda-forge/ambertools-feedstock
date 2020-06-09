@@ -24,7 +24,7 @@ source:
 
 build:
   number: 1
-  skip: True  # [py2k]
+  skip: True  # [unix or py2k]
 
 requirements:
   build:
