@@ -1,0 +1,36 @@
+bzip2:
+- '1'
+channel_sources:
+- conda-forge,defaults,jaimergp
+channel_targets:
+- conda-forge main
+libblas:
+- 3.8 *netlib
+liblapack:
+- 3.8.0 *netlib
+m2w64_c_compiler:
+- m2w64-toolchain
+m2w64_cxx_compiler:
+- m2w64-toolchain
+m2w64_fortran_compiler:
+- m2w64-toolchain
+numpy:
+- '1.14'
+perl:
+- 5.26.2
+pin_run_as_build:
+  bzip2:
+    max_pin: x
+  perl:
+    max_pin: x.x.x
+  python:
+    min_pin: x.x
+    max_pin: x.x
+  zlib:
+    max_pin: x.x
+python:
+- 3.7.* *_cpython
+unit_tests:
+- run
+zlib:
+- '1.2'

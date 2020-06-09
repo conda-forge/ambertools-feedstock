@@ -1,7 +1,7 @@
 {% set name = "AmberTools" %}
 # Versioning scheme uses AmberTools major release as MAJOR version number, patch level as MINOR version number
 # Update the MINOR version number as new patch releases come out
-{% set version = "20.3" %}
+{% set version = "20.0" %}
 
 package:
   name: {{ name|lower }}
@@ -23,17 +23,14 @@ source:
     fn: libxblas.a  # [win]
 
 build:
-  number: 1
+  number: 3
   skip: True  # [unix or py2k]
 
 requirements:
   build:
-    - {{ compiler('fortran') }}  # [unix]
-    - {{ compiler('c') }}  # [unix]
-    - {{ compiler('cxx') }}  # [unix]
-    - {{ compiler('m2w64_fortran') }}  # [win]
-    - {{ compiler('m2w64_c') }}  # [win]
-    - {{ compiler('m2w64_cxx') }}  # [win]
+    - {{ compiler('fortran') }}
+    - {{ compiler('c') }}
+    - {{ compiler('cxx') }}
     - m2w64-dlfcn  # [win]
     - ld64 409.12 h3c32e8a_4   # [osx]
     - bc  # [unix]
@@ -42,93 +39,72 @@ requirements:
     - tcsh  # [unix]
     - bison  # [unix]
     - m2-bison  # [win]
-    - make
-    - m2w64-make  # [win]
+    - make  # [unix]
     - patch  # [unix]
     - m2-m4  # [win]
     - cmake
     - perl
+    - mkl-devel  # [win]
     - llvm-openmp  # [osx]
     - libgomp      # [linux and not aarch64]
-    - intel-openmp  # [win]
     - git  # [win]
   host:
     - python
     - setuptools
     - cython
     - numpy
-    - scipy  # [unix]
-    - matplotlib-base  # [unix]
+    - scipy
+    - matplotlib-base
     - bzip2
     - zlib
-    - pthread-stubs
-    # Boost and netcdf are critical in Amber and
-    # the conda-forge packages are not compatible
-    # on Windows + MinGW until netcdf-fortran is available
-    - boost-cpp  # [unix]
-    - libnetcdf  # [unix]
+    - boost-cpp
+    - libnetcdf
     - netcdf-fortran  # [unix]
-    - fftw  # [unix]
-    - arpack  # [unix]
+    - pthread-stubs
+    - fftw
+    - arpack
     - libblas
     - liblapack
+    - mkl-devel  # [win]
     - xorg-libxt  # [unix]
     - xorg-libxext  # [unix]
     - xorg-libx11  # [unix]
     - readline  # [unix]
+    - m2-libreadline  # [win]
     - llvm-openmp  # [osx]
     - libgomp  # [linux and not aarch64]
-    - intel-openmp  # [win]
   run:
     - python
     - perl
     - cython
     - numpy
-    - scipy  # [unix]
+    - scipy
     - matplotlib-base
-    - boost-cpp  # [unix]
-    - libnetcdf  # [unix]
+    - boost-cpp
+    - libnetcdf
     - netcdf-fortran  # [unix]
-    - fftw  # [unix]
+    - fftw
     - libblas
     - liblapack
     - xorg-libxt  # [unix]
     - xorg-libxext  # [unix]
     - xorg-libx11  # [unix]
     - readline  # [unix]
+    - m2-libreadline  # [win]
     - llvm-openmp  # [osx]
     - libgomp  # [linux and not aarch64]
-    - intel-openmp  # [win]
-    - m2w64-dlfcn  # [win]
   run_constrained:
     - ambermini ==9999999999
 
 test:
   requires:
 {% if unit_tests == "run" %}
-    # UNIX deps
-    - {{ compiler('fortran') }}  # [unix]
-    - {{ compiler('c') }}  # [unix]
-    - {{ compiler('cxx') }}  # [unix]
+    - {{ compiler('fortran') }}
+    - {{ compiler('c') }}
+    - {{ compiler('cxx') }}
     - util-linux  # [linux64]
-    - tcsh  # [unix]
-    # Windows Deps
-    - {{ compiler('m2w64_fortran') }}  # [win]
-    - {{ compiler('m2w64_c') }}  # [win]
-    - {{ compiler('m2w64_cxx') }}  # [win]
-    - m2-bash  # [win]
-    - m2-coreutils  # [win]
-    - m2-diffstat  # [win]
-    - m2-diffutils  # [win]
-    - m2-findutils  # [win]
-    - m2-gawk  # [win]
-    - m2-grep  # [win]
-    - m2-sed  # [win]
-    - m2-tar  # [win]
-    - m2-tcsh  # [win]
-    - m2-util-linux  # [win]
-    - m2-which  # [win]
 {% endif %}
+    - tcsh  # [unix]
     # Try to force a library incompatibility error in osx (see #22)
     - lxml  # [osx]
     - rdkit  # [osx]
@@ -139,13 +115,12 @@ test:
     # we need to copy at least one file, otherwise we can't use SRC_DIR in run_test.sh
     - README
 {% endif %}
-  # commands: check run_test.{sh,bat} for CLI tests
+  # commands: check run_test.sh for CLI tests
   imports:
     - parmed
     - pdb4amber
     - pymsmt
-    # PyTraj cannot be compiled on Windows+MinGW
-    - pytraj  # [unix]
+    - pytraj
     - sander
     # Try to force a library incompatibility error in osx (see #22)
     - rdkit  # [osx]
