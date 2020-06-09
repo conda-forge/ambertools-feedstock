@@ -1,7 +1,7 @@
 {% set name = "AmberTools" %}
 # Versioning scheme uses AmberTools major release as MAJOR version number, patch level as MINOR version number
 # Update the MINOR version number as new patch releases come out
-{% set version = "20.0" %}
+{% set version = "20.3" %}
 
 package:
   name: {{ name|lower }}
@@ -23,7 +23,7 @@ source:
     fn: libxblas.a  # [win]
 
 build:
-  number: 3
+  number: 0
   skip: True  # [unix or py2k]
 
 requirements:
