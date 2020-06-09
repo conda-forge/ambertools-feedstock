@@ -23,8 +23,8 @@ source:
     fn: libxblas.a  # [win]
 
 build:
-  number: 0
-  skip: True  # [unix or py2k]
+  number: 1
+  skip: True  # [py2k]
 
 requirements:
   build:

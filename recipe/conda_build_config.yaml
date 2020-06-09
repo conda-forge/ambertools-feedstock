@@ -1,4 +1,4 @@
 # use run or skip
 unit_tests: run
-channel_sources:
-- conda-forge,defaults,jaimergp
+channel_sources:  # [win]
+- conda-forge,defaults,jaimergp  # [win]
