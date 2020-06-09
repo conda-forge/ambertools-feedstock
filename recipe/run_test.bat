@@ -193,6 +193,9 @@ copy "%CONDA_PREFIX%\Library\config.h" "%SRC_DIR%\config.h"  || goto :error
 copy "%CONDA_PREFIX%\Library\config.h" "%SRC_DIR%\AmberTools\config.h"  || goto :error
 copy "%CONDA_PREFIX%\Library\mingw-w64\bin\mingw32-make.exe" "%CONDA_PREFIX%\Library\mingw-w64\bin\make.exe"
 
+:: RESP is not working for now and make test hang if executed, remove temporarily
+del "%CONDA_PREFIX%\Library\bin\resp.exe"
+
 :::: Wrapped command fixes
 REM for /R "%CONDA_PREFIX%\Library\bin" %%f in (*.exe) do (
 REM     echo $^(cygpath -u ${CONDA_PREFIX}^)/Library/bin/%%~nxf $* > "%CONDA_PREFIX%\Library\bin\%%~nf"
@@ -200,6 +203,8 @@ REM )
 for /R "%CONDA_PREFIX%\Library\bin" %%f in (*.bat) do (
     echo $^(cygpath -u ${CONDA_PREFIX}^)/Library/bin/%%~nxf $* > "%CONDA_PREFIX%\Library\bin\%%~nf"
 )
+
+
 
 :: Run!
 cd %SRC_DIR%\AmberTools\test  || goto :error
