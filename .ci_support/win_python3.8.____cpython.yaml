@@ -1,7 +1,7 @@
 bzip2:
 - '1'
 channel_sources:
-- conda-forge,defaults
+- conda-forge,defaults,jaimergp
 channel_targets:
 - conda-forge main
 libblas:
