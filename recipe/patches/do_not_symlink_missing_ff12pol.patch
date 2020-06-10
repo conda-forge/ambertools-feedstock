@@ -1,11 +1,11 @@
 diff --git a/dat/CMakeLists.txt b/dat/CMakeLists.txt
-index ecfc5514..a822db5b 100644
+index ecfc55141d..a822db5b76 100644
 --- a/dat/CMakeLists.txt
 +++ b/dat/CMakeLists.txt
 @@ -3,6 +3,6 @@
-
+ 
  install(DIRECTORY . USE_SOURCE_PERMISSIONS DESTINATION ${DATADIR} COMPONENT Data)
-
+ 
 -if(NOT (HOST_WINDOWS OR TARGET_WINDOWS))
 -	installtime_create_symlink(${CMAKE_INSTALL_POSTFIX}dat/leap/cmd/leaprc.protein.ff12polL ${CMAKE_INSTALL_POSTFIX}dat/leap/cmd/leaprc.protein.ff12pol Data)
 -endif()
