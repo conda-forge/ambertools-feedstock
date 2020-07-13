@@ -5,7 +5,7 @@ Home: http://ambermd.org/AmberTools.php
 
 Package license: Multiple
 
-Feedstock license: BSD 3-Clause
+Feedstock license: BSD-3-Clause
 
 Summary: AmberTools is a set of programs for biomolecular simulation and analysis
 
@@ -204,7 +204,4 @@ Feedstock Maintainers
 
 * [@jaimergp](https://github.com/jaimergp/)
 * [@simonbray](https://github.com/simonbray/)
-
-
-<!-- dummy commit to enable rerendering -->
 
