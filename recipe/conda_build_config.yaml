@@ -1,2 +1,4 @@
 # use run or skip
 unit_tests: skip
+python:
+  - 2.7.* *_cpython  # [not (aarch64 or ppc64le or win)]]
