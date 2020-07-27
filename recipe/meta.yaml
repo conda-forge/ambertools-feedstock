@@ -14,7 +14,7 @@ source:
     - patches/do_not_symlink_missing_ff12pol.patch
 
 build:
-  number: 0
+  number: 1
   skip: True  # [win or py2k]
 
 requirements:
@@ -22,7 +22,6 @@ requirements:
     - {{ compiler('fortran') }}
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}
-    - ld64 409.12 h3c32e8a_4   # [osx]
     - bc
     - flex
     - patch

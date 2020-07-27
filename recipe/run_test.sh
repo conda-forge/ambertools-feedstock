@@ -116,6 +116,9 @@ UnitCell
 mm_pbsa_statistics.pl || true
 mm_pbsa.pl || true
 
+# Debug https://github.com/conda-forge/ambertools-feedstock/issues/35
+python -c "import parmed; print(parmed.__version__); assert parmed.version > (3, 2), f'Wrong version: {parmed.version}'"
+
 # These two commands need csh, but CF only has tcsh
 ln -s ${PREFIX}/bin/tcsh ${PREFIX}/bin/csh
 sgldwt.sh
@@ -128,7 +131,6 @@ if [[ $unit_tests == skip ]]; then
 fi
 
 ###### AMBERTOOLS UNIT TESTS ######
-# Begin testing - this will never be merged
 
 set +e
 
