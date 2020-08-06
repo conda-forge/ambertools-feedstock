@@ -60,6 +60,8 @@ python:
 - 3.6.* *_cpython
 readline:
 - '8.0'
+target_platform:
+- linux-64
 unit_tests:
 - skip
 zlib:
