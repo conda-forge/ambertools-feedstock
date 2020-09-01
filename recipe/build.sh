@@ -9,7 +9,7 @@ done
 
 # Patch AmberTools/src/etc/setup.py to report correct version
 # See https://github.com/conda-forge/ambertools-feedstock/issues/45
-sed -i "s/version='17.0',/version=\"$PKG_VERSION\",/" AmberTools/src/etc/setup.py
+sed -i.bak "s/version='17.0',/version=\"$PKG_VERSION\",/" AmberTools/src/etc/setup.py
 
 # Some Fortran binaries segfault because of this flag (addles, make_crd_hg... maybe sander?)
 # See PR #24 -- this might be against CF conventions; might also disappear when we provide openmp/mpi
