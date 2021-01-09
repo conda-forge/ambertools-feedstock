@@ -21,6 +21,13 @@ export DEBUG_FFLAGS=${DEBUG_FFLAGS//-fopenmp }
 # from: https://github.com/facebook/Surround360/issues/3
 export CXXFLAGS="${CXXFLAGS} -pthread"
 
+# duplicate symbols cause errors on GCC10+ and Clang 11+
+# see https://github.com/conda-forge/ambertools-feedstock/pull/50#issuecomment-756171906
+# This will get fixed upstream at some point...
+if (( $(printf "%02d%02d" ${PKG_VERSION//./ }) <= 2013 )); then
+    export CFLAGS="${CFLAGS:-} -fcommon"
+fi
+
 CMAKE_FLAGS=""
 BUILD_GUI="TRUE"
 if [[ "$target_platform" == osx* ]]; then
