@@ -1,0 +1,28 @@
+diff --git a/AmberTools/src/parmed/CMakeLists.txt b/AmberTools/src/parmed/CMakeLists.txt
+index b899796d..9a8503ec 100644
+--- a/AmberTools/src/parmed/CMakeLists.txt
++++ b/AmberTools/src/parmed/CMakeLists.txt
+@@ -20,12 +20,12 @@ add_custom_command(OUTPUT ${STAMP_FILE}
+ #We want to build the python library during the build step so as to catch any build errors
+ add_custom_target(parmed ALL DEPENDS ${STAMP_FILE})
+ 	
+-install(CODE "
+-	${FIX_BACKSLASHES_CMD}
+-	execute_process(
+-    COMMAND \"${PYTHON_EXECUTABLE}\" 
+-    	\"${CMAKE_CURRENT_SOURCE_DIR}/setup.py\" 
+-    	 build -b \"${BUILD_DIR}\" ${PYTHON_COMPILER_ARG}
+-    	 install -f ${PYTHON_PREFIX_ARG} --no-setuptools
+-    	\"--install-scripts=\${CMAKE_INSTALL_PREFIX_BS}${BINDIR}\"
+-    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})" COMPONENT Python)
+\ No newline at end of file
++# install(CODE "
++# 	${FIX_BACKSLASHES_CMD}
++# 	execute_process(
++#     COMMAND \"${PYTHON_EXECUTABLE}\" 
++#     	\"${CMAKE_CURRENT_SOURCE_DIR}/setup.py\" 
++#     	 build -b \"${BUILD_DIR}\" ${PYTHON_COMPILER_ARG}
++#     	 install -f ${PYTHON_PREFIX_ARG} --no-setuptools
++#     	\"--install-scripts=\${CMAKE_INSTALL_PREFIX_BS}${BINDIR}\"
++#     WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})" COMPONENT Python)
+\ No newline at end of file

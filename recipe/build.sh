@@ -73,7 +73,3 @@ cp ${RECIPE_DIR}/activate.sh ${PREFIX}/etc/conda/activate.d/ambertools.sh
 cp ${RECIPE_DIR}/activate.fish ${PREFIX}/etc/conda/activate.d/ambertools.fish
 cp ${RECIPE_DIR}/deactivate.sh ${PREFIX}/etc/conda/deactivate.d/ambertools.sh
 cp ${RECIPE_DIR}/deactivate.fish ${PREFIX}/etc/conda/deactivate.d/ambertools.fish
-
-
-# Fix https://github.com/conda-forge/ambertools-feedstock/issues/35
-cp ${RECIPE_DIR}/patches/parmed_version.py ${SP_DIR}/parmed/_version.py
