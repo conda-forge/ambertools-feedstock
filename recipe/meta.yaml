@@ -15,7 +15,7 @@ source:
     - patches/do_not_install_vendored_parmed.patch
 
 build:
-  number: 1
+  number: 2
   skip: True  # [win or py2k]
 
 requirements:
@@ -57,6 +57,7 @@ requirements:
     - llvm-openmp  # [osx]
     - libgomp      # [linux and not aarch64]
     - parmed 3.3.0
+    - packmol
   run:
     - python
     - perl
@@ -77,6 +78,7 @@ requirements:
     - llvm-openmp  # [osx]
     - libgomp      # [linux and not aarch64]
     - parmed >=3.3.0,<4.0.0a
+    - packmol
   run_constrained:
     - ambermini ==9999999999
 
