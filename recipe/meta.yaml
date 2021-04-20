@@ -1,15 +1,15 @@
 {% set name = "AmberTools" %}
 # Versioning scheme uses AmberTools major release as MAJOR version number, patch level as MINOR version number
 # Update the MINOR version number as new patch releases come out
-{% set version = "21.0rc1" %}
+{% set version = "21.0rc3" %}
 
 package:
   name: {{ name|lower }}
   version: {{ version }}
 
 source:
-  url: https://ambermd.org/downloads/AmberTools21.RC1.tar.bz2
-  sha256: 893b6c482c3ac5b785cdafa242176b1724cfabf9dbab630d9066170677e66f21
+  url: https://ambermd.org/downloads/AmberTools21.RC3.tar.bz2
+  sha256: 069acae878d4d362af231b8ee8c97aa17316177bdd350db38a500768d305be7f
   patches:
     - patches/do_not_symlink_missing_ff12pol.patch
     - patches/do_not_install_vendored_parmed.patch
@@ -56,7 +56,7 @@ requirements:
     - readline
     - llvm-openmp  # [osx]
     - libgomp      # [linux and not aarch64]
-    - parmed 3.3.0
+    - parmed 3.4.1
   run:
     - python
     - perl
@@ -76,7 +76,7 @@ requirements:
     - readline
     - llvm-openmp  # [osx]
     - libgomp      # [linux and not aarch64]
-    - parmed >=3.3.0,<4.0.0a
+    - parmed >=3.4.1,<4.0.0a
   run_constrained:
     - ambermini ==9999999999
 
