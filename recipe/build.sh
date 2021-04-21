@@ -28,6 +28,10 @@ export CXXFLAGS="${CXXFLAGS} -pthread"
     export CFLAGS="${CFLAGS:-} -fcommon"
 # fi
 
+# Do not vendor some dependencies
+# DISABLE_TOOLS: Tools to not build. Accepts a semicolon-seperated list of directories in AmberTools/src.
+CMAKE_FLAGS+=" -DDISABLE_TOOLS='parmed;packmol_memgen;'"
+
 CMAKE_FLAGS=""
 BUILD_GUI="TRUE"
 if [[ "$target_platform" == osx* ]]; then

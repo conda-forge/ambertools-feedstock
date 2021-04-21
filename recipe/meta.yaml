@@ -57,6 +57,7 @@ requirements:
     - llvm-openmp  # [osx]
     - libgomp      # [linux and not aarch64]
     - parmed 3.4.1
+    - packmol
   run:
     - python
     - perl
@@ -77,6 +78,7 @@ requirements:
     - llvm-openmp  # [osx]
     - libgomp      # [linux and not aarch64]
     - parmed >=3.4.1,<4.0.0a
+    - packmol
   run_constrained:
     - ambermini ==9999999999
 
