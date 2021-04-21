@@ -48,7 +48,6 @@ conda $BUILD_CMD ./recipe -m ./.ci_support/${CONFIG}.yaml --suppress-variables -
 ( startgroup "Validating outputs" ) 2> /dev/null
 
 validate_recipe_outputs "${FEEDSTOCK_NAME}"
-endgroup "Validating outputs"
 
 ( endgroup "Validating outputs" ) 2> /dev/null
 

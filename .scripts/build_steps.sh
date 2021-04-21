@@ -45,12 +45,10 @@ source run_conda_forge_build_setup
 # make the build number clobber
 make_build_number "${FEEDSTOCK_ROOT}" "${RECIPE_ROOT}" "${CONFIG_FILE}"
 
-endgroup "Configuring conda"
 
 ( endgroup "Configuring conda" ) 2> /dev/null
 
 if [[ "${BUILD_WITH_CONDA_DEBUG:-0}" == 1 ]]; then
-    startgroup "Running conda debug"
     if [[ "x${BUILD_OUTPUT_ID:-}" != "x" ]]; then
         EXTRA_CB_OPTIONS="${EXTRA_CB_OPTIONS:-} --output-id ${BUILD_OUTPUT_ID}"
     fi
@@ -67,16 +65,13 @@ else
     ( startgroup "Validating outputs" ) 2> /dev/null
 
     validate_recipe_outputs "${FEEDSTOCK_NAME}"
-    endgroup "Validating outputs"
 
     ( endgroup "Validating outputs" ) 2> /dev/null
 
     ( startgroup "Uploading packages" ) 2> /dev/null
 
     if [[ "${UPLOAD_PACKAGES}" != "False" ]]; then
-        startgroup "Uploading packages"
         upload_package --validate --feedstock-name="${FEEDSTOCK_NAME}"  "${FEEDSTOCK_ROOT}" "${RECIPE_ROOT}" "${CONFIG_FILE}"
-        endgroup "Uploading packages"
     fi
 
     ( endgroup "Uploading packages" ) 2> /dev/null
