@@ -1,0 +1,13 @@
+diff --git a/AmberTools/src/packmol_memgen/CMakeLists.txt b/AmberTools/src/packmol_memgen/CMakeLists.txt
+index 21bc790b..00ae1c00 100644
+--- a/AmberTools/src/packmol_memgen/CMakeLists.txt
++++ b/AmberTools/src/packmol_memgen/CMakeLists.txt
+@@ -4,7 +4,7 @@ project(packmol_memgen)
+
+ # first, build the two native executables it uses
+ add_subdirectory(packmol_memgen/lib/memembed)
++add_subdirectory(packmol_memgen/lib/packmol)
+-# add_subdirectory(packmol_memgen/lib/packmol)
+
+ # --------------------------------------------------------------------
+ # now, build the Python package

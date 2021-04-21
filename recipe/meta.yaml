@@ -13,6 +13,7 @@ source:
   patches:
     - patches/do_not_symlink_missing_ff12pol.patch
     - patches/do_not_install_vendored_parmed.patch
+    - patches/do_not_vendor_packmol.patch
 
 build:
   number: 0
