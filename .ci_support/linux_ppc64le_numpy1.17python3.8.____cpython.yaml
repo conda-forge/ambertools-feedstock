@@ -31,7 +31,7 @@ libblas:
 liblapack:
 - 3.8 *netlib
 libnetcdf:
-- 4.7.4
+- 4.8.0
 netcdf_fortran:
 - '4.5'
 numpy:
