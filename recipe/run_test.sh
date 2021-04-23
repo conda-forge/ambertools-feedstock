@@ -115,6 +115,10 @@ teLeap -h
 tleap -h
 UnitCell
 
+# Debug nab hardcoding BUILD_PREFIX/bin/<compiler>
+echo 'printf( "hello world\n" );' > ltest.nab
+nab -v ltest.nab
+
 # We still test these two to check the PERL5LIBS behavior
 mm_pbsa_statistics.pl || true
 mm_pbsa.pl || true
