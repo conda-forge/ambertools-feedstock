@@ -24,11 +24,6 @@ export CXXFLAGS="${CXXFLAGS} -pthread"
     export CFLAGS="${CFLAGS:-} -fcommon"
 # fi
 
-# Prevent BUILD_PREFIX/bin/<compiler> from getting hardcoded in nab (maybe others?)
-# See https://github.com/conda/conda-build/issues/2677#issuecomment-364527336
-export CC=$(basename ${CC})
-export CXX=$(basename ${CXX})
-
 CMAKE_FLAGS=""
 BUILD_GUI="TRUE"
 if [[ "$target_platform" == osx* ]]; then
