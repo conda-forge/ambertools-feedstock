@@ -90,9 +90,9 @@ requirements:
 
 test:
   requires:
+    - {{ compiler('c') }}  # we need this for `nab` tests
 {% if unit_tests == "run" %}
     - {{ compiler('fortran') }}
-    - {{ compiler('c') }}
     - {{ compiler('cxx') }}
     - util-linux  # [linux64]
 {% endif %}
