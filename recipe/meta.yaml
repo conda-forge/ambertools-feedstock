@@ -1,22 +1,28 @@
 {% set name = "AmberTools" %}
 # Versioning scheme uses AmberTools major release as MAJOR version number, patch level as MINOR version number
 # Update the MINOR version number as new patch releases come out
-{% set version = "20.15" %}
+{% set version = "21.0" %}
 
 package:
   name: {{ name|lower }}
   version: {{ version }}
 
 source:
-  url: https://ambermd.org/downloads/AmberTools20jlmrcc.tar.bz2
-  sha256: b1e1f8f277c54e88abc9f590e788bbb2f7a49bcff5e8d8a6eacfaf332a4890f9
+  url: https://ambermd.org/downloads/AmberTools21jlmrcc.tar.bz2
+  sha256: f55fa930598d5a8e9749e8a22d1f25cab7fcf911d98570e35365dd7f262aaafd
   patches:
     - patches/do_not_symlink_missing_ff12pol.patch
     - patches/do_not_install_vendored_parmed.patch
+    - patches/do_not_vendor_packmol.patch
 
 build:
-  number: 2
+  number: 0
   skip: True  # [win or py2k]
+  # Some binaries (e.g. nab) hardcode the path to the compiler in BUILD_PREFIX
+  # which does not get replaced and causes errors on runtime
+  # because that path does not exist. This is a workaround but
+  # since we are not cross-compiling (so far), we should be ok for now
+  merge_build_host: True
 
 requirements:
   build:
@@ -56,7 +62,8 @@ requirements:
     - readline
     - llvm-openmp  # [osx]
     - libgomp      # [linux and not aarch64]
-    - parmed 3.3.0
+    - parmed 3.4.1
+    - packmol
   run:
     - python
     - perl
@@ -76,15 +83,16 @@ requirements:
     - readline
     - llvm-openmp  # [osx]
     - libgomp      # [linux and not aarch64]
-    - parmed >=3.3.0,<4.0.0a
+    - parmed >=3.4.1,<4.0.0a
+    - packmol
   run_constrained:
     - ambermini ==9999999999
 
 test:
   requires:
+    - {{ compiler('c') }}  # we need this for `nab` tests
 {% if unit_tests == "run" %}
     - {{ compiler('fortran') }}
-    - {{ compiler('c') }}
     - {{ compiler('cxx') }}
     - util-linux  # [linux64]
 {% endif %}

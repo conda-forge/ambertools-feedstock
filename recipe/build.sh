@@ -7,10 +7,6 @@ for n in {1..5}; do
     ./update_amber --update-to=AmberTools.${PATCH_LEVEL} && break
 done
 
-# Patch AmberTools/src/etc/setup.py to report correct version
-# See https://github.com/conda-forge/ambertools-feedstock/issues/45
-sed -i.bak "s/version='17.0',/version=\"$PKG_VERSION\",/" AmberTools/src/etc/setup.py
-
 # Some Fortran binaries segfault because of this flag (addles, make_crd_hg... maybe sander?)
 # See PR #24 -- this might be against CF conventions; might also disappear when we provide openmp/mpi
 export FFLAGS=${FFLAGS//-fopenmp }
@@ -24,7 +20,7 @@ export CXXFLAGS="${CXXFLAGS} -pthread"
 # duplicate symbols cause errors on GCC10+ and Clang 11+
 # see https://github.com/conda-forge/ambertools-feedstock/pull/50#issuecomment-756171906
 # This will get fixed upstream at some point...
-if (( $(printf "%02d%02d" ${PKG_VERSION//./ }) <= 2015 )); then
+if (( $(printf "%02d%02d" ${PKG_VERSION//./ }) <= 2100 )); then
     export CFLAGS="${CFLAGS:-} -fcommon"
 fi
 
@@ -52,6 +48,9 @@ if [[ "$target_platform" == osx* ]]; then
     mv ${BUILD_PREFIX}/etc/conda/{activate.d.bak,activate.d}
     mv ${BUILD_PREFIX}/etc/conda/{deactivate.d.bak,deactivate.d}
     set -u
+
+    # This file is mistaken as a source file in OSX, but it's just metadata
+    rm ${SRC_DIR}/AmberTools/src/cpptraj/src/xdrfile/version
 fi
 
 # Build AmberTools with cmake
