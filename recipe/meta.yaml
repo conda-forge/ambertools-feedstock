@@ -38,8 +38,8 @@ requirements:
     - cmake         # [not osx]
     - cmake 3.20.*  # [osx]
     - perl
-    - llvm-openmp  # [osx]
-    - libgomp      # [linux and not aarch64]
+    # - llvm-openmp  # [osx]
+    # - libgomp      # [linux and not aarch64]
   host:
     - python
     - setuptools
