@@ -1,7 +1,7 @@
 {% set name = "AmberTools" %}
 # Versioning scheme uses AmberTools major release as MAJOR version number, patch level as MINOR version number
 # Update the MINOR version number as new patch releases come out
-{% set version = "21.5" %}
+{% set version = "21.6" %}
 
 package:
   name: {{ name|lower }}
@@ -38,8 +38,8 @@ requirements:
     - cmake         # [not osx]
     - cmake 3.20.*  # [osx]
     - perl
-    # - llvm-openmp  # [osx]
-    # - libgomp      # [linux and not aarch64]
+    - llvm-openmp  # [osx]
+    - libgomp      # [linux and not aarch64]
   host:
     - python
     - setuptools
