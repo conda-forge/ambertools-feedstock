@@ -30,6 +30,8 @@ liblapack:
 - 3.8 *netlib
 libnetcdf:
 - 4.8.0
+llvm_openmp:
+- '11'
 macos_machine:
 - x86_64-apple-darwin13.4.0
 netcdf_fortran:
