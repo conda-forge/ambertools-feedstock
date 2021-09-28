@@ -40,7 +40,7 @@ requirements:
     - perl
     - llvm-openmp  # [osx]
     - libgomp      # [linux and not aarch64]
-    - krb5
+    - openssl
   host:
     - python
     - setuptools
@@ -66,7 +66,7 @@ requirements:
     - libgomp      # [linux and not aarch64]
     - parmed 3.4.1
     - packmol
-    - krb5
+    - openssl
   run:
     - python
     - perl
