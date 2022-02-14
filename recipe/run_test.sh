@@ -70,7 +70,9 @@ ante-MMPBSA.py -h
 antechamber -h
 atomtype -h
 bondtype -h
-car_to_files.py -h
+# this below stopped working with 21.12 - see 
+# https://github.com/conda-forge/ambertools-feedstock/pull/78#issuecomment-1039141799
+# car_to_files.py -h
 CartHess2FC.py -h
 ceinutil.py -h
 cpeinutil.py -h
