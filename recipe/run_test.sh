@@ -57,6 +57,12 @@ conda list
 # xparmed -h ## REQUIRES DISPLAY
 # XrayPrep ## REQUIRES PHENIX
 
+# this below stopped working with 21.12 - see 
+# https://github.com/conda-forge/ambertools-feedstock/pull/78#issuecomment-1039141799
+# and the full PR changeset
+# car_to_files.py -h
+# fitpkaeo.py -h
+
 # These run fine if prompted for help or version messages
 add_pdb -h
 add_xray -h
@@ -70,9 +76,6 @@ ante-MMPBSA.py -h
 antechamber -h
 atomtype -h
 bondtype -h
-# this below stopped working with 21.12 - see 
-# https://github.com/conda-forge/ambertools-feedstock/pull/78#issuecomment-1039141799
-# car_to_files.py -h
 CartHess2FC.py -h
 ceinutil.py -h
 cpeinutil.py -h
@@ -84,7 +87,6 @@ espgen.py -h
 FEW.pl -h
 ffgbsa -h
 finddgref.py -h
-fitpkaeo.py -h
 fixremdcouts.py -h
 genremdinputs.py -h
 IPMach.py -h
