@@ -69,6 +69,7 @@ requirements:
     - openssl
   run:
     - python
+    - setuptools
     - perl
     - cython
     - numpy
