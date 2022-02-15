@@ -59,12 +59,15 @@ conda list
 
 # this below stopped working with 21.12 - see 
 # https://github.com/conda-forge/ambertools-feedstock/pull/78#issuecomment-1039141799
-# and the full PR changeset
 # car_to_files.py -h
+
+# These have SyntaxErrors due to Py2k print style and others
 # fitpkaeo.py -h
 # genremdinputs.py -h
+# pymdpbsa -h
+# pytleap -h
+# softcore_setup.py -h
 
-set +e
 # These run fine if prompted for help or version messages
 add_pdb -h
 add_xray -h
@@ -107,19 +110,15 @@ pdb4amber -h
 PdbSearcher.py -h
 prepgen -h
 ProScrs.py -h
-pymdpbsa -h
-pytleap -h
 reduce -V
 resp -h
 respgen -h
 saxs_md -h
-softcore_setup.py -h
 sqm -h
 sviol -h
 teLeap -h
 tleap -h
 UnitCell
-set -e 
 
 # Debug nab hardcoding BUILD_PREFIX/bin/<compiler>
 echo 'printf( "hello world\n" );' > ltest.nab
