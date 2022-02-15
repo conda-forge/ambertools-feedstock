@@ -62,7 +62,9 @@ conda list
 # and the full PR changeset
 # car_to_files.py -h
 # fitpkaeo.py -h
+# genremdinputs.py -h
 
+set +e
 # These run fine if prompted for help or version messages
 add_pdb -h
 add_xray -h
@@ -88,7 +90,6 @@ FEW.pl -h
 ffgbsa -h
 finddgref.py -h
 fixremdcouts.py -h
-genremdinputs.py -h
 IPMach.py -h
 makeANG_RST -help
 MCPB.py -h
@@ -118,6 +119,7 @@ sviol -h
 teLeap -h
 tleap -h
 UnitCell
+set -e 
 
 # Debug nab hardcoding BUILD_PREFIX/bin/<compiler>
 echo 'printf( "hello world\n" );' > ltest.nab
