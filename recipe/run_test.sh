@@ -57,6 +57,17 @@ conda list
 # xparmed -h ## REQUIRES DISPLAY
 # XrayPrep ## REQUIRES PHENIX
 
+# this below stopped working with 21.12 - see 
+# https://github.com/conda-forge/ambertools-feedstock/pull/78#issuecomment-1039141799
+# car_to_files.py -h
+
+# These have SyntaxErrors due to Py2k print style and others
+# fitpkaeo.py -h
+# genremdinputs.py -h
+# pymdpbsa -h
+# pytleap -h
+# softcore_setup.py -h
+
 # These run fine if prompted for help or version messages
 add_pdb -h
 add_xray -h
@@ -70,7 +81,6 @@ ante-MMPBSA.py -h
 antechamber -h
 atomtype -h
 bondtype -h
-car_to_files.py -h
 CartHess2FC.py -h
 ceinutil.py -h
 cpeinutil.py -h
@@ -82,9 +92,7 @@ espgen.py -h
 FEW.pl -h
 ffgbsa -h
 finddgref.py -h
-fitpkaeo.py -h
 fixremdcouts.py -h
-genremdinputs.py -h
 IPMach.py -h
 makeANG_RST -help
 MCPB.py -h
@@ -102,13 +110,10 @@ pdb4amber -h
 PdbSearcher.py -h
 prepgen -h
 ProScrs.py -h
-pymdpbsa -h
-pytleap -h
 reduce -V
 resp -h
 respgen -h
 saxs_md -h
-softcore_setup.py -h
 sqm -h
 sviol -h
 teLeap -h
