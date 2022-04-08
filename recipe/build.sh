@@ -1,3 +1,10 @@
+# Get an updated config.sub and config.guess
+cp $BUILD_PREFIX/share/gnuconfig/config.* ./AmberTools/src/reaxff_puremd/PuReMD
+cp $BUILD_PREFIX/share/gnuconfig/config.* ./AmberTools/src/netcdf-fortran-4.4.4
+cp $BUILD_PREFIX/share/gnuconfig/config.* ./AmberTools/src/fftw-3.3
+cp $BUILD_PREFIX/share/gnuconfig/config.* ./AmberTools/src/xblas/config
+cp $BUILD_PREFIX/share/gnuconfig/config.* ./AmberTools/src/boost/tools/build/src/engine/boehm_gc
+cp $BUILD_PREFIX/share/gnuconfig/config.* ./AmberTools/src/netcdf-4.6.1
 set -euxo pipefail
 
 # Upgrade AmberTools source to the patch level specified by the MINOR version in $PKG_VERSION
@@ -56,7 +63,7 @@ fi
 # Build AmberTools with cmake
 mkdir -p build
 cd build
-cmake ${SRC_DIR} ${CMAKE_FLAGS} \
+cmake ${CMAKE_ARGS} ${SRC_DIR} ${CMAKE_FLAGS} \
     -DCMAKE_INSTALL_PREFIX=${PREFIX} \
     -DCOMPILER=MANUAL \
     -DPYTHON_EXECUTABLE=${PYTHON} \
