@@ -12,7 +12,7 @@ source:
   sha256: b2050e495f23835aea12cec030023cdef63b198a67fa4c0661ac9a715462a210
   patches:
     - patches/do_not_symlink_missing_ff12pol.patch
-    - patches/do_not_install_vendored_parmed.patch
+    # - patches/do_not_install_vendored_parmed.patch
     - patches/do_not_vendor_packmol.patch
 
 build:
