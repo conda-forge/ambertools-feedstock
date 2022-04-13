@@ -1,14 +1,14 @@
 {% set name = "AmberTools" %}
 # Versioning scheme uses AmberTools major release as MAJOR version number, patch level as MINOR version number
 # Update the MINOR version number as new patch releases come out
-{% set version = "21.12" %}
+{% set version = "22.0" %}
 
 package:
   name: {{ name|lower }}
   version: {{ version }}
 
 source:
-  url: https://ambermd.org/downloads/AmberTools21jlmrcc.tar.bz2
+  url: https://ambermd.org/downloads/AmberTools22.02apr22.tar.bz2
   sha256: f55fa930598d5a8e9749e8a22d1f25cab7fcf911d98570e35365dd7f262aaafd
   patches:
     - patches/do_not_symlink_missing_ff12pol.patch
