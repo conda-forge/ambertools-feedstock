@@ -30,6 +30,8 @@ requirements:
     - cross-python_{{ target_platform }}     # [build_platform != target_platform]
     - cython                                 # [build_platform != target_platform]
     - numpy                                  # [build_platform != target_platform]
+    - scipy                                  # [build_platform != target_platform]
+    - matplotlib-base                        # [build_platform != target_platform]
     - gnuconfig  # [unix]
     - {{ compiler('fortran') }}
     - {{ compiler('c') }}
