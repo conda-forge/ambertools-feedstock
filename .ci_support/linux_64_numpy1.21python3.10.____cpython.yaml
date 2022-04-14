@@ -9,7 +9,7 @@ c_compiler:
 c_compiler_version:
 - '10'
 cdt_name:
-- cos7
+- cos6
 channel_sources:
 - conda-forge
 channel_targets:
@@ -19,7 +19,7 @@ cxx_compiler:
 cxx_compiler_version:
 - '10'
 docker_image:
-- quay.io/condaforge/linux-anvil-ppc64le
+- quay.io/condaforge/linux-anvil-cos7-x86_64
 fftw:
 - '3'
 fortran_compiler:
@@ -35,7 +35,7 @@ libnetcdf:
 netcdf_fortran:
 - '4.5'
 numpy:
-- '1.19'
+- '1.21'
 openssl:
 - 1.1.1
 perl:
@@ -59,11 +59,11 @@ pin_run_as_build:
   zlib:
     max_pin: x.x
 python:
-- 3.9.* *_cpython
+- 3.10.* *_cpython
 readline:
 - '8'
 target_platform:
-- linux-ppc64le
+- linux-64
 unit_tests:
 - skip
 zip_keys:
