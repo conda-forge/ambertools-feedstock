@@ -65,7 +65,7 @@ readline:
 target_platform:
 - linux-ppc64le
 unit_tests:
-- run
+- skip
 zip_keys:
 - - c_compiler_version
   - cxx_compiler_version
