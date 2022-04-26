@@ -45,8 +45,8 @@ requirements:
     - cmake         # [not osx]
     - cmake 3.20.*  # [osx]
     - perl
-    - llvm-openmp  # [osx]
-    - libgomp      # [linux and not aarch64]
+    - llvm-openmp  # [osx and build_platform != "linux-64"]
+    - libgomp      # [linux]
     - openssl
   host:
     - python
@@ -70,7 +70,7 @@ requirements:
     - xorg-libx11   # [unix]
     - readline
     - llvm-openmp  # [osx]
-    - libgomp      # [linux and not aarch64]
+    - libgomp      # [linux]
     - parmed 3.4.1
     - packmol
     - openssl
@@ -92,8 +92,6 @@ requirements:
     - xorg-libxext  # [unix]
     - xorg-libx11   # [unix]
     - readline
-    - llvm-openmp  # [osx]
-    - libgomp      # [linux and not aarch64]
     - parmed >=3.4.1,<4.0.0a
     - packmol
   run_constrained:
