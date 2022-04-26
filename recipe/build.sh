@@ -60,7 +60,7 @@ if [[ "$target_platform" == osx* ]]; then
     rm ${SRC_DIR}/AmberTools/src/cpptraj/src/xdrfile/version
 fi
 
-if [[ "$CONDA_BUILD_CROSS_COMPILATION" == 1 && "$CMAKE_CROSSCOMPILING_EMULATOR" == "" ]]; then
+if [[ "${CONDA_BUILD_CROSS_COMPILATION:-}" == 1 && "${CMAKE_CROSSCOMPILING_EMULATOR:-}" == "" ]]; then
     # Assume that netcdf works
     export CMAKE_ARGS="${CMAKE_ARGS} -DNetCDF_F90_WORKS_EXITCODE=0"
 fi
