@@ -76,7 +76,8 @@ cmake ${CMAKE_ARGS} ${SRC_DIR} ${CMAKE_FLAGS} \
     -DCHECK_UPDATES=FALSE \
     -DTRUST_SYSTEM_LIBS=TRUE
 
-make && make install
+make -j${CPU_COUNT}
+make install
 
 # Export AMBERHOME automatically
 mkdir -p ${PREFIX}/etc/conda/{activate,deactivate}.d
