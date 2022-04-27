@@ -8,8 +8,8 @@ package:
   version: {{ version }}
 
 source:
-  url: https://ambermd.org/downloads/AmberTools22.15apr22.tar.bz2
-  sha256: c9933fa62c67e43e714cd6dcdc7aa69d156c89f5f92543a1fb8e7b4ecc916cb1
+  url: https://ambermd.org/downloads/AmberTools22jlmrcc.tar.bz2
+  sha256: 1571d4e0f7d45b2a71dce5999fa875aea8c90ee219eb218d7916bf30ea229121
   patches:
     - patches/do_not_symlink_missing_ff12pol.patch
     - patches/do_not_install_vendored_parmed.patch
