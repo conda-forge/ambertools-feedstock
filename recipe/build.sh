@@ -105,7 +105,7 @@ cmake ${CMAKE_ARGS} ${SRC_DIR} ${CMAKE_FLAGS} \
     -DCHECK_UPDATES=FALSE \
     -DTRUST_SYSTEM_LIBS=TRUE
 
-make -j${CPU_COUNT}
+make
 make install
 
 # Export AMBERHOME automatically
