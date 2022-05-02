@@ -50,9 +50,6 @@ if [[ "$target_platform" == osx* ]]; then
     mv ${BUILD_PREFIX}/etc/conda/{activate.d.bak,activate.d}
     mv ${BUILD_PREFIX}/etc/conda/{deactivate.d.bak,deactivate.d}
     set -u
-
-    # This file is mistaken as a source file in OSX, but it's just metadata
-    # rm ${SRC_DIR}/AmberTools/src/cpptraj/src/xdrfile/version
 fi
 
 # Build AmberTools with cmake
