@@ -1,11 +1,13 @@
 set -euxo pipefail
 
 # Upgrade AmberTools source to the patch level specified by the MINOR version in $PKG_VERSION
-for n in {1..5}; do
-    export PATCH_LEVEL=$(echo $PKG_VERSION | cut -d. -f2)
-    echo "Upgrading source to patch level $PATCH_LEVEL"
-    ./update_amber --update-to=AmberTools.${PATCH_LEVEL} && break
-done
+export PATCH_LEVEL=$(echo $PKG_VERSION | cut -d. -f2)
+if [[ $PATCH_LEVEL != 0 ]]; then
+    for n in {1..5}; do
+        echo "Upgrading source to patch level $PATCH_LEVEL"
+        ./update_amber --update-to=AmberTools.${PATCH_LEVEL} && break
+    done
+fi
 
 # Some Fortran binaries segfault because of this flag (addles, make_crd_hg... maybe sander?)
 # See PR #24 -- this might be against CF conventions; might also disappear when we provide openmp/mpi
@@ -20,7 +22,7 @@ export CXXFLAGS="${CXXFLAGS} -pthread"
 # duplicate symbols cause errors on GCC10+ and Clang 11+
 # see https://github.com/conda-forge/ambertools-feedstock/pull/50#issuecomment-756171906
 # This will get fixed upstream at some point...
-if (( $(printf "%02d%02d" ${PKG_VERSION//./ }) <= 2112 )); then
+if (( $(printf "%02d%02d" ${PKG_VERSION//./ }) <= 2200 )); then
     export CFLAGS="${CFLAGS:-} -fcommon"
 fi
 
@@ -48,9 +50,6 @@ if [[ "$target_platform" == osx* ]]; then
     mv ${BUILD_PREFIX}/etc/conda/{activate.d.bak,activate.d}
     mv ${BUILD_PREFIX}/etc/conda/{deactivate.d.bak,deactivate.d}
     set -u
-
-    # This file is mistaken as a source file in OSX, but it's just metadata
-    rm ${SRC_DIR}/AmberTools/src/cpptraj/src/xdrfile/version
 fi
 
 # Build AmberTools with cmake
