@@ -25,9 +25,9 @@ fortran_compiler:
 fortran_compiler_version:
 - '9'
 libblas:
-- 3.8 *netlib
+- 3.9 *netlib
 liblapack:
-- 3.8 *netlib
+- 3.9 *netlib
 libnetcdf:
 - 4.8.1
 llvm_openmp:
@@ -35,7 +35,7 @@ llvm_openmp:
 macos_machine:
 - x86_64-apple-darwin13.4.0
 netcdf_fortran:
-- '4.5'
+- '4.6'
 numpy:
 - '1.19'
 openssl:
