@@ -1,22 +1,22 @@
 {% set name = "AmberTools" %}
 # Versioning scheme uses AmberTools major release as MAJOR version number, patch level as MINOR version number
 # Update the MINOR version number as new patch releases come out
-{% set version = "21.12" %}
+{% set version = "22.0" %}
 
 package:
   name: {{ name|lower }}
   version: {{ version }}
 
 source:
-  url: https://ambermd.org/downloads/AmberTools21jlmrcc.tar.bz2
-  sha256: f55fa930598d5a8e9749e8a22d1f25cab7fcf911d98570e35365dd7f262aaafd
+  url: https://ambermd.org/downloads/AmberTools22jlmrcc.tar.bz2
+  sha256: 1571d4e0f7d45b2a71dce5999fa875aea8c90ee219eb218d7916bf30ea229121
   patches:
     - patches/do_not_symlink_missing_ff12pol.patch
     - patches/do_not_install_vendored_parmed.patch
     - patches/do_not_vendor_packmol.patch
 
 build:
-  number: 0
+  number: 1
   skip: True  # [win or py2k]
   # Some binaries (e.g. nab) hardcode the path to the compiler in BUILD_PREFIX
   # which does not get replaced and causes errors on runtime
@@ -104,6 +104,7 @@ test:
     - {{ compiler('fortran') }}
     - {{ compiler('cxx') }}
     - util-linux  # [linux64]
+    - make
 {% endif %}
     - tcsh
     # Try to force a library incompatibility error in osx (see #22)
