@@ -100,12 +100,7 @@ if [[ "${build_platform}" != "${target_platform}" ]]; then
     cd build_host_tools || exit
     cmake ${CMAKE_ARGS} ${SRC_DIR} ${CMAKE_FLAGS} \
         -DBUILD_HOST_TOOLS=TRUE \
-        -DCMAKE_INSTALL_PREFIX=${PREFIX}../host_tools \
-        -DCOMPILER=MANUAL \
-        -DPYTHON_EXECUTABLE=${PYTHON} \
-        -DBUILD_GUI=${BUILD_GUI} \
-        -DCHECK_UPDATES=FALSE \
-        -DTRUST_SYSTEM_LIBS=TRUE
+        -DCMAKE_INSTALL_PREFIX=${PREFIX}../host_tools
 
     make
     make install
