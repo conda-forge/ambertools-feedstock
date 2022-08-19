@@ -100,6 +100,7 @@ if [[ "${build_platform}" != "${target_platform}" ]]; then
     cd build_host_tools || exit
     cmake ${CMAKE_ARGS} ${SRC_DIR} ${CMAKE_FLAGS} \
         -DBUILD_HOST_TOOLS=TRUE \
+        -DCOMPILER=MANUAL \
         -DCMAKE_INSTALL_PREFIX=${PREFIX}../host_tools
 
     make
