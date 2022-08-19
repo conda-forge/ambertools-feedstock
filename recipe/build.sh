@@ -93,19 +93,53 @@ EOF
 
 fi
 
-# Build AmberTools with cmake
-mkdir -p build
-cd build
-cmake ${CMAKE_ARGS} ${SRC_DIR} ${CMAKE_FLAGS} \
-    -DCMAKE_INSTALL_PREFIX=${PREFIX} \
-    -DCOMPILER=MANUAL \
-    -DPYTHON_EXECUTABLE=${PYTHON} \
-    -DBUILD_GUI=${BUILD_GUI} \
-    -DCHECK_UPDATES=FALSE \
-    -DTRUST_SYSTEM_LIBS=TRUE
+if [[ "${build_platform}" != "${target_platform}" ]]; then
+    # Build host tools first
+    mkdir -p ${PREFIX}../host_tools
+    mkdir -p build_host_tools
+    cd build_host_tools || exit
+    cmake ${CMAKE_ARGS} ${SRC_DIR} ${CMAKE_FLAGS} \
+        -DBUILD_HOST_TOOLS=TRUE \
+        -DCMAKE_INSTALL_PREFIX=${PREFIX}../host_tools \
+        -DCOMPILER=MANUAL \
+        -DPYTHON_EXECUTABLE=${PYTHON} \
+        -DBUILD_GUI=${BUILD_GUI} \
+        -DCHECK_UPDATES=FALSE \
+        -DTRUST_SYSTEM_LIBS=TRUE
 
-make
-make install
+    make
+    make install
+    # Now build the package
+    mkdir -p build_host_tools
+    cd build_host_tools || exit
+    cmake ${CMAKE_ARGS} ${SRC_DIR} ${CMAKE_FLAGS} \
+        -DBUILD_HOST_TOOLS=FALSE \
+        -DUSE_HOST_TOOLS=TRUE \
+        -DHOST_TOOLS_DIR=${PREFIX}../host_tools \
+        -DCMAKE_INSTALL_PREFIX=${PREFIX} \
+        -DCOMPILER=MANUAL \
+        -DPYTHON_EXECUTABLE=${PYTHON} \
+        -DBUILD_GUI=${BUILD_GUI} \
+        -DCHECK_UPDATES=FALSE \
+        -DTRUST_SYSTEM_LIBS=TRUE
+
+    make
+    make install
+else
+    # Build AmberTools with cmake
+    mkdir -p build
+    cd build || exit
+    cmake ${CMAKE_ARGS} ${SRC_DIR} ${CMAKE_FLAGS} \
+        -DCMAKE_INSTALL_PREFIX=${PREFIX} \
+        -DCOMPILER=MANUAL \
+        -DPYTHON_EXECUTABLE=${PYTHON} \
+        -DBUILD_GUI=${BUILD_GUI} \
+        -DCHECK_UPDATES=FALSE \
+        -DTRUST_SYSTEM_LIBS=TRUE
+
+    make
+    make install
+fi
 
 # Export AMBERHOME automatically
 mkdir -p ${PREFIX}/etc/conda/{activate,deactivate}.d
