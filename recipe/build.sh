@@ -110,8 +110,8 @@ if [[ "${build_platform}" != "${target_platform}" ]]; then
     make
     make install
     # Now build the package
-    mkdir -p build_host_tools
-    cd build_host_tools || exit
+    mkdir -p build
+    cd build || exit
     cmake ${CMAKE_ARGS} ${SRC_DIR} ${CMAKE_FLAGS} \
         -DBUILD_HOST_TOOLS=FALSE \
         -DUSE_HOST_TOOLS=TRUE \
