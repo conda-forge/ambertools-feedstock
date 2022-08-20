@@ -95,13 +95,13 @@ fi
 
 if [[ "${build_platform}" != "${target_platform}" ]]; then
     # Build host tools first
-    mkdir -p ${PREFIX}../host_tools
+    mkdir -p ${BUILD_PREFIX}/amber_host_tools
     mkdir -p build_host_tools
-    cd build_host_tools || exit
+    cd build_host_tools
     cmake ${CMAKE_ARGS} ${SRC_DIR} ${CMAKE_FLAGS} \
         -DBUILD_HOST_TOOLS=TRUE \
         -DCOMPILER=MANUAL \
-        -DCMAKE_INSTALL_PREFIX=${PREFIX}../host_tools
+        -DCMAKE_INSTALL_PREFIX="${BUILD_PREFIX}/amber_host_tools"
 
     make
     make install
@@ -111,7 +111,7 @@ if [[ "${build_platform}" != "${target_platform}" ]]; then
     cmake ${CMAKE_ARGS} ${SRC_DIR} ${CMAKE_FLAGS} \
         -DBUILD_HOST_TOOLS=FALSE \
         -DUSE_HOST_TOOLS=TRUE \
-        -DHOST_TOOLS_DIR=${PREFIX}../host_tools \
+        -DHOST_TOOLS_DIR="${BUILD_PREFIX}/amber_host_tools" \
         -DCMAKE_INSTALL_PREFIX=${PREFIX} \
         -DCOMPILER=MANUAL \
         -DPYTHON_EXECUTABLE=${PYTHON} \
@@ -124,7 +124,7 @@ if [[ "${build_platform}" != "${target_platform}" ]]; then
 else
     # Build AmberTools with cmake
     mkdir -p build
-    cd build || exit
+    cd build
     cmake ${CMAKE_ARGS} ${SRC_DIR} ${CMAKE_FLAGS} \
         -DCMAKE_INSTALL_PREFIX=${PREFIX} \
         -DCOMPILER=MANUAL \
