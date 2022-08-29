@@ -23,7 +23,7 @@ fftw:
 fortran_compiler:
 - gfortran
 fortran_compiler_version:
-- '9'
+- '11'
 libblas:
 - 3.9 *netlib
 liblapack:
