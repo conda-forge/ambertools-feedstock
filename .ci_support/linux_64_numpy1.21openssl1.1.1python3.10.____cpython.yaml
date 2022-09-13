@@ -1,0 +1,76 @@
+arpack:
+- '3.7'
+boost_cpp:
+- 1.74.0
+bzip2:
+- '1'
+c_compiler:
+- gcc
+c_compiler_version:
+- '10'
+cdt_name:
+- cos6
+channel_sources:
+- conda-forge
+channel_targets:
+- conda-forge main
+cxx_compiler:
+- gxx
+cxx_compiler_version:
+- '10'
+docker_image:
+- quay.io/condaforge/linux-anvil-cos7-x86_64
+fftw:
+- '3'
+fortran_compiler:
+- gfortran
+fortran_compiler_version:
+- '10'
+libblas:
+- 3.9 *netlib
+liblapack:
+- 3.9 *netlib
+libnetcdf:
+- 4.8.1
+netcdf_fortran:
+- '4.6'
+numpy:
+- '1.21'
+openssl:
+- 1.1.1
+perl:
+- 5.32.1
+pin_run_as_build:
+  arpack:
+    max_pin: x.x.x
+  boost-cpp:
+    max_pin: x.x.x
+  bzip2:
+    max_pin: x
+  fftw:
+    max_pin: x
+  netcdf-fortran:
+    max_pin: x.x
+  python:
+    min_pin: x.x
+    max_pin: x.x
+  readline:
+    max_pin: x
+  zlib:
+    max_pin: x.x
+python:
+- 3.10.* *_cpython
+readline:
+- '8'
+target_platform:
+- linux-64
+unit_tests:
+- skip
+zip_keys:
+- - c_compiler_version
+  - cxx_compiler_version
+  - fortran_compiler_version
+- - python
+  - numpy
+zlib:
+- '1.2'
