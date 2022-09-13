@@ -1,5 +1,5 @@
---- a/CMakeLists.txt
-+++ b/CMakeLists.txt
+--- Ambertools/src/nab/CMakeLists.txt
++++ Ambertools/src/nab/CMakeLists.txt
 @@ -162,9 +162,7 @@ add_custom_target(nab_lex DEPENDS ${NAB_LEX_LEXED} ${DG_OPTIONS_LEXED})
 
  # --------------------------------------------------------------------
