@@ -1,0 +1,13 @@
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -162,9 +162,7 @@ add_custom_target(nab_lex DEPENDS ${NAB_LEX_LEXED} ${DG_OPTIONS_LEXED})
+
+ # --------------------------------------------------------------------
+ # build rule_parse
+-if(NOT USE_HOST_TOOLS)
+-       add_subdirectory(semantics)
+-endif()
++add_subdirectory(semantics)
+
+ # build checkexpr.c using rule_parse
+ # --------------------------------------------------------------------
