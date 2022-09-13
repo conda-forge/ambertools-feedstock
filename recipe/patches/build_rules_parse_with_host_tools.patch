@@ -5,7 +5,7 @@
  # --------------------------------------------------------------------
  # build rule_parse
 -if(NOT USE_HOST_TOOLS)
--       add_subdirectory(semantics)
+-	add_subdirectory(semantics)
 -endif()
 +add_subdirectory(semantics)
 
