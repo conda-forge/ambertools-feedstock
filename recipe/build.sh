@@ -97,12 +97,11 @@ if [[ "${build_platform}" != "${target_platform}" ]]; then
     # Build host tools first
     mkdir -p ${BUILD_PREFIX}/amber_host_tools
     mkdir -p build_host_tools
-	# Add host tools to our path
-	export PATH="${PATH}:${BUILD_PREFIX}/amber_host_tools"
     cd build_host_tools
     cmake ${CMAKE_ARGS} ${SRC_DIR} ${CMAKE_FLAGS} \
         -DBUILD_HOST_TOOLS=TRUE \
         -DCOMPILER=MANUAL \
+		-DDISABLE_TOOLS="nab" \
         -DCMAKE_INSTALL_PREFIX="${BUILD_PREFIX}/amber_host_tools"
 
     make
@@ -118,6 +117,7 @@ if [[ "${build_platform}" != "${target_platform}" ]]; then
         -DCOMPILER=MANUAL \
         -DPYTHON_EXECUTABLE=${PYTHON} \
         -DBUILD_GUI=${BUILD_GUI} \
+		-DDISABLE_TOOLS="nab" \
         -DCHECK_UPDATES=FALSE \
         -DTRUST_SYSTEM_LIBS=TRUE
 
