@@ -97,6 +97,8 @@ if [[ "${build_platform}" != "${target_platform}" ]]; then
     # Build host tools first
     mkdir -p ${BUILD_PREFIX}/amber_host_tools
     mkdir -p build_host_tools
+	# Add host tools to our path
+	export PATH="${PATH}:${BUILD_PREFIX}/amber_host_tools"
     cd build_host_tools
     cmake ${CMAKE_ARGS} ${SRC_DIR} ${CMAKE_FLAGS} \
         -DBUILD_HOST_TOOLS=TRUE \
