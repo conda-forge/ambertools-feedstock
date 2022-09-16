@@ -14,7 +14,7 @@ source:
     - patches/do_not_symlink_missing_ff12pol.patch
     - patches/do_not_install_vendored_parmed.patch
     - patches/do_not_vendor_packmol.patch
-    - patches/build_rules_parse_with_host_tools.patch  # [osx] 
+      #- patches/build_rules_parse_with_host_tools.patch  # [osx] 
 
 build:
   number: 3
