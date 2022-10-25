@@ -1,7 +1,7 @@
 arpack:
 - '3.7'
 boost_cpp:
-- 1.74.0
+- 1.78.0
 bzip2:
 - '1'
 c_compiler:
@@ -41,22 +41,10 @@ openssl:
 perl:
 - 5.32.1
 pin_run_as_build:
-  arpack:
-    max_pin: x.x.x
   boost-cpp:
     max_pin: x.x.x
-  bzip2:
-    max_pin: x
-  fftw:
-    max_pin: x
-  netcdf-fortran:
-    max_pin: x.x
   python:
     min_pin: x.x
-    max_pin: x.x
-  readline:
-    max_pin: x
-  zlib:
     max_pin: x.x
 python:
 - 3.10.* *_cpython
