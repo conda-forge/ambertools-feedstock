@@ -34,13 +34,6 @@ Current build status
         <table>
           <thead><tr><th>Variant</th><th>Status</th></tr></thead>
           <tbody><tr>
-              <td>linux_64_numpy1.20openssl1.1.1python3.7.____cpython</td>
-              <td>
-                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=6854&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/ambertools-feedstock?branchName=main&jobName=linux&configuration=linux_64_numpy1.20openssl1.1.1python3.7.____cpython" alt="variant">
-                </a>
-              </td>
-            </tr><tr>
               <td>linux_64_numpy1.20openssl1.1.1python3.8.____cpython</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=6854&branchName=main">
@@ -52,13 +45,6 @@ Current build status
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=6854&branchName=main">
                   <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/ambertools-feedstock?branchName=main&jobName=linux&configuration=linux_64_numpy1.20openssl1.1.1python3.9.____cpython" alt="variant">
-                </a>
-              </td>
-            </tr><tr>
-              <td>linux_64_numpy1.20openssl3python3.7.____cpython</td>
-              <td>
-                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=6854&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/ambertools-feedstock?branchName=main&jobName=linux&configuration=linux_64_numpy1.20openssl3python3.7.____cpython" alt="variant">
                 </a>
               </td>
             </tr><tr>
@@ -90,13 +76,6 @@ Current build status
                 </a>
               </td>
             </tr><tr>
-              <td>osx_64_numpy1.20openssl1.1.1python3.7.____cpython</td>
-              <td>
-                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=6854&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/ambertools-feedstock?branchName=main&jobName=osx&configuration=osx_64_numpy1.20openssl1.1.1python3.7.____cpython" alt="variant">
-                </a>
-              </td>
-            </tr><tr>
               <td>osx_64_numpy1.20openssl1.1.1python3.8.____cpython</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=6854&branchName=main">
@@ -108,13 +87,6 @@ Current build status
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=6854&branchName=main">
                   <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/ambertools-feedstock?branchName=main&jobName=osx&configuration=osx_64_numpy1.20openssl1.1.1python3.9.____cpython" alt="variant">
-                </a>
-              </td>
-            </tr><tr>
-              <td>osx_64_numpy1.20openssl3python3.7.____cpython</td>
-              <td>
-                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=6854&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/ambertools-feedstock?branchName=main&jobName=osx&configuration=osx_64_numpy1.20openssl3python3.7.____cpython" alt="variant">
                 </a>
               </td>
             </tr><tr>

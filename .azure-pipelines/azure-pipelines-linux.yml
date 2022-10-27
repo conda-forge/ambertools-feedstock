@@ -8,11 +8,6 @@ jobs:
     vmImage: ubuntu-latest
   strategy:
     matrix:
-      linux_64_numpy1.20openssl1.1.1python3.7.____cpython:
-        CONFIG: linux_64_numpy1.20openssl1.1.1python3.7.____cpython
-        UPLOAD_PACKAGES: 'True'
-        DOCKER_IMAGE: quay.io/condaforge/linux-anvil-cos7-x86_64
-        SHORT_CONFIG: linux_64_numpy1.20openssl1.1.1pytho_h03b43dd402
       linux_64_numpy1.20openssl1.1.1python3.8.____cpython:
         CONFIG: linux_64_numpy1.20openssl1.1.1python3.8.____cpython
         UPLOAD_PACKAGES: 'True'
@@ -23,11 +18,6 @@ jobs:
         UPLOAD_PACKAGES: 'True'
         DOCKER_IMAGE: quay.io/condaforge/linux-anvil-cos7-x86_64
         SHORT_CONFIG: linux_64_numpy1.20openssl1.1.1pytho_h90f93beee8
-      linux_64_numpy1.20openssl3python3.7.____cpython:
-        CONFIG: linux_64_numpy1.20openssl3python3.7.____cpython
-        UPLOAD_PACKAGES: 'True'
-        DOCKER_IMAGE: quay.io/condaforge/linux-anvil-cos7-x86_64
-        SHORT_CONFIG: linux_64_numpy1.20openssl3python3.7.____cpython
       linux_64_numpy1.20openssl3python3.8.____cpython:
         CONFIG: linux_64_numpy1.20openssl3python3.8.____cpython
         UPLOAD_PACKAGES: 'True'
