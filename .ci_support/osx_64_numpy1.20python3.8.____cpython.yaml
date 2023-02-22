@@ -3,7 +3,7 @@ MACOSX_DEPLOYMENT_TARGET:
 arpack:
 - '3.7'
 boost_cpp:
-- 1.74.0
+- 1.78.0
 bzip2:
 - '1'
 c_compiler:
@@ -29,7 +29,7 @@ libblas:
 liblapack:
 - 3.9 *netlib
 libnetcdf:
-- 4.8.1
+- 4.9.1
 llvm_openmp:
 - '14'
 macos_machine:
@@ -37,31 +37,19 @@ macos_machine:
 netcdf_fortran:
 - '4.6'
 numpy:
-- '1.19'
+- '1.20'
 openssl:
-- 1.1.1
+- '3'
 perl:
 - 5.32.1
 pin_run_as_build:
-  arpack:
-    max_pin: x.x.x
   boost-cpp:
     max_pin: x.x.x
-  bzip2:
-    max_pin: x
-  fftw:
-    max_pin: x
-  netcdf-fortran:
-    max_pin: x.x
   python:
     min_pin: x.x
     max_pin: x.x
-  readline:
-    max_pin: x
-  zlib:
-    max_pin: x.x
 python:
-- 3.7.* *_cpython
+- 3.8.* *_cpython
 readline:
 - '8'
 target_platform:
