@@ -1,11 +1,11 @@
-About ambertools
-================
+About ambertools-feedstock
+==========================
+
+Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/ambertools-feedstock/blob/main/LICENSE.txt)
 
 Home: http://ambermd.org/AmberTools.php
 
 Package license: Multiple
-
-Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/ambertools-feedstock/blob/main/LICENSE.txt)
 
 Summary: AmberTools is a set of programs for biomolecular simulation and analysis
 
