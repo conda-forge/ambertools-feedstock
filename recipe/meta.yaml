@@ -9,7 +9,7 @@ package:
 
 source:
   url: https://ambermd.org/downloads/AmberTools23_rc1.tar.bz2
-  sha256: 1571d4e0f7d45b2a71dce5999fa875aea8c90ee219eb218d7916bf30ea229121
+  sha256: 3ccbedd68039047973320362ef24b44ef8e0c6b3bc74fb3fbe929f6b28fe534d
   patches:
     - patches/do_not_symlink_missing_ff12pol.patch
     - patches/do_not_install_vendored_parmed.patch
