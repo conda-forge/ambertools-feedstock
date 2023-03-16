@@ -1,14 +1,14 @@
 {% set name = "AmberTools" %}
 # Versioning scheme uses AmberTools major release as MAJOR version number, patch level as MINOR version number
 # Update the MINOR version number as new patch releases come out
-{% set version = "22.0" %}
+{% set version = "23.0rc1" %}
 
 package:
   name: {{ name|lower }}
   version: {{ version }}
 
 source:
-  url: https://ambermd.org/downloads/AmberTools22jlmrcc.tar.bz2
+  url: https://ambermd.org/downloads/AmberTools23_rc1.tar.bz2
   sha256: 1571d4e0f7d45b2a71dce5999fa875aea8c90ee219eb218d7916bf30ea229121
   patches:
     - patches/do_not_symlink_missing_ff12pol.patch
@@ -16,7 +16,7 @@ source:
     - patches/do_not_vendor_packmol.patch
 
 build:
-  number: 4
+  number: 0
   skip: True  # [win or py2k or ppc64le or aarch64]
   # Some binaries (e.g. nab) hardcode the path to the compiler in BUILD_PREFIX
   # which does not get replaced and causes errors on runtime
