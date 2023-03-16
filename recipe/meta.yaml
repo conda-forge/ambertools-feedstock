@@ -41,6 +41,8 @@ requirements:
     - llvm-openmp  # [osx]
     - libgomp      # [linux and not aarch64]
     - openssl
+    # WORKAROUND
+    - ld_impl_linux-64  2.39.*  # [linux-64]
   host:
     - python
     - setuptools
@@ -67,6 +69,8 @@ requirements:
     - parmed 3.4.1
     - packmol
     - openssl
+    # WORKAROUND
+    - ld_impl_linux-64  2.39.*  # [linux-64]
   run:
     - python
     - setuptools
