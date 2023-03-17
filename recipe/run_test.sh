@@ -90,7 +90,8 @@ draw_membrane2
 espgen -h
 espgen.py -h
 FEW.pl -h
-ffgbsa -h
+# # removed in 23.0
+# ffgbsa -h
 finddgref.py -h
 fixremdcouts.py -h
 IPMach.py -h
@@ -120,9 +121,10 @@ teLeap -h
 tleap -h
 UnitCell
 
-# Debug nab hardcoding BUILD_PREFIX/bin/<compiler>
-echo 'printf( "hello world\n" );' > ltest.nab
-nab -v ltest.nab
+# # Removed in 23.0
+# # Debug nab hardcoding BUILD_PREFIX/bin/<compiler>
+# echo 'printf( "hello world\n" );' > ltest.nab
+# nab -v ltest.nab
 
 # We still test these two to check the PERL5LIBS behavior
 mm_pbsa_statistics.pl || true
