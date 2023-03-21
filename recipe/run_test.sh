@@ -98,7 +98,8 @@ IPMach.py -h
 makeANG_RST -help
 MCPB.py -h
 mdgx -h
-mdnab -h
+# # removed in 23.0
+# mdnab -h
 mdout2pymbar.pl -h
 metalpdb2mol2.py -h
 minab -h
