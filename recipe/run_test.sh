@@ -102,7 +102,8 @@ mdgx -h
 # mdnab -h
 mdout2pymbar.pl -h
 metalpdb2mol2.py -h
-minab -h
+# # removed in 23.0
+# minab -h
 MMPBSA.py -h
 mol2rtf.py -h
 nfe-umbrella-slice -h
