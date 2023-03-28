@@ -16,7 +16,7 @@ source:
     - patches/do_not_vendor_packmol.patch
 
 build:
-  number: 0
+  number: 1
   skip: True  # [win or py2k]
   # Some binaries (e.g. nab) hardcode the path to the compiler in BUILD_PREFIX
   # which does not get replaced and causes errors on runtime
@@ -87,7 +87,7 @@ requirements:
     - readline
     - llvm-openmp  # [osx]
     - libgomp      # [linux and not aarch64]
-    - parmed >=3.4.1,<4.0.0a
+    - parmed >=3.4.1
     - packmol
   run_constrained:
     - ambermini ==9999999999
