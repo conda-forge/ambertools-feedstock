@@ -57,7 +57,7 @@ conda list
 # xparmed -h ## REQUIRES DISPLAY
 # XrayPrep ## REQUIRES PHENIX
 
-# this below stopped working with 21.12 - see 
+# this below stopped working with 21.12 - see
 # https://github.com/conda-forge/ambertools-feedstock/pull/78#issuecomment-1039141799
 # car_to_files.py -h
 
@@ -87,6 +87,7 @@ cpeinutil.py -h
 cpinutil.py -h
 cpptraj -h
 draw_membrane2
+edgembar -h
 espgen -h
 espgen.py -h
 FEW.pl -h
@@ -106,8 +107,10 @@ metalpdb2mol2.py -h
 # minab -h
 MMPBSA.py -h
 mol2rtf.py -h
+ndfes -h
 nfe-umbrella-slice -h
-packmol-memgen -h
+# # does not work
+# packmol-memgen -h
 parmed -h
 pdb4amber -h
 PdbSearcher.py -h
