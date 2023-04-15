@@ -18,11 +18,6 @@ source:
 build:
   number: 0
   skip: True  # [win or py2k or ppc64le or aarch64]
-  # Some binaries (e.g. nab) hardcode the path to the compiler in BUILD_PREFIX
-  # which does not get replaced and causes errors on runtime
-  # because that path does not exist. This is a workaround but
-  # since we are not cross-compiling (so far), we should be ok for now
-  merge_build_host: True
 
 requirements:
   build:
