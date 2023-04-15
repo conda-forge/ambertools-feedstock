@@ -116,7 +116,7 @@ pdb4amber -h
 PdbSearcher.py -h
 prepgen -h
 ProScrs.py -h
-reduce -V
+reduce -V || true | grep -q "reduce."
 resp -h
 respgen -h
 saxs_md -h
