@@ -101,7 +101,7 @@ MCPB.py -h
 mdgx -h
 # # removed in 23.0
 # mdnab -h
-mdout2pymbar.pl -h
+# mdout2pymbar.pl -h
 metalpdb2mol2.py -h
 # # removed in 23.0
 # minab -h
@@ -116,7 +116,7 @@ pdb4amber -h
 PdbSearcher.py -h
 prepgen -h
 ProScrs.py -h
-reduce -V || true | grep -q "reduce."
+# reduce -V || true | grep -q "reduce."
 resp -h
 respgen -h
 saxs_md -h
