@@ -1,15 +1,15 @@
 {% set name = "AmberTools" %}
 # Versioning scheme uses AmberTools major release as MAJOR version number, patch level as MINOR version number
 # Update the MINOR version number as new patch releases come out
-{% set version = "23.0rc5" %}
+{% set version = "23.0rc6" %}
 
 package:
   name: {{ name|lower }}
   version: {{ version }}
 
 source:
-  url: https://ambermd.org/downloads/AmberTools23_rc5.tar.bz2
-  sha256: e0e394308109c6e4c8ec1aac11b2a2651a7aef4c1d4fb5746ad7c035155b50a2
+  url: https://ambermd.org/downloads/AmberTools23_rc6.tar.bz2
+  sha256: debb52e6ef2e1b4eaa917a8b4d4934bd2388659c660501a81ea044903bf9ee9d
   patches:
     - patches/do_not_symlink_missing_ff12pol.patch
     - patches/do_not_install_vendored_parmed.patch
