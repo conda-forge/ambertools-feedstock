@@ -16,7 +16,7 @@ source:
     - patches/do_not_vendor_packmol.patch
 
 build:
-  number: 0
+  number: 1
   skip: True  # [win or py2k or ppc64le or aarch64]
 
 requirements:
@@ -37,7 +37,7 @@ requirements:
     - libgomp      # [linux and not aarch64]
     - openssl
     # WORKAROUND
-    - ld_impl_linux-64  2.39.*  # [linux-64]
+    # - ld_impl_linux-64  2.39.*  # [linux-64]
   host:
     - python
     - setuptools
@@ -65,7 +65,7 @@ requirements:
     - packmol
     - openssl
     # WORKAROUND
-    - ld_impl_linux-64  2.39.*  # [linux-64]
+    # - ld_impl_linux-64  2.39.*  # [linux-64]
   run:
     - python
     - setuptools
