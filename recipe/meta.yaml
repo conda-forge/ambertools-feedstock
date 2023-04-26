@@ -16,7 +16,7 @@ source:
     - patches/do_not_vendor_packmol.patch
 
 build:
-  number: 1
+  number: 0
   skip: True  # [win or py2k or ppc64le or aarch64]
 
 requirements:
@@ -36,8 +36,6 @@ requirements:
     - llvm-openmp  # [osx]
     - libgomp      # [linux and not aarch64]
     - openssl
-    # WORKAROUND
-    # - ld_impl_linux-64  2.39.*  # [linux-64]
   host:
     - python
     - setuptools
@@ -61,11 +59,9 @@ requirements:
     - readline
     - llvm-openmp  # [osx]
     - libgomp      # [linux and not aarch64]
-    - parmed 3.4.1
+    - parmed 4.0.0
     - packmol
     - openssl
-    # WORKAROUND
-    # - ld_impl_linux-64  2.39.*  # [linux-64]
   run:
     - python
     - setuptools
@@ -86,7 +82,7 @@ requirements:
     - readline
     - llvm-openmp  # [osx]
     - libgomp      # [linux and not aarch64]
-    - parmed >=3.4.1,<4.0.0a
+    - parmed >=4.0.0,<5.0.0a0
     - packmol
   run_constrained:
     - ambermini ==9999999999
