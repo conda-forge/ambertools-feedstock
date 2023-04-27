@@ -5,7 +5,7 @@ Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/ambertools-feed
 
 Home: http://ambermd.org/AmberTools.php
 
-Package license: Multiple
+Package license: GPL-3.0-or-later AND LGPL-3.0-or-later AND BSD-3-Clause AND MIT
 
 Summary: AmberTools is a set of programs for biomolecular simulation and analysis
 
@@ -204,6 +204,10 @@ In order to produce a uniquely identifiable distribution:
 Feedstock Maintainers
 =====================
 
+* [@dacase](https://github.com/dacase/)
+* [@j-wags](https://github.com/j-wags/)
 * [@jaimergp](https://github.com/jaimergp/)
+* [@mattwthompson](https://github.com/mattwthompson/)
+* [@mikemhenry](https://github.com/mikemhenry/)
 * [@simonbray](https://github.com/simonbray/)
 
