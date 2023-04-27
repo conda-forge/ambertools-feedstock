@@ -2,6 +2,8 @@
 # Versioning scheme uses AmberTools major release as MAJOR version number, patch level as MINOR version number
 # Update the MINOR version number as new patch releases come out
 {% set version = "23.0rc6" %}
+# use run or skip
+{% set unit_tests = "skip" %}
 
 package:
   name: {{ name|lower }}
@@ -89,8 +91,8 @@ requirements:
 
 test:
   requires:
-    - {{ compiler('c') }}  # we need this for `nab` tests
 {% if unit_tests == "run" %}
+    - {{ compiler('c') }}
     - {{ compiler('fortran') }}
     - {{ compiler('cxx') }}
     - util-linux  # [linux64]
