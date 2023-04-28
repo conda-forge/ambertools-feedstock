@@ -210,4 +210,5 @@ Feedstock Maintainers
 * [@mattwthompson](https://github.com/mattwthompson/)
 * [@mikemhenry](https://github.com/mikemhenry/)
 * [@simonbray](https://github.com/simonbray/)
+* [@swails](https://github.com/swails/)
 
