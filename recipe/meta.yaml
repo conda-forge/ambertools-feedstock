@@ -1,15 +1,17 @@
 {% set name = "AmberTools" %}
 # Versioning scheme uses AmberTools major release as MAJOR version number, patch level as MINOR version number
 # Update the MINOR version number as new patch releases come out
-{% set version = "22.5" %}
+{% set version = "23.0rc6" %}
+# use run or skip
+{% set unit_tests = "skip" %}
 
 package:
   name: {{ name|lower }}
   version: {{ version }}
 
 source:
-  url: https://ambermd.org/downloads/AmberTools22jlmrcc.tar.bz2
-  sha256: 1571d4e0f7d45b2a71dce5999fa875aea8c90ee219eb218d7916bf30ea229121
+  url: https://ambermd.org/downloads/AmberTools23_rc6.tar.bz2
+  sha256: debb52e6ef2e1b4eaa917a8b4d4934bd2388659c660501a81ea044903bf9ee9d
   patches:
     - patches/do_not_symlink_missing_ff12pol.patch
     - patches/do_not_install_vendored_parmed.patch
@@ -18,11 +20,8 @@ source:
 build:
   number: 0
   skip: True  # [win or py2k or ppc64le or aarch64]
-  # Some binaries (e.g. nab) hardcode the path to the compiler in BUILD_PREFIX
-  # which does not get replaced and causes errors on runtime
-  # because that path does not exist. This is a workaround but
-  # since we are not cross-compiling (so far), we should be ok for now
-  merge_build_host: True
+  script_env:
+    - unit_tests={{ unit_tests }}
 
 requirements:
   build:
@@ -41,8 +40,6 @@ requirements:
     - llvm-openmp  # [osx]
     - libgomp      # [linux and not aarch64]
     - openssl
-    # WORKAROUND
-    - ld_impl_linux-64  2.39.*  # [linux-64]
   host:
     - python
     - setuptools
@@ -66,11 +63,9 @@ requirements:
     - readline
     - llvm-openmp  # [osx]
     - libgomp      # [linux and not aarch64]
-    - parmed 4.1.0
+    - parmed 4.0.0
     - packmol
     - openssl
-    # WORKAROUND
-    - ld_impl_linux-64  2.39.*  # [linux-64]
   run:
     - python
     - setuptools
@@ -91,15 +86,15 @@ requirements:
     - readline
     - llvm-openmp  # [osx]
     - libgomp      # [linux and not aarch64]
-    - parmed >=3.4.1,<5.0.0a
+    - parmed >=4.0.0,<5.0.0a0
     - packmol
   run_constrained:
     - ambermini ==9999999999
 
 test:
   requires:
-    - {{ compiler('c') }}  # we need this for `nab` tests
 {% if unit_tests == "run" %}
+    - {{ compiler('c') }}
     - {{ compiler('fortran') }}
     - {{ compiler('cxx') }}
     - util-linux  # [linux64]
@@ -129,7 +124,7 @@ test:
 
 about:
   home: http://ambermd.org/AmberTools.php
-  license: Multiple
+  license: GPL-3.0-or-later AND LGPL-3.0-or-later AND BSD-3-Clause AND MIT
   license_file: AmberTools/LICENSE
   summary: 'AmberTools is a set of programs for biomolecular simulation and analysis'
   description: |
@@ -143,3 +138,8 @@ extra:
   recipe-maintainers:
     - simonbray
     - jaimergp
+    - dacase
+    - mikemhenry
+    - mattwthompson
+    - j-wags
+    - swails

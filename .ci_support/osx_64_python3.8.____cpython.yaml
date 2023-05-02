@@ -13,7 +13,7 @@ c_compiler_version:
 channel_sources:
 - conda-forge
 channel_targets:
-- conda-forge main
+- conda-forge ambertools_rc
 cxx_compiler:
 - clangxx
 cxx_compiler_version:
@@ -54,8 +54,6 @@ readline:
 - '8'
 target_platform:
 - osx-64
-unit_tests:
-- skip
 zip_keys:
 - - c_compiler_version
   - cxx_compiler_version

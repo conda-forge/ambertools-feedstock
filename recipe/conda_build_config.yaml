@@ -1,2 +1,2 @@
-# use run or skip
-unit_tests: skip
+channel_targets:
+- conda-forge ambertools_rc
