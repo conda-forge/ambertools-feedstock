@@ -54,8 +54,6 @@ readline:
 - '8'
 target_platform:
 - osx-64
-unit_tests:
-- skip
 zip_keys:
 - - c_compiler_version
   - cxx_compiler_version

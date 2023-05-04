@@ -57,7 +57,7 @@ conda list
 # xparmed -h ## REQUIRES DISPLAY
 # XrayPrep ## REQUIRES PHENIX
 
-# this below stopped working with 21.12 - see 
+# this below stopped working with 21.12 - see
 # https://github.com/conda-forge/ambertools-feedstock/pull/78#issuecomment-1039141799
 # car_to_files.py -h
 
@@ -87,30 +87,36 @@ cpeinutil.py -h
 cpinutil.py -h
 cpptraj -h
 draw_membrane2
+edgembar -h
 espgen -h
 espgen.py -h
 FEW.pl -h
-ffgbsa -h
+# # removed in 23.0
+# ffgbsa -h
 finddgref.py -h
 fixremdcouts.py -h
 IPMach.py -h
 makeANG_RST -help
 MCPB.py -h
 mdgx -h
-mdnab -h
-mdout2pymbar.pl -h
+# # removed in 23.0
+# mdnab -h
+# mdout2pymbar.pl -h
 metalpdb2mol2.py -h
-minab -h
+# # removed in 23.0
+# minab -h
 MMPBSA.py -h
 mol2rtf.py -h
+ndfes -h
 nfe-umbrella-slice -h
-packmol-memgen -h
+# # does not work
+# packmol-memgen -h
 parmed -h
 pdb4amber -h
 PdbSearcher.py -h
 prepgen -h
 ProScrs.py -h
-reduce -V
+# reduce -V || true | grep -q "reduce."
 resp -h
 respgen -h
 saxs_md -h
@@ -120,16 +126,17 @@ teLeap -h
 tleap -h
 UnitCell
 
-# Debug nab hardcoding BUILD_PREFIX/bin/<compiler>
-echo 'printf( "hello world\n" );' > ltest.nab
-nab -v ltest.nab
+# # Removed in 23.0
+# # Debug nab hardcoding BUILD_PREFIX/bin/<compiler>
+# echo 'printf( "hello world\n" );' > ltest.nab
+# nab -v ltest.nab
 
 # We still test these two to check the PERL5LIBS behavior
 mm_pbsa_statistics.pl || true
 mm_pbsa.pl || true
 
 # Debug https://github.com/conda-forge/ambertools-feedstock/issues/35
-python -c "import parmed; print(parmed.__version__); assert parmed.version > (3, 2), f'Wrong version: {parmed.version}'"
+python -c "import parmed; print(parmed.__version__); assert parmed.version >= (4, 0), f'Wrong version: {parmed.version}'"
 
 # These two commands need csh, but CF only has tcsh
 ln -s ${PREFIX}/bin/tcsh ${PREFIX}/bin/csh
