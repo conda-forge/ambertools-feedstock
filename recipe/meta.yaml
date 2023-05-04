@@ -1,7 +1,7 @@
 {% set name = "AmberTools" %}
 # Versioning scheme uses AmberTools major release as MAJOR version number, patch level as MINOR version number
 # Update the MINOR version number as new patch releases come out
-{% set version = "23.0rc6" %}
+{% set version = "23.0" %}
 # use run or skip
 {% set unit_tests = "skip" %}
 
