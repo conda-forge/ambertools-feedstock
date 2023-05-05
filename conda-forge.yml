@@ -8,4 +8,4 @@ github:
   tooling_branch_name: main
 conda_build:
   pkg_format: '2'
-upload_on_branch: rc
+upload_on_branch: main
