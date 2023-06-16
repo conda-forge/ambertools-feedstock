@@ -86,6 +86,7 @@ EOF
 
 fi
 
+
 if [[ "${build_platform}" != "${target_platform}" ]]; then
     # Build host tools first
     mkdir -p ${BUILD_PREFIX}/amber_host_tools
@@ -97,40 +98,23 @@ if [[ "${build_platform}" != "${target_platform}" ]]; then
 		#-DDISABLE_TOOLS="nab" \
         -DCMAKE_INSTALL_PREFIX="${BUILD_PREFIX}/amber_host_tools"
 
-    make
-    make install
-    # Now build the package
-    mkdir -p build
-    cd build || exit
-    cmake ${CMAKE_ARGS} ${SRC_DIR} ${CMAKE_FLAGS} \
-        -DBUILD_HOST_TOOLS=FALSE \
-        -DUSE_HOST_TOOLS=TRUE \
-        -DHOST_TOOLS_DIR="${BUILD_PREFIX}/amber_host_tools" \
-        -DCMAKE_INSTALL_PREFIX=${PREFIX} \
-        -DCOMPILER=MANUAL \
-        -DPYTHON_EXECUTABLE=${PYTHON} \
-        -DBUILD_GUI=${BUILD_GUI} \
-		#-DDISABLE_TOOLS="nab" \
-        -DCHECK_UPDATES=FALSE \
-        -DTRUST_SYSTEM_LIBS=TRUE
-
-    make
-    make install
-else
-    # Build AmberTools with cmake
-    mkdir -p build
-    cd build
-    cmake ${CMAKE_ARGS} ${SRC_DIR} ${CMAKE_FLAGS} \
-        -DCMAKE_INSTALL_PREFIX=${PREFIX} \
-        -DCOMPILER=MANUAL \
-        -DPYTHON_EXECUTABLE=${PYTHON} \
-        -DBUILD_GUI=${BUILD_GUI} \
-        -DCHECK_UPDATES=FALSE \
-        -DTRUST_SYSTEM_LIBS=TRUE
-
-    make
-    make install
+    CMAKE_FLAGS+=" -DUSE_HOST_TOOLS=TRUE"
+    CMAKE_FLAGS+=" -DHOST_TOOLS_DIR=\"${BUILD_PREFIX}/amber_host_tools\""
 fi
+
+# Build AmberTools with cmake
+mkdir -p build
+cd build
+cmake ${CMAKE_ARGS} ${SRC_DIR} ${CMAKE_FLAGS} \
+    -DCMAKE_INSTALL_PREFIX=${PREFIX} \
+    -DCOMPILER=MANUAL \
+    -DPYTHON_EXECUTABLE=${PYTHON} \
+    -DBUILD_GUI=${BUILD_GUI} \
+    -DCHECK_UPDATES=FALSE \
+    -DTRUST_SYSTEM_LIBS=TRUE
+
+make
+make install
 
 
 # Export AMBERHOME automatically
