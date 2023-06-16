@@ -52,18 +52,86 @@ if [[ "$target_platform" == osx* ]]; then
     set -u
 fi
 
-# Build AmberTools with cmake
-mkdir -p build
-cd build
-cmake ${SRC_DIR} ${CMAKE_FLAGS} \
-    -DCMAKE_INSTALL_PREFIX=${PREFIX} \
-    -DCOMPILER=MANUAL \
-    -DPYTHON_EXECUTABLE=${PYTHON} \
-    -DBUILD_GUI=${BUILD_GUI} \
-    -DCHECK_UPDATES=FALSE \
-    -DTRUST_SYSTEM_LIBS=TRUE
+if [[ "${CONDA_BUILD_CROSS_COMPILATION:-}" == 1 && "${CMAKE_CROSSCOMPILING_EMULATOR:-}" == "" ]]; then
+    # Assume that netcdf works
+    export CMAKE_ARGS="${CMAKE_ARGS} -DNetCDF_F90_WORKS_EXITCODE=0"
+    # mikemhenry 2022-04-27
+    # remove compile option that doesn't seem to work on M1 + clang
+    # https://stackoverflow.com/questions/65966969/why-does-march-native-not-work-on-apple-m1
+    # while the SO question is about march, -mtune=native doesn't seem to work either
+    cat > remove_mtune_native_flag.patch << "EOF"
+    --- cmake/CompilerFlags.cmake	2021-04-26 06:45:47.000000000 -0700
+    +++ cmake/CompilerFlags.cmake       2022-04-27 21:55:30.567714491 -0700
+    @@ -195,7 +195,7 @@
+     if("${CMAKE_C_COMPILER_ID}" STREQUAL "Clang" OR "${CMAKE_C_COMPILER_ID}" STREQUAL "AppleClang")
+     	add_flags(C -Wall -Wno-unused-function)
+     	
+    -	list(APPEND OPT_CFLAGS "-mtune=native")
+    +	#list(APPEND OPT_CFLAGS "-mtune=native")
+     	
+     	#if we are crosscompiling and using clang, tell CMake this
+     	if(CROSSCOMPILE)
+    @@ -214,7 +214,7 @@
+     if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang" OR "${CMAKE_CXX_COMPILER_ID}" STREQUAL "AppleClang")
+     	add_flags(CXX -Wall -Wno-unused-function)
+     	
+    -	list(APPEND OPT_CXXFLAGS "-mtune=native")
+    +	#list(APPEND OPT_CXXFLAGS "-mtune=native")
+     	
+     	if(CROSSCOMPILE)
+     		set(CMAKE_CXX_COMPILER_TARGET ${TARGET_TRIPLE})
+EOF
 
-make && make install
+    patch cmake/CompilerFlags.cmake < remove_mtune_native_flag.patch
+
+fi
+
+if [[ "${build_platform}" != "${target_platform}" ]]; then
+    # Build host tools first
+    mkdir -p ${BUILD_PREFIX}/amber_host_tools
+    mkdir -p build_host_tools
+    cd build_host_tools
+    cmake ${CMAKE_ARGS} ${SRC_DIR} ${CMAKE_FLAGS} \
+        -DBUILD_HOST_TOOLS=TRUE \
+        -DCOMPILER=MANUAL \
+		-DDISABLE_TOOLS="nab" \
+        -DCMAKE_INSTALL_PREFIX="${BUILD_PREFIX}/amber_host_tools"
+
+    make
+    make install
+    # Now build the package
+    mkdir -p build
+    cd build || exit
+    cmake ${CMAKE_ARGS} ${SRC_DIR} ${CMAKE_FLAGS} \
+        -DBUILD_HOST_TOOLS=FALSE \
+        -DUSE_HOST_TOOLS=TRUE \
+        -DHOST_TOOLS_DIR="${BUILD_PREFIX}/amber_host_tools" \
+        -DCMAKE_INSTALL_PREFIX=${PREFIX} \
+        -DCOMPILER=MANUAL \
+        -DPYTHON_EXECUTABLE=${PYTHON} \
+        -DBUILD_GUI=${BUILD_GUI} \
+		-DDISABLE_TOOLS="nab" \
+        -DCHECK_UPDATES=FALSE \
+        -DTRUST_SYSTEM_LIBS=TRUE
+
+    make
+    make install
+else
+    # Build AmberTools with cmake
+    mkdir -p build
+    cd build
+    cmake ${CMAKE_ARGS} ${SRC_DIR} ${CMAKE_FLAGS} \
+        -DCMAKE_INSTALL_PREFIX=${PREFIX} \
+        -DCOMPILER=MANUAL \
+        -DPYTHON_EXECUTABLE=${PYTHON} \
+        -DBUILD_GUI=${BUILD_GUI} \
+        -DCHECK_UPDATES=FALSE \
+        -DTRUST_SYSTEM_LIBS=TRUE
+
+    make
+    make install
+fi
+
 
 # Export AMBERHOME automatically
 mkdir -p ${PREFIX}/etc/conda/{activate,deactivate}.d
