@@ -95,7 +95,6 @@ if [[ "${build_platform}" != "${target_platform}" ]]; then
     cmake ${CMAKE_ARGS} ${SRC_DIR} ${CMAKE_FLAGS} \
         -DBUILD_HOST_TOOLS=TRUE \
         -DCOMPILER=MANUAL \
-		#-DDISABLE_TOOLS="nab" \
         -DCMAKE_INSTALL_PREFIX="${BUILD_PREFIX}/amber_host_tools"
 	make
 	make install
