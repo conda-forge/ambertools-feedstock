@@ -100,7 +100,7 @@ if [[ "${build_platform}" != "${target_platform}" ]]; then
 	make install
 
     CMAKE_FLAGS+=" -DUSE_HOST_TOOLS=TRUE"
-    CMAKE_FLAGS+=" -DHOST_TOOLS_DIR=\"${BUILD_PREFIX}/amber_host_tools\""
+    CMAKE_FLAGS+=" -DHOST_TOOLS_DIR=${BUILD_PREFIX}/amber_host_tools"
 fi
 
 # Build AmberTools with cmake
