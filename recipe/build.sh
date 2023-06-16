@@ -97,6 +97,8 @@ if [[ "${build_platform}" != "${target_platform}" ]]; then
         -DCOMPILER=MANUAL \
 		#-DDISABLE_TOOLS="nab" \
         -DCMAKE_INSTALL_PREFIX="${BUILD_PREFIX}/amber_host_tools"
+	make
+	make install
 
     CMAKE_FLAGS+=" -DUSE_HOST_TOOLS=TRUE"
     CMAKE_FLAGS+=" -DHOST_TOOLS_DIR=\"${BUILD_PREFIX}/amber_host_tools\""
