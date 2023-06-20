@@ -10,12 +10,13 @@ package:
   version: {{ version }}
 
 source:
-  url: https://ambermd.org/downloads/AmberTools23.3.tar.bz2
-  sha256: 1a12f7a274c9d4771c145fa6b23f74fbd848f6c0c18d6a1ce3a15025139ccd90
+  url: https://ambermd.org/downloads/AmberTools23_rc6.tar.bz2
+  sha256: debb52e6ef2e1b4eaa917a8b4d4934bd2388659c660501a81ea044903bf9ee9d
   patches:
     - patches/do_not_symlink_missing_ff12pol.patch
     - patches/do_not_install_vendored_parmed.patch
     - patches/do_not_vendor_packmol.patch
+    - patches/fix_cython.patch
 
 build:
   number: 1
