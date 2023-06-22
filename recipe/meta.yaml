@@ -1,7 +1,7 @@
 {% set name = "AmberTools" %}
 # Versioning scheme uses AmberTools major release as MAJOR version number, patch level as MINOR version number
 # Update the MINOR version number as new patch releases come out
-{% set version = "23.0" %}
+{% set version = "23.3" %}
 # use run or skip
 {% set unit_tests = "skip" %}
 
@@ -18,7 +18,7 @@ source:
     - patches/do_not_vendor_packmol.patch
 
 build:
-  number: 2
+  number: 1
   skip: True  # [win or py2k or ppc64le or aarch64]
   script_env:
     - unit_tests={{ unit_tests }}
