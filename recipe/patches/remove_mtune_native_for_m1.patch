@@ -1,8 +1,33 @@
-diff --git a/cmake/CompilerFlags.cmake b/cmake/CompilerFlags.cmake
-index fba09518a9..a4ce4604d1 100644
---- a/cmake/CompilerFlags.cmake
-+++ b/cmake/CompilerFlags.cmake
-@@ -157,7 +157,7 @@ if("${CMAKE_Fortran_COMPILER_ID}" STREQUAL "GNU")
+diff --git a/AmberTools/src/configure2 b/AmberTools/src/configure2
+index f8c50e854f..c6a79385b4 100755
+--- a/AmberTools/src/configure2
++++ b/AmberTools/src/configure2
+@@ -1502,10 +1502,9 @@ gnu)
+         if [ $x86_64 = 'yes' ]; then
+           #-mfpmath=sse is default for x86_64, no need to specific it
+           coptflags="$coptflags -mtune=native"
+-          foptflags="$foptflags -mtune=native"
+         else # i386 needs to be told to use sse prior to using -mfpmath=sse
+           coptflags="$coptflags -mtune=native -msse -mfpmath=sse"
+-          foptflags="$foptflags -mtune=native -msse -mfpmath=sse"
++          foptflags="$foptflags -msse -mfpmath=sse"
+         fi
+       fi
+       fcreal8="-fdefault-real-8"
+@@ -2384,7 +2383,7 @@ clang)
+       cxxnooptflags=
+       cxxoptflags="$pic -O3"
+       fnooptflags="-O0"
+-      foptflags="-O3 -mtune=native"
++      foptflags="-O3"
+     fi
+ 
+     if [ "$is_mac" = 'yes' ]; then
+diff --git a/AmberTools/src/quick/cmake/CompilerFlags.cmake b/AmberTools/src/quick/cmake/CompilerFlags.cmake
+index 41a3002ccd..8036a5cbe1 100644
+--- a/AmberTools/src/quick/cmake/CompilerFlags.cmake
++++ b/AmberTools/src/quick/cmake/CompilerFlags.cmake
+@@ -153,7 +153,7 @@ if("${CMAKE_Fortran_COMPILER_ID}" STREQUAL "GNU")
            		#-mfpmath=sse is default for x86_64, no need to specific it
            		set(OPT_FFLAGS ${OPT_FFLAGS} -mtune=native)
          	else() # i386 needs to be told to use sse prior to using -mfpmath=sse
@@ -11,21 +36,65 @@ index fba09518a9..a4ce4604d1 100644
           	endif()
           endif()
  	endif()
-@@ -195,8 +195,6 @@ endif()
- if("${CMAKE_C_COMPILER_ID}" STREQUAL "Clang" OR "${CMAKE_C_COMPILER_ID}" STREQUAL "AppleClang")
- 	add_flags(C -Wall -Wno-unused-function)
- 	
--	list(APPEND OPT_CFLAGS "-mtune=native")
--	
- 	#if we are crosscompiling and using clang, tell CMake this
- 	if(CROSSCOMPILE)
- 		set(CMAKE_C_COMPILER_TARGET ${TARGET_TRIPLE})
-@@ -214,8 +212,6 @@ endif()
- if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang" OR "${CMAKE_CXX_COMPILER_ID}" STREQUAL "AppleClang")
- 	add_flags(CXX -Wall -Wno-unused-function)
- 	
--	list(APPEND OPT_CXXFLAGS "-mtune=native")
--	
- 	if(CROSSCOMPILE)
- 		set(CMAKE_CXX_COMPILER_TARGET ${TARGET_TRIPLE})
- 	endif()
+diff --git a/AmberTools/src/quick/configure b/AmberTools/src/quick/configure
+index 19e34c8cdb..c5f34c993c 100755
+--- a/AmberTools/src/quick/configure
++++ b/AmberTools/src/quick/configure
+@@ -1182,7 +1182,7 @@ for buildtype in $buildtypes; do
+   # set compiler specific flags
+   case "$compiler" in
+     gnu)
+-      fort_flags="$opt_flags $fort_debug_flags -mtune=native -ffree-form -cpp -DGNU $fort_vspec_flags $lib_flags -I$QUICK_HOME/build/include/$buildtype -J$QUICK_HOME/build/include/$buildtype"
++      fort_flags="$opt_flags $fort_debug_flags -ffree-form -cpp -DGNU $fort_vspec_flags $lib_flags -I$QUICK_HOME/build/include/$buildtype -J$QUICK_HOME/build/include/$buildtype"
+       if [ "$cuda" = 'yes' ] || [ "$cudampi" = 'yes' ]; then
+         cflags="-lgfortran -L$CUDA_HOME/lib64 -lcuda -lm -lcudart -lcudadevrt -lcublas -lcusolver"
+ 		if [ `echo "$cudaversion < 10.0 "| bc` -gt 0 ]; then  
+@@ -1347,10 +1347,10 @@ for buildtype in $buildtypes; do
+   # set dlfind flags
+   case "$compiler" in
+     gnu)
+-      fort_ext_lib_flags="$opt_flags $fort_debug_flags -mtune=native -ffree-form -cpp -DGNU $fort_vspec_flags $lib_flags -J$QUICK_HOME/build/include/common"
++      fort_ext_lib_flags="$opt_flags $fort_debug_flags -ffree-form -cpp -DGNU $fort_vspec_flags $lib_flags -J$QUICK_HOME/build/include/common"
+       ;;
+     intel|pgi|nvidia)
+-      fort_ext_lib_flags="$opt_flags $fort_debug_flags -mtune=native -ffree-form -cpp -DGNU $fort_vspec_flags $lib_flags -module$QUICK_HOME/build/include/common"
++      fort_ext_lib_flags="$opt_flags $fort_debug_flags -ffree-form -cpp -DGNU $fort_vspec_flags $lib_flags -module$QUICK_HOME/build/include/common"
+       ;;
+   esac
+ 
+diff --git a/remove_mtune_native_for_m1.patch b/remove_mtune_native_for_m1.patch
+index d8cd3fc2a7..e69de29bb2 100644
+--- a/remove_mtune_native_for_m1.patch
++++ b/remove_mtune_native_for_m1.patch
+@@ -1,31 +0,0 @@
+-diff --git a/cmake/CompilerFlags.cmake b/cmake/CompilerFlags.cmake
+-index fba09518a9..a4ce4604d1 100644
+---- a/cmake/CompilerFlags.cmake
+-+++ b/cmake/CompilerFlags.cmake
+-@@ -157,7 +157,7 @@ if("${CMAKE_Fortran_COMPILER_ID}" STREQUAL "GNU")
+-           		#-mfpmath=sse is default for x86_64, no need to specific it
+-           		set(OPT_FFLAGS ${OPT_FFLAGS} -mtune=native)
+-         	else() # i386 needs to be told to use sse prior to using -mfpmath=sse
+--          		set(OPT_FFLAGS ${OPT_FFLAGS} -mtune=native -msse -mfpmath=sse)
+-+          		set(OPT_FFLAGS ${OPT_FFLAGS} -msse -mfpmath=sse)
+-          	endif()
+-          endif()
+- 	endif()
+-@@ -195,8 +195,6 @@ endif()
+- if("${CMAKE_C_COMPILER_ID}" STREQUAL "Clang" OR "${CMAKE_C_COMPILER_ID}" STREQUAL "AppleClang")
+- 	add_flags(C -Wall -Wno-unused-function)
+- 	
+--	list(APPEND OPT_CFLAGS "-mtune=native")
+--	
+- 	#if we are crosscompiling and using clang, tell CMake this
+- 	if(CROSSCOMPILE)
+- 		set(CMAKE_C_COMPILER_TARGET ${TARGET_TRIPLE})
+-@@ -214,8 +212,6 @@ endif()
+- if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang" OR "${CMAKE_CXX_COMPILER_ID}" STREQUAL "AppleClang")
+- 	add_flags(CXX -Wall -Wno-unused-function)
+- 	
+--	list(APPEND OPT_CXXFLAGS "-mtune=native")
+--	
+- 	if(CROSSCOMPILE)
+- 		set(CMAKE_CXX_COMPILER_TARGET ${TARGET_TRIPLE})
+- 	endif()
