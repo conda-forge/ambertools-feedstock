@@ -1,0 +1,31 @@
+diff --git a/cmake/CompilerFlags.cmake b/cmake/CompilerFlags.cmake
+index fba09518a9..a4ce4604d1 100644
+--- a/cmake/CompilerFlags.cmake
++++ b/cmake/CompilerFlags.cmake
+@@ -157,7 +157,7 @@ if("${CMAKE_Fortran_COMPILER_ID}" STREQUAL "GNU")
+           		#-mfpmath=sse is default for x86_64, no need to specific it
+           		set(OPT_FFLAGS ${OPT_FFLAGS} -mtune=native)
+         	else() # i386 needs to be told to use sse prior to using -mfpmath=sse
+-          		set(OPT_FFLAGS ${OPT_FFLAGS} -mtune=native -msse -mfpmath=sse)
++          		set(OPT_FFLAGS ${OPT_FFLAGS} -msse -mfpmath=sse)
+          	endif()
+          endif()
+ 	endif()
+@@ -195,8 +195,6 @@ endif()
+ if("${CMAKE_C_COMPILER_ID}" STREQUAL "Clang" OR "${CMAKE_C_COMPILER_ID}" STREQUAL "AppleClang")
+ 	add_flags(C -Wall -Wno-unused-function)
+ 	
+-	list(APPEND OPT_CFLAGS "-mtune=native")
+-	
+ 	#if we are crosscompiling and using clang, tell CMake this
+ 	if(CROSSCOMPILE)
+ 		set(CMAKE_C_COMPILER_TARGET ${TARGET_TRIPLE})
+@@ -214,8 +212,6 @@ endif()
+ if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang" OR "${CMAKE_CXX_COMPILER_ID}" STREQUAL "AppleClang")
+ 	add_flags(CXX -Wall -Wno-unused-function)
+ 	
+-	list(APPEND OPT_CXXFLAGS "-mtune=native")
+-	
+ 	if(CROSSCOMPILE)
+ 		set(CMAKE_CXX_COMPILER_TARGET ${TARGET_TRIPLE})
+ 	endif()
