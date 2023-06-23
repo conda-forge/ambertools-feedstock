@@ -1,63 +1,287 @@
 diff --git a/AmberTools/src/configure2 b/AmberTools/src/configure2
-index f8c50e854f..c6a79385b4 100755
+index c6a79385b4..cc310aadcb 100755
 --- a/AmberTools/src/configure2
 +++ b/AmberTools/src/configure2
-@@ -1502,10 +1502,9 @@ gnu)
+@@ -1501,9 +1501,9 @@ gnu)
+       if [ $sse = 'yes' ]; then
          if [ $x86_64 = 'yes' ]; then
            #-mfpmath=sse is default for x86_64, no need to specific it
-           coptflags="$coptflags -mtune=native"
--          foptflags="$foptflags -mtune=native"
+-          coptflags="$coptflags -mtune=native"
++          coptflags="$coptflags"
          else # i386 needs to be told to use sse prior to using -mfpmath=sse
-           coptflags="$coptflags -mtune=native -msse -mfpmath=sse"
--          foptflags="$foptflags -mtune=native -msse -mfpmath=sse"
-+          foptflags="$foptflags -msse -mfpmath=sse"
+-          coptflags="$coptflags -mtune=native -msse -mfpmath=sse"
++          coptflags="$coptflags -msse -mfpmath=sse"
+           foptflags="$foptflags -msse -mfpmath=sse"
          fi
        fi
-       fcreal8="-fdefault-real-8"
-@@ -2384,7 +2383,7 @@ clang)
-       cxxnooptflags=
-       cxxoptflags="$pic -O3"
-       fnooptflags="-O0"
--      foptflags="-O3 -mtune=native"
-+      foptflags="-O3"
-     fi
+diff --git a/AmberTools/src/cphstats/configure b/AmberTools/src/cphstats/configure
+index 3ef58a2a2a..79434d5bd8 100755
+--- a/AmberTools/src/cphstats/configure
++++ b/AmberTools/src/cphstats/configure
+@@ -64,9 +64,9 @@ if arg[0].lower() in ('gnu', 'gcc'):
+    f90flags = ['-Wall']
  
-     if [ "$is_mac" = 'yes' ]; then
-diff --git a/AmberTools/src/quick/cmake/CompilerFlags.cmake b/AmberTools/src/quick/cmake/CompilerFlags.cmake
-index 41a3002ccd..8036a5cbe1 100644
---- a/AmberTools/src/quick/cmake/CompilerFlags.cmake
-+++ b/AmberTools/src/quick/cmake/CompilerFlags.cmake
-@@ -153,7 +153,7 @@ if("${CMAKE_Fortran_COMPILER_ID}" STREQUAL "GNU")
+    if opt.opt:
+-      cppflags.extend(['-O3', '-mtune=native'])
+-      f90flags.extend(['-O3', '-mtune=native'])
+-      ldflags.extend(['-O3', '-mtune=native'])
++      cppflags.extend(['-O3'])
++      f90flags.extend(['-O3'])
++      ldflags.extend(['-O3'])
+    else:
+       cppflags.append('-O0')
+       f90flags.append('-O0')
+diff --git a/AmberTools/src/cpptraj/cmake-cpptraj/CompilerFlags.cmake b/AmberTools/src/cpptraj/cmake-cpptraj/CompilerFlags.cmake
+index fba09518a9..ff1119c9b2 100644
+--- a/AmberTools/src/cpptraj/cmake-cpptraj/CompilerFlags.cmake
++++ b/AmberTools/src/cpptraj/cmake-cpptraj/CompilerFlags.cmake
+@@ -73,9 +73,9 @@ if("${CMAKE_C_COMPILER_ID}" STREQUAL "GNU")
+ 		if(SSE)
+ 			if(TARGET_ARCH STREQUAL x86_64)
            		#-mfpmath=sse is default for x86_64, no need to specific it
-           		set(OPT_FFLAGS ${OPT_FFLAGS} -mtune=native)
+-          		set(OPT_CFLAGS ${OPT_CFLAGS} "-mtune=native")
++          		set(OPT_CFLAGS ${OPT_CFLAGS})
+         	else() # i386 needs to be told to use sse prior to using -mfpmath=sse
+-          		set(OPT_CFLAGS "${OPT_CFLAGS} -mtune=native -msse -mfpmath=sse")
++          		set(OPT_CFLAGS "${OPT_CFLAGS} -msse -mfpmath=sse")
+          	endif()
+          endif()
+ 	endif()    
+@@ -117,9 +117,9 @@ if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
+ 		if(SSE)
+ 			if(TARGET_ARCH STREQUAL x86_64)
+           		#-mfpmath=sse is default for x86_64, no need to specific it
+-          		set(OPT_CXXFLAGS ${OPT_CXXFLAGS} "-mtune=native")
++          		set(OPT_CXXFLAGS ${OPT_CXXFLAGS})
+         	else() # i386 needs to be told to use sse prior to using -mfpmath=sse
+-          		set(OPT_CXXFLAGS "${OPT_CXXFLAGS} -mtune=native -msse -mfpmath=sse")
++          		set(OPT_CXXFLAGS "${OPT_CXXFLAGS} -msse -mfpmath=sse")
+          	endif()
+          endif()
+ 	endif()    
+@@ -155,9 +155,9 @@ if("${CMAKE_Fortran_COMPILER_ID}" STREQUAL "GNU")
+ 		if(SSE)
+ 			if(TARGET_ARCH STREQUAL x86_64)
+           		#-mfpmath=sse is default for x86_64, no need to specific it
+-          		set(OPT_FFLAGS ${OPT_FFLAGS} -mtune=native)
++          		set(OPT_FFLAGS ${OPT_FFLAGS})
          	else() # i386 needs to be told to use sse prior to using -mfpmath=sse
 -          		set(OPT_FFLAGS ${OPT_FFLAGS} -mtune=native -msse -mfpmath=sse)
 +          		set(OPT_FFLAGS ${OPT_FFLAGS} -msse -mfpmath=sse)
           	endif()
           endif()
  	endif()
-diff --git a/AmberTools/src/quick/configure b/AmberTools/src/quick/configure
-index 19e34c8cdb..c5f34c993c 100755
---- a/AmberTools/src/quick/configure
-+++ b/AmberTools/src/quick/configure
-@@ -1182,7 +1182,7 @@ for buildtype in $buildtypes; do
-   # set compiler specific flags
-   case "$compiler" in
-     gnu)
--      fort_flags="$opt_flags $fort_debug_flags -mtune=native -ffree-form -cpp -DGNU $fort_vspec_flags $lib_flags -I$QUICK_HOME/build/include/$buildtype -J$QUICK_HOME/build/include/$buildtype"
-+      fort_flags="$opt_flags $fort_debug_flags -ffree-form -cpp -DGNU $fort_vspec_flags $lib_flags -I$QUICK_HOME/build/include/$buildtype -J$QUICK_HOME/build/include/$buildtype"
-       if [ "$cuda" = 'yes' ] || [ "$cudampi" = 'yes' ]; then
-         cflags="-lgfortran -L$CUDA_HOME/lib64 -lcuda -lm -lcudart -lcudadevrt -lcublas -lcusolver"
- 		if [ `echo "$cudaversion < 10.0 "| bc` -gt 0 ]; then  
-@@ -1347,10 +1347,10 @@ for buildtype in $buildtypes; do
-   # set dlfind flags
-   case "$compiler" in
-     gnu)
--      fort_ext_lib_flags="$opt_flags $fort_debug_flags -mtune=native -ffree-form -cpp -DGNU $fort_vspec_flags $lib_flags -J$QUICK_HOME/build/include/common"
-+      fort_ext_lib_flags="$opt_flags $fort_debug_flags -ffree-form -cpp -DGNU $fort_vspec_flags $lib_flags -J$QUICK_HOME/build/include/common"
-       ;;
-     intel|pgi|nvidia)
--      fort_ext_lib_flags="$opt_flags $fort_debug_flags -mtune=native -ffree-form -cpp -DGNU $fort_vspec_flags $lib_flags -module$QUICK_HOME/build/include/common"
-+      fort_ext_lib_flags="$opt_flags $fort_debug_flags -ffree-form -cpp -DGNU $fort_vspec_flags $lib_flags -module$QUICK_HOME/build/include/common"
-       ;;
-   esac
+@@ -195,8 +195,6 @@ endif()
+ if("${CMAKE_C_COMPILER_ID}" STREQUAL "Clang" OR "${CMAKE_C_COMPILER_ID}" STREQUAL "AppleClang")
+ 	add_flags(C -Wall -Wno-unused-function)
+ 	
+-	list(APPEND OPT_CFLAGS "-mtune=native")
+-	
+ 	#if we are crosscompiling and using clang, tell CMake this
+ 	if(CROSSCOMPILE)
+ 		set(CMAKE_C_COMPILER_TARGET ${TARGET_TRIPLE})
+@@ -214,8 +212,6 @@ endif()
+ if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang" OR "${CMAKE_CXX_COMPILER_ID}" STREQUAL "AppleClang")
+ 	add_flags(CXX -Wall -Wno-unused-function)
+ 	
+-	list(APPEND OPT_CXXFLAGS "-mtune=native")
+-	
+ 	if(CROSSCOMPILE)
+ 		set(CMAKE_CXX_COMPILER_TARGET ${TARGET_TRIPLE})
+ 	endif()
+diff --git a/AmberTools/src/cpptraj/configure b/AmberTools/src/cpptraj/configure
+index d611f23c87..196cfa4686 100755
+--- a/AmberTools/src/cpptraj/configure
++++ b/AmberTools/src/cpptraj/configure
+@@ -1616,7 +1616,7 @@ SetupCompilers() {
+       if [ -z "$CC" ]; then CC=gcc; fi
+       if [ -z "$CXX" ]; then CXX=g++; fi
+       if [ -z "$FC" ]; then FC=gfortran; fi
+-      hostflags='-mtune=native'
++      hostflags=''
+       optflags='-O3'
+       ompflag='-fopenmp'
+       freefmtflag='-ffree-form'
+diff --git a/AmberTools/src/gem.pmemd/config.h.par.gnu b/AmberTools/src/gem.pmemd/config.h.par.gnu
+index 3524809ee7..86eb47ab63 100644
+--- a/AmberTools/src/gem.pmemd/config.h.par.gnu
++++ b/AmberTools/src/gem.pmemd/config.h.par.gnu
+@@ -14,8 +14,8 @@ NETCDFINC=
+ 
+ #PMEMD Specific build flags
+ PMEMD_F90=mpif90 -DMPI -DPUBFFT -DGNU_HACKS
+-PMEMD_FOPTFLAGS=-O3 -mtune=native
++PMEMD_FOPTFLAGS=-O3
+ PMEMD_CC=mpicc
+-PMEMD_COPTFLAGS=-O3 -mtune=native -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -DMPI 
++PMEMD_COPTFLAGS=-O3 -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -DMPI 
+ PMEMD_FLIBSF= 
+ PMEMD_LD= mpif90 
+diff --git a/AmberTools/src/gem.pmemd/config.h.ser.gnu b/AmberTools/src/gem.pmemd/config.h.ser.gnu
+index 5d0f4a61c8..44dad565f2 100644
+--- a/AmberTools/src/gem.pmemd/config.h.ser.gnu
++++ b/AmberTools/src/gem.pmemd/config.h.ser.gnu
+@@ -14,8 +14,8 @@ NETCDFINC=
+ 
+ #PMEMD Specific build flags
+ PMEMD_F90=gfortran -DPUBFFT -DGNU_HACKS
+-PMEMD_FOPTFLAGS=-O3 -mtune=native
++PMEMD_FOPTFLAGS=-O3
+ PMEMD_CC=gcc
+-PMEMD_COPTFLAGS=-O3 -mtune=native -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE 
++PMEMD_COPTFLAGS=-O3 -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE 
+ PMEMD_FLIBSF= 
+ PMEMD_LD= gfortran 
+diff --git a/AmberTools/src/quick/CMakeLists.txt b/AmberTools/src/quick/CMakeLists.txt
+index 475f6d80e9..0db53ed74f 100644
+--- a/AmberTools/src/quick/CMakeLists.txt
++++ b/AmberTools/src/quick/CMakeLists.txt
+@@ -63,7 +63,7 @@ set(CMAKE_Fortran_FLAGS "")
+ # --------------------------------------------------------------------
+ if("${CMAKE_C_COMPILER_ID}" STREQUAL "GNU")
+ 
+-    set(OPT_CFLAGS -O2 -mtune=native)
++    set(OPT_CFLAGS -O2)
+ 
+     if (WARNINGS)
+ 	add_flags(C -Wall -Wno-unused-function -Wno-unknown-pragmas)
+@@ -81,7 +81,7 @@ endif()
+ 
+ if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
+     
+-    set(OPT_CXXFLAGS -O2 -mtune=native)
++    set(OPT_CXXFLAGS -O2)
+ 
+     if (WARNINGS)
+ 	add_flags(CXX -Wall -Wno-unused-function -Wno-unknown-pragmas)
+@@ -106,7 +106,7 @@ endif()
+ 
+ if("${CMAKE_Fortran_COMPILER_ID}" STREQUAL "GNU")
+ 
+-    set(OPT_FFLAGS -O2 -mtune=native)
++    set(OPT_FFLAGS -O2)
+ 
+     add_flags(Fortran -ffree-line-length-none)
+ 
+diff --git a/AmberTools/src/quick/cmake/CompilerFlags.cmake b/AmberTools/src/quick/cmake/CompilerFlags.cmake
+index 8036a5cbe1..44e6b454a2 100644
+--- a/AmberTools/src/quick/cmake/CompilerFlags.cmake
++++ b/AmberTools/src/quick/cmake/CompilerFlags.cmake
+@@ -73,9 +73,9 @@ if("${CMAKE_C_COMPILER_ID}" STREQUAL "GNU")
+ 		if(SSE)
+ 			if(TARGET_ARCH STREQUAL x86_64)
+           		#-mfpmath=sse is default for x86_64, no need to specific it
+-          		set(OPT_CFLAGS ${OPT_CFLAGS} "-mtune=native")
++          		set(OPT_CFLAGS ${OPT_CFLAGS})
+         	else() # i386 needs to be told to use sse prior to using -mfpmath=sse
+-          		set(OPT_CFLAGS "${OPT_CFLAGS} -mtune=native -msse -mfpmath=sse")
++          		set(OPT_CFLAGS "${OPT_CFLAGS} -msse -mfpmath=sse")
+          	endif()
+          endif()
+ 	endif()    
+@@ -113,9 +113,9 @@ if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
+ 		if(SSE)
+ 			if(TARGET_ARCH STREQUAL x86_64)
+           		#-mfpmath=sse is default for x86_64, no need to specific it
+-          		set(OPT_CXXFLAGS ${OPT_CXXFLAGS} "-mtune=native")
++          		set(OPT_CXXFLAGS ${OPT_CXXFLAGS})
+         	else() # i386 needs to be told to use sse prior to using -mfpmath=sse
+-          		set(OPT_CXXFLAGS "${OPT_CXXFLAGS} -mtune=native -msse -mfpmath=sse")
++          		set(OPT_CXXFLAGS "${OPT_CXXFLAGS} -msse -mfpmath=sse")
+          	endif()
+          endif()
+ 	endif()    
+@@ -151,7 +151,7 @@ if("${CMAKE_Fortran_COMPILER_ID}" STREQUAL "GNU")
+ 		if(SSE)
+ 			if(TARGET_ARCH STREQUAL x86_64)
+           		#-mfpmath=sse is default for x86_64, no need to specific it
+-          		set(OPT_FFLAGS ${OPT_FFLAGS} -mtune=native)
++          		set(OPT_FFLAGS ${OPT_FFLAGS})
+         	else() # i386 needs to be told to use sse prior to using -mfpmath=sse
+           		set(OPT_FFLAGS ${OPT_FFLAGS} -msse -mfpmath=sse)
+          	endif()
+@@ -184,8 +184,6 @@ endif()
+ if("${CMAKE_C_COMPILER_ID}" STREQUAL "Clang" OR "${CMAKE_C_COMPILER_ID}" STREQUAL "AppleClang")
+ 	add_flags(C -Wall -Wno-unused-function)
+ 	
+-	list(APPEND OPT_CFLAGS "-mtune=native")
+-	
+ 	#if we are crosscompiling and using clang, tell CMake this
+ 	if(CROSSCOMPILE)
+ 		set(CMAKE_C_COMPILER_TARGET ${TARGET_TRIPLE})
+@@ -203,8 +201,6 @@ endif()
+ if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang" OR "${CMAKE_CXX_COMPILER_ID}" STREQUAL "AppleClang")
+ 	add_flags(CXX -Wall -Wno-unused-function)
+ 	
+-	list(APPEND OPT_CXXFLAGS "-mtune=native")
+-	
+ 	if(CROSSCOMPILE)
+ 		set(CMAKE_CXX_COMPILER_TARGET ${TARGET_TRIPLE})
+ 	endif()
+diff --git a/AmberTools/src/quick/quick-cmake/QUICKCudaConfig.cmake b/AmberTools/src/quick/quick-cmake/QUICKCudaConfig.cmake
+index 47237c7799..0492891c0a 100644
+--- a/AmberTools/src/quick/quick-cmake/QUICKCudaConfig.cmake
++++ b/AmberTools/src/quick/quick-cmake/QUICKCudaConfig.cmake
+@@ -220,7 +220,7 @@ if(HIP)
+     if(OPTIMIZE)
+         list(APPEND AMD_HIP_FLAGS -O2 -ffast-math)
+ 
+-        set(OPT_CXXFLAGS ${OPT_CXXFLAGS} -O2 -mtune=native)
++        set(OPT_CXXFLAGS ${OPT_CXXFLAGS} -O2)
+ 
+     else()
+         list(APPEND AMD_HIP_FLAGS -O0)
+diff --git a/AmberTools/src/tcpb-cpp/configure b/AmberTools/src/tcpb-cpp/configure
+index ada8a1df33..bfd12141c1 100755
+--- a/AmberTools/src/tcpb-cpp/configure
++++ b/AmberTools/src/tcpb-cpp/configure
+@@ -59,9 +59,9 @@ if arg[0].lower() in ('gnu', 'gcc'):
+    f90flags = ['-fPIC', '-Wall']
+ 
+    if opt.opt:
+-      cppflags.extend(['-O3', '-mtune=native'])
+-      f90flags.extend(['-O3', '-mtune=native'])
+-      ldflags.extend(['-O3', '-mtune=native'])
++      cppflags.extend(['-O3'])
++      f90flags.extend(['-O3'])
++      ldflags.extend(['-O3'])
+    else:
+       cppflags.append('-O0')
+       f90flags.append('-O0')
+diff --git a/cmake/CompilerFlags.cmake b/cmake/CompilerFlags.cmake
+index a4ce4604d1..ff1119c9b2 100644
+--- a/cmake/CompilerFlags.cmake
++++ b/cmake/CompilerFlags.cmake
+@@ -73,9 +73,9 @@ if("${CMAKE_C_COMPILER_ID}" STREQUAL "GNU")
+ 		if(SSE)
+ 			if(TARGET_ARCH STREQUAL x86_64)
+           		#-mfpmath=sse is default for x86_64, no need to specific it
+-          		set(OPT_CFLAGS ${OPT_CFLAGS} "-mtune=native")
++          		set(OPT_CFLAGS ${OPT_CFLAGS})
+         	else() # i386 needs to be told to use sse prior to using -mfpmath=sse
+-          		set(OPT_CFLAGS "${OPT_CFLAGS} -mtune=native -msse -mfpmath=sse")
++          		set(OPT_CFLAGS "${OPT_CFLAGS} -msse -mfpmath=sse")
+          	endif()
+          endif()
+ 	endif()    
+@@ -117,9 +117,9 @@ if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
+ 		if(SSE)
+ 			if(TARGET_ARCH STREQUAL x86_64)
+           		#-mfpmath=sse is default for x86_64, no need to specific it
+-          		set(OPT_CXXFLAGS ${OPT_CXXFLAGS} "-mtune=native")
++          		set(OPT_CXXFLAGS ${OPT_CXXFLAGS})
+         	else() # i386 needs to be told to use sse prior to using -mfpmath=sse
+-          		set(OPT_CXXFLAGS "${OPT_CXXFLAGS} -mtune=native -msse -mfpmath=sse")
++          		set(OPT_CXXFLAGS "${OPT_CXXFLAGS} -msse -mfpmath=sse")
+          	endif()
+          endif()
+ 	endif()    
+@@ -155,7 +155,7 @@ if("${CMAKE_Fortran_COMPILER_ID}" STREQUAL "GNU")
+ 		if(SSE)
+ 			if(TARGET_ARCH STREQUAL x86_64)
+           		#-mfpmath=sse is default for x86_64, no need to specific it
+-          		set(OPT_FFLAGS ${OPT_FFLAGS} -mtune=native)
++          		set(OPT_FFLAGS ${OPT_FFLAGS})
+         	else() # i386 needs to be told to use sse prior to using -mfpmath=sse
+           		set(OPT_FFLAGS ${OPT_FFLAGS} -msse -mfpmath=sse)
+          	endif()
