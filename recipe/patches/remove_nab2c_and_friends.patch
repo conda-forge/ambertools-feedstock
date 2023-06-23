@@ -1,20 +1,5 @@
-diff --git a/AmberTools/src/leap/src/leap/CMakeLists.txt b/AmberTools/src/leap/src/leap/CMakeLists.txt
-index a69ef6c288..0bf917a4b3 100644
---- a/AmberTools/src/leap/src/leap/CMakeLists.txt
-+++ b/AmberTools/src/leap/src/leap/CMakeLists.txt
-@@ -98,9 +98,7 @@ include_directories(. ${CMAKE_CURRENT_BINARY_DIR})
- 
- #if we are building host tools, only build utilMakeHelp
- if(BUILD_HOST_TOOLS)
--	add_executable(utilMakeHelp utilMakeHelp.c)
--	target_link_libraries(utilMakeHelp C::Math)
--	install(TARGETS utilMakeHelp DESTINATION ${BINDIR})
-+	message(STATUS "skipping building utilMakeHelp on arm64")
- else() #build the leap programs
- 	include_directories($<TARGET_PROPERTY:netcdf,INTERFACE_INCLUDE_DIRECTORIES>)
- 	
 diff --git a/AmberTools/src/quick/cmake/RunnablePrograms.cmake b/AmberTools/src/quick/cmake/RunnablePrograms.cmake
-index 436494236a..09aeb9da83 100644
+index 436494236a..7cf9722b82 100644
 --- a/AmberTools/src/quick/cmake/RunnablePrograms.cmake
 +++ b/AmberTools/src/quick/cmake/RunnablePrograms.cmake
 @@ -3,7 +3,7 @@
@@ -22,7 +7,7 @@ index 436494236a..09aeb9da83 100644
  # Must be included after MPIConfig
  
 -set(EXECUTABLES_TO_IMPORT ucpp utilMakeHelp nab2c mpinab2c rule_parse)
-+set(EXECUTABLES_TO_IMPORT ucpp)
++set(EXECUTABLES_TO_IMPORT ucpp utilMakeHelp)
  
  set(EXECUTABLES_TO_IMPORT_REQUIRED TRUE TRUE TRUE TRUE ${MPI} TRUE) # true if the corresponding executable is needed to build Amber 
  
@@ -34,7 +19,7 @@ index 436494236a..09aeb9da83 100644
 \ No newline at end of file
 +endif()
 diff --git a/cmake/RunnablePrograms.cmake b/cmake/RunnablePrograms.cmake
-index 436494236a..09aeb9da83 100644
+index 436494236a..7cf9722b82 100644
 --- a/cmake/RunnablePrograms.cmake
 +++ b/cmake/RunnablePrograms.cmake
 @@ -3,7 +3,7 @@
@@ -42,7 +27,7 @@ index 436494236a..09aeb9da83 100644
  # Must be included after MPIConfig
  
 -set(EXECUTABLES_TO_IMPORT ucpp utilMakeHelp nab2c mpinab2c rule_parse)
-+set(EXECUTABLES_TO_IMPORT ucpp)
++set(EXECUTABLES_TO_IMPORT ucpp utilMakeHelp)
  
  set(EXECUTABLES_TO_IMPORT_REQUIRED TRUE TRUE TRUE TRUE ${MPI} TRUE) # true if the corresponding executable is needed to build Amber 
  
