@@ -90,8 +90,8 @@ fi
 mkdir -p build
 cd build
 echo debug_mmh
-CC=CC_TARGET
-CXX=CXX_TARGET
+CC=${CC_TARGET}
+CXX=${CXX_TARGET}
 echo ${CC} ${CXX}
 echo debug_mmh
 
