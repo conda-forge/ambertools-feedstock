@@ -63,11 +63,17 @@ if [[ "${build_platform}" != "${target_platform}" ]]; then
     mkdir -p ${BUILD_PREFIX}/amber_host_tools
     mkdir -p build_host_tools
     cd build_host_tools
+	echo debug_mmh
+	CC=${CC_FOR_BUILD} 
+	CXX=${CXX_FOR_BUILD}
+	echo $CC
+	echo $CXX
+	echo ${CMAKE_ARGS} ${SRC_DIR} ${CMAKE_FLAGS}
+	echo debug_mmh
     cmake ${CMAKE_ARGS} ${SRC_DIR} ${CMAKE_FLAGS} \
         -DBUILD_HOST_TOOLS=TRUE \
         -DCOMPILER=MANUAL \
-        -DCMAKE_INSTALL_PREFIX="${BUILD_PREFIX}/amber_host_tools" \
-        -march=core2
+        -DCMAKE_INSTALL_PREFIX="${BUILD_PREFIX}/amber_host_tools"
 	make
 	make install
 
