@@ -64,6 +64,9 @@ if [[ "${build_platform}" != "${target_platform}" ]]; then
     mkdir -p build_host_tools
     cd build_host_tools
 	echo debug_mmh
+	echo cc_default
+	echo ${CC} ${CXX}
+	echo cc_build
 	CC=${CC_FOR_BUILD} 
 	CXX=${CXX_FOR_BUILD}
 	echo $CC
@@ -84,6 +87,12 @@ fi
 # Build AmberTools with cmake
 mkdir -p build
 cd build
+echo debug_mmh
+CC=${CC}
+CXX=${CXX}
+echo ${CC} ${CXX}
+echo debug_mmh
+
 cmake ${CMAKE_ARGS} ${SRC_DIR} ${CMAKE_FLAGS} \
     -DCMAKE_INSTALL_PREFIX=${PREFIX} \
     -DCOMPILER=MANUAL \
