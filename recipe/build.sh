@@ -57,6 +57,8 @@ if [[ "${CONDA_BUILD_CROSS_COMPILATION:-}" == 1 && "${CMAKE_CROSSCOMPILING_EMULA
     export CMAKE_ARGS="${CMAKE_ARGS} -DNetCDF_F90_WORKS_EXITCODE=0"
 fi
 
+CC_TARGET=${CC}
+CXX_TARGET=${CXX}
 
 if [[ "${build_platform}" != "${target_platform}" ]]; then
     # Build host tools first
@@ -88,8 +90,8 @@ fi
 mkdir -p build
 cd build
 echo debug_mmh
-CC=${CC}
-CXX=${CXX}
+CC=CC_TARGET
+CXX=CXX_TARGET
 echo ${CC} ${CXX}
 echo debug_mmh
 
