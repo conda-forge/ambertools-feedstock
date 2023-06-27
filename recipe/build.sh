@@ -57,6 +57,7 @@ if [[ "${CONDA_BUILD_CROSS_COMPILATION:-}" == 1 && "${CMAKE_CROSSCOMPILING_EMULA
     export CMAKE_ARGS="${CMAKE_ARGS} -DNetCDF_F90_WORKS_EXITCODE=0"
 fi
 
+# We need to build some x86 bins to compile arm64, so we need to save the paths here so we can use them later
 CC_TARGET=${CC}
 CXX_TARGET=${CXX}
 
@@ -65,16 +66,8 @@ if [[ "${build_platform}" != "${target_platform}" ]]; then
     mkdir -p ${BUILD_PREFIX}/amber_host_tools
     mkdir -p build_host_tools
     cd build_host_tools
-	echo debug_mmh
-	echo cc_default
-	echo ${CC} ${CXX}
-	echo cc_build
 	CC=${CC_FOR_BUILD} 
 	CXX=${CXX_FOR_BUILD}
-	echo $CC
-	echo $CXX
-	echo ${CMAKE_ARGS} ${SRC_DIR} ${CMAKE_FLAGS}
-	echo debug_mmh
     cmake ${CMAKE_ARGS} ${SRC_DIR} ${CMAKE_FLAGS} \
         -DBUILD_HOST_TOOLS=TRUE \
         -DCOMPILER=MANUAL \
@@ -89,11 +82,9 @@ fi
 # Build AmberTools with cmake
 mkdir -p build
 cd build
-echo debug_mmh
+# Now we go back to the target arch
 CC=${CC_TARGET}
 CXX=${CXX_TARGET}
-echo ${CC} ${CXX}
-echo debug_mmh
 
 cmake ${CMAKE_ARGS} ${SRC_DIR} ${CMAKE_FLAGS} \
     -DCMAKE_INSTALL_PREFIX=${PREFIX} \
