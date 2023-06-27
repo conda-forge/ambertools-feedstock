@@ -52,18 +52,52 @@ if [[ "$target_platform" == osx* ]]; then
     set -u
 fi
 
+if [[ "${CONDA_BUILD_CROSS_COMPILATION:-}" == 1 && "${CMAKE_CROSSCOMPILING_EMULATOR:-}" == "" ]]; then
+    # Assume that netcdf works
+    export CMAKE_ARGS="${CMAKE_ARGS} -DNetCDF_F90_WORKS_EXITCODE=0"
+fi
+
+# We need to build some x86 bins to compile arm64, so we need to save the paths here so we can use them later
+CC_TARGET=${CC}
+CXX_TARGET=${CXX}
+
+if [[ "${build_platform}" != "${target_platform}" ]]; then
+    # Build host tools first
+    mkdir -p ${BUILD_PREFIX}/amber_host_tools
+    mkdir -p build_host_tools
+    cd build_host_tools
+	CC=${CC_FOR_BUILD} 
+	CXX=${CXX_FOR_BUILD}
+    cmake ${CMAKE_ARGS} ${SRC_DIR} ${CMAKE_FLAGS} \
+        -DBUILD_HOST_TOOLS=TRUE \
+        -DCOMPILER=MANUAL \
+        -DCMAKE_INSTALL_PREFIX="${BUILD_PREFIX}/amber_host_tools"
+	make
+	make install
+
+    CMAKE_FLAGS+=" -DUSE_HOST_TOOLS=TRUE"
+    CMAKE_FLAGS+=" -DHOST_TOOLS_DIR=${BUILD_PREFIX}/amber_host_tools"
+fi
+
 # Build AmberTools with cmake
 mkdir -p build
 cd build
-cmake ${SRC_DIR} ${CMAKE_FLAGS} \
+# Now we go back to the target arch
+CC=${CC_TARGET}
+CXX=${CXX_TARGET}
+
+cmake ${CMAKE_ARGS} ${SRC_DIR} ${CMAKE_FLAGS} \
     -DCMAKE_INSTALL_PREFIX=${PREFIX} \
     -DCOMPILER=MANUAL \
     -DPYTHON_EXECUTABLE=${PYTHON} \
     -DBUILD_GUI=${BUILD_GUI} \
     -DCHECK_UPDATES=FALSE \
+	-DDISABLE_TOOLS="nab" \
     -DTRUST_SYSTEM_LIBS=TRUE
 
-make && make install
+make
+make install
+
 
 # Export AMBERHOME automatically
 mkdir -p ${PREFIX}/etc/conda/{activate,deactivate}.d
