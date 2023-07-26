@@ -20,7 +20,7 @@ source:
     - patches/remove_nab2c_and_friends.patch  # [arm64]
 
 build:
-  number: 1
+  number: 2
   skip: True  # [win or py2k or ppc64le or aarch64]
   script_env:
     - unit_tests={{ unit_tests }}
@@ -32,7 +32,6 @@ requirements:
     - cmake         # [not osx]
     - cmake 3.20.*  # [osx]
     - cross-python_{{ target_platform }}     # [build_platform != target_platform]
-    - cython                                 # [build_platform != target_platform]
     - flex
     - libgomp      # [linux and not aarch64]
     - llvm-openmp  # [osx]
@@ -51,7 +50,6 @@ requirements:
   host:
     - python
     - setuptools
-    - cython
     - numpy
     - scipy
     - matplotlib-base
@@ -78,7 +76,6 @@ requirements:
     - python
     - setuptools
     - perl
-    - cython
     - numpy
     - scipy
     - matplotlib-base
