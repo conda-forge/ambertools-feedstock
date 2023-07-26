@@ -16,6 +16,8 @@ source:
     - patches/do_not_symlink_missing_ff12pol.patch
     - patches/do_not_install_vendored_parmed.patch
     - patches/do_not_vendor_packmol.patch
+    - patches/remove_mtune_native_for_m1.patch  # [arm64]
+    - patches/remove_nab2c_and_friends.patch  # [arm64]
 
 build:
   number: 2
@@ -25,21 +27,27 @@ build:
 
 requirements:
   build:
-    - {{ compiler('fortran') }}
-    - {{ compiler('c') }}
-    - {{ compiler('cxx') }}
     - bc
-    - flex
-    - patch
-    - tcsh
     - bison
-    - make
     - cmake         # [not osx]
     - cmake 3.20.*  # [osx]
-    - perl
-    - llvm-openmp  # [osx]
+    - cross-python_{{ target_platform }}     # [build_platform != target_platform]
+    - cython                                 # [build_platform != target_platform]
+    - flex
     - libgomp      # [linux and not aarch64]
+    - llvm-openmp  # [osx]
+    - make
+    - matplotlib-base                        # [build_platform != target_platform]
+    - numpy                                  # [build_platform != target_platform]
     - openssl
+    - patch
+    - perl
+    - python                                 # [build_platform != target_platform]
+    - scipy                                  # [build_platform != target_platform]
+    - tcsh
+    - {{ compiler('c') }}
+    - {{ compiler('cxx') }}
+    - {{ compiler('fortran') }}
   host:
     - python
     - setuptools
