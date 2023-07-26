@@ -43,7 +43,7 @@ requirements:
   host:
     - python
     - setuptools
-    - cython =3
+    - cython =0.29
     - numpy
     - scipy
     - matplotlib-base
@@ -70,7 +70,7 @@ requirements:
     - python
     - setuptools
     - perl
-    - cython =3
+    - cython =0.29
     - numpy
     - scipy
     - matplotlib-base
