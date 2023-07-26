@@ -1,0 +1,64 @@
+MACOSX_DEPLOYMENT_TARGET:
+- '11.0'
+arpack:
+- '3.7'
+boost_cpp:
+- 1.78.0
+bzip2:
+- '1'
+c_compiler:
+- clang
+c_compiler_version:
+- '15'
+channel_sources:
+- conda-forge
+channel_targets:
+- conda-forge main
+cxx_compiler:
+- clangxx
+cxx_compiler_version:
+- '15'
+fftw:
+- '3'
+fortran_compiler:
+- gfortran
+fortran_compiler_version:
+- '12'
+libblas:
+- 3.9 *netlib
+liblapack:
+- 3.9 *netlib
+libnetcdf:
+- 4.9.2
+llvm_openmp:
+- '15'
+macos_machine:
+- arm64-apple-darwin20.0.0
+netcdf_fortran:
+- '4.6'
+numpy:
+- '1.23'
+openssl:
+- '3'
+perl:
+- 5.32.1
+pin_run_as_build:
+  boost-cpp:
+    max_pin: x.x.x
+  python:
+    min_pin: x.x
+    max_pin: x.x
+python:
+- 3.11.* *_cpython
+readline:
+- '8'
+target_platform:
+- osx-arm64
+zip_keys:
+- - c_compiler_version
+  - cxx_compiler_version
+  - fortran_compiler_version
+- - python
+  - numpy
+zlib:
+- '1.2'
