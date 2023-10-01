@@ -2,8 +2,6 @@ MACOSX_DEPLOYMENT_TARGET:
 - '10.9'
 arpack:
 - '3.7'
-boost_cpp:
-- 1.78.0
 bzip2:
 - '1'
 c_compiler:
@@ -26,6 +24,8 @@ fortran_compiler_version:
 - '12'
 libblas:
 - 3.9 *netlib
+libboost_devel:
+- '1.82'
 liblapack:
 - 3.9 *netlib
 libnetcdf:
@@ -37,19 +37,17 @@ macos_machine:
 netcdf_fortran:
 - '4.6'
 numpy:
-- '1.21'
+- '1.22'
 openssl:
 - '3'
 perl:
 - 5.32.1
 pin_run_as_build:
-  boost-cpp:
-    max_pin: x.x.x
   python:
     min_pin: x.x
     max_pin: x.x
 python:
-- 3.8.* *_cpython
+- 3.10.* *_cpython
 readline:
 - '8'
 target_platform:
