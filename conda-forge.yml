@@ -1,14 +1,14 @@
-provider:
-  linux_ppc64le: azure
-conda_forge_output_validation: true
 azure:
   store_build_artifacts: true
+build_platform:
+  osx_arm64: osx_64
+conda_build:
+  pkg_format: '2'
+conda_forge_output_validation: true
 github:
   branch_name: main
   tooling_branch_name: main
-conda_build:
-  pkg_format: '2'
-upload_on_branch: main
-build_platform:
-  osx_arm64: osx_64
+provider:
+  linux_ppc64le: azure
 test: native_and_emulated
+upload_on_branch: main
