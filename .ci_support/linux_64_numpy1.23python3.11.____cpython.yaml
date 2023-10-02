@@ -1,5 +1,5 @@
 arpack:
-- '3.7'
+- '3.8'
 boost_cpp:
 - 1.78.0
 bzip2:

@@ -1,7 +1,7 @@
 MACOSX_DEPLOYMENT_TARGET:
 - '10.9'
 arpack:
-- '3.7'
+- '3.8'
 boost_cpp:
 - 1.78.0
 bzip2:
@@ -37,7 +37,7 @@ macos_machine:
 netcdf_fortran:
 - '4.6'
 numpy:
-- '1.21'
+- '1.22'
 openssl:
 - '3'
 perl:
