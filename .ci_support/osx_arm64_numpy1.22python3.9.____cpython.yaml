@@ -2,8 +2,6 @@ MACOSX_DEPLOYMENT_TARGET:
 - '11.0'
 arpack:
 - '3.8'
-boost_cpp:
-- 1.78.0
 bzip2:
 - '1'
 c_compiler:
@@ -26,12 +24,14 @@ fortran_compiler_version:
 - '12'
 libblas:
 - 3.9 *netlib
+libboost_devel:
+- '1.82'
 liblapack:
 - 3.9 *netlib
 libnetcdf:
 - 4.9.2
 llvm_openmp:
-- '15'
+- '16'
 macos_machine:
 - arm64-apple-darwin20.0.0
 netcdf_fortran:
@@ -43,8 +43,6 @@ openssl:
 perl:
 - 5.32.1
 pin_run_as_build:
-  boost-cpp:
-    max_pin: x.x.x
   python:
     min_pin: x.x
     max_pin: x.x
