@@ -69,7 +69,7 @@ requirements:
     - readline
     - llvm-openmp  # [osx]
     - libgomp      # [linux and not aarch64]
-    - parmed 4.0.0
+    - parmed =4
     - packmol
     - openssl
   run:
