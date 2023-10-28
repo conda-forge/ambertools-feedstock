@@ -20,7 +20,7 @@ source:
     - patches/remove_nab2c_and_friends.patch  # [arm64]
 
 build:
-  number: 5
+  number: 6
   skip: True  # [win or py2k or ppc64le or aarch64]
   script_env:
     - unit_tests={{ unit_tests }}
