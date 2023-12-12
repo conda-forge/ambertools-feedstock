@@ -77,6 +77,7 @@ requirements:
     - packmol
     - openssl
     - {{ mpi }}  # [mpi != 'nompi']
+    - mpi4py  # [mpi != 'nompi']
   run:
     - python
     - setuptools
@@ -99,6 +100,7 @@ requirements:
     - parmed >=4.0.0,<5.0.0a0
     - packmol
     - {{ mpi }}  # [mpi != 'nompi']
+    - mpi4py  # [mpi != 'nompi']
   run_constrained:
     - ambermini ==9999999999
 
