@@ -1,23 +1,21 @@
+MACOSX_DEPLOYMENT_TARGET:
+- '11.0'
 arpack:
 - '3.8'
 bzip2:
 - '1'
 c_compiler:
-- gcc
+- clang
 c_compiler_version:
-- '12'
-cdt_name:
-- cos6
+- '15'
 channel_sources:
 - conda-forge
 channel_targets:
 - conda-forge main
 cxx_compiler:
-- gxx
+- clangxx
 cxx_compiler_version:
-- '12'
-docker_image:
-- quay.io/condaforge/linux-anvil-cos7-x86_64
+- '15'
 fftw:
 - '3'
 fortran_compiler:
@@ -32,10 +30,20 @@ liblapack:
 - 3.9 *netlib
 libnetcdf:
 - 4.9.2
+llvm_openmp:
+- '16'
+macos_machine:
+- arm64-apple-darwin20.0.0
+mpi:
+- nompi
+mpich:
+- '4'
 netcdf_fortran:
 - '4.6'
 numpy:
-- '1.23'
+- '1.22'
+openmpi:
+- '4'
 openssl:
 - '3'
 perl:
@@ -45,11 +53,11 @@ pin_run_as_build:
     min_pin: x.x
     max_pin: x.x
 python:
-- 3.11.* *_cpython
+- 3.10.* *_cpython
 readline:
 - '8'
 target_platform:
-- linux-64
+- osx-arm64
 zip_keys:
 - - c_compiler_version
   - cxx_compiler_version
