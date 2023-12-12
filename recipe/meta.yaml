@@ -4,6 +4,8 @@
 {% set version = "23.3" %}
 # use run or skip
 {% set unit_tests = "skip" %}
+{% set build = 7 %}
+{% set build = build + 100 %}  # [mpi != 'nompi']
 
 package:
   name: {{ name|lower }}
@@ -18,9 +20,10 @@ source:
     - patches/do_not_vendor_packmol.patch
     - patches/remove_mtune_native_for_m1.patch  # [arm64]
     - patches/remove_nab2c_and_friends.patch  # [arm64]
+  string: {{ mpi }}_py{{ CONDA_PY }}h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}
 
 build:
-  number: 6
+  number: {{ build }}
   skip: True  # [win or py2k or ppc64le or aarch64]
   script_env:
     - unit_tests={{ unit_tests }}
@@ -47,6 +50,7 @@ requirements:
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}
     - {{ compiler('fortran') }}
+    - {{ mpi }}  # [build_platform != target_platform and mpi == "openmpi"]
   host:
     - python
     - setuptools
@@ -72,6 +76,7 @@ requirements:
     - parmed =4
     - packmol
     - openssl
+    - {{ mpi }}  # [mpi != 'nompi']
   run:
     - python
     - setuptools
@@ -93,6 +98,7 @@ requirements:
     - libgomp      # [linux and not aarch64]
     - parmed >=4.0.0,<5.0.0a0
     - packmol
+    - {{ mpi }}  # [mpi != 'nompi']
   run_constrained:
     - ambermini ==9999999999
 
