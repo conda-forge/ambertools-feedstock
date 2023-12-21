@@ -5,7 +5,7 @@
 # use run or skip
 {% set unit_tests = "skip" %}
 {% set build = 7 %}
-{% set build = build + 100 %}  # [mpi != 'nompi']
+{% set build = build + 100 %}  # [mpi == 'nompi']
 
 package:
   name: {{ name|lower }}
@@ -23,7 +23,7 @@ source:
 
 build:
   number: {{ build }}
-  skip: True  # [win or py2k or ppc64le or aarch64]
+  skip: True  # [win or py2k or ppc64le or aarch64 or py!=39]
   script_env:
     - unit_tests={{ unit_tests }}
   string: {{ mpi }}_py{{ CONDA_PY }}h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}
