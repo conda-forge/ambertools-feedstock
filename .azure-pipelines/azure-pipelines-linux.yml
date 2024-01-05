@@ -8,31 +8,81 @@ jobs:
     vmImage: ubuntu-latest
   strategy:
     matrix:
-      linux_64_numpy1.22python3.10.____cpython:
-        CONFIG: linux_64_numpy1.22python3.10.____cpython
+      linux_64_mpimpichnumpy1.22python3.10.____cpython:
+        CONFIG: linux_64_mpimpichnumpy1.22python3.10.____cpython
         UPLOAD_PACKAGES: 'True'
         DOCKER_IMAGE: quay.io/condaforge/linux-anvil-cos7-x86_64
-        SHORT_CONFIG: linux_64_numpy1.22python3.10.____cpython
-      linux_64_numpy1.22python3.8.____cpython:
-        CONFIG: linux_64_numpy1.22python3.8.____cpython
+        SHORT_CONFIG: linux_64_mpimpichnumpy1.22python3.10.____cpython
+      linux_64_mpimpichnumpy1.22python3.8.____cpython:
+        CONFIG: linux_64_mpimpichnumpy1.22python3.8.____cpython
         UPLOAD_PACKAGES: 'True'
         DOCKER_IMAGE: quay.io/condaforge/linux-anvil-cos7-x86_64
-        SHORT_CONFIG: linux_64_numpy1.22python3.8.____cpython
-      linux_64_numpy1.22python3.9.____cpython:
-        CONFIG: linux_64_numpy1.22python3.9.____cpython
+        SHORT_CONFIG: linux_64_mpimpichnumpy1.22python3.8.____cpython
+      linux_64_mpimpichnumpy1.22python3.9.____cpython:
+        CONFIG: linux_64_mpimpichnumpy1.22python3.9.____cpython
         UPLOAD_PACKAGES: 'True'
         DOCKER_IMAGE: quay.io/condaforge/linux-anvil-cos7-x86_64
-        SHORT_CONFIG: linux_64_numpy1.22python3.9.____cpython
-      linux_64_numpy1.23python3.11.____cpython:
-        CONFIG: linux_64_numpy1.23python3.11.____cpython
+        SHORT_CONFIG: linux_64_mpimpichnumpy1.22python3.9.____cpython
+      linux_64_mpimpichnumpy1.23python3.11.____cpython:
+        CONFIG: linux_64_mpimpichnumpy1.23python3.11.____cpython
         UPLOAD_PACKAGES: 'True'
         DOCKER_IMAGE: quay.io/condaforge/linux-anvil-cos7-x86_64
-        SHORT_CONFIG: linux_64_numpy1.23python3.11.____cpython
-      linux_64_numpy1.26python3.12.____cpython:
-        CONFIG: linux_64_numpy1.26python3.12.____cpython
+        SHORT_CONFIG: linux_64_mpimpichnumpy1.23python3.11.____cpython
+      linux_64_mpimpichnumpy1.26python3.12.____cpython:
+        CONFIG: linux_64_mpimpichnumpy1.26python3.12.____cpython
         UPLOAD_PACKAGES: 'True'
         DOCKER_IMAGE: quay.io/condaforge/linux-anvil-cos7-x86_64
-        SHORT_CONFIG: linux_64_numpy1.26python3.12.____cpython
+        SHORT_CONFIG: linux_64_mpimpichnumpy1.26python3.12.____cpython
+      linux_64_mpinompinumpy1.22python3.10.____cpython:
+        CONFIG: linux_64_mpinompinumpy1.22python3.10.____cpython
+        UPLOAD_PACKAGES: 'True'
+        DOCKER_IMAGE: quay.io/condaforge/linux-anvil-cos7-x86_64
+        SHORT_CONFIG: linux_64_mpinompinumpy1.22python3.10.____cpython
+      linux_64_mpinompinumpy1.22python3.8.____cpython:
+        CONFIG: linux_64_mpinompinumpy1.22python3.8.____cpython
+        UPLOAD_PACKAGES: 'True'
+        DOCKER_IMAGE: quay.io/condaforge/linux-anvil-cos7-x86_64
+        SHORT_CONFIG: linux_64_mpinompinumpy1.22python3.8.____cpython
+      linux_64_mpinompinumpy1.22python3.9.____cpython:
+        CONFIG: linux_64_mpinompinumpy1.22python3.9.____cpython
+        UPLOAD_PACKAGES: 'True'
+        DOCKER_IMAGE: quay.io/condaforge/linux-anvil-cos7-x86_64
+        SHORT_CONFIG: linux_64_mpinompinumpy1.22python3.9.____cpython
+      linux_64_mpinompinumpy1.23python3.11.____cpython:
+        CONFIG: linux_64_mpinompinumpy1.23python3.11.____cpython
+        UPLOAD_PACKAGES: 'True'
+        DOCKER_IMAGE: quay.io/condaforge/linux-anvil-cos7-x86_64
+        SHORT_CONFIG: linux_64_mpinompinumpy1.23python3.11.____cpython
+      linux_64_mpinompinumpy1.26python3.12.____cpython:
+        CONFIG: linux_64_mpinompinumpy1.26python3.12.____cpython
+        UPLOAD_PACKAGES: 'True'
+        DOCKER_IMAGE: quay.io/condaforge/linux-anvil-cos7-x86_64
+        SHORT_CONFIG: linux_64_mpinompinumpy1.26python3.12.____cpython
+      linux_64_mpiopenmpinumpy1.22python3.10.____cpython:
+        CONFIG: linux_64_mpiopenmpinumpy1.22python3.10.____cpython
+        UPLOAD_PACKAGES: 'True'
+        DOCKER_IMAGE: quay.io/condaforge/linux-anvil-cos7-x86_64
+        SHORT_CONFIG: linux_64_mpiopenmpinumpy1.22python3_h3d7a55f7a1
+      linux_64_mpiopenmpinumpy1.22python3.8.____cpython:
+        CONFIG: linux_64_mpiopenmpinumpy1.22python3.8.____cpython
+        UPLOAD_PACKAGES: 'True'
+        DOCKER_IMAGE: quay.io/condaforge/linux-anvil-cos7-x86_64
+        SHORT_CONFIG: linux_64_mpiopenmpinumpy1.22python3_he080c96e23
+      linux_64_mpiopenmpinumpy1.22python3.9.____cpython:
+        CONFIG: linux_64_mpiopenmpinumpy1.22python3.9.____cpython
+        UPLOAD_PACKAGES: 'True'
+        DOCKER_IMAGE: quay.io/condaforge/linux-anvil-cos7-x86_64
+        SHORT_CONFIG: linux_64_mpiopenmpinumpy1.22python3_h44cfe47919
+      linux_64_mpiopenmpinumpy1.23python3.11.____cpython:
+        CONFIG: linux_64_mpiopenmpinumpy1.23python3.11.____cpython
+        UPLOAD_PACKAGES: 'True'
+        DOCKER_IMAGE: quay.io/condaforge/linux-anvil-cos7-x86_64
+        SHORT_CONFIG: linux_64_mpiopenmpinumpy1.23python3_h693df30380
+      linux_64_mpiopenmpinumpy1.26python3.12.____cpython:
+        CONFIG: linux_64_mpiopenmpinumpy1.26python3.12.____cpython
+        UPLOAD_PACKAGES: 'True'
+        DOCKER_IMAGE: quay.io/condaforge/linux-anvil-cos7-x86_64
+        SHORT_CONFIG: linux_64_mpiopenmpinumpy1.26python3_h4152995eac
   timeoutInMinutes: 360
 
   steps:
@@ -46,6 +96,9 @@ jobs:
 
   - script: |
         export CI=azure
+        export flow_run_id=azure_$(Build.BuildNumber).$(System.JobAttempt)
+        export remote_url=$(Build.Repository.Uri)
+        export sha=$(Build.SourceVersion)
         export GIT_BRANCH=$BUILD_SOURCEBRANCHNAME
         export FEEDSTOCK_NAME=$(basename ${BUILD_REPOSITORY_NAME})
         export UPLOAD_ON_BRANCH="main"
