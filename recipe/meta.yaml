@@ -71,7 +71,8 @@ requirements:
     - llvm-openmp  # [osx]
     - libgomp      # [linux and not aarch64]
     - parmed =4
-    - packmol
+#Internal now?
+#    - packmol
     - openssl
   run:
     - python
