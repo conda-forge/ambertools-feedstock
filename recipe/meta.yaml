@@ -15,13 +15,11 @@ source:
   patches:
     - patches/do_not_symlink_missing_ff12pol.patch
     - patches/do_not_install_vendored_parmed.patch
-#AmberTools version is a fork and conda-forge is not updated regularly enough
-#    - patches/do_not_vendor_packmol.patch
     - patches/remove_mtune_native_for_m1.patch  # [arm64]
     - patches/remove_nab2c_and_friends.patch  # [arm64]
 
 build:
-  number: 7
+  number: 0
   skip: True  # [win or py2k or ppc64le or aarch64]
   script_env:
     - unit_tests={{ unit_tests }}
@@ -71,8 +69,6 @@ requirements:
     - llvm-openmp  # [osx]
     - libgomp      # [linux and not aarch64]
     - parmed =4
-#Internal now?
-#    - packmol
     - openssl
   run:
     - python
