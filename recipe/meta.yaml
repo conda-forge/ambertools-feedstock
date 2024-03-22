@@ -93,6 +93,7 @@ requirements:
     - packmol
   run_constrained:
     - ambermini ==9999999999
+    - packmol ==9999999999
 
 test:
   requires:
