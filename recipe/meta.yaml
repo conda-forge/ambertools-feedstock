@@ -1,7 +1,7 @@
 {% set name = "AmberTools" %}
 # Versioning scheme uses AmberTools major release as MAJOR version number, patch level as MINOR version number
 # Update the MINOR version number as new patch releases come out
-{% set version = "23.3" %}
+{% set version = "23.6" %}
 # use run or skip
 {% set unit_tests = "skip" %}
 
@@ -15,12 +15,11 @@ source:
   patches:
     - patches/do_not_symlink_missing_ff12pol.patch
     - patches/do_not_install_vendored_parmed.patch
-    - patches/do_not_vendor_packmol.patch
     - patches/remove_mtune_native_for_m1.patch  # [arm64]
     - patches/remove_nab2c_and_friends.patch  # [arm64]
 
 build:
-  number: 6
+  number: 0
   skip: True  # [win or py2k or ppc64le or aarch64]
   script_env:
     - unit_tests={{ unit_tests }}
@@ -70,7 +69,6 @@ requirements:
     - llvm-openmp  # [osx]
     - libgomp      # [linux and not aarch64]
     - parmed =4
-    - packmol
     - openssl
   run:
     - python
@@ -92,9 +90,9 @@ requirements:
     - llvm-openmp  # [osx]
     - libgomp      # [linux and not aarch64]
     - parmed >=4.0.0,<5.0.0a0
-    - packmol
   run_constrained:
     - ambermini ==9999999999
+    - packmol ==9999999999
 
 test:
   requires:
@@ -130,7 +128,9 @@ test:
 about:
   home: http://ambermd.org/AmberTools.php
   license: GPL-3.0-or-later AND LGPL-3.0-or-later AND BSD-3-Clause AND MIT
-  license_file: AmberTools/LICENSE
+  license_file:
+    - AmberTools/LICENSE
+    - AmberTools/src/packmol_memgen/packmol_memgen/lib/packmol/LICENSE
   summary: 'AmberTools is a set of programs for biomolecular simulation and analysis'
   description: |
     AmberTools is a set of programs for biomolecular simulation and analysis.
