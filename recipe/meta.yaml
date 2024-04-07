@@ -29,8 +29,7 @@ requirements:
   build:
     - bc
     - bison
-    - cmake         # [not osx]
-    - cmake 3.20.*  # [osx]
+    - cmake
     - cross-python_{{ target_platform }}     # [build_platform != target_platform]
     - flex
     - libgomp      # [linux and not aarch64]
