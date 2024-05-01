@@ -110,8 +110,7 @@ MMPBSA.py -h
 mol2rtf.py -h
 ndfes -h
 nfe-umbrella-slice -h
-# # does not work
-# packmol-memgen -h
+packmol-memgen -h
 parmed -h
 pdb4amber -h
 PdbSearcher.py -h
