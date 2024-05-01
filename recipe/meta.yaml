@@ -43,6 +43,7 @@ requirements:
     - python                                 # [build_platform != target_platform]
     - scipy                                  # [build_platform != target_platform]
     - tcsh
+    - {{ stdlib("c") }}
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}
     - {{ compiler('fortran') }}
