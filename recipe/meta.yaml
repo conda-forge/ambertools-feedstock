@@ -19,7 +19,7 @@ source:
     - patches/remove_nab2c_and_friends.patch  # [arm64]
 
 build:
-  number: 0
+  number: 1
   skip: True  # [win or py2k or ppc64le or aarch64]
   script_env:
     - unit_tests={{ unit_tests }}
@@ -28,8 +28,7 @@ requirements:
   build:
     - bc
     - bison
-    - cmake         # [not osx]
-    - cmake 3.20.*  # [osx]
+    - cmake
     - cross-python_{{ target_platform }}     # [build_platform != target_platform]
     - flex
     - libgomp      # [linux and not aarch64]
@@ -44,6 +43,7 @@ requirements:
     - scipy                                  # [build_platform != target_platform]
     - tcsh
     - {{ compiler('c') }}
+    - {{ stdlib("c") }}
     - {{ compiler('cxx') }}
     - {{ compiler('fortran') }}
   host:
