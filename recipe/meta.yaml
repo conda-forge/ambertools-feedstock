@@ -1,7 +1,7 @@
 {% set name = "AmberTools" %}
 # Versioning scheme uses AmberTools major release as MAJOR version number, patch level as MINOR version number
 # Update the MINOR version number as new patch releases come out
-{% set version = "23.3" %}
+{% set version = "24.0" %}
 # use run or skip
 {% set unit_tests = "skip" %}
 
@@ -10,8 +10,8 @@ package:
   version: {{ version }}
 
 source:
-  url: https://ambermd.org/downloads/AmberTools23_rc6.tar.bz2
-  sha256: debb52e6ef2e1b4eaa917a8b4d4934bd2388659c660501a81ea044903bf9ee9d
+  url: https://ambermd.org/downloads/AmberTools24_rc5.tar.bz2
+  sha256: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
   patches:
     - patches/do_not_symlink_missing_ff12pol.patch
     - patches/do_not_install_vendored_parmed.patch
@@ -20,8 +20,8 @@ source:
     - patches/remove_nab2c_and_friends.patch  # [arm64]
 
 build:
-  number: 6
-  skip: True  # [win or py2k or ppc64le or aarch64]
+  number: 0
+  skip: True  # [win or ppc64le or aarch64]
   script_env:
     - unit_tests={{ unit_tests }}
 
@@ -29,8 +29,7 @@ requirements:
   build:
     - bc
     - bison
-    - cmake         # [not osx]
-    - cmake 3.20.*  # [osx]
+    - cmake
     - cross-python_{{ target_platform }}     # [build_platform != target_platform]
     - flex
     - libgomp      # [linux and not aarch64]
