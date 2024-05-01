@@ -23,7 +23,6 @@ source:
 
 build:
   number: {{ build }}
->>>>>>> upstream/main
   skip: True  # [win or py2k or ppc64le or aarch64]
   script_env:
     - unit_tests={{ unit_tests }}
@@ -98,12 +97,9 @@ requirements:
     - llvm-openmp  # [osx]
     - libgomp      # [linux and not aarch64]
     - parmed >=4.0.0,<5.0.0a0
-<<<<<<< HEAD
     - packmol
     - {{ mpi }}  # [mpi != 'nompi']
     - mpi4py  # [mpi != 'nompi']
-=======
->>>>>>> upstream/main
   run_constrained:
     - ambermini ==9999999999
     - packmol ==9999999999
