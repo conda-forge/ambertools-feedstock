@@ -46,7 +46,8 @@ conda list
 # rism3d.orave -h
 # rism3d.snglpnt -h
 # rism3d.thermo -h
-# sander -h
+sander --version
+sander.MPI --version
 # sander.LES -h
 # saxs_rism -h
 # senergy -h
