@@ -50,6 +50,7 @@ sander --version
 if [[ $mpi == nompi ]]; then
     echo "no MPI, skipping sander.MPI check"
 else
+    export OMPI_MCA_plm_ssh_agent=false
     sander.MPI --version
 fi
 # sander.LES -h
