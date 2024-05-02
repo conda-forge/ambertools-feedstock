@@ -97,7 +97,6 @@ requirements:
     - llvm-openmp  # [osx]
     - libgomp      # [linux and not aarch64]
     - parmed >=4.0.0,<5.0.0a0
-    - packmol
     - {{ mpi }}  # [mpi != 'nompi']
     - mpi4py  # [mpi != 'nompi']
   run_constrained:
