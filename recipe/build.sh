@@ -46,7 +46,7 @@ if [[ "$target_platform" == osx* ]]; then
     set +u
     mv ${BUILD_PREFIX}/etc/conda/{activate.d,activate.d.bak}
     mv ${BUILD_PREFIX}/etc/conda/{deactivate.d,deactivate.d.bak}
-    conda install --yes --no-deps --force-reinstall -p ${PREFIX} xorg-xproto xorg-libx11
+    CONDA_SUBDIR="$target_platform" conda install --yes --no-deps --force-reinstall -p ${PREFIX} xorg-xproto xorg-libx11
     mv ${BUILD_PREFIX}/etc/conda/{activate.d.bak,activate.d}
     mv ${BUILD_PREFIX}/etc/conda/{deactivate.d.bak,deactivate.d}
     set -u
