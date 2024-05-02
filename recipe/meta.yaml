@@ -20,7 +20,7 @@ source:
 
 build:
   number: 0
-  skip: True  # [win or ppc64le or aarch64]
+  skip: True  # [win or ppc64le or aarch64 or py<310]
   script_env:
     - unit_tests={{ unit_tests }}
 
