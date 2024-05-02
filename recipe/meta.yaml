@@ -4,7 +4,7 @@
 {% set version = "23.6" %}
 # use run or skip
 {% set unit_tests = "skip" %}
-{% set build = 7 %}
+{% set build = 2 %}
 {% set build = build + 100 %}  # [mpi == 'nompi']
 
 package:
