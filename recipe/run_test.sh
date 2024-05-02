@@ -48,6 +48,7 @@ conda list
 # rism3d.thermo -h
 sander --version
 sander.MPI --version
+if [ "${mpi}" = "nompi" ]; then echo "no MPI, skipping sander.MPI check"; else sander.MPI --version; fi
 # sander.LES -h
 # saxs_rism -h
 # senergy -h
