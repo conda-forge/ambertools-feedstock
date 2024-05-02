@@ -93,6 +93,7 @@ cmake ${CMAKE_ARGS} ${SRC_DIR} ${CMAKE_FLAGS} \
     -DBUILD_GUI=${BUILD_GUI} \
     -DCHECK_UPDATES=FALSE \
 	-DDISABLE_TOOLS="nab" \
+    -DMPI=$(test "${mpi}" != "nompi"; echo $?) \
     -DTRUST_SYSTEM_LIBS=TRUE
 
 make
