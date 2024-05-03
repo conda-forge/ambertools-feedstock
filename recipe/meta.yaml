@@ -4,6 +4,8 @@
 {% set version = "23.6" %}
 # use run or skip
 {% set unit_tests = "skip" %}
+{% set build = 2 %}
+{% set build = build + 100 %}  # [mpi == 'nompi']
 
 package:
   name: {{ name|lower }}
@@ -17,12 +19,14 @@ source:
     - patches/do_not_install_vendored_parmed.patch
     - patches/remove_mtune_native_for_m1.patch  # [arm64]
     - patches/remove_nab2c_and_friends.patch  # [arm64]
+    - patches/0001-do-not-clean-compiler-flags.patch
 
 build:
-  number: 1
-  skip: True  # [win or py2k or ppc64le or aarch64]
+  number: {{ build }}
+  skip: True  # [win or py<310 or ppc64le or aarch64]
   script_env:
     - unit_tests={{ unit_tests }}
+  string: {{ mpi }}_py{{ CONDA_PY }}h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}
 
 requirements:
   build:
@@ -46,6 +50,7 @@ requirements:
     - {{ stdlib("c") }}
     - {{ compiler('cxx') }}
     - {{ compiler('fortran') }}
+    - {{ mpi }}  # [build_platform != target_platform and mpi == "openmpi"]
   host:
     - python
     - setuptools
@@ -70,6 +75,8 @@ requirements:
     - libgomp      # [linux and not aarch64]
     - parmed =4
     - openssl
+    - {{ mpi }}  # [mpi != 'nompi']
+    - mpi4py  # [mpi != 'nompi']
   run:
     - python
     - setuptools
@@ -90,6 +97,8 @@ requirements:
     - llvm-openmp  # [osx]
     - libgomp      # [linux and not aarch64]
     - parmed >=4.0.0,<5.0.0a0
+    - {{ mpi }}  # [mpi != 'nompi']
+    - mpi4py  # [mpi != 'nompi']
   run_constrained:
     - ambermini ==9999999999
     - packmol ==9999999999

@@ -46,7 +46,14 @@ conda list
 # rism3d.orave -h
 # rism3d.snglpnt -h
 # rism3d.thermo -h
-# sander -h
+sander --version
+if [[ $mpi == nompi ]]; then
+    echo "no MPI, skipping sander.MPI check"
+elif [[ $mpi == openmpi ]]; then
+    echo "OpenMPI cannot work correctly; see https://github.com/conda-forge/openmpi-feedstock/issues/152"
+else
+    sander.MPI --version
+fi
 # sander.LES -h
 # saxs_rism -h
 # senergy -h
