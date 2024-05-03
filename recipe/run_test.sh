@@ -49,8 +49,9 @@ conda list
 sander --version
 if [[ $mpi == nompi ]]; then
     echo "no MPI, skipping sander.MPI check"
+elif [[ $mpi == openmpi ]]; then
+    echo "OpenMPI cannot work correctly; see https://github.com/conda-forge/openmpi-feedstock/issues/152"
 else
-    export OMPI_MCA_plm_ssh_agent=false
     sander.MPI --version
 fi
 # sander.LES -h
