@@ -36,10 +36,16 @@ liblapack:
 - 3.9 *netlib
 libnetcdf:
 - 4.9.2
+mpi:
+- openmpi
+mpich:
+- '4'
 netcdf_fortran:
 - '4.6'
 numpy:
-- '1.23'
+- '1.22'
+openmpi:
+- '4'
 openssl:
 - '3'
 perl:
@@ -49,7 +55,7 @@ pin_run_as_build:
     min_pin: x.x
     max_pin: x.x
 python:
-- 3.11.* *_cpython
+- 3.10.* *_cpython
 readline:
 - '8'
 target_platform:
