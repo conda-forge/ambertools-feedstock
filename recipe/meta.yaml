@@ -23,7 +23,7 @@ source:
 
 build:
   number: {{ build }}
-  skip: True  # [win or py<310 or ppc64le or aarch64]
+  skip: True  # [win or py<310 or ppc64le or aarch64 or linux64]
   script_env:
     - unit_tests={{ unit_tests }}
   string: {{ mpi }}_py{{ CONDA_PY }}h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}
