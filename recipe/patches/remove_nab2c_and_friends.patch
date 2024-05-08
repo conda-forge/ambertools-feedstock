@@ -18,23 +18,3 @@ index 436494236a..7cf9722b82 100644
 -endif()
 \ No newline at end of file
 +endif()
-diff --git a/cmake/RunnablePrograms.cmake b/cmake/RunnablePrograms.cmake
-index 436494236a..7cf9722b82 100644
---- a/cmake/RunnablePrograms.cmake
-+++ b/cmake/RunnablePrograms.cmake
-@@ -3,7 +3,7 @@
- 
- # Must be included after MPIConfig
- 
--set(EXECUTABLES_TO_IMPORT ucpp utilMakeHelp nab2c mpinab2c rule_parse)
-+set(EXECUTABLES_TO_IMPORT ucpp utilMakeHelp)
- 
- set(EXECUTABLES_TO_IMPORT_REQUIRED TRUE TRUE TRUE TRUE ${MPI} TRUE) # true if the corresponding executable is needed to build Amber 
- 
-@@ -52,4 +52,4 @@ else()
- 		set(RUNNABLE_${EXECUTABLE} ${EXECUTABLE})
- 		set(HAVE_RUNNABLE_${EXECUTABLE} TRUE)
- 	endforeach()
--endif()
-\ No newline at end of file
-+endif()
