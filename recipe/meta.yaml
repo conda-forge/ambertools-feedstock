@@ -18,7 +18,6 @@ source:
     - patches/do_not_symlink_missing_ff12pol.patch
     - patches/do_not_install_vendored_parmed.patch
     - patches/remove_mtune_native_for_m1.patch  # [arm64]
-    - patches/remove_nab2c_and_friends.patch  # [arm64]
     - patches/0001-do-not-clean-compiler-flags.patch
 
 build:
