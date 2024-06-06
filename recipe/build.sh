@@ -87,6 +87,7 @@ CC=${CC_TARGET}
 CXX=${CXX_TARGET}
 
 if [ "${mpi}" = "nompi" ]; then ENABLE_MPI=FALSE; else ENABLE_MPI=TRUE; fi
+if [[ "${cuda_compiler_version}" = "None" ]]; then ENABLE_CUDA=FALSE; else ENABLE_CUDA=TRUE; fi
 cmake ${CMAKE_ARGS} ${SRC_DIR} ${CMAKE_FLAGS} \
     -DCMAKE_INSTALL_PREFIX=${PREFIX} \
     -DCOMPILER=MANUAL \
@@ -95,6 +96,7 @@ cmake ${CMAKE_ARGS} ${SRC_DIR} ${CMAKE_FLAGS} \
     -DCHECK_UPDATES=FALSE \
 	-DDISABLE_TOOLS="nab" \
     -DMPI=${ENABLE_MPI} \
+    -DCUDA=${ENABLE_CUDA} \
     -DTRUST_SYSTEM_LIBS=TRUE
 
 make

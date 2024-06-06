@@ -4,8 +4,8 @@
 {% set version = "23.6" %}
 # use run or skip
 {% set unit_tests = "skip" %}
-{% set build = 4 %}
-{% set build = build + 100 %}  # [mpi == 'nompi']
+{% set build = 5 %}
+{% set build = build + 100 %}  # [mpi == 'nompi' and cuda_compiler_version == "None"]
 
 package:
   name: {{ name|lower }}
@@ -26,7 +26,7 @@ build:
   skip: True  # [win or py<310 or ppc64le or aarch64]
   script_env:
     - unit_tests={{ unit_tests }}
-  string: {{ mpi }}_py{{ CONDA_PY }}h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}
+  string: cuda_{{ cuda_compiler_version }}_{{ mpi }}_py{{ CONDA_PY }}h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}
 
 requirements:
   build:
@@ -50,6 +50,8 @@ requirements:
     - {{ stdlib("c") }}
     - {{ compiler('cxx') }}
     - {{ compiler('fortran') }}
+    - {{ compiler('cuda') }}  # [cuda_compiler_version != "None"]
+    - coreutils  # [cuda_compiler_version != "None"]
     - {{ mpi }}  # [build_platform != target_platform and mpi == "openmpi"]
   host:
     - python
@@ -99,6 +101,7 @@ requirements:
     - parmed >=4.0.0,<5.0.0a0
     - {{ mpi }}  # [mpi != 'nompi']
     - mpi4py  # [mpi != 'nompi']
+    - __cuda  # [not osx and cuda_compiler_version != "None"]
   run_constrained:
     - ambermini ==9999999999
     - packmol ==9999999999
