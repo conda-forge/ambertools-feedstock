@@ -45,7 +45,7 @@ netcdf_fortran:
 numpy:
 - '1.22'
 openmpi:
-- '4'
+- '5'
 openssl:
 - '3'
 perl:
@@ -69,4 +69,4 @@ zip_keys:
 - - python
   - numpy
 zlib:
-- '1.2'
+- '1'
