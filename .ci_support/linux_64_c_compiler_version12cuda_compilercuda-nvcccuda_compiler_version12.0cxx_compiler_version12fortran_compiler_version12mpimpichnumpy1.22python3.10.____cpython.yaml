@@ -9,17 +9,17 @@ c_compiler_version:
 c_stdlib:
 - sysroot
 c_stdlib_version:
-- '2.12'
+- '2.17'
 cdt_name:
-- cos6
+- cos7
 channel_sources:
 - conda-forge
 channel_targets:
 - conda-forge main
 cuda_compiler:
-- None
+- cuda-nvcc
 cuda_compiler_version:
-- None
+- '12.0'
 cxx_compiler:
 - gxx
 cxx_compiler_version:
@@ -41,7 +41,7 @@ liblapack:
 libnetcdf:
 - 4.9.2
 mpi:
-- openmpi
+- mpich
 mpich:
 - '4'
 netcdf_fortran:
