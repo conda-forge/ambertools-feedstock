@@ -87,7 +87,13 @@ CC=${CC_TARGET}
 CXX=${CXX_TARGET}
 
 if [ "${mpi}" = "nompi" ]; then ENABLE_MPI=FALSE; else ENABLE_MPI=TRUE; fi
-if [[ "${cuda_compiler_version}" = "None" ]]; then ENABLE_CUDA=FALSE; else ENABLE_CUDA=TRUE; fi
+if [[ "${cuda_compiler_version}" = "None" ]]; then
+    ENABLE_CUDA=FALSE
+else
+    ENABLE_CUDA=TRUE
+    # necessary to find cicc on CUDA >=12.0
+    export PATH="${PATH}:${BUILD_PREFIX}/nvvm/bin"
+fi
 cmake ${CMAKE_ARGS} ${SRC_DIR} ${CMAKE_FLAGS} \
     -DCMAKE_INSTALL_PREFIX=${PREFIX} \
     -DCOMPILER=MANUAL \
