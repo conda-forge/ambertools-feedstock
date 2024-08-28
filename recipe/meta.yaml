@@ -29,6 +29,7 @@ source:
     - patches/0001-use-find_package-CUDAToolkit-instead-of-find_package.patch
     - patches/0002-rely-on-DCMAKE_CUDA_ARCHITECTURES.patch
     - patches/0003-look-in-right-place-for-libcudadevrt.a.patch
+    - patches/0004-adapt-CMake-function-calls-that-were-due-to-find_pac.patch
 
 build:
   number: {{ build }}

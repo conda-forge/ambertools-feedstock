@@ -1,7 +1,7 @@
 From b572676136e9498330eaf43fbd02a5c8541aa4c9 Mon Sep 17 00:00:00 2001
 From: "H. Vetinari" <h.vetinari@gmx.com>
 Date: Wed, 28 Aug 2024 12:06:12 +1100
-Subject: [PATCH 2/3] rely on -DCMAKE_CUDA_ARCHITECTURES
+Subject: [PATCH 2/4] rely on -DCMAKE_CUDA_ARCHITECTURES
 
 also, no need to redo GCC version checks that nvcc does itself anyway
 ---

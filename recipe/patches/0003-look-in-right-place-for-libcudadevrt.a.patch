@@ -1,7 +1,7 @@
 From b856db1e8177261245bd80f480f854eb2ef1d0fd Mon Sep 17 00:00:00 2001
 From: "H. Vetinari" <h.vetinari@gmx.com>
 Date: Wed, 28 Aug 2024 13:17:24 +1100
-Subject: [PATCH 3/3] look in right place for libcudadevrt.a
+Subject: [PATCH 3/4] look in right place for libcudadevrt.a
 
 ---
  AmberTools/src/cpptraj/cmake-cpptraj/CudaConfig.cmake | 6 +++++-
