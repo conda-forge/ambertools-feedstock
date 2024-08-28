@@ -26,6 +26,7 @@ source:
     - patches/remove_mtune_native_for_m1.patch  # [arm64]
     - patches/remove_nab2c_and_friends.patch  # [arm64]
     - patches/0001-do-not-clean-compiler-flags.patch
+    - patches/0001-use-find_package-CUDAToolkit-instead-of-find_package.patch
 
 build:
   number: {{ build }}

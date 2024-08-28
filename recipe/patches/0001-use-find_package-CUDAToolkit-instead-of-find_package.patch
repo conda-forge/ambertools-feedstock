@@ -1,0 +1,101 @@
+From d9cc90100adf3180870544a5ed06a52ee1d1d1c1 Mon Sep 17 00:00:00 2001
+From: "H. Vetinari" <h.vetinari@gmx.com>
+Date: Wed, 28 Aug 2024 11:03:11 +1100
+Subject: [PATCH] use `find_package(CUDAToolkit)` instead of
+ `find_package(CUDA)`
+
+---
+ AmberTools/src/cpptraj/cmake-cpptraj/CudaConfig.cmake  | 10 +++-------
+ AmberTools/src/quick/cmake/CudaConfig.cmake            | 10 +++-------
+ AmberTools/src/quick/quick-cmake/QUICKCudaConfig.cmake |  4 ++--
+ cmake/CudaConfig.cmake                                 | 10 +++-------
+ 4 files changed, 11 insertions(+), 23 deletions(-)
+
+diff --git a/AmberTools/src/cpptraj/cmake-cpptraj/CudaConfig.cmake b/AmberTools/src/cpptraj/cmake-cpptraj/CudaConfig.cmake
+index 31776d63..bb2823a6 100644
+--- a/AmberTools/src/cpptraj/cmake-cpptraj/CudaConfig.cmake
++++ b/AmberTools/src/cpptraj/cmake-cpptraj/CudaConfig.cmake
+@@ -2,16 +2,12 @@
+ 
+ # With CMake 3.7, FindCUDA.cmake crashes when crosscompiling.
+ 
+-if(CROSSCOMPILE)
+-	message(STATUS "CUDA disabled when crosscompiling.")
+-	set(CUDA FALSE)
+-else()
+-
++if(TRUE)
+ 	# first, find CUDA.
+-	find_package(CUDA)
++	find_package(CUDAToolkit)
+ 	option(CUDA "Build ${PROJECT_NAME} with CUDA GPU acceleration support." FALSE)
+ 	
+-	if(CUDA AND NOT CUDA_FOUND)
++	if(CUDA AND NOT CUDAToolkit_FOUND)
+ 		message(FATAL_ERROR "You turned on CUDA, but it was not found.  Please set the CUDA_TOOLKIT_ROOT_DIR option to your CUDA install directory.")
+ 	endif()
+ 	
+diff --git a/AmberTools/src/quick/cmake/CudaConfig.cmake b/AmberTools/src/quick/cmake/CudaConfig.cmake
+index 20658bb1..3ef846c0 100644
+--- a/AmberTools/src/quick/cmake/CudaConfig.cmake
++++ b/AmberTools/src/quick/cmake/CudaConfig.cmake
+@@ -2,16 +2,12 @@
+ 
+ # With CMake 3.7, FindCUDA.cmake crashes when crosscompiling.
+ 
+-if(CROSSCOMPILE)
+-	message(STATUS "CUDA disabled when crosscompiling.")
+-	set(CUDA FALSE)
+-else()
+-
++if(TRUE)
+ 	# first, find CUDA.
+-	find_package(CUDA)
++	find_package(CUDAToolkit)
+ 	option(CUDA "Build ${PROJECT_NAME} with CUDA GPU acceleration support." FALSE)
+ 	
+-	if(CUDA AND NOT CUDA_FOUND)
++	if(CUDA AND NOT CUDAToolkit_FOUND)
+ 		message(FATAL_ERROR "You turned on CUDA, but it was not found.  Please set the CUDA_TOOLKIT_ROOT_DIR option to your CUDA install directory.")
+ 	endif()
+ 	
+diff --git a/AmberTools/src/quick/quick-cmake/QUICKCudaConfig.cmake b/AmberTools/src/quick/quick-cmake/QUICKCudaConfig.cmake
+index 47237c77..2f49cc32 100644
+--- a/AmberTools/src/quick/quick-cmake/QUICKCudaConfig.cmake
++++ b/AmberTools/src/quick/quick-cmake/QUICKCudaConfig.cmake
+@@ -8,9 +8,9 @@ set(GPU_LD_FLAGS "") # hipcc requires special flags for linking (see below)
+ 
+ if(CUDA)
+ 
+-    find_package(CUDA REQUIRED)
++    find_package(CUDAToolkit REQUIRED)
+ 
+-    if(NOT CUDA_FOUND)
++    if(NOT CUDAToolkit_FOUND)
+         message(FATAL_ERROR "You turned on CUDA, but it was not found.  Please set the CUDA_TOOLKIT_ROOT_DIR option to your CUDA install directory.")
+     endif()
+     # cancel Amber arch flags, because quick supports different shader models
+diff --git a/cmake/CudaConfig.cmake b/cmake/CudaConfig.cmake
+index a7269b09..28904128 100644
+--- a/cmake/CudaConfig.cmake
++++ b/cmake/CudaConfig.cmake
+@@ -2,16 +2,12 @@
+ 
+ # With CMake 3.7, FindCUDA.cmake crashes when crosscompiling.
+ 
+-if(CROSSCOMPILE)
+-	message(STATUS "CUDA disabled when crosscompiling.")
+-	set(CUDA FALSE)
+-else()
+-
++if(TRUE)
+ 	# first, find CUDA.
+-	find_package(CUDA)
++	find_package(CUDAToolkit)
+ 	option(CUDA "Build ${PROJECT_NAME} with CUDA GPU acceleration support." FALSE)
+ 	
+-	if(CUDA AND NOT CUDA_FOUND)
++	if(CUDA AND NOT CUDAToolkit_FOUND)
+ 		message(FATAL_ERROR "You turned on CUDA, but it was not found.  Please set the CUDA_TOOLKIT_ROOT_DIR option to your CUDA install directory.")
+ 	endif()
+ 	
