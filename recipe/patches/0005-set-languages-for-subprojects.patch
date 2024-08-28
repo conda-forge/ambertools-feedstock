@@ -1,0 +1,34 @@
+From 8ab07675110c0ae8647b083285290a79fe1b621f Mon Sep 17 00:00:00 2001
+From: "H. Vetinari" <h.vetinari@gmx.com>
+Date: Wed, 28 Aug 2024 15:51:03 +1100
+Subject: [PATCH 5/5] set languages for subprojects
+
+avoids `CMake can not determine linker language for target:`
+---
+ AmberTools/src/cpptraj/CMakeLists.txt | 2 +-
+ AmberTools/src/quick/CMakeLists.txt   | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/AmberTools/src/cpptraj/CMakeLists.txt b/AmberTools/src/cpptraj/CMakeLists.txt
+index 25e66a6c..5f6a533e 100644
+--- a/AmberTools/src/cpptraj/CMakeLists.txt
++++ b/AmberTools/src/cpptraj/CMakeLists.txt
+@@ -1,5 +1,5 @@
+ cmake_minimum_required(VERSION 3.3) # need 3.3 for POLICY CMP0057
+-project(cpptraj NONE)
++project(cpptraj C CXX Fortran)
+ 
+ #version number
+ #---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+diff --git a/AmberTools/src/quick/CMakeLists.txt b/AmberTools/src/quick/CMakeLists.txt
+index 475f6d80..e4594af3 100644
+--- a/AmberTools/src/quick/CMakeLists.txt
++++ b/AmberTools/src/quick/CMakeLists.txt
+@@ -1,6 +1,6 @@
+ cmake_minimum_required(VERSION 3.9.0) # version 3.9.0 needed for FindMPI and FindOpenMP versions which provide imported targets
+ 
+-project(quick LANGUAGES NONE VERSION 22.03)
++project(quick LANGUAGES C CXX Fortran VERSION 22.03)
+ 
+ list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/quick-cmake)
+ 

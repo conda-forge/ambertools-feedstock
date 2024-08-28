@@ -30,6 +30,7 @@ source:
     - patches/0002-rely-on-DCMAKE_CUDA_ARCHITECTURES.patch
     - patches/0003-look-in-right-place-for-libcudadevrt.a.patch
     - patches/0004-adapt-CMake-function-calls-that-were-due-to-find_pac.patch
+    - patches/0005-set-languages-for-subprojects.patch
 
 build:
   number: {{ build }}

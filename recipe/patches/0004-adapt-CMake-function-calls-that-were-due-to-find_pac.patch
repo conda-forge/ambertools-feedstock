@@ -1,7 +1,7 @@
 From 2bbb95a1b3a536a534988aaeceedfc75ec459bd3 Mon Sep 17 00:00:00 2001
 From: "H. Vetinari" <h.vetinari@gmx.com>
 Date: Wed, 28 Aug 2024 14:38:55 +1100
-Subject: [PATCH 4/4] adapt CMake function calls that were due to
+Subject: [PATCH 4/5] adapt CMake function calls that were due to
  `find_package(CUDA)`
 
 ---
