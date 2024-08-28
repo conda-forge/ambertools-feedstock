@@ -28,6 +28,7 @@ source:
     - patches/0001-do-not-clean-compiler-flags.patch
     - patches/0001-use-find_package-CUDAToolkit-instead-of-find_package.patch
     - patches/0002-rely-on-DCMAKE_CUDA_ARCHITECTURES.patch
+    - patches/0003-look-in-right-place-for-libcudadevrt.a.patch
 
 build:
   number: {{ build }}
@@ -89,6 +90,8 @@ requirements:
     - mpi4py  # [mpi != 'nompi']
     {% if cuda_major >= 12 %}
     - cuda-version {{ cuda_compiler_version }}
+    # for libcudadevrt.a 
+    - cuda-cudart-static
     # for cicc; split off starting from CUDA 12.2
     # - cuda-nvvm-tools
     - cuda-nvtx-dev
