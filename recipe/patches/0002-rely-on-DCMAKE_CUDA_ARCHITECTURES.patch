@@ -1,0 +1,439 @@
+From b572676136e9498330eaf43fbd02a5c8541aa4c9 Mon Sep 17 00:00:00 2001
+From: "H. Vetinari" <h.vetinari@gmx.com>
+Date: Wed, 28 Aug 2024 12:06:12 +1100
+Subject: [PATCH 2/2] rely on -DCMAKE_CUDA_ARCHITECTURES
+
+also, no need to redo GCC version checks that nvcc does itself anyway
+---
+ .../cpptraj/cmake-cpptraj/CudaConfig.cmake    |  59 +-------
+ AmberTools/src/quick/cmake/CudaConfig.cmake   |  58 +-------
+ .../quick/quick-cmake/QUICKCudaConfig.cmake   | 140 +-----------------
+ cmake/CudaConfig.cmake                        | 117 +--------------
+ 4 files changed, 6 insertions(+), 368 deletions(-)
+
+diff --git a/AmberTools/src/cpptraj/cmake-cpptraj/CudaConfig.cmake b/AmberTools/src/cpptraj/cmake-cpptraj/CudaConfig.cmake
+index 43a96c61..26eb417d 100644
+--- a/AmberTools/src/cpptraj/cmake-cpptraj/CudaConfig.cmake
++++ b/AmberTools/src/cpptraj/cmake-cpptraj/CudaConfig.cmake
+@@ -15,65 +15,8 @@ if(TRUE)
+ 	
+ 		set(CUDA_HOST_COMPILER ${CMAKE_CXX_COMPILER})
+ 
+-        #SM8.6  -- not currently used, but should be tested on Cuda 11.1
+-        set(SM86FLAGS -gencode arch=compute_86,code=sm_86)
+-        #SM8.0 = A100
+-        set(SM80FLAGS -gencode arch=compute_80,code=sm_80)
+-        #SM7.5 = RTX20xx, RTX Titan, T4 and Quadro RTX
+-		set(SM75FLAGS -gencode arch=compute_60,code=sm_75)        
+-		#SM7.0 = V100 and Volta Geforce / GTX Ampere?
+-		set(SM70FLAGS -gencode arch=compute_60,code=sm_70)
+-		#SM6.2 = ???  -- not currently used anyway
+-		#set(SM62FLAGS -gencode arch=compute_62,code=sm_62)
+-		#SM6.1 = GP106 = GTX-1070, GP104 = GTX-1080, GP102 = Titan-X[P]
+-		set(SM61FLAGS -gencode arch=compute_61,code=sm_61)
+-		#SM6.0 = GP100 / P100 = DGX-1
+-		set(SM60FLAGS -gencode arch=compute_60,code=sm_60)
+-		#SM5.3 = GM200 [Grid] = M60, M40?
+-		set(SM53FLAGS -gencode arch=compute_53,code=sm_53)
+-		#SM5.2 = GM200 = GTX-Titan-X, M6000 etc.
+-		set(SM52FLAGS -gencode arch=compute_52,code=sm_52)
+-		#SM5.0 = GM204 = GTX980, 970 etc
+-		set(SM50FLAGS -gencode arch=compute_50,code=sm_50)
+-		#SM3.7 = GK210 = K80  -- not currently used, since SM3.0 may be better
+-		#set(SM37FLAGS -gencode arch=compute_37,code=sm_37)
+-		#SM3.5 = GK110 + 110B = K20, K20X, K40, GTX780, GTX-Titan, GTX-Titan-Black, GTX-Titan-Z
+-		set(SM35FLAGS -gencode arch=compute_35,code=sm_35)
+-		#SM3.0 = GK104 = K10, GTX680, 690 etc.
+-		set(SM30FLAGS -gencode arch=compute_30,code=sm_30)
+-	
+-		message(STATUS "CUDA version ${CUDAToolkit_VERSION} detected")
+-		
+-		if(${CUDAToolkit_VERSION} VERSION_EQUAL 7.5)
+-			message(STATUS "Configuring CUDA for SM3.0, SM5.0, SM5.2 and SM5.3")
+-			message(STATUS "BE AWARE: CUDA 7.5 does not support GTX-1080, Titan-XP, DGX-1, V100 or other Pascal/Volta based GPUs.")
+-		  	list(APPEND CUDA_NVCC_FLAGS ${SM30FLAGS} ${SM50FLAGS} ${SM52FLAGS} ${SM53FLAGS})
+-		  	
+-		elseif(${CUDAToolkit_VERSION} VERSION_EQUAL 8.0)
+-			message(STATUS "Configuring CUDA for SM3.0, SM5.0, SM5.2, SM5.3, SM6.0, SM6.1 and SM6.2")
+-			message(STATUS "BE AWARE: CUDA 8.0 does not support V100, GV100, Titan-V or later GPUs")
+-		  	list(APPEND CUDA_NVCC_FLAGS ${SM30FLAGS} ${SM50FLAGS} ${SM52FLAGS} ${SM53FLAGS} ${SM60FLAGS} ${SM61FLAGS} -Wno-deprecated-gpu-targets)
+-		  	
+-		elseif((${CUDAToolkit_VERSION} VERSION_GREATER_EQUAL 9.0) AND (${CUDAToolkit_VERSION} VERSION_LESS 10.0)) 
+-			message(STATUS "Configuring for SM3.0, SM3.5, SM3.7, SM5.0, SM5.2, SM5.3, SM6.0, SM6.1 and SM7.0")
+-			list(APPEND CUDA_NVCC_FLAGS ${SM30FLAGS} ${SM50FLAGS} ${SM52FLAGS} ${SM53FLAGS} ${SM60FLAGS} ${SM61FLAGS} ${SM70FLAGS} -Wno-deprecated-gpu-targets -Wno-deprecated-declarations)
+-
+-		elseif((${CUDAToolkit_VERSION} VERSION_GREATER_EQUAL 10.0) AND (${CUDAToolkit_VERSION} VERSION_LESS 11.0))
+-			message(STATUS "Configuring for SM3.0, SM3.5, SM3.7, SM5.0, SM5.2, SM5.3, SM6.0, SM6.1, SM7.0 and SM7.5")
+-			list(APPEND CUDA_NVCC_FLAGS ${SM30FLAGS} ${SM50FLAGS} ${SM52FLAGS} ${SM53FLAGS} ${SM60FLAGS} ${SM61FLAGS} ${SM70FLAGS} ${SM75FLAGS} -Wno-deprecated-gpu-targets -Wno-deprecated-declarations)	
++		list(APPEND CUDA_NVCC_FLAGS -Wno-deprecated-gpu-targets -Wno-deprecated-declarations)
+ 
+-		elseif((${CUDAToolkit_VERSION} VERSION_GREATER_EQUAL 11.0) AND (${CUDAToolkit_VERSION} VERSION_LESS 12.0))
+-                        # Implement the standard compilation rather than a warp-synchronous one, which is deprecated as of CUDA 11
+-		        set(SM70FLAGS -gencode arch=compute_70,code=sm_70)
+-			set(SM75FLAGS -gencode arch=compute_75,code=sm_75)
+-            message(STATUS "Configuring for SM3.5, SM5.0, SM5.2, SM5.3, SM6.0, SM6.1, SM7.0, SM7.5 and SM8.0")
+-            list(APPEND CUDA_NVCC_FLAGS ${SM35FLAGS} ${SM50FLAGS} ${SM52FLAGS} ${SM53FLAGS} ${SM60FLAGS} ${SM61FLAGS} ${SM70FLAGS} ${SM75FLAGS} ${SM80FLAGS} -Wno-deprecated-gpu-targets -Wno-deprecated-declarations)
+-
+-		else()
+-			message(FATAL_ERROR "Error: Unsupported CUDA version. AMBER requires CUDA version >= 7.5 and <= 11.x.
+-				Please upgrade your CUDA installation or disable building with CUDA.")
+-		endif()
+-						
+ 		set(CUDA_PROPAGATE_HOST_FLAGS FALSE)
+ 				
+ 		#the same CUDA file is used for multiple targets in PMEMD, so turn this off
+diff --git a/AmberTools/src/quick/cmake/CudaConfig.cmake b/AmberTools/src/quick/cmake/CudaConfig.cmake
+index a6efe7e5..791eb5df 100644
+--- a/AmberTools/src/quick/cmake/CudaConfig.cmake
++++ b/AmberTools/src/quick/cmake/CudaConfig.cmake
+@@ -15,62 +15,8 @@ if(TRUE)
+ 	
+ 		set(CUDA_HOST_COMPILER ${CMAKE_CXX_COMPILER})
+ 
+-		#Note at present we do not include SM3.5 or SM3.7 since they sometimes show performance
+-		#regressions over just using SM3.0.
+-        #SM8.0 = A100
+-        set(SM80FLAGS -gencode arch=compute_80,code=sm_80)
+-        #SM7.5 = RTX20xx, RTX Titan, T4 and Quadro RTX
+-		set(SM75FLAGS -gencode arch=compute_60,code=sm_75)        
+-		#SM7.0 = V100 and Volta Geforce / GTX Ampere?
+-		set(SM70FLAGS -gencode arch=compute_60,code=sm_70)
+-		#SM6.2 = ??? 
+-		set(SM62FLAGS -gencode arch=compute_62,code=sm_62)
+-		#SM6.1 = GP106 = GTX-1070, GP104 = GTX-1080, GP102 = Titan-X[P]
+-		set(SM61FLAGS -gencode arch=compute_61,code=sm_61)
+-		#SM6.0 = GP100 / P100 = DGX-1
+-		set(SM60FLAGS -gencode arch=compute_60,code=sm_60)
+-		#SM5.3 = GM200 [Grid] = M60, M40?
+-		set(SM53FLAGS -gencode arch=compute_53,code=sm_53 -DUSE_LEGACY_ATOMICS)
+-		#SM5.2 = GM200 = GTX-Titan-X, M6000 etc.
+-		set(SM52FLAGS -gencode arch=compute_52,code=sm_52 -DUSE_LEGACY_ATOMICS)
+-		#SM5.0 = GM204 = GTX980, 970 etc
+-		set(SM50FLAGS -gencode arch=compute_50,code=sm_50 -DUSE_LEGACY_ATOMICS)
+-		#SM3.7 = GK210 = K80
+-		set(SM37FLAGS -gencode arch=compute_37,code=sm_37 -DUSE_LEGACY_ATOMICS)
+-		#SM3.5 = GK110 + 110B = K20, K20X, K40, GTX780, GTX-Titan, GTX-Titan-Black, GTX-Titan-Z
+-		set(SM35FLAGS -gencode arch=compute_35,code=sm_35 -DUSE_LEGACY_ATOMICS)
+-		#SM3.0 = GK104 = K10, GTX680, 690 etc.
+-		set(SM30FLAGS -gencode arch=compute_30,code=sm_30 -DUSE_LEGACY_ATOMICS)
+-	
+-		message(STATUS "CUDA version ${CUDAToolkit_VERSION} detected")
+-		
+-		if(${CUDAToolkit_VERSION} VERSION_EQUAL 7.5)
+-			message(STATUS "Configuring CUDA for SM3.0, SM5.0, SM5.2 and SM5.3")
+-			message(STATUS "BE AWARE: CUDA 7.5 does not support GTX-1080, Titan-XP, DGX-1, V100 or other Pascal/Volta based GPUs.")
+-		  	list(APPEND CUDA_NVCC_FLAGS ${SM30FLAGS} ${SM50FLAGS} ${SM52FLAGS} ${SM53FLAGS})
+-		  	
+-		elseif(${CUDAToolkit_VERSION} VERSION_EQUAL 8.0)
+-			message(STATUS "Configuring CUDA for SM3.0, SM5.0, SM5.2, SM5.3, SM6.0, SM6.1 and SM6.2")
+-			message(STATUS "BE AWARE: CUDA 8.0 does not support V100, GV100, Titan-V or later GPUs")
+-		  	list(APPEND CUDA_NVCC_FLAGS ${SM30FLAGS} ${SM50FLAGS} ${SM52FLAGS} ${SM53FLAGS} ${SM60FLAGS} ${SM61FLAGS} -Wno-deprecated-gpu-targets)
+-		  	
+-		elseif((${CUDAToolkit_VERSION} VERSION_GREATER_EQUAL 9.0) AND (${CUDAToolkit_VERSION} VERSION_LESS 10.0)) 
+-			message(STATUS "Configuring for SM3.0, SM3.5, SM3.7, SM5.0, SM5.2, SM5.3, SM6.0, SM6.1 and SM7.0")
+-			list(APPEND CUDA_NVCC_FLAGS ${SM30FLAGS} ${SM50FLAGS} ${SM52FLAGS} ${SM53FLAGS} ${SM60FLAGS} ${SM61FLAGS} ${SM70FLAGS} -Wno-deprecated-gpu-targets -Wno-deprecated-declarations)
+-		elseif((${CUDAToolkit_VERSION} VERSION_GREATER_EQUAL 10.0) AND (${CUDAToolkit_VERSION} VERSION_LESS 11.0))
+-			message(STATUS "Configuring for SM3.0, SM3.5, SM3.7, SM5.0, SM5.2, SM5.3, SM6.0, SM6.1, SM7.0 and SM7.5")
+-			list(APPEND CUDA_NVCC_FLAGS ${SM30FLAGS} ${SM50FLAGS} ${SM52FLAGS} ${SM53FLAGS} ${SM60FLAGS} ${SM61FLAGS} ${SM70FLAGS} ${SM75FLAGS} -Wno-deprecated-gpu-targets -Wno-deprecated-declarations)	
+-		elseif(${CUDAToolkit_VERSION} VERSION_EQUAL 11.0)
+-                        # Implement the standard compilation rather than a warp-synchronous one, which is deprecated as of CUDA 11
+-		        set(SM70FLAGS -gencode arch=compute_70,code=sm_70)
+-			set(SM75FLAGS -gencode arch=compute_75,code=sm_75)
+-            message(STATUS "Configuring for SM3.5, SM5.0, SM5.2, SM5.3, SM6.0, SM6.1, SM7.0, SM7.5 and SM8.0")
+-            list(APPEND CUDA_NVCC_FLAGS ${SM35FLAGS} ${SM50FLAGS} ${SM52FLAGS} ${SM53FLAGS} ${SM60FLAGS} ${SM61FLAGS} ${SM70FLAGS} ${SM75FLAGS} ${SM80FLAGS} -Wno-deprecated-gpu-targets -Wno-deprecated-declarations)                                      
+-		else()
+-			message(FATAL_ERROR "Error: Unsupported CUDA version. AMBER requires CUDA version >= 7.5 and <= 11.0.
+-				Please upgrade your CUDA installation or disable building with CUDA.")
+-		endif()
+-						
++		list(APPEND CUDA_NVCC_FLAGS -Wno-deprecated-gpu-targets -Wno-deprecated-declarations)
++
+ 		set(CUDA_PROPAGATE_HOST_FLAGS FALSE)
+ 				
+ 		#the same CUDA file is used for multiple targets in PMEMD, so turn this off
+diff --git a/AmberTools/src/quick/quick-cmake/QUICKCudaConfig.cmake b/AmberTools/src/quick/quick-cmake/QUICKCudaConfig.cmake
+index 9f50bcb3..bacfa958 100644
+--- a/AmberTools/src/quick/quick-cmake/QUICKCudaConfig.cmake
++++ b/AmberTools/src/quick/quick-cmake/QUICKCudaConfig.cmake
+@@ -13,150 +13,14 @@ if(CUDA)
+     if(NOT CUDAToolkit_FOUND)
+         message(FATAL_ERROR "You turned on CUDA, but it was not found.  Please set the CUDA_TOOLKIT_ROOT_DIR option to your CUDA install directory.")
+     endif()
+-    # cancel Amber arch flags, because quick supports different shader models
+-    set(CUDA_NVCC_FLAGS "")
+-
+-    set(CUDA_HOST_COMPILER ${CMAKE_CXX_COMPILER})
+-    #SM9.0 = H100
+-    set(SM90FLAGS -gencode arch=compute_90,code=sm_90)
+-    #SM8.6 -- not currently used, but should be tested on Cuda 11.1
+-    set(SM86FLAGS -gencode arch=compute_86,code=sm_86)
+-    #SM8.0 = A100
+-    set(SM80FLAGS -gencode arch=compute_80,code=sm_80)
+-    #SM7.5 = RTX20xx, RTX Titan, T4 and Quadro RTX
+-    set(SM75FLAGS -gencode arch=compute_75,code=sm_75)        
+-    #SM7.0 = V100 and Volta Geforce / GTX Ampere?
+-    set(SM70FLAGS -gencode arch=compute_70,code=sm_70)
+-    #SM6.2 = ??? 
+-    set(SM62FLAGS -gencode arch=compute_62,code=sm_62)
+-    #SM6.1 = GP106 = GTX-1070, GP104 = GTX-1080, GP102 = Titan-X[P]
+-    set(SM61FLAGS -gencode arch=compute_61,code=sm_61)
+-    #SM6.0 = GP100 / P100 = DGX-1
+-    set(SM60FLAGS -gencode arch=compute_60,code=sm_60)
+-    #SM5.3 = GM200 [Grid] = M60, M40?
+-    set(SM53FLAGS -gencode arch=compute_53,code=sm_53)
+-    #SM5.2 = GM200 = GTX-Titan-X, M6000 etc.
+-    set(SM52FLAGS -gencode arch=compute_52,code=sm_52)
+-    #SM5.0 = GM204 = GTX980, 970 etc
+-    set(SM50FLAGS -gencode arch=compute_50,code=sm_50)
+-    #SM3.7 = GK210 = K80 -- not currently used, since SM3.0 may be better
+-    set(SM37FLAGS -gencode arch=compute_37,code=sm_37)
+-    #SM3.5 = GK110 + 110B = K20, K20X, K40, GTX780, GTX-Titan, GTX-Titan-Black, GTX-Titan-Z
+-    set(SM35FLAGS -gencode arch=compute_35,code=sm_35)
+-    #SM3.0 = GK104 = K10, GTX680, 690 etc.
+-    set(SM30FLAGS -gencode arch=compute_30,code=sm_30)
+ 
+     message(STATUS "CUDA version ${CUDAToolkit_VERSION} detected")
+ 
+     set(QUICK_USER_ARCH "" CACHE STRING "Specify QUICK gpu architecture. Applicable for cuda and cudampi versions only. If empty, QUICK will be compiled for several architectures based on the CUDA toolkit version.")
+ 
+-    # note: need -disable-optimizer-constants for sm <= 7.0
+-
+-    if("${QUICK_USER_ARCH}" STREQUAL "")
+-        
+-        # build for all supported CUDA versions
+-	if(${CUDAToolkit_VERSION} VERSION_EQUAL 8.0)
+-            message(STATUS "Configuring QUICK for SM3.0, SM5.0, and SM6.0")
+-            list(APPEND CUDA_NVCC_FLAGS ${SM30FLAGS} ${SM50FLAGS} ${SM60FLAGS})
+-            list(APPEND CUDA_NVCC_FLAGS -DUSE_LEGACY_ATOMICS)
+-            set(DISABLE_OPTIMIZER_CONSTANTS TRUE)
+-            
+-        elseif((${CUDAToolkit_VERSION} VERSION_GREATER_EQUAL 9.0) AND (${CUDAToolkit_VERSION} VERSION_LESS 10.0)) 
+-            message(STATUS "Configuring QUICK for SM3.0, SM5.0, SM6.0 and SM7.0")
+-            list(APPEND CUDA_NVCC_FLAGS ${SM30FLAGS} ${SM50FLAGS} ${SM60FLAGS} ${SM70FLAGS})
+-            list(APPEND CUDA_NVCC_FLAGS -DUSE_LEGACY_ATOMICS)
+-            set(DISABLE_OPTIMIZER_CONSTANTS TRUE)
+-
+-        elseif((${CUDAToolkit_VERSION} VERSION_GREATER_EQUAL 10.0) AND (${CUDAToolkit_VERSION} VERSION_LESS 11.0))
+-            message(STATUS "Configuring QUICK for SM3.0, SM5.0, SM6.0, SM7.0 and SM7.5")
+-            list(APPEND CUDA_NVCC_FLAGS ${SM30FLAGS} ${SM50FLAGS} ${SM60FLAGS} ${SM70FLAGS} ${SM75FLAGS})
+-            list(APPEND CUDA_NVCC_FLAGS -DUSE_LEGACY_ATOMICS)
+-            set(DISABLE_OPTIMIZER_CONSTANTS TRUE)
+-
+-	elseif((${CUDAToolkit_VERSION} VERSION_EQUAL 11.0))
+-	    message(STATUS "Configuring QUICK for SM3.5, SM5.0, SM6.0, SM7.0, SM7.5 and SM8.0")
+-            list(APPEND CUDA_NVCC_FLAGS ${SM35FLAGS} ${SM50FLAGS} ${SM60FLAGS} ${SM70FLAGS} ${SM75FLAGS} ${SM80FLAGS})
+-            list(APPEND CUDA_NVCC_FLAGS -DUSE_LEGACY_ATOMICS)
+-            set(DISABLE_OPTIMIZER_CONSTANTS TRUE)
+-
+-	elseif((${CUDAToolkit_VERSION} VERSION_GREATER_EQUAL 11.1) AND (${CUDAToolkit_VERSION} VERSION_LESS_EQUAL 11.7))
+-	    message(STATUS "Configuring QUICK for SM3.5, SM5.0, SM6.0, SM7.0, SM7.5, SM8.0 and SM8.6")
+-            list(APPEND CUDA_NVCC_FLAGS ${SM35FLAGS} ${SM50FLAGS} ${SM60FLAGS} ${SM70FLAGS} ${SM75FLAGS} ${SM80FLAGS} ${SM86FLAGS})
+-            list(APPEND CUDA_NVCC_FLAGS -DUSE_LEGACY_ATOMICS)
+-            set(DISABLE_OPTIMIZER_CONSTANTS TRUE)
+-	    
+-        elseif((${CUDAToolkit_VERSION} VERSION_GREATER_EQUAL 11.8) AND (${CUDAToolkit_VERSION} VERSION_LESS_EQUAL 12.0))
+-            message(STATUS "Configuring QUICK for SM5.0, SM6.0, SM7.0, SM7.5, SM8.0, SM8.6, SM9.0")
+-            list(APPEND CUDA_NVCC_FLAGS ${SM50FLAGS} ${SM60FLAGS} ${SM70FLAGS} ${SM75FLAGS} ${SM80FLAGS} ${SM86FLAGS} ${SM90FLAGS})
+-            list(APPEND CUDA_NVCC_FLAGS -DUSE_LEGACY_ATOMICS)
+-            set(DISABLE_OPTIMIZER_CONSTANTS TRUE)          
+-	else()
+-	    message(FATAL_ERROR "Error: Unsupported CUDA version. ${PROJECT_NAME} requires CUDA version >= 8.0 and <= 12.0.  Please upgrade your CUDA installation or disable building with CUDA.")
+-	endif()
++    list(APPEND CUDA_NVCC_FLAGS -DUSE_LEGACY_ATOMICS)
++    set(DISABLE_OPTIMIZER_CONSTANTS TRUE)
+ 
+-    else()
+-
+-        set(FOUND "FALSE")
+-        
+-        if("${QUICK_USER_ARCH}" MATCHES "kepler")
+-            message(STATUS "Configuring QUICK for SM3.5")
+-            list(APPEND CUDA_NVCC_FLAGS ${SM35FLAGS})
+-            list(APPEND CUDA_NVCC_FLAGS -DUSE_LEGACY_ATOMICS)
+-            set(DISABLE_OPTIMIZER_CONSTANTS TRUE)
+-            set(FOUND "TRUE")
+-        endif()
+-            
+-        if("${QUICK_USER_ARCH}" MATCHES "maxwell")
+-	    message(STATUS "Configuring QUICK for SM5.0")
+-            list(APPEND CUDA_NVCC_FLAGS ${SM50FLAGS})
+-            list(APPEND CUDA_NVCC_FLAGS -DUSE_LEGACY_ATOMICS)
+-            set(DISABLE_OPTIMIZER_CONSTANTS TRUE)
+-            set(FOUND "TRUE")
+-        endif()
+-
+-        if("${QUICK_USER_ARCH}" MATCHES "pascal")
+-            message(STATUS "Configuring QUICK for SM6.0")
+-            list(APPEND CUDA_NVCC_FLAGS ${SM60FLAGS})
+-            set(DISABLE_OPTIMIZER_CONSTANTS TRUE)
+-            set(FOUND "TRUE")
+-        endif()
+-        
+-        if("${QUICK_USER_ARCH}" MATCHES "volta")
+-            message(STATUS "Configuring QUICK for SM7.0")
+-	    list(APPEND CUDA_NVCC_FLAGS ${SM70FLAGS})
+-            if((${CUDAToolkit_VERSION} VERSION_LESS 10.0))
+-	        set(DISABLE_OPTIMIZER_CONSTANTS FALSE)
+-            endif()
+-            set(FOUND "TRUE")
+-        endif()
+-
+-        if("${QUICK_USER_ARCH}" MATCHES "turing")
+-            message(STATUS "Configuring QUICK for SM7.5")
+-            list(APPEND CUDA_NVCC_FLAGS ${SM75FLAGS})
+-            set(DISABLE_OPTIMIZER_CONSTANTS FALSE)
+-            set(FOUND "TRUE")
+-        endif()
+-
+-        if("${QUICK_USER_ARCH}" MATCHES "ampere")
+-            message(STATUS "Configuring QUICK for SM8.0")
+-            list(APPEND CUDA_NVCC_FLAGS ${SM80FLAGS})
+-            set(DISABLE_OPTIMIZER_CONSTANTS FALSE)
+-            set(FOUND "TRUE")
+-        endif()
+-
+-        if("${QUICK_USER_ARCH}" MATCHES "hopper")
+-            message(STATUS "Configuring QUICK for SM9.0")
+-            list(APPEND CUDA_NVCC_FLAGS ${SM90FLAGS})
+-            set(DISABLE_OPTIMIZER_CONSTANTS FALSE)
+-            set(FOUND "TRUE")
+-        endif()
+-
+-        if (NOT ${FOUND})
+-            message(FATAL_ERROR "Invalid value for QUICK_USER_ARCH. Possible values are kepler, maxwell, pascal, volta, turing, ampere and hopper.")
+-        endif()
+-
+-    endif()
+-					
+     set(CUDA_PROPAGATE_HOST_FLAGS FALSE)
+ 			
+     #the same CUDA file is used for multiple targets in PMEMD, so turn this off
+diff --git a/cmake/CudaConfig.cmake b/cmake/CudaConfig.cmake
+index d3104332..8af2fd7c 100644
+--- a/cmake/CudaConfig.cmake
++++ b/cmake/CudaConfig.cmake
+@@ -15,123 +15,8 @@ if(TRUE)
+ 	
+ 		set(CUDA_HOST_COMPILER ${CMAKE_CXX_COMPILER})
+ 
+-		#SM8.6  -- not currently used, but should be tested on Cuda 11.1
+-		set(SM86FLAGS -gencode arch=compute_86,code=sm_86)
+-		#SM8.0 = A100
+-		set(SM80FLAGS -gencode arch=compute_80,code=sm_80)
+-		#SM7.5 = RTX20xx, RTX Titan, T4 and Quadro RTX
+-		set(SM75FLAGS -gencode arch=compute_60,code=sm_75)        
+-		#SM7.0 = V100 and Volta Geforce / GTX Ampere?
+-		set(SM70FLAGS -gencode arch=compute_60,code=sm_70)
+-		#SM6.2 = ???  -- not currently used anyway
+-		#set(SM62FLAGS -gencode arch=compute_62,code=sm_62)
+-		#SM6.1 = GP106 = GTX-1070, GP104 = GTX-1080, GP102 = Titan-X[P]
+-		set(SM61FLAGS -gencode arch=compute_61,code=sm_61)
+-		#SM6.0 = GP100 / P100 = DGX-1
+-		set(SM60FLAGS -gencode arch=compute_60,code=sm_60)
+-		#SM5.3 = GM200 [Grid] = M60, M40?
+-		set(SM53FLAGS -gencode arch=compute_53,code=sm_53)
+-		#SM5.2 = GM200 = GTX-Titan-X, M6000 etc.
+-		set(SM52FLAGS -gencode arch=compute_52,code=sm_52)
+-		#SM5.0 = GM204 = GTX980, 970 etc
+-		set(SM50FLAGS -gencode arch=compute_50,code=sm_50)
+-		#SM3.7 = GK210 = K80  -- not currently used, since SM3.0 may be better
+-		#set(SM37FLAGS -gencode arch=compute_37,code=sm_37)
+-		#SM3.5 = GK110 + 110B = K20, K20X, K40, GTX780, GTX-Titan, GTX-Titan-Black, GTX-Titan-Z
+-		set(SM35FLAGS -gencode arch=compute_35,code=sm_35)
+-		#SM3.0 = GK104 = K10, GTX680, 690 etc.
+-		set(SM30FLAGS -gencode arch=compute_30,code=sm_30)
+-	
+-		message(STATUS "CUDA version ${CUDAToolkit_VERSION} detected")
+-		
+-		if(${CUDAToolkit_VERSION} VERSION_EQUAL 7.5)
+-			message(STATUS "Configuring CUDA for SM3.0, SM5.0, SM5.2 and SM5.3")
+-			message(STATUS "BE AWARE: CUDA 7.5 does not support GTX-1080, Titan-XP, DGX-1, V100 or other Pascal/Volta based GPUs.")
+-		  	list(APPEND CUDA_NVCC_FLAGS ${SM30FLAGS} ${SM50FLAGS} ${SM52FLAGS} ${SM53FLAGS})
+-		  	
+-		elseif(${CUDAToolkit_VERSION} VERSION_EQUAL 8.0)
+-			message(STATUS "Configuring CUDA for SM3.0, SM5.0, SM5.2, SM5.3, SM6.0, SM6.1 and SM6.2")
+-			message(STATUS "BE AWARE: CUDA 8.0 does not support V100, GV100, Titan-V or later GPUs")
+-		  	list(APPEND CUDA_NVCC_FLAGS ${SM30FLAGS} ${SM50FLAGS} ${SM52FLAGS} ${SM53FLAGS} ${SM60FLAGS} ${SM61FLAGS} -Wno-deprecated-gpu-targets)
+-		  	
+-		elseif((${CUDAToolkit_VERSION} VERSION_GREATER_EQUAL 9.0) AND (${CUDAToolkit_VERSION} VERSION_LESS 10.0)) 
+-			message(STATUS "Configuring for SM3.0, SM3.5, SM3.7, SM5.0, SM5.2, SM5.3, SM6.0, SM6.1 and SM7.0")
+-			list(APPEND CUDA_NVCC_FLAGS ${SM30FLAGS} ${SM50FLAGS} ${SM52FLAGS} ${SM53FLAGS} ${SM60FLAGS} ${SM61FLAGS} ${SM70FLAGS} -Wno-deprecated-gpu-targets -Wno-deprecated-declarations)
+-
+-		elseif((${CUDAToolkit_VERSION} VERSION_GREATER_EQUAL 10.0) AND (${CUDAToolkit_VERSION} VERSION_LESS 11.0))
+-			message(STATUS "Configuring for SM3.0, SM3.5, SM3.7, SM5.0, SM5.2, SM5.3, SM6.0, SM6.1, SM7.0 and SM7.5")
+-			list(APPEND CUDA_NVCC_FLAGS ${SM30FLAGS} ${SM50FLAGS} ${SM52FLAGS} ${SM53FLAGS} ${SM60FLAGS} ${SM61FLAGS} ${SM70FLAGS} ${SM75FLAGS} -Wno-deprecated-gpu-targets -Wno-deprecated-declarations)	
+-
+-		elseif((${CUDAToolkit_VERSION} VERSION_GREATER_EQUAL 11.0) AND (${CUDAToolkit_VERSION} VERSION_LESS 12.0))
+-			# Implement the standard compilation rather than a warp-synchronous one, which is deprecated as of CUDA 11
+-			set(SM70FLAGS -gencode arch=compute_70,code=sm_70)
+-			set(SM75FLAGS -gencode arch=compute_75,code=sm_75)
+-			message(STATUS "Configuring for SM3.5, SM5.0, SM5.2, SM5.3, SM6.0, SM6.1, SM7.0, SM7.5 and SM8.0")
+-			list(APPEND CUDA_NVCC_FLAGS ${SM35FLAGS} ${SM50FLAGS} ${SM52FLAGS} ${SM53FLAGS} ${SM60FLAGS} ${SM61FLAGS} ${SM70FLAGS} ${SM75FLAGS} ${SM80FLAGS} -Wno-deprecated-gpu-targets -Wno-deprecated-declarations)
+-
+-		elseif((${CUDAToolkit_VERSION} VERSION_GREATER_EQUAL 12.0) AND (${CUDAToolkit_VERSION} VERSION_LESS 12.2))
+-			# Implement the standard compilation rather than a warp-synchronous one, which is deprecated as of CUDA 11
+-			set(SM70FLAGS -gencode arch=compute_70,code=sm_70)
+-			set(SM75FLAGS -gencode arch=compute_75,code=sm_75)
+-			message(STATUS "Configuring for SM5.0, SM5.2, SM5.3, SM6.0, SM6.1, SM7.0, SM7.5 and SM8.0")
+-			list(APPEND CUDA_NVCC_FLAGS ${SM50FLAGS} ${SM52FLAGS} ${SM53FLAGS} ${SM60FLAGS} ${SM61FLAGS} ${SM70FLAGS} ${SM75FLAGS} ${SM80FLAGS} -Wno-deprecated-gpu-targets -Wno-deprecated-declarations)
++		list(APPEND CUDA_NVCC_FLAGS -Wno-deprecated-gpu-targets -Wno-deprecated-declarations)
+ 
+-		else()
+-			message(FATAL_ERROR "Error: Untested CUDA version. AMBER currently requires CUDA version >= 7.5 and <= 12.1.")
+-		endif()
+-
+-		#  check maximum GNU compiler versions wrt cuda:
+-		#  VERSION_EQUAL 10 means 10.0, so use a range for comparing major version.
+-		if ( "${CMAKE_C_COMPILER_ID}" STREQUAL "GNU" AND (
+-		       ( CMAKE_CXX_COMPILER_VERSION VERSION_LESS 12.2
+-			AND CUDAToolkit_VERSION VERSION_GREATER_EQUAL 12
+-			AND CUDAToolkit_VERSION VERSION_LESS_EQUAL 12 )
+-		    OR ( CMAKE_CXX_COMPILER_VERSION VERSION_LESS 12
+-			AND CUDAToolkit_VERSION VERSION_GREATER_EQUAL 11.4.1
+-			AND CUDAToolkit_VERSION VERSION_LESS_EQUAL 11.8 )
+-		    OR ( CMAKE_CXX_COMPILER_VERSION VERSION_LESS 11
+-			AND CUDAToolkit_VERSION VERSION_GREATER_EQUAL 11.1
+-			AND CUDAToolkit_VERSION VERSION_LESS_EQUAL 11.4.0 )
+-		    OR ( CMAKE_CXX_COMPILER_VERSION VERSION_LESS 10
+-			AND CUDAToolkit_VERSION VERSION_GREATER_EQUAL 11
+-			AND CUDAToolkit_VERSION VERSION_LESS_EQUAL 11 )
+-		    OR ( CMAKE_CXX_COMPILER_VERSION VERSION_LESS 9
+-			AND CUDAToolkit_VERSION VERSION_GREATER_EQUAL 10.1
+-			AND CUDAToolkit_VERSION VERSION_LESS_EQUAL 10.2 )
+-		    OR ( CMAKE_CXX_COMPILER_VERSION VERSION_LESS 8
+-			AND CUDAToolkit_VERSION VERSION_GREATER_EQUAL 9.2
+-			AND CUDAToolkit_VERSION VERSION_LESS_EQUAL 10.0 )
+-		    OR ( CMAKE_CXX_COMPILER_VERSION VERSION_LESS 7
+-			AND CUDAToolkit_VERSION VERSION_GREATER_EQUAL 9.0
+-			AND CUDAToolkit_VERSION VERSION_LESS_EQUAL 9.1 )
+-		    OR ( CMAKE_CXX_COMPILER_VERSION VERSION_LESS 6
+-			AND CUDAToolkit_VERSION VERSION_GREATER_EQUAL 8
+-			AND CUDAToolkit_VERSION VERSION_LESS_EQUAL 8 )
+-		    OR ( CMAKE_CXX_COMPILER_VERSION VERSION_LESS 5
+-			AND CUDAToolkit_VERSION VERSION_GREATER_EQUAL 7
+-			AND CUDAToolkit_VERSION VERSION_LESS_EQUAL 7 )
+-		) )
+-			message(STATUS "Checking CUDA and GNU versions -- compatible")
+-		elseif ( "${CMAKE_C_COMPILER_ID}" STREQUAL "GNU" AND (
+-		    CMAKE_CXX_COMPILER_VERSION VERSION_GREATER_EQUAL 12.2
+-			OR CUDAToolkit_VERSION VERSION_GREATER 12
+-		) )
+-			message(STATUS "Checking CUDA and GNU versions -- compatibility unknown")
+-			message(STATUS "    See https://stackoverflow.com/questions/6622454/cuda-incompatible-with-my-gcc-version")
+-		elseif ( "${CMAKE_C_COMPILER_ID}" STREQUAL "GNU" )
+-			message(STATUS "")
+-			message("************************************************************")
+-			message("Error: Incompatible CUDA and GNU versions")
+-			message(" ${CMAKE_CXX_COMPILER_VERSION}")
+-			message(" ${CMAKE_CXX_COMPILER_VERSION_MAJOR}")
+-			message("See https://stackoverflow.com/questions/6622454/cuda-incompatible-with-my-gcc-version")
+-			message("************************************************************")
+-			message(STATUS "")
+-			message(FATAL_ERROR)
+-		else()
+-			message(STATUS "Checking CUDA and compiler versions -- compatibility unknown")
+-		endif()
+-						
+ 		set(CUDA_PROPAGATE_HOST_FLAGS FALSE)
+ 				
+ 		#the same CUDA file is used for multiple targets in PMEMD, so turn this off
