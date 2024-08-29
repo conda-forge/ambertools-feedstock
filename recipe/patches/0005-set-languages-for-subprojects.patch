@@ -1,4 +1,4 @@
-From 6e4bae3eeb09b0a20db87506b3b302f546d42b64 Mon Sep 17 00:00:00 2001
+From 81c7a4770f9085d6bb8a1d2c01e92306cea2e27a Mon Sep 17 00:00:00 2001
 From: "H. Vetinari" <h.vetinari@gmx.com>
 Date: Wed, 28 Aug 2024 15:51:03 +1100
 Subject: [PATCH 5/5] set languages for subprojects
@@ -6,30 +6,28 @@ Subject: [PATCH 5/5] set languages for subprojects
 avoids `CMake can not determine linker language for target:`
 ---
  AmberTools/src/cpptraj/src/cuda_kernels/CMakeLists.txt       | 1 +
- AmberTools/src/quick/src/libxc/maple2c_device/CMakeLists.txt | 1 +
- 2 files changed, 2 insertions(+)
+ AmberTools/src/quick/src/libxc/maple2c_device/CMakeLists.txt | 2 +-
+ 2 files changed, 2 insertions(+), 1 deletion(-)
 
 diff --git a/AmberTools/src/cpptraj/src/cuda_kernels/CMakeLists.txt b/AmberTools/src/cpptraj/src/cuda_kernels/CMakeLists.txt
-index fcf2ceae..f998cede 100644
+index fcf2ceae..8a2712a9 100644
 --- a/AmberTools/src/cpptraj/src/cuda_kernels/CMakeLists.txt
 +++ b/AmberTools/src/cpptraj/src/cuda_kernels/CMakeLists.txt
-@@ -1,6 +1,7 @@
+@@ -1,3 +1,4 @@
++enable_language(CUDA)
  set(CPPTRAJ_CUDA_SOURCES core_kernels.cu kernel_wrappers.cu GistCudaCalc.cu GistCudaSetup.cu kernel_rdf.cu)
  
  add_library(cpptraj_cuda_routines STATIC ${CPPTRAJ_CUDA_SOURCES})
-+set_target_properties(cpptraj_cuda_routines PROPERTIES LINKER_LANGUAGE CUDA)
- #make_pic_if_needed does not appear to work for NVCC. Instead, added
- # logic to $CPPTRAJHOME/CMakeLists.txt
- #make_pic_if_needed(cpptraj_cuda_routines)
 diff --git a/AmberTools/src/quick/src/libxc/maple2c_device/CMakeLists.txt b/AmberTools/src/quick/src/libxc/maple2c_device/CMakeLists.txt
-index 98ae9658..909a165a 100644
+index 98ae9658..dd518efe 100644
 --- a/AmberTools/src/quick/src/libxc/maple2c_device/CMakeLists.txt
 +++ b/AmberTools/src/quick/src/libxc/maple2c_device/CMakeLists.txt
-@@ -46,6 +46,7 @@ else()
+@@ -41,7 +41,7 @@ list(APPEND LIBXC_CUDA_SOURCES ../../${QUICK_GPU_TARGET_NAME}/gpu_getxc.cu)
+ if(HIP)
+         set(GPU_RDC_FLAGS -fgpu-rdc -c)
+ else()
+-
++        enable_language(CUDA)
+         set(CUDA_SEPARABLE_COMPILATION TRUE)
  endif()
  
- add_library(xc_${QUICK_GPU_TARGET_NAME} STATIC ${LIBXC_CUDA_SOURCES})
-+set_target_properties(xc_${QUICK_GPU_TARGET_NAME} PROPERTIES LINKER_LANGUAGE CUDA)
- target_compile_options(xc_${QUICK_GPU_TARGET_NAME} PRIVATE
-         ${GPU_RDC_FLAGS}
-         ${CUDA_DEVICE_CODE_FLAGS}
