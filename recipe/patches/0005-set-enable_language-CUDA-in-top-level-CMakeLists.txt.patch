@@ -1,0 +1,22 @@
+From 1aaf4e101034b3a1bbfbc21048936840743d5e1c Mon Sep 17 00:00:00 2001
+From: "H. Vetinari" <h.vetinari@gmx.com>
+Date: Fri, 30 Aug 2024 09:22:17 +1100
+Subject: [PATCH 5/5] set `enable_language(CUDA)` in top-level CMakeLists.txt
+
+see https://gitlab.kitware.com/cmake/cmake/-/issues/26246
+---
+ CMakeLists.txt | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index dbe89192..3e084cbe 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -166,6 +166,7 @@ else() #include all configuration segments
+ 
+ 	# nccl is only used in pmemd.cuda
+ 	if(CUDA AND NOT AMBERTOOLS_ONLY)
++		enable_language(CUDA)
+ 		list(APPEND NEEDED_3RDPARTY_TOOLS nccl)
+ 	endif()
+ 
