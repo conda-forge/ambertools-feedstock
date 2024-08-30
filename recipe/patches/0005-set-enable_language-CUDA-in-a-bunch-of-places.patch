@@ -1,4 +1,4 @@
-From 9859965accf9b0e1947514a856e08788b4836b3c Mon Sep 17 00:00:00 2001
+From 73adb07bccff4741d2b0166e5ee1ec8533c207a5 Mon Sep 17 00:00:00 2001
 From: "H. Vetinari" <h.vetinari@gmx.com>
 Date: Fri, 30 Aug 2024 09:22:17 +1100
 Subject: [PATCH 5/5] set `enable_language(CUDA)` in a bunch of places
@@ -15,7 +15,7 @@ see https://gitlab.kitware.com/cmake/cmake/-/issues/26246
  7 files changed, 13 insertions(+), 3 deletions(-)
 
 diff --git a/AmberTools/src/cpptraj/CMakeLists.txt b/AmberTools/src/cpptraj/CMakeLists.txt
-index 25e66a6c..111a43c8 100644
+index 3c341f3a..590cf116 100644
 --- a/AmberTools/src/cpptraj/CMakeLists.txt
 +++ b/AmberTools/src/cpptraj/CMakeLists.txt
 @@ -91,6 +91,7 @@ endif()
@@ -51,7 +51,7 @@ index 475f6d80..c7955555 100644
  # Build code
  
 diff --git a/AmberTools/src/quick/quick-cmake/QUICKCudaConfig.cmake b/AmberTools/src/quick/quick-cmake/QUICKCudaConfig.cmake
-index bacfa958..1aeb9287 100644
+index 55c55db0..9d135086 100644
 --- a/AmberTools/src/quick/quick-cmake/QUICKCudaConfig.cmake
 +++ b/AmberTools/src/quick/quick-cmake/QUICKCudaConfig.cmake
 @@ -7,7 +7,7 @@ set(QUICK_GPU_TARGET_NAME "cuda")
@@ -92,7 +92,7 @@ index dbe89192..09c6eaf4 100644
  message(STATUS "Configuring subdirs...")
  
 diff --git a/cmake/CudaConfig.cmake b/cmake/CudaConfig.cmake
-index b07e8491..a35b255a 100644
+index 1af0f09e..5fa5020d 100644
 --- a/cmake/CudaConfig.cmake
 +++ b/cmake/CudaConfig.cmake
 @@ -12,7 +12,7 @@ if(TRUE)
@@ -103,4 +103,4 @@ index b07e8491..a35b255a 100644
 +		enable_language(CUDA)
  		set(CUDA_HOST_COMPILER ${CMAKE_CXX_COMPILER})
  
- 		list(APPEND CUDA_NVCC_FLAGS -Wno-deprecated-gpu-targets -Wno-deprecated-declarations)
+ 		list(APPEND CMAKE_CUDA_FLAGS -Wno-deprecated-gpu-targets -Wno-deprecated-declarations)
