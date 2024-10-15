@@ -22,7 +22,7 @@ export CXXFLAGS="${CXXFLAGS} -pthread"
 # duplicate symbols cause errors on GCC10+ and Clang 11+
 # see https://github.com/conda-forge/ambertools-feedstock/pull/50#issuecomment-756171906
 # This will get fixed upstream at some point...
-if (( $(printf "%02d%02d" ${PKG_VERSION//./ }) <= 2205 )); then
+if (( $(printf "%02d%02d" ${PKG_VERSION//./ }) <= 2400 )); then
     export CFLAGS="${CFLAGS:-} -fcommon"
 fi
 
