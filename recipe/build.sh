@@ -86,7 +86,6 @@ cd build
 CC=${CC_TARGET}
 CXX=${CXX_TARGET}
 
-if [ "${mpi}" = "nompi" ]; then ENABLE_MPI=FALSE; else ENABLE_MPI=TRUE; fi
 cmake ${CMAKE_ARGS} ${SRC_DIR} ${CMAKE_FLAGS} \
     -DCMAKE_INSTALL_PREFIX=${PREFIX} \
     -DCOMPILER=MANUAL \
@@ -94,7 +93,6 @@ cmake ${CMAKE_ARGS} ${SRC_DIR} ${CMAKE_FLAGS} \
     -DBUILD_GUI=${BUILD_GUI} \
     -DCHECK_UPDATES=FALSE \
 	-DDISABLE_TOOLS="nab" \
-    -DMPI=${ENABLE_MPI} \
     -DTRUST_SYSTEM_LIBS=TRUE
 
 make
