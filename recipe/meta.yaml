@@ -4,6 +4,7 @@
 {% set version = "23.6" %}
 # use run or skip
 {% set unit_tests = "skip" %}
+{% set build = 6 %}
 
 package:
   name: {{ name|lower }}
