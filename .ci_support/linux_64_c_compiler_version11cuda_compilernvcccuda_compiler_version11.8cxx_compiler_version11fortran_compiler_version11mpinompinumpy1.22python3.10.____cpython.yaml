@@ -35,13 +35,13 @@ fortran_compiler_version:
 libblas:
 - 3.9 *netlib
 libboost_devel:
-- '1.84'
+- '1.86'
 liblapack:
 - 3.9 *netlib
 libnetcdf:
 - 4.9.2
 mpi:
-- mpich
+- nompi
 mpich:
 - '4'
 netcdf_fortran:
