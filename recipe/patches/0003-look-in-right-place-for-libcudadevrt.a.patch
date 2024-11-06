@@ -1,0 +1,62 @@
+From 7df0d1de29c174347d6800c2f1135f05bb555d46 Mon Sep 17 00:00:00 2001
+From: "H. Vetinari" <h.vetinari@gmx.com>
+Date: Wed, 28 Aug 2024 13:17:24 +1100
+Subject: [PATCH 3/5] look in right place for libcudadevrt.a
+
+---
+ AmberTools/src/cpptraj/cmake-cpptraj/CudaConfig.cmake | 6 +++++-
+ AmberTools/src/quick/cmake/CudaConfig.cmake           | 6 +++++-
+ cmake/CudaConfig.cmake                                | 6 +++++-
+ 3 files changed, 15 insertions(+), 3 deletions(-)
+
+diff --git a/AmberTools/src/cpptraj/cmake-cpptraj/CudaConfig.cmake b/AmberTools/src/cpptraj/cmake-cpptraj/CudaConfig.cmake
+index b3953145..dec80772 100644
+--- a/AmberTools/src/cpptraj/cmake-cpptraj/CudaConfig.cmake
++++ b/AmberTools/src/cpptraj/cmake-cpptraj/CudaConfig.cmake
+@@ -30,7 +30,11 @@ if(TRUE)
+ 		import_library(cusolver "${CUDA_cusolver_LIBRARY}")
+ 		import_library(curand "${CUDA_curand_LIBRARY}")
+ 		import_library(cusparse "${CUDA_cusparse_LIBRARY}")
+-	 	import_library(cudadevrt "${CUDA_cudadevrt_LIBRARY}")
++		find_library(CUDA_cudadevrt_LIBRARY
++		    NAMES cudadevrt
++		    PATHS ENV PREFIX
++		    PATH_SUFFIXES lib
++		    NO_DEFAULT_PATH)
+ 
+ 	 	# --------------------------------------------------------------------
+ 		# Find the NVidia Management Library (used to detect GPUs)
+diff --git a/AmberTools/src/quick/cmake/CudaConfig.cmake b/AmberTools/src/quick/cmake/CudaConfig.cmake
+index 46c06638..0018db41 100644
+--- a/AmberTools/src/quick/cmake/CudaConfig.cmake
++++ b/AmberTools/src/quick/cmake/CudaConfig.cmake
+@@ -30,7 +30,11 @@ if(TRUE)
+ 		import_library(cusolver "${CUDA_cusolver_LIBRARY}")
+ 		import_library(curand "${CUDA_curand_LIBRARY}")
+ 		import_library(cusparse "${CUDA_cusparse_LIBRARY}")
+-	 	import_library(cudadevrt "${CUDA_cudadevrt_LIBRARY}")
++		find_library(CUDA_cudadevrt_LIBRARY
++		    NAMES cudadevrt
++		    PATHS ENV PREFIX
++		    PATH_SUFFIXES lib
++		    NO_DEFAULT_PATH)
+ 
+ 	 	# --------------------------------------------------------------------
+ 		# Find the NVidia Management Library (used to detect GPUs)
+diff --git a/cmake/CudaConfig.cmake b/cmake/CudaConfig.cmake
+index e3865e5d..1af0f09e 100644
+--- a/cmake/CudaConfig.cmake
++++ b/cmake/CudaConfig.cmake
+@@ -30,7 +30,11 @@ if(TRUE)
+ 		import_library(cusolver "${CUDA_cusolver_LIBRARY}")
+ 		import_library(curand "${CUDA_curand_LIBRARY}")
+ 		import_library(cusparse "${CUDA_cusparse_LIBRARY}")
+-	 	import_library(cudadevrt "${CUDA_cudadevrt_LIBRARY}")
++		find_library(CUDA_cudadevrt_LIBRARY
++		    NAMES cudadevrt
++		    PATHS ENV PREFIX
++		    PATH_SUFFIXES lib
++		    NO_DEFAULT_PATH)
+ 
+ 	 	# --------------------------------------------------------------------
+ 		# Find the NVidia Management Library (used to detect GPUs)

@@ -5,81 +5,63 @@
 jobs:
 - job: osx
   pool:
-    vmImage: macOS-12
+    vmImage: macOS-13
   strategy:
     matrix:
       osx_64_mpimpichnumpy1.22python3.10.____cpython:
         CONFIG: osx_64_mpimpichnumpy1.22python3.10.____cpython
         UPLOAD_PACKAGES: 'True'
-        SHORT_CONFIG: osx_64_mpimpichnumpy1.22python3.10.____cpython
       osx_64_mpimpichnumpy1.23python3.11.____cpython:
         CONFIG: osx_64_mpimpichnumpy1.23python3.11.____cpython
         UPLOAD_PACKAGES: 'True'
-        SHORT_CONFIG: osx_64_mpimpichnumpy1.23python3.11.____cpython
       osx_64_mpimpichnumpy1.26python3.12.____cpython:
         CONFIG: osx_64_mpimpichnumpy1.26python3.12.____cpython
         UPLOAD_PACKAGES: 'True'
-        SHORT_CONFIG: osx_64_mpimpichnumpy1.26python3.12.____cpython
       osx_64_mpinompinumpy1.22python3.10.____cpython:
         CONFIG: osx_64_mpinompinumpy1.22python3.10.____cpython
         UPLOAD_PACKAGES: 'True'
-        SHORT_CONFIG: osx_64_mpinompinumpy1.22python3.10.____cpython
       osx_64_mpinompinumpy1.23python3.11.____cpython:
         CONFIG: osx_64_mpinompinumpy1.23python3.11.____cpython
         UPLOAD_PACKAGES: 'True'
-        SHORT_CONFIG: osx_64_mpinompinumpy1.23python3.11.____cpython
       osx_64_mpinompinumpy1.26python3.12.____cpython:
         CONFIG: osx_64_mpinompinumpy1.26python3.12.____cpython
         UPLOAD_PACKAGES: 'True'
-        SHORT_CONFIG: osx_64_mpinompinumpy1.26python3.12.____cpython
       osx_64_mpiopenmpinumpy1.22python3.10.____cpython:
         CONFIG: osx_64_mpiopenmpinumpy1.22python3.10.____cpython
         UPLOAD_PACKAGES: 'True'
-        SHORT_CONFIG: osx_64_mpiopenmpinumpy1.22python3.10.____cpython
       osx_64_mpiopenmpinumpy1.23python3.11.____cpython:
         CONFIG: osx_64_mpiopenmpinumpy1.23python3.11.____cpython
         UPLOAD_PACKAGES: 'True'
-        SHORT_CONFIG: osx_64_mpiopenmpinumpy1.23python3.11.____cpython
       osx_64_mpiopenmpinumpy1.26python3.12.____cpython:
         CONFIG: osx_64_mpiopenmpinumpy1.26python3.12.____cpython
         UPLOAD_PACKAGES: 'True'
-        SHORT_CONFIG: osx_64_mpiopenmpinumpy1.26python3.12.____cpython
       osx_arm64_mpimpichnumpy1.22python3.10.____cpython:
         CONFIG: osx_arm64_mpimpichnumpy1.22python3.10.____cpython
         UPLOAD_PACKAGES: 'True'
-        SHORT_CONFIG: osx_arm64_mpimpichnumpy1.22python3._ha977e349a6
       osx_arm64_mpimpichnumpy1.23python3.11.____cpython:
         CONFIG: osx_arm64_mpimpichnumpy1.23python3.11.____cpython
         UPLOAD_PACKAGES: 'True'
-        SHORT_CONFIG: osx_arm64_mpimpichnumpy1.23python3._h16632bb9fa
       osx_arm64_mpimpichnumpy1.26python3.12.____cpython:
         CONFIG: osx_arm64_mpimpichnumpy1.26python3.12.____cpython
         UPLOAD_PACKAGES: 'True'
-        SHORT_CONFIG: osx_arm64_mpimpichnumpy1.26python3._h6f639f3986
       osx_arm64_mpinompinumpy1.22python3.10.____cpython:
         CONFIG: osx_arm64_mpinompinumpy1.22python3.10.____cpython
         UPLOAD_PACKAGES: 'True'
-        SHORT_CONFIG: osx_arm64_mpinompinumpy1.22python3._hf338eb8225
       osx_arm64_mpinompinumpy1.23python3.11.____cpython:
         CONFIG: osx_arm64_mpinompinumpy1.23python3.11.____cpython
         UPLOAD_PACKAGES: 'True'
-        SHORT_CONFIG: osx_arm64_mpinompinumpy1.23python3._ha64012be9c
       osx_arm64_mpinompinumpy1.26python3.12.____cpython:
         CONFIG: osx_arm64_mpinompinumpy1.26python3.12.____cpython
         UPLOAD_PACKAGES: 'True'
-        SHORT_CONFIG: osx_arm64_mpinompinumpy1.26python3._hb200f75c3b
       osx_arm64_mpiopenmpinumpy1.22python3.10.____cpython:
         CONFIG: osx_arm64_mpiopenmpinumpy1.22python3.10.____cpython
         UPLOAD_PACKAGES: 'True'
-        SHORT_CONFIG: osx_arm64_mpiopenmpinumpy1.22python_h9c171c2f17
       osx_arm64_mpiopenmpinumpy1.23python3.11.____cpython:
         CONFIG: osx_arm64_mpiopenmpinumpy1.23python3.11.____cpython
         UPLOAD_PACKAGES: 'True'
-        SHORT_CONFIG: osx_arm64_mpiopenmpinumpy1.23python_h4b7febe372
       osx_arm64_mpiopenmpinumpy1.26python3.12.____cpython:
         CONFIG: osx_arm64_mpiopenmpinumpy1.26python3.12.____cpython
         UPLOAD_PACKAGES: 'True'
-        SHORT_CONFIG: osx_arm64_mpiopenmpinumpy1.26python_h7829e1e6dd
   timeoutInMinutes: 360
   variables: {}
 
@@ -105,32 +87,3 @@ jobs:
       BINSTAR_TOKEN: $(BINSTAR_TOKEN)
       FEEDSTOCK_TOKEN: $(FEEDSTOCK_TOKEN)
       STAGING_BINSTAR_TOKEN: $(STAGING_BINSTAR_TOKEN)
-  - script: |
-      export CI=azure
-      export CI_RUN_ID=$(build.BuildNumber).$(system.JobAttempt)
-      export FEEDSTOCK_NAME=$(basename ${BUILD_REPOSITORY_NAME})
-      export CONDA_BLD_DIR=/Users/runner/miniforge3/conda-bld
-      export ARTIFACT_STAGING_DIR="$(Build.ArtifactStagingDirectory)"
-      # Archive everything in CONDA_BLD_DIR except environments
-      export BLD_ARTIFACT_PREFIX=conda_artifacts
-      if [[ "$AGENT_JOBSTATUS" == "Failed" ]]; then
-        # Archive the CONDA_BLD_DIR environments only when the job fails
-        export ENV_ARTIFACT_PREFIX=conda_envs
-      fi
-      ./.scripts/create_conda_build_artifacts.sh
-    displayName: Prepare conda build artifacts
-    condition: succeededOrFailed()
-
-  - task: PublishPipelineArtifact@1
-    displayName: Store conda build artifacts
-    condition: not(eq(variables.BLD_ARTIFACT_PATH, ''))
-    inputs:
-      targetPath: $(BLD_ARTIFACT_PATH)
-      artifactName: $(BLD_ARTIFACT_NAME)
-
-  - task: PublishPipelineArtifact@1
-    displayName: Store conda build environment artifacts
-    condition: not(eq(variables.ENV_ARTIFACT_PATH, ''))
-    inputs:
-      targetPath: $(ENV_ARTIFACT_PATH)
-      artifactName: $(ENV_ARTIFACT_NAME)
