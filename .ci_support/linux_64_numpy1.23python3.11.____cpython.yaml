@@ -5,7 +5,7 @@ bzip2:
 c_compiler:
 - gcc
 c_compiler_version:
-- '11'
+- '13'
 c_stdlib:
 - sysroot
 c_stdlib_version:
@@ -16,22 +16,18 @@ channel_sources:
 - conda-forge
 channel_targets:
 - conda-forge main
-cuda_compiler:
-- nvcc
-cuda_compiler_version:
-- '11.8'
 cxx_compiler:
 - gxx
 cxx_compiler_version:
-- '11'
+- '13'
 docker_image:
-- quay.io/condaforge/linux-anvil-cuda:11.8
+- quay.io/condaforge/linux-anvil-cos7-x86_64
 fftw:
 - '3'
 fortran_compiler:
 - gfortran
 fortran_compiler_version:
-- '11'
+- '13'
 libblas:
 - 3.9 *netlib
 libboost_devel:
@@ -40,16 +36,10 @@ liblapack:
 - 3.9 *netlib
 libnetcdf:
 - 4.9.2
-mpi:
-- nompi
-mpich:
-- '4'
 netcdf_fortran:
 - '4.6'
 numpy:
-- '1.26'
-openmpi:
-- '5'
+- '1.23'
 openssl:
 - '3'
 perl:
@@ -59,7 +49,7 @@ pin_run_as_build:
     min_pin: x.x
     max_pin: x.x
 python:
-- 3.12.* *_cpython
+- 3.11.* *_cpython
 readline:
 - '8'
 target_platform:
@@ -68,11 +58,8 @@ zip_keys:
 - - c_compiler_version
   - cxx_compiler_version
   - fortran_compiler_version
-  - c_stdlib_version
+- - c_stdlib_version
   - cdt_name
-  - cuda_compiler
-  - cuda_compiler_version
-  - docker_image
 - - python
   - numpy
 zlib:

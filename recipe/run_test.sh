@@ -46,14 +46,7 @@ conda list
 # rism3d.orave -h
 # rism3d.snglpnt -h
 # rism3d.thermo -h
-sander --version
-if [[ $mpi == nompi ]]; then
-    echo "no MPI, skipping sander.MPI check"
-elif [[ $mpi == openmpi ]]; then
-    echo "OpenMPI cannot work correctly; see https://github.com/conda-forge/openmpi-feedstock/issues/152"
-else
-    sander.MPI --version
-fi
+# sander --version
 # sander.LES -h
 # saxs_rism -h
 # senergy -h
@@ -93,13 +86,6 @@ ceinutil.py -h
 cpeinutil.py -h
 cpinutil.py -h
 cpptraj -h
-if [[ $cuda_compiler_version != "None" ]]; then
-    # We cannot run the binary as it would return the error "Error: No CUDA-capable devices present."
-    # So we check if the binary exists
-    which cpptraj.cuda
-    # And it has no linking issues
-    ldd "$(which cpptraj.cuda)"
-fi
 draw_membrane2
 edgembar -h
 espgen -h

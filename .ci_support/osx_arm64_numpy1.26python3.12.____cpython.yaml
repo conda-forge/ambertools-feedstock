@@ -1,37 +1,33 @@
+MACOSX_DEPLOYMENT_TARGET:
+- '11.0'
+MACOSX_SDK_VERSION:
+- '11.0'
 arpack:
 - '3.9'
 bzip2:
 - '1'
 c_compiler:
-- gcc
+- clang
 c_compiler_version:
-- '11'
+- '15'
 c_stdlib:
-- sysroot
+- macosx_deployment_target
 c_stdlib_version:
-- '2.17'
-cdt_name:
-- cos7
+- '11.0'
 channel_sources:
 - conda-forge
 channel_targets:
 - conda-forge main
-cuda_compiler:
-- nvcc
-cuda_compiler_version:
-- '11.8'
 cxx_compiler:
-- gxx
+- clangxx
 cxx_compiler_version:
-- '11'
-docker_image:
-- quay.io/condaforge/linux-anvil-cuda:11.8
+- '15'
 fftw:
 - '3'
 fortran_compiler:
 - gfortran
 fortran_compiler_version:
-- '11'
+- '13'
 libblas:
 - 3.9 *netlib
 libboost_devel:
@@ -40,16 +36,14 @@ liblapack:
 - 3.9 *netlib
 libnetcdf:
 - 4.9.2
-mpi:
-- nompi
-mpich:
-- '4'
+llvm_openmp:
+- '17'
+macos_machine:
+- arm64-apple-darwin20.0.0
 netcdf_fortran:
 - '4.6'
 numpy:
-- '1.22'
-openmpi:
-- '5'
+- '1.26'
 openssl:
 - '3'
 perl:
@@ -59,20 +53,15 @@ pin_run_as_build:
     min_pin: x.x
     max_pin: x.x
 python:
-- 3.10.* *_cpython
+- 3.12.* *_cpython
 readline:
 - '8'
 target_platform:
-- linux-64
+- osx-arm64
 zip_keys:
 - - c_compiler_version
   - cxx_compiler_version
   - fortran_compiler_version
-  - c_stdlib_version
-  - cdt_name
-  - cuda_compiler
-  - cuda_compiler_version
-  - docker_image
 - - python
   - numpy
 zlib:
