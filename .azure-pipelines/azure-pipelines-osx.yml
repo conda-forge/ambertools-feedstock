@@ -8,78 +8,223 @@ jobs:
     vmImage: macOS-13
   strategy:
     matrix:
-      osx_64_mpimpichnumpy1.22python3.10.____cpython:
-        CONFIG: osx_64_mpimpichnumpy1.22python3.10.____cpython
+      osx_64_cuda_compiler_version11.8mpimpichnumpy1.22python3.10.____cpython:
+        CONFIG: osx_64_cuda_compiler_version11.8mpimpichnumpy1.22python3.10.____cpython
         UPLOAD_PACKAGES: 'True'
-        SHORT_CONFIG: osx_64_mpimpichnumpy1.22python3.10.____cpython
-      osx_64_mpimpichnumpy1.23python3.11.____cpython:
-        CONFIG: osx_64_mpimpichnumpy1.23python3.11.____cpython
+        SHORT_CONFIG: osx_64_cuda_compiler_version11.8mpi_h74d3a4def6
+      osx_64_cuda_compiler_version11.8mpimpichnumpy1.23python3.11.____cpython:
+        CONFIG: osx_64_cuda_compiler_version11.8mpimpichnumpy1.23python3.11.____cpython
         UPLOAD_PACKAGES: 'True'
-        SHORT_CONFIG: osx_64_mpimpichnumpy1.23python3.11.____cpython
-      osx_64_mpimpichnumpy1.26python3.12.____cpython:
-        CONFIG: osx_64_mpimpichnumpy1.26python3.12.____cpython
+        SHORT_CONFIG: osx_64_cuda_compiler_version11.8mpi_h842aa7e284
+      osx_64_cuda_compiler_version11.8mpimpichnumpy1.26python3.12.____cpython:
+        CONFIG: osx_64_cuda_compiler_version11.8mpimpichnumpy1.26python3.12.____cpython
         UPLOAD_PACKAGES: 'True'
-        SHORT_CONFIG: osx_64_mpimpichnumpy1.26python3.12.____cpython
-      osx_64_mpinompinumpy1.22python3.10.____cpython:
-        CONFIG: osx_64_mpinompinumpy1.22python3.10.____cpython
+        SHORT_CONFIG: osx_64_cuda_compiler_version11.8mpi_h2e4fbce3bb
+      osx_64_cuda_compiler_version11.8mpinompinumpy1.22python3.10.____cpython:
+        CONFIG: osx_64_cuda_compiler_version11.8mpinompinumpy1.22python3.10.____cpython
         UPLOAD_PACKAGES: 'True'
-        SHORT_CONFIG: osx_64_mpinompinumpy1.22python3.10.____cpython
-      osx_64_mpinompinumpy1.23python3.11.____cpython:
-        CONFIG: osx_64_mpinompinumpy1.23python3.11.____cpython
+        SHORT_CONFIG: osx_64_cuda_compiler_version11.8mpi_haad9b049e4
+      osx_64_cuda_compiler_version11.8mpinompinumpy1.23python3.11.____cpython:
+        CONFIG: osx_64_cuda_compiler_version11.8mpinompinumpy1.23python3.11.____cpython
         UPLOAD_PACKAGES: 'True'
-        SHORT_CONFIG: osx_64_mpinompinumpy1.23python3.11.____cpython
-      osx_64_mpinompinumpy1.26python3.12.____cpython:
-        CONFIG: osx_64_mpinompinumpy1.26python3.12.____cpython
+        SHORT_CONFIG: osx_64_cuda_compiler_version11.8mpi_hca014f2662
+      osx_64_cuda_compiler_version11.8mpinompinumpy1.26python3.12.____cpython:
+        CONFIG: osx_64_cuda_compiler_version11.8mpinompinumpy1.26python3.12.____cpython
         UPLOAD_PACKAGES: 'True'
-        SHORT_CONFIG: osx_64_mpinompinumpy1.26python3.12.____cpython
-      osx_64_mpiopenmpinumpy1.22python3.10.____cpython:
-        CONFIG: osx_64_mpiopenmpinumpy1.22python3.10.____cpython
+        SHORT_CONFIG: osx_64_cuda_compiler_version11.8mpi_h544f260813
+      osx_64_cuda_compiler_version11.8mpiopenmpinumpy1.22python3.10.____cpython:
+        CONFIG: osx_64_cuda_compiler_version11.8mpiopenmpinumpy1.22python3.10.____cpython
         UPLOAD_PACKAGES: 'True'
-        SHORT_CONFIG: osx_64_mpiopenmpinumpy1.22python3.10.____cpython
-      osx_64_mpiopenmpinumpy1.23python3.11.____cpython:
-        CONFIG: osx_64_mpiopenmpinumpy1.23python3.11.____cpython
+        SHORT_CONFIG: osx_64_cuda_compiler_version11.8mpi_hf7ba9cd388
+      osx_64_cuda_compiler_version11.8mpiopenmpinumpy1.23python3.11.____cpython:
+        CONFIG: osx_64_cuda_compiler_version11.8mpiopenmpinumpy1.23python3.11.____cpython
         UPLOAD_PACKAGES: 'True'
-        SHORT_CONFIG: osx_64_mpiopenmpinumpy1.23python3.11.____cpython
-      osx_64_mpiopenmpinumpy1.26python3.12.____cpython:
-        CONFIG: osx_64_mpiopenmpinumpy1.26python3.12.____cpython
+        SHORT_CONFIG: osx_64_cuda_compiler_version11.8mpi_h47f87b2393
+      osx_64_cuda_compiler_version11.8mpiopenmpinumpy1.26python3.12.____cpython:
+        CONFIG: osx_64_cuda_compiler_version11.8mpiopenmpinumpy1.26python3.12.____cpython
         UPLOAD_PACKAGES: 'True'
-        SHORT_CONFIG: osx_64_mpiopenmpinumpy1.26python3.12.____cpython
-      osx_arm64_mpimpichnumpy1.22python3.10.____cpython:
-        CONFIG: osx_arm64_mpimpichnumpy1.22python3.10.____cpython
+        SHORT_CONFIG: osx_64_cuda_compiler_version11.8mpi_h7a3130c109
+      osx_64_cuda_compiler_version12.1mpimpichnumpy1.22python3.10.____cpython:
+        CONFIG: osx_64_cuda_compiler_version12.1mpimpichnumpy1.22python3.10.____cpython
         UPLOAD_PACKAGES: 'True'
-        SHORT_CONFIG: osx_arm64_mpimpichnumpy1.22python3._ha977e349a6
-      osx_arm64_mpimpichnumpy1.23python3.11.____cpython:
-        CONFIG: osx_arm64_mpimpichnumpy1.23python3.11.____cpython
+        SHORT_CONFIG: osx_64_cuda_compiler_version12.1mpi_he02a19f525
+      osx_64_cuda_compiler_version12.1mpimpichnumpy1.23python3.11.____cpython:
+        CONFIG: osx_64_cuda_compiler_version12.1mpimpichnumpy1.23python3.11.____cpython
         UPLOAD_PACKAGES: 'True'
-        SHORT_CONFIG: osx_arm64_mpimpichnumpy1.23python3._h16632bb9fa
-      osx_arm64_mpimpichnumpy1.26python3.12.____cpython:
-        CONFIG: osx_arm64_mpimpichnumpy1.26python3.12.____cpython
+        SHORT_CONFIG: osx_64_cuda_compiler_version12.1mpi_ha0fdfa348f
+      osx_64_cuda_compiler_version12.1mpimpichnumpy1.26python3.12.____cpython:
+        CONFIG: osx_64_cuda_compiler_version12.1mpimpichnumpy1.26python3.12.____cpython
         UPLOAD_PACKAGES: 'True'
-        SHORT_CONFIG: osx_arm64_mpimpichnumpy1.26python3._h6f639f3986
-      osx_arm64_mpinompinumpy1.22python3.10.____cpython:
-        CONFIG: osx_arm64_mpinompinumpy1.22python3.10.____cpython
+        SHORT_CONFIG: osx_64_cuda_compiler_version12.1mpi_hbc011db570
+      osx_64_cuda_compiler_version12.1mpinompinumpy1.22python3.10.____cpython:
+        CONFIG: osx_64_cuda_compiler_version12.1mpinompinumpy1.22python3.10.____cpython
         UPLOAD_PACKAGES: 'True'
-        SHORT_CONFIG: osx_arm64_mpinompinumpy1.22python3._hf338eb8225
-      osx_arm64_mpinompinumpy1.23python3.11.____cpython:
-        CONFIG: osx_arm64_mpinompinumpy1.23python3.11.____cpython
+        SHORT_CONFIG: osx_64_cuda_compiler_version12.1mpi_h873a9f01bc
+      osx_64_cuda_compiler_version12.1mpinompinumpy1.23python3.11.____cpython:
+        CONFIG: osx_64_cuda_compiler_version12.1mpinompinumpy1.23python3.11.____cpython
         UPLOAD_PACKAGES: 'True'
-        SHORT_CONFIG: osx_arm64_mpinompinumpy1.23python3._ha64012be9c
-      osx_arm64_mpinompinumpy1.26python3.12.____cpython:
-        CONFIG: osx_arm64_mpinompinumpy1.26python3.12.____cpython
+        SHORT_CONFIG: osx_64_cuda_compiler_version12.1mpi_h0bccac22aa
+      osx_64_cuda_compiler_version12.1mpinompinumpy1.26python3.12.____cpython:
+        CONFIG: osx_64_cuda_compiler_version12.1mpinompinumpy1.26python3.12.____cpython
         UPLOAD_PACKAGES: 'True'
-        SHORT_CONFIG: osx_arm64_mpinompinumpy1.26python3._hb200f75c3b
-      osx_arm64_mpiopenmpinumpy1.22python3.10.____cpython:
-        CONFIG: osx_arm64_mpiopenmpinumpy1.22python3.10.____cpython
+        SHORT_CONFIG: osx_64_cuda_compiler_version12.1mpi_hcdc9bc9a4e
+      osx_64_cuda_compiler_version12.1mpiopenmpinumpy1.22python3.10.____cpython:
+        CONFIG: osx_64_cuda_compiler_version12.1mpiopenmpinumpy1.22python3.10.____cpython
         UPLOAD_PACKAGES: 'True'
-        SHORT_CONFIG: osx_arm64_mpiopenmpinumpy1.22python_h9c171c2f17
-      osx_arm64_mpiopenmpinumpy1.23python3.11.____cpython:
-        CONFIG: osx_arm64_mpiopenmpinumpy1.23python3.11.____cpython
+        SHORT_CONFIG: osx_64_cuda_compiler_version12.1mpi_hcc804babf4
+      osx_64_cuda_compiler_version12.1mpiopenmpinumpy1.23python3.11.____cpython:
+        CONFIG: osx_64_cuda_compiler_version12.1mpiopenmpinumpy1.23python3.11.____cpython
         UPLOAD_PACKAGES: 'True'
-        SHORT_CONFIG: osx_arm64_mpiopenmpinumpy1.23python_h4b7febe372
-      osx_arm64_mpiopenmpinumpy1.26python3.12.____cpython:
-        CONFIG: osx_arm64_mpiopenmpinumpy1.26python3.12.____cpython
+        SHORT_CONFIG: osx_64_cuda_compiler_version12.1mpi_haf2107261b
+      osx_64_cuda_compiler_version12.1mpiopenmpinumpy1.26python3.12.____cpython:
+        CONFIG: osx_64_cuda_compiler_version12.1mpiopenmpinumpy1.26python3.12.____cpython
         UPLOAD_PACKAGES: 'True'
-        SHORT_CONFIG: osx_arm64_mpiopenmpinumpy1.26python_h7829e1e6dd
+        SHORT_CONFIG: osx_64_cuda_compiler_version12.1mpi_hd25a92ea29
+      osx_64_cuda_compiler_versionNonempimpichnumpy1.22python3.10.____cpython:
+        CONFIG: osx_64_cuda_compiler_versionNonempimpichnumpy1.22python3.10.____cpython
+        UPLOAD_PACKAGES: 'True'
+        SHORT_CONFIG: osx_64_cuda_compiler_versionNonempi_h6212a4c2cc
+      osx_64_cuda_compiler_versionNonempimpichnumpy1.23python3.11.____cpython:
+        CONFIG: osx_64_cuda_compiler_versionNonempimpichnumpy1.23python3.11.____cpython
+        UPLOAD_PACKAGES: 'True'
+        SHORT_CONFIG: osx_64_cuda_compiler_versionNonempi_h179af2738a
+      osx_64_cuda_compiler_versionNonempimpichnumpy1.26python3.12.____cpython:
+        CONFIG: osx_64_cuda_compiler_versionNonempimpichnumpy1.26python3.12.____cpython
+        UPLOAD_PACKAGES: 'True'
+        SHORT_CONFIG: osx_64_cuda_compiler_versionNonempi_ha372807e59
+      osx_64_cuda_compiler_versionNonempinompinumpy1.22python3.10.____cpython:
+        CONFIG: osx_64_cuda_compiler_versionNonempinompinumpy1.22python3.10.____cpython
+        UPLOAD_PACKAGES: 'True'
+        SHORT_CONFIG: osx_64_cuda_compiler_versionNonempi_h727608a072
+      osx_64_cuda_compiler_versionNonempinompinumpy1.23python3.11.____cpython:
+        CONFIG: osx_64_cuda_compiler_versionNonempinompinumpy1.23python3.11.____cpython
+        UPLOAD_PACKAGES: 'True'
+        SHORT_CONFIG: osx_64_cuda_compiler_versionNonempi_h3f40ca6cf7
+      osx_64_cuda_compiler_versionNonempinompinumpy1.26python3.12.____cpython:
+        CONFIG: osx_64_cuda_compiler_versionNonempinompinumpy1.26python3.12.____cpython
+        UPLOAD_PACKAGES: 'True'
+        SHORT_CONFIG: osx_64_cuda_compiler_versionNonempi_hd23775778f
+      osx_64_cuda_compiler_versionNonempiopenmpinumpy1.22python3.10.____cpython:
+        CONFIG: osx_64_cuda_compiler_versionNonempiopenmpinumpy1.22python3.10.____cpython
+        UPLOAD_PACKAGES: 'True'
+        SHORT_CONFIG: osx_64_cuda_compiler_versionNonempi_h4d6d206d8c
+      osx_64_cuda_compiler_versionNonempiopenmpinumpy1.23python3.11.____cpython:
+        CONFIG: osx_64_cuda_compiler_versionNonempiopenmpinumpy1.23python3.11.____cpython
+        UPLOAD_PACKAGES: 'True'
+        SHORT_CONFIG: osx_64_cuda_compiler_versionNonempi_hc2c7694a1e
+      osx_64_cuda_compiler_versionNonempiopenmpinumpy1.26python3.12.____cpython:
+        CONFIG: osx_64_cuda_compiler_versionNonempiopenmpinumpy1.26python3.12.____cpython
+        UPLOAD_PACKAGES: 'True'
+        SHORT_CONFIG: osx_64_cuda_compiler_versionNonempi_h7f5f72bba5
+      osx_arm64_cuda_compiler_version11.8mpimpichnumpy1.22python3.10.____cpython:
+        CONFIG: osx_arm64_cuda_compiler_version11.8mpimpichnumpy1.22python3.10.____cpython
+        UPLOAD_PACKAGES: 'True'
+        SHORT_CONFIG: osx_arm64_cuda_compiler_version11.8_h8494752c9c
+      osx_arm64_cuda_compiler_version11.8mpimpichnumpy1.23python3.11.____cpython:
+        CONFIG: osx_arm64_cuda_compiler_version11.8mpimpichnumpy1.23python3.11.____cpython
+        UPLOAD_PACKAGES: 'True'
+        SHORT_CONFIG: osx_arm64_cuda_compiler_version11.8_h3388fb79b6
+      osx_arm64_cuda_compiler_version11.8mpimpichnumpy1.26python3.12.____cpython:
+        CONFIG: osx_arm64_cuda_compiler_version11.8mpimpichnumpy1.26python3.12.____cpython
+        UPLOAD_PACKAGES: 'True'
+        SHORT_CONFIG: osx_arm64_cuda_compiler_version11.8_h9e128a1950
+      osx_arm64_cuda_compiler_version11.8mpinompinumpy1.22python3.10.____cpython:
+        CONFIG: osx_arm64_cuda_compiler_version11.8mpinompinumpy1.22python3.10.____cpython
+        UPLOAD_PACKAGES: 'True'
+        SHORT_CONFIG: osx_arm64_cuda_compiler_version11.8_hd0e1ee5914
+      osx_arm64_cuda_compiler_version11.8mpinompinumpy1.23python3.11.____cpython:
+        CONFIG: osx_arm64_cuda_compiler_version11.8mpinompinumpy1.23python3.11.____cpython
+        UPLOAD_PACKAGES: 'True'
+        SHORT_CONFIG: osx_arm64_cuda_compiler_version11.8_h2dbb5ee9b3
+      osx_arm64_cuda_compiler_version11.8mpinompinumpy1.26python3.12.____cpython:
+        CONFIG: osx_arm64_cuda_compiler_version11.8mpinompinumpy1.26python3.12.____cpython
+        UPLOAD_PACKAGES: 'True'
+        SHORT_CONFIG: osx_arm64_cuda_compiler_version11.8_h774f03ed2f
+      osx_arm64_cuda_compiler_version11.8mpiopenmpinumpy1.22python3.10.____cpython:
+        CONFIG: osx_arm64_cuda_compiler_version11.8mpiopenmpinumpy1.22python3.10.____cpython
+        UPLOAD_PACKAGES: 'True'
+        SHORT_CONFIG: osx_arm64_cuda_compiler_version11.8_h854c9223cc
+      osx_arm64_cuda_compiler_version11.8mpiopenmpinumpy1.23python3.11.____cpython:
+        CONFIG: osx_arm64_cuda_compiler_version11.8mpiopenmpinumpy1.23python3.11.____cpython
+        UPLOAD_PACKAGES: 'True'
+        SHORT_CONFIG: osx_arm64_cuda_compiler_version11.8_hb9ec5470e5
+      osx_arm64_cuda_compiler_version11.8mpiopenmpinumpy1.26python3.12.____cpython:
+        CONFIG: osx_arm64_cuda_compiler_version11.8mpiopenmpinumpy1.26python3.12.____cpython
+        UPLOAD_PACKAGES: 'True'
+        SHORT_CONFIG: osx_arm64_cuda_compiler_version11.8_h254454d5bf
+      osx_arm64_cuda_compiler_version12.1mpimpichnumpy1.22python3.10.____cpython:
+        CONFIG: osx_arm64_cuda_compiler_version12.1mpimpichnumpy1.22python3.10.____cpython
+        UPLOAD_PACKAGES: 'True'
+        SHORT_CONFIG: osx_arm64_cuda_compiler_version12.1_hbff28f6538
+      osx_arm64_cuda_compiler_version12.1mpimpichnumpy1.23python3.11.____cpython:
+        CONFIG: osx_arm64_cuda_compiler_version12.1mpimpichnumpy1.23python3.11.____cpython
+        UPLOAD_PACKAGES: 'True'
+        SHORT_CONFIG: osx_arm64_cuda_compiler_version12.1_he23980bf9a
+      osx_arm64_cuda_compiler_version12.1mpimpichnumpy1.26python3.12.____cpython:
+        CONFIG: osx_arm64_cuda_compiler_version12.1mpimpichnumpy1.26python3.12.____cpython
+        UPLOAD_PACKAGES: 'True'
+        SHORT_CONFIG: osx_arm64_cuda_compiler_version12.1_h5c3bddf158
+      osx_arm64_cuda_compiler_version12.1mpinompinumpy1.22python3.10.____cpython:
+        CONFIG: osx_arm64_cuda_compiler_version12.1mpinompinumpy1.22python3.10.____cpython
+        UPLOAD_PACKAGES: 'True'
+        SHORT_CONFIG: osx_arm64_cuda_compiler_version12.1_h4ebb952434
+      osx_arm64_cuda_compiler_version12.1mpinompinumpy1.23python3.11.____cpython:
+        CONFIG: osx_arm64_cuda_compiler_version12.1mpinompinumpy1.23python3.11.____cpython
+        UPLOAD_PACKAGES: 'True'
+        SHORT_CONFIG: osx_arm64_cuda_compiler_version12.1_h51f33eb164
+      osx_arm64_cuda_compiler_version12.1mpinompinumpy1.26python3.12.____cpython:
+        CONFIG: osx_arm64_cuda_compiler_version12.1mpinompinumpy1.26python3.12.____cpython
+        UPLOAD_PACKAGES: 'True'
+        SHORT_CONFIG: osx_arm64_cuda_compiler_version12.1_h4b889c4366
+      osx_arm64_cuda_compiler_version12.1mpiopenmpinumpy1.22python3.10.____cpython:
+        CONFIG: osx_arm64_cuda_compiler_version12.1mpiopenmpinumpy1.22python3.10.____cpython
+        UPLOAD_PACKAGES: 'True'
+        SHORT_CONFIG: osx_arm64_cuda_compiler_version12.1_h84460d68b4
+      osx_arm64_cuda_compiler_version12.1mpiopenmpinumpy1.23python3.11.____cpython:
+        CONFIG: osx_arm64_cuda_compiler_version12.1mpiopenmpinumpy1.23python3.11.____cpython
+        UPLOAD_PACKAGES: 'True'
+        SHORT_CONFIG: osx_arm64_cuda_compiler_version12.1_h2392a1f29e
+      osx_arm64_cuda_compiler_version12.1mpiopenmpinumpy1.26python3.12.____cpython:
+        CONFIG: osx_arm64_cuda_compiler_version12.1mpiopenmpinumpy1.26python3.12.____cpython
+        UPLOAD_PACKAGES: 'True'
+        SHORT_CONFIG: osx_arm64_cuda_compiler_version12.1_hc150a1023c
+      osx_arm64_cuda_compiler_versionNonempimpichnumpy1.22python3.10.____cpython:
+        CONFIG: osx_arm64_cuda_compiler_versionNonempimpichnumpy1.22python3.10.____cpython
+        UPLOAD_PACKAGES: 'True'
+        SHORT_CONFIG: osx_arm64_cuda_compiler_versionNone_h511d348cb3
+      osx_arm64_cuda_compiler_versionNonempimpichnumpy1.23python3.11.____cpython:
+        CONFIG: osx_arm64_cuda_compiler_versionNonempimpichnumpy1.23python3.11.____cpython
+        UPLOAD_PACKAGES: 'True'
+        SHORT_CONFIG: osx_arm64_cuda_compiler_versionNone_h576582d9ac
+      osx_arm64_cuda_compiler_versionNonempimpichnumpy1.26python3.12.____cpython:
+        CONFIG: osx_arm64_cuda_compiler_versionNonempimpichnumpy1.26python3.12.____cpython
+        UPLOAD_PACKAGES: 'True'
+        SHORT_CONFIG: osx_arm64_cuda_compiler_versionNone_hb881c57525
+      osx_arm64_cuda_compiler_versionNonempinompinumpy1.22python3.10.____cpython:
+        CONFIG: osx_arm64_cuda_compiler_versionNonempinompinumpy1.22python3.10.____cpython
+        UPLOAD_PACKAGES: 'True'
+        SHORT_CONFIG: osx_arm64_cuda_compiler_versionNone_h5478cfce87
+      osx_arm64_cuda_compiler_versionNonempinompinumpy1.23python3.11.____cpython:
+        CONFIG: osx_arm64_cuda_compiler_versionNonempinompinumpy1.23python3.11.____cpython
+        UPLOAD_PACKAGES: 'True'
+        SHORT_CONFIG: osx_arm64_cuda_compiler_versionNone_hf355506c55
+      osx_arm64_cuda_compiler_versionNonempinompinumpy1.26python3.12.____cpython:
+        CONFIG: osx_arm64_cuda_compiler_versionNonempinompinumpy1.26python3.12.____cpython
+        UPLOAD_PACKAGES: 'True'
+        SHORT_CONFIG: osx_arm64_cuda_compiler_versionNone_hbc38ad80e3
+      osx_arm64_cuda_compiler_versionNonempiopenmpinumpy1.22python3.10.____cpython:
+        CONFIG: osx_arm64_cuda_compiler_versionNonempiopenmpinumpy1.22python3.10.____cpython
+        UPLOAD_PACKAGES: 'True'
+        SHORT_CONFIG: osx_arm64_cuda_compiler_versionNone_h4097ea2ddc
+      osx_arm64_cuda_compiler_versionNonempiopenmpinumpy1.23python3.11.____cpython:
+        CONFIG: osx_arm64_cuda_compiler_versionNonempiopenmpinumpy1.23python3.11.____cpython
+        UPLOAD_PACKAGES: 'True'
+        SHORT_CONFIG: osx_arm64_cuda_compiler_versionNone_he3af609c48
+      osx_arm64_cuda_compiler_versionNonempiopenmpinumpy1.26python3.12.____cpython:
+        CONFIG: osx_arm64_cuda_compiler_versionNonempiopenmpinumpy1.26python3.12.____cpython
+        UPLOAD_PACKAGES: 'True'
+        SHORT_CONFIG: osx_arm64_cuda_compiler_versionNone_h90138eccd0
+    maxParallel: 33
   timeoutInMinutes: 360
   variables: {}
 

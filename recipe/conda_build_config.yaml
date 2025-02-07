@@ -8,3 +8,7 @@ mpi:
   - openmpi
   - mpich
   - nompi
+cuda_compiler_version:
+  - None
+  - 11.8
+  - 12.1
