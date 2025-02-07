@@ -27,7 +27,7 @@ if (( $(printf "%02d%02d" ${PKG_VERSION//./ }) <= 2205 )); then
 fi
 
 CMAKE_FLAGS=""
-BUILD_GUI="TRUE"
+BUILD_GUI="FALSE"
 if [[ "$target_platform" == osx* ]]; then
     CMAKE_FLAGS+=" -DCMAKE_OSX_SYSROOT=${CONDA_BUILD_SYSROOT}"
     CMAKE_FLAGS+=" -DCMAKE_OSX_DEPLOYMENT_TARGET=${MACOSX_DEPLOYMENT_TARGET}"
