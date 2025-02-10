@@ -43,7 +43,7 @@ requirements:
   build:
     - bc
     - bison
-    - cmake
+    - cmake =3.29.5
     - cross-python_{{ target_platform }}     # [build_platform != target_platform]
     - flex
     - libgomp      # [linux and not aarch64]
