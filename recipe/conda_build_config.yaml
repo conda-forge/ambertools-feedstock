@@ -1,9 +1,9 @@
 # downgrade clang to 15; clang >=16 is currently too strict
 # w.r.t. incompatible function pointer types
-c_compiler_version:     # [osx]
-  - 15                  # [osx]
-cxx_compiler_version:   # [osx]
-  - 15                  # [osx]
+#c_compiler_version:     # [osx]
+#  - 15                  # [osx]
+#cxx_compiler_version:   # [osx]
+#  - 15                  # [osx]
 mpi:
   - openmpi
   - mpich
