@@ -60,6 +60,7 @@ fi
 # We need to build some x86 bins to compile arm64, so we need to save the paths here so we can use them later
 CC_TARGET=${CC}
 CXX_TARGET=${CXX}
+FC_TARGET=${FC}
 
 if [[ "${build_platform}" != "${target_platform}" ]]; then
     # Build host tools first
@@ -68,6 +69,7 @@ if [[ "${build_platform}" != "${target_platform}" ]]; then
     cd build_host_tools
 	CC=${CC_FOR_BUILD} 
 	CXX=${CXX_FOR_BUILD}
+	FC=${FC_FOR_BUILD}
     cmake ${CMAKE_ARGS} ${SRC_DIR} ${CMAKE_FLAGS} \
         -DBUILD_HOST_TOOLS=TRUE \
         -DCOMPILER=MANUAL \
@@ -85,6 +87,7 @@ cd build
 # Now we go back to the target arch
 CC=${CC_TARGET}
 CXX=${CXX_TARGET}
+FC=${FC_TARGET}
 
 if [ "${mpi}" = "nompi" ]; then ENABLE_MPI=FALSE; else ENABLE_MPI=TRUE; fi
 
