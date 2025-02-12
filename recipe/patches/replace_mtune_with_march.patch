@@ -1,0 +1,613 @@
+diff --git a/AmberTools/src/configure2 b/AmberTools/src/configure2
+index f8c50e85..1cd68842 100755
+--- a/AmberTools/src/configure2
++++ b/AmberTools/src/configure2
+@@ -1501,11 +1501,11 @@ gnu)
+       if [ $sse = 'yes' ]; then
+         if [ $x86_64 = 'yes' ]; then
+           #-mfpmath=sse is default for x86_64, no need to specific it
+-          coptflags="$coptflags -mtune=native"
+-          foptflags="$foptflags -mtune=native"
++          coptflags="$coptflags -march=native"
++          foptflags="$foptflags -march=native"
+         else # i386 needs to be told to use sse prior to using -mfpmath=sse
+-          coptflags="$coptflags -mtune=native -msse -mfpmath=sse"
+-          foptflags="$foptflags -mtune=native -msse -mfpmath=sse"
++          coptflags="$coptflags -march=native -msse -mfpmath=sse"
++          foptflags="$foptflags -march=native -msse -mfpmath=sse"
+         fi
+       fi
+       fcreal8="-fdefault-real-8"
+@@ -2384,7 +2384,7 @@ clang)
+       cxxnooptflags=
+       cxxoptflags="$pic -O3"
+       fnooptflags="-O0"
+-      foptflags="-O3 -mtune=native"
++      foptflags="-O3 -march=native"
+     fi
+ 
+     if [ "$is_mac" = 'yes' ]; then
+diff --git a/AmberTools/src/cphstats/configure b/AmberTools/src/cphstats/configure
+index 3ef58a2a..f81824ab 100755
+--- a/AmberTools/src/cphstats/configure
++++ b/AmberTools/src/cphstats/configure
+@@ -64,9 +64,9 @@ if arg[0].lower() in ('gnu', 'gcc'):
+    f90flags = ['-Wall']
+ 
+    if opt.opt:
+-      cppflags.extend(['-O3', '-mtune=native'])
+-      f90flags.extend(['-O3', '-mtune=native'])
+-      ldflags.extend(['-O3', '-mtune=native'])
++      cppflags.extend(['-O3', '-march=native'])
++      f90flags.extend(['-O3', '-march=native'])
++      ldflags.extend(['-O3', '-march=native'])
+    else:
+       cppflags.append('-O0')
+       f90flags.append('-O0')
+diff --git a/AmberTools/src/cpptraj/cmake-cpptraj/CompilerFlags.cmake b/AmberTools/src/cpptraj/cmake-cpptraj/CompilerFlags.cmake
+index fba09518..e9a971cd 100644
+--- a/AmberTools/src/cpptraj/cmake-cpptraj/CompilerFlags.cmake
++++ b/AmberTools/src/cpptraj/cmake-cpptraj/CompilerFlags.cmake
+@@ -73,9 +73,9 @@ if("${CMAKE_C_COMPILER_ID}" STREQUAL "GNU")
+ 		if(SSE)
+ 			if(TARGET_ARCH STREQUAL x86_64)
+           		#-mfpmath=sse is default for x86_64, no need to specific it
+-          		set(OPT_CFLAGS ${OPT_CFLAGS} "-mtune=native")
++          		set(OPT_CFLAGS ${OPT_CFLAGS} "-march=native")
+         	else() # i386 needs to be told to use sse prior to using -mfpmath=sse
+-          		set(OPT_CFLAGS "${OPT_CFLAGS} -mtune=native -msse -mfpmath=sse")
++          		set(OPT_CFLAGS "${OPT_CFLAGS} -march=native -msse -mfpmath=sse")
+          	endif()
+          endif()
+ 	endif()    
+@@ -117,9 +117,9 @@ if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
+ 		if(SSE)
+ 			if(TARGET_ARCH STREQUAL x86_64)
+           		#-mfpmath=sse is default for x86_64, no need to specific it
+-          		set(OPT_CXXFLAGS ${OPT_CXXFLAGS} "-mtune=native")
++          		set(OPT_CXXFLAGS ${OPT_CXXFLAGS} "-march=native")
+         	else() # i386 needs to be told to use sse prior to using -mfpmath=sse
+-          		set(OPT_CXXFLAGS "${OPT_CXXFLAGS} -mtune=native -msse -mfpmath=sse")
++          		set(OPT_CXXFLAGS "${OPT_CXXFLAGS} -march=native -msse -mfpmath=sse")
+          	endif()
+          endif()
+ 	endif()    
+@@ -155,9 +155,9 @@ if("${CMAKE_Fortran_COMPILER_ID}" STREQUAL "GNU")
+ 		if(SSE)
+ 			if(TARGET_ARCH STREQUAL x86_64)
+           		#-mfpmath=sse is default for x86_64, no need to specific it
+-          		set(OPT_FFLAGS ${OPT_FFLAGS} -mtune=native)
++          		set(OPT_FFLAGS ${OPT_FFLAGS} -march=native)
+         	else() # i386 needs to be told to use sse prior to using -mfpmath=sse
+-          		set(OPT_FFLAGS ${OPT_FFLAGS} -mtune=native -msse -mfpmath=sse)
++          		set(OPT_FFLAGS ${OPT_FFLAGS} -march=native -msse -mfpmath=sse)
+          	endif()
+          endif()
+ 	endif()
+@@ -195,7 +195,7 @@ endif()
+ if("${CMAKE_C_COMPILER_ID}" STREQUAL "Clang" OR "${CMAKE_C_COMPILER_ID}" STREQUAL "AppleClang")
+ 	add_flags(C -Wall -Wno-unused-function)
+ 	
+-	list(APPEND OPT_CFLAGS "-mtune=native")
++	list(APPEND OPT_CFLAGS "-march=native")
+ 	
+ 	#if we are crosscompiling and using clang, tell CMake this
+ 	if(CROSSCOMPILE)
+@@ -214,7 +214,7 @@ endif()
+ if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang" OR "${CMAKE_CXX_COMPILER_ID}" STREQUAL "AppleClang")
+ 	add_flags(CXX -Wall -Wno-unused-function)
+ 	
+-	list(APPEND OPT_CXXFLAGS "-mtune=native")
++	list(APPEND OPT_CXXFLAGS "-march=native")
+ 	
+ 	if(CROSSCOMPILE)
+ 		set(CMAKE_CXX_COMPILER_TARGET ${TARGET_TRIPLE})
+diff --git a/AmberTools/src/cpptraj/configure b/AmberTools/src/cpptraj/configure
+index d611f23c..e5a3cc0e 100755
+--- a/AmberTools/src/cpptraj/configure
++++ b/AmberTools/src/cpptraj/configure
+@@ -1616,7 +1616,7 @@ SetupCompilers() {
+       if [ -z "$CC" ]; then CC=gcc; fi
+       if [ -z "$CXX" ]; then CXX=g++; fi
+       if [ -z "$FC" ]; then FC=gfortran; fi
+-      hostflags='-mtune=native'
++      hostflags='-march=native'
+       optflags='-O3'
+       ompflag='-fopenmp'
+       freefmtflag='-ffree-form'
+diff --git a/AmberTools/src/fe-toolkit/edgembar/configure b/AmberTools/src/fe-toolkit/edgembar/configure
+index 0a784f66..3d406cd1 100755
+--- a/AmberTools/src/fe-toolkit/edgembar/configure
++++ b/AmberTools/src/fe-toolkit/edgembar/configure
+@@ -4939,8 +4939,8 @@ ac_compiler_gnu=$ac_cv_c_compiler_gnu
+ 
+ 
+ 
+-        { $as_echo "$as_me:${as_lineno-$LINENO}: checking if $CXX supports $OPT_CXXFLAGS -mtune=native" >&5
+-$as_echo_n "checking if $CXX supports $OPT_CXXFLAGS -mtune=native... " >&6; }
++        { $as_echo "$as_me:${as_lineno-$LINENO}: checking if $CXX supports $OPT_CXXFLAGS -march=native" >&5
++$as_echo_n "checking if $CXX supports $OPT_CXXFLAGS -march=native... " >&6; }
+   ac_ext=cpp
+ ac_cpp='$CXXCPP $CPPFLAGS'
+ ac_compile='$CXX -c $CXXFLAGS $CPPFLAGS conftest.$ac_ext >&5'
+@@ -4948,7 +4948,7 @@ ac_link='$CXX -o conftest$ac_exeext $CXXFLAGS $CPPFLAGS $LDFLAGS conftest.$ac_ex
+ ac_compiler_gnu=$ac_cv_cxx_compiler_gnu
+ 
+   ac_saved_cxxflags="$CXXFLAGS"
+-  CXXFLAGS="$OPT_CXXFLAGS -mtune=native"
++  CXXFLAGS="$OPT_CXXFLAGS -march=native"
+   cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+ /* end confdefs.h.  */
+ 
+@@ -4963,7 +4963,7 @@ _ACEOF
+ if ac_fn_cxx_try_compile "$LINENO"; then :
+   { $as_echo "$as_me:${as_lineno-$LINENO}: result: yes" >&5
+ $as_echo "yes" >&6; }
+-    OPT_CXXFLAGS+=" -mtune=native"
++    OPT_CXXFLAGS+=" -march=native"
+ else
+   { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
+ $as_echo "no" >&6; }
+diff --git a/AmberTools/src/fe-toolkit/edgembar/configure.ac b/AmberTools/src/fe-toolkit/edgembar/configure.ac
+index 5413002d..873f708e 100644
+--- a/AmberTools/src/fe-toolkit/edgembar/configure.ac
++++ b/AmberTools/src/fe-toolkit/edgembar/configure.ac
+@@ -780,7 +780,7 @@ dnl intel flags
+ [-xhost], [-ftz], [-r8], [-align], [-no-prec-div],dnl
+ [-assume norealloc_lhs,nodummy_aliases,noprotect_parens],dnl
+ [-std=c++0x], [-wd981,1419],dnl
+-[-march=native], [-mtune=native], dnl
++[-march=native], [-march=native], dnl
+ [-Wall], [-Wextra] dnl
+ ],
+     [
+@@ -816,7 +816,7 @@ dnl intel flags
+ [-xhost -static],dnl
+ [-xhost], [-ftz], [-r8], [-align], [-no-prec-div],[-implicitnone],dnl
+ [-assume norealloc_lhs,nodummy_aliases,noprotect_parens],dnl
+-[-march=native], [-mtune=native], dnl
++[-march=native], [-march=native], dnl
+ [-std=f2003], [-fall-intrinsics], [-Wall], [-Wextra], [-fimplicit-none],dnl
+ [-Wampersand],[-Wcharacter-truncation], [-ffree-form], [-fno-sign-zero], dnl
+ ],
+@@ -854,7 +854,7 @@ dnl intel flags
+ [-xhost -static],dnl
+ [-xhost], [-ftz], [-r8], [-align], [-no-prec-div],[-implicitnone],dnl
+ [-assume norealloc_lhs,nodummy_aliases,noprotect_parens],dnl
+-[-march=native], [-mtune=native], dnl
++[-march=native], [-march=native], dnl
+ [-std=c99], [-Wall], [-Wextra], dnl
+ ],
+     [
+diff --git a/AmberTools/src/fe-toolkit/ndfes/configure b/AmberTools/src/fe-toolkit/ndfes/configure
+index 046e4bd9..7be0df89 100755
+--- a/AmberTools/src/fe-toolkit/ndfes/configure
++++ b/AmberTools/src/fe-toolkit/ndfes/configure
+@@ -4939,8 +4939,8 @@ ac_compiler_gnu=$ac_cv_c_compiler_gnu
+ 
+ 
+ 
+-        { $as_echo "$as_me:${as_lineno-$LINENO}: checking if $CXX supports $OPT_CXXFLAGS -mtune=native" >&5
+-$as_echo_n "checking if $CXX supports $OPT_CXXFLAGS -mtune=native... " >&6; }
++        { $as_echo "$as_me:${as_lineno-$LINENO}: checking if $CXX supports $OPT_CXXFLAGS -march=native" >&5
++$as_echo_n "checking if $CXX supports $OPT_CXXFLAGS -march=native... " >&6; }
+   ac_ext=cpp
+ ac_cpp='$CXXCPP $CPPFLAGS'
+ ac_compile='$CXX -c $CXXFLAGS $CPPFLAGS conftest.$ac_ext >&5'
+@@ -4948,7 +4948,7 @@ ac_link='$CXX -o conftest$ac_exeext $CXXFLAGS $CPPFLAGS $LDFLAGS conftest.$ac_ex
+ ac_compiler_gnu=$ac_cv_cxx_compiler_gnu
+ 
+   ac_saved_cxxflags="$CXXFLAGS"
+-  CXXFLAGS="$OPT_CXXFLAGS -mtune=native"
++  CXXFLAGS="$OPT_CXXFLAGS -march=native"
+   cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+ /* end confdefs.h.  */
+ 
+@@ -4963,7 +4963,7 @@ _ACEOF
+ if ac_fn_cxx_try_compile "$LINENO"; then :
+   { $as_echo "$as_me:${as_lineno-$LINENO}: result: yes" >&5
+ $as_echo "yes" >&6; }
+-    OPT_CXXFLAGS+=" -mtune=native"
++    OPT_CXXFLAGS+=" -march=native"
+ else
+   { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
+ $as_echo "no" >&6; }
+diff --git a/AmberTools/src/fe-toolkit/ndfes/configure.ac b/AmberTools/src/fe-toolkit/ndfes/configure.ac
+index 179fa0b1..7726d54f 100644
+--- a/AmberTools/src/fe-toolkit/ndfes/configure.ac
++++ b/AmberTools/src/fe-toolkit/ndfes/configure.ac
+@@ -780,7 +780,7 @@ dnl intel flags
+ [-xhost], [-ftz], [-r8], [-align], [-no-prec-div],dnl
+ [-assume norealloc_lhs,nodummy_aliases,noprotect_parens],dnl
+ [-std=c++0x], [-wd981,1419],dnl
+-[-march=native], [-mtune=native], dnl
++[-march=native], [-march=native], dnl
+ [-Wall], [-Wextra] dnl
+ ],
+     [
+@@ -816,7 +816,7 @@ dnl intel flags
+ [-xhost -static],dnl
+ [-xhost], [-ftz], [-r8], [-align], [-no-prec-div],[-implicitnone],dnl
+ [-assume norealloc_lhs,nodummy_aliases,noprotect_parens],dnl
+-[-march=native], [-mtune=native], dnl
++[-march=native], [-march=native], dnl
+ [-std=f2003], [-fall-intrinsics], [-Wall], [-Wextra], [-fimplicit-none],dnl
+ [-Wampersand],[-Wcharacter-truncation], [-ffree-form], [-fno-sign-zero], dnl
+ ],
+@@ -854,7 +854,7 @@ dnl intel flags
+ [-xhost -static],dnl
+ [-xhost], [-ftz], [-r8], [-align], [-no-prec-div],[-implicitnone],dnl
+ [-assume norealloc_lhs,nodummy_aliases,noprotect_parens],dnl
+-[-march=native], [-mtune=native], dnl
++[-march=native], [-march=native], dnl
+ [-std=c99], [-Wall], [-Wextra], dnl
+ ],
+     [
+diff --git a/AmberTools/src/fe-toolkit/ndfes/doc/Documentation.txt b/AmberTools/src/fe-toolkit/ndfes/doc/Documentation.txt
+index 0b4839e3..bd7161e8 100644
+--- a/AmberTools/src/fe-toolkit/ndfes/doc/Documentation.txt
++++ b/AmberTools/src/fe-toolkit/ndfes/doc/Documentation.txt
+@@ -130,7 +130,7 @@ Contents:
+ 
+     ./configure --with-openmp --prefix=${PREFIX} \
+         CXX=g++ CC=gcc \
+-        CXXFLAGS="-O3 -std=c++0x -march=native -mtune=native -Wall -Wextra" \
++        CXXFLAGS="-O3 -std=c++0x -march=native -march=native -Wall -Wextra" \
+         CPPFLAGS="-DNDEBUG" \
+         PYTHON=`which python3` \
+ 	LAPACK_LIBS="-lopenblas" \
+diff --git a/AmberTools/src/fftw-3.3/ChangeLog b/AmberTools/src/fftw-3.3/ChangeLog
+index 3eaa0c55..3e0f4a25 100644
+--- a/AmberTools/src/fftw-3.3/ChangeLog
++++ b/AmberTools/src/fftw-3.3/ChangeLog
+@@ -939,7 +939,7 @@ Wed Jun 22 07:38:18 EDT 2011  athena@fftw.org
+   
+   -xHost with ICC is problematic.  On icc-12.0.0, "-mavx -xHost"
+   overrides -mavx with -xHost, generating SSE2 code instead of AVX code.
+-  ICC does not seem to support -mtune=host or equivalent non-ABI
++  ICC does not seem to support -march=host or equivalent non-ABI
+   changing flag.
+   
+ 
+@@ -10006,7 +10006,7 @@ Fri Feb 18 23:47:22 EST 2005  stevenj
+   * [project @ 2005-02-19 04:47:22 by stevenj]
+   for --enable-portable-binary, only try -mcpu=$arch and -m$arch on x86,
+   since these generate non-portable code on every other target (and
+-  some other targets, like Alpha, don't support -mtune=$arch).
++  some other targets, like Alpha, don't support -march=$arch).
+ 
+     M ./m4/ax_gcc_archflag.m4 -2 +5
+ 
+diff --git a/AmberTools/src/fftw-3.3/NEWS b/AmberTools/src/fftw-3.3/NEWS
+index ba06ca38..058354a5 100644
+--- a/AmberTools/src/fftw-3.3/NEWS
++++ b/AmberTools/src/fftw-3.3/NEWS
+@@ -61,9 +61,9 @@ FFTW 3.3
+   by default.
+ 
+ * Remove the automatic detection of native architecture flag for gcc
+-  which was introduced in fftw-3.1, since new gcc supports -mtune=native.
++  which was introduced in fftw-3.1, since new gcc supports -march=native.
+   Remove the --with-gcc-arch flag; if you want to specify a particlar
+-  arch to configure, use ./configure CC="gcc -mtune=...".
++  arch to configure, use ./configure CC="gcc -march=...".
+ 
+ * --with-our-malloc16 configure flag is now renamed --with-our-malloc.
+ 
+diff --git a/AmberTools/src/fftw-3.3/configure b/AmberTools/src/fftw-3.3/configure
+index a3bdad73..92026471 100755
+--- a/AmberTools/src/fftw-3.3/configure
++++ b/AmberTools/src/fftw-3.3/configure
+@@ -12595,7 +12595,7 @@ fi
+ 	# We used to check for architecture flags here, e.g. -xHost etc.,
+ 	# but these flags are problematic.  On icc-12.0.0, "-mavx -xHost"
+ 	# overrides -mavx with -xHost, generating SSE2 code instead of AVX
+-	# code.  ICC does not seem to support -mtune=host or equivalent
++	# code.  ICC does not seem to support -march=host or equivalent
+ 	# non-ABI changing flag.
+ 	;;
+ 
+@@ -12605,10 +12605,10 @@ fi
+      CFLAGS="-O3 -fomit-frame-pointer"
+ 
+      # tune for the host by default
+-      { $as_echo "$as_me:${as_lineno-$LINENO}: checking whether C compiler accepts -mtune=native" >&5
+-$as_echo_n "checking whether C compiler accepts -mtune=native... " >&6; }
++      { $as_echo "$as_me:${as_lineno-$LINENO}: checking whether C compiler accepts -march=native" >&5
++$as_echo_n "checking whether C compiler accepts -march=native... " >&6; }
+ ax_save_FLAGS=$CFLAGS
+-   CFLAGS="-mtune=native"
++   CFLAGS="-march=native"
+    cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+ /* end confdefs.h.  */
+ 
+@@ -12621,17 +12621,17 @@ main ()
+ }
+ _ACEOF
+ if ac_fn_c_try_compile "$LINENO"; then :
+-  eval `$as_echo "ax_cv_c_flags_-mtune=native" | $as_tr_sh`=yes
++  eval `$as_echo "ax_cv_c_flags_-march=native" | $as_tr_sh`=yes
+ else
+-  eval `$as_echo "ax_cv_c_flags_-mtune=native" | $as_tr_sh`=no
++  eval `$as_echo "ax_cv_c_flags_-march=native" | $as_tr_sh`=no
+ fi
+ rm -f core conftest.err conftest.$ac_objext conftest.$ac_ext
+    CFLAGS=$ax_save_FLAGS
+-eval ax_check_compiler_flags=$`$as_echo "ax_cv_c_flags_-mtune=native" | $as_tr_sh`
++eval ax_check_compiler_flags=$`$as_echo "ax_cv_c_flags_-march=native" | $as_tr_sh`
+ { $as_echo "$as_me:${as_lineno-$LINENO}: result: $ax_check_compiler_flags" >&5
+ $as_echo "$ax_check_compiler_flags" >&6; }
+ if test "x$ax_check_compiler_flags" = xyes; then
+-	CFLAGS="$CFLAGS -mtune=native"
++	CFLAGS="$CFLAGS -march=native"
+ else
+ 	:
+ fi
+diff --git a/AmberTools/src/fftw-3.3/m4/ax_cc_maxopt.m4 b/AmberTools/src/fftw-3.3/m4/ax_cc_maxopt.m4
+index bf6b8b2c..e5e477f0 100644
+--- a/AmberTools/src/fftw-3.3/m4/ax_cc_maxopt.m4
++++ b/AmberTools/src/fftw-3.3/m4/ax_cc_maxopt.m4
+@@ -67,7 +67,7 @@ if test "$ac_test_CFLAGS" != "set"; then
+ 	# We used to check for architecture flags here, e.g. -xHost etc.,
+ 	# but these flags are problematic.  On icc-12.0.0, "-mavx -xHost"
+ 	# overrides -mavx with -xHost, generating SSE2 code instead of AVX
+-	# code.  ICC does not seem to support -mtune=host or equivalent
++	# code.  ICC does not seem to support -march=host or equivalent
+ 	# non-ABI changing flag.
+ 	;;
+     
+@@ -77,7 +77,7 @@ if test "$ac_test_CFLAGS" != "set"; then
+      CFLAGS="-O3 -fomit-frame-pointer"
+ 
+      # tune for the host by default
+-     AX_CHECK_COMPILER_FLAGS(-mtune=native, CFLAGS="$CFLAGS -mtune=native")
++     AX_CHECK_COMPILER_FLAGS(-march=native, CFLAGS="$CFLAGS -march=native")
+ 
+      # -malign-double for x86 systems
+      AX_CHECK_COMPILER_FLAGS(-malign-double, CFLAGS="$CFLAGS -malign-double")
+diff --git a/AmberTools/src/gem.pmemd/config.h.par.gnu b/AmberTools/src/gem.pmemd/config.h.par.gnu
+index 3524809e..ee6f8c13 100644
+--- a/AmberTools/src/gem.pmemd/config.h.par.gnu
++++ b/AmberTools/src/gem.pmemd/config.h.par.gnu
+@@ -14,8 +14,8 @@ NETCDFINC=
+ 
+ #PMEMD Specific build flags
+ PMEMD_F90=mpif90 -DMPI -DPUBFFT -DGNU_HACKS
+-PMEMD_FOPTFLAGS=-O3 -mtune=native
++PMEMD_FOPTFLAGS=-O3 -march=native
+ PMEMD_CC=mpicc
+-PMEMD_COPTFLAGS=-O3 -mtune=native -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -DMPI 
++PMEMD_COPTFLAGS=-O3 -march=native -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -DMPI 
+ PMEMD_FLIBSF= 
+ PMEMD_LD= mpif90 
+diff --git a/AmberTools/src/gem.pmemd/config.h.ser.gnu b/AmberTools/src/gem.pmemd/config.h.ser.gnu
+index 5d0f4a61..058a3c70 100644
+--- a/AmberTools/src/gem.pmemd/config.h.ser.gnu
++++ b/AmberTools/src/gem.pmemd/config.h.ser.gnu
+@@ -14,8 +14,8 @@ NETCDFINC=
+ 
+ #PMEMD Specific build flags
+ PMEMD_F90=gfortran -DPUBFFT -DGNU_HACKS
+-PMEMD_FOPTFLAGS=-O3 -mtune=native
++PMEMD_FOPTFLAGS=-O3 -march=native
+ PMEMD_CC=gcc
+-PMEMD_COPTFLAGS=-O3 -mtune=native -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE 
++PMEMD_COPTFLAGS=-O3 -march=native -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE 
+ PMEMD_FLIBSF= 
+ PMEMD_LD= gfortran 
+diff --git a/AmberTools/src/quick/CMakeLists.txt b/AmberTools/src/quick/CMakeLists.txt
+index 475f6d80..d924e275 100644
+--- a/AmberTools/src/quick/CMakeLists.txt
++++ b/AmberTools/src/quick/CMakeLists.txt
+@@ -63,7 +63,7 @@ set(CMAKE_Fortran_FLAGS "")
+ # --------------------------------------------------------------------
+ if("${CMAKE_C_COMPILER_ID}" STREQUAL "GNU")
+ 
+-    set(OPT_CFLAGS -O2 -mtune=native)
++    set(OPT_CFLAGS -O2 -march=native)
+ 
+     if (WARNINGS)
+ 	add_flags(C -Wall -Wno-unused-function -Wno-unknown-pragmas)
+@@ -81,7 +81,7 @@ endif()
+ 
+ if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
+     
+-    set(OPT_CXXFLAGS -O2 -mtune=native)
++    set(OPT_CXXFLAGS -O2 -march=native)
+ 
+     if (WARNINGS)
+ 	add_flags(CXX -Wall -Wno-unused-function -Wno-unknown-pragmas)
+@@ -106,7 +106,7 @@ endif()
+ 
+ if("${CMAKE_Fortran_COMPILER_ID}" STREQUAL "GNU")
+ 
+-    set(OPT_FFLAGS -O2 -mtune=native)
++    set(OPT_FFLAGS -O2 -march=native)
+ 
+     add_flags(Fortran -ffree-line-length-none)
+ 
+diff --git a/AmberTools/src/quick/cmake/CompilerFlags.cmake b/AmberTools/src/quick/cmake/CompilerFlags.cmake
+index 41a3002c..49222699 100644
+--- a/AmberTools/src/quick/cmake/CompilerFlags.cmake
++++ b/AmberTools/src/quick/cmake/CompilerFlags.cmake
+@@ -73,9 +73,9 @@ if("${CMAKE_C_COMPILER_ID}" STREQUAL "GNU")
+ 		if(SSE)
+ 			if(TARGET_ARCH STREQUAL x86_64)
+           		#-mfpmath=sse is default for x86_64, no need to specific it
+-          		set(OPT_CFLAGS ${OPT_CFLAGS} "-mtune=native")
++          		set(OPT_CFLAGS ${OPT_CFLAGS} "-march=native")
+         	else() # i386 needs to be told to use sse prior to using -mfpmath=sse
+-          		set(OPT_CFLAGS "${OPT_CFLAGS} -mtune=native -msse -mfpmath=sse")
++          		set(OPT_CFLAGS "${OPT_CFLAGS} -march=native -msse -mfpmath=sse")
+          	endif()
+          endif()
+ 	endif()    
+@@ -113,9 +113,9 @@ if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
+ 		if(SSE)
+ 			if(TARGET_ARCH STREQUAL x86_64)
+           		#-mfpmath=sse is default for x86_64, no need to specific it
+-          		set(OPT_CXXFLAGS ${OPT_CXXFLAGS} "-mtune=native")
++          		set(OPT_CXXFLAGS ${OPT_CXXFLAGS} "-march=native")
+         	else() # i386 needs to be told to use sse prior to using -mfpmath=sse
+-          		set(OPT_CXXFLAGS "${OPT_CXXFLAGS} -mtune=native -msse -mfpmath=sse")
++          		set(OPT_CXXFLAGS "${OPT_CXXFLAGS} -march=native -msse -mfpmath=sse")
+          	endif()
+          endif()
+ 	endif()    
+@@ -151,9 +151,9 @@ if("${CMAKE_Fortran_COMPILER_ID}" STREQUAL "GNU")
+ 		if(SSE)
+ 			if(TARGET_ARCH STREQUAL x86_64)
+           		#-mfpmath=sse is default for x86_64, no need to specific it
+-          		set(OPT_FFLAGS ${OPT_FFLAGS} -mtune=native)
++          		set(OPT_FFLAGS ${OPT_FFLAGS} -march=native)
+         	else() # i386 needs to be told to use sse prior to using -mfpmath=sse
+-          		set(OPT_FFLAGS ${OPT_FFLAGS} -mtune=native -msse -mfpmath=sse)
++          		set(OPT_FFLAGS ${OPT_FFLAGS} -march=native -msse -mfpmath=sse)
+          	endif()
+          endif()
+ 	endif()
+@@ -184,7 +184,7 @@ endif()
+ if("${CMAKE_C_COMPILER_ID}" STREQUAL "Clang" OR "${CMAKE_C_COMPILER_ID}" STREQUAL "AppleClang")
+ 	add_flags(C -Wall -Wno-unused-function)
+ 	
+-	list(APPEND OPT_CFLAGS "-mtune=native")
++	list(APPEND OPT_CFLAGS "-march=native")
+ 	
+ 	#if we are crosscompiling and using clang, tell CMake this
+ 	if(CROSSCOMPILE)
+@@ -203,7 +203,7 @@ endif()
+ if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang" OR "${CMAKE_CXX_COMPILER_ID}" STREQUAL "AppleClang")
+ 	add_flags(CXX -Wall -Wno-unused-function)
+ 	
+-	list(APPEND OPT_CXXFLAGS "-mtune=native")
++	list(APPEND OPT_CXXFLAGS "-march=native")
+ 	
+ 	if(CROSSCOMPILE)
+ 		set(CMAKE_CXX_COMPILER_TARGET ${TARGET_TRIPLE})
+diff --git a/AmberTools/src/quick/configure b/AmberTools/src/quick/configure
+index 19e34c8c..8f3c5e2d 100755
+--- a/AmberTools/src/quick/configure
++++ b/AmberTools/src/quick/configure
+@@ -1182,7 +1182,7 @@ for buildtype in $buildtypes; do
+   # set compiler specific flags
+   case "$compiler" in
+     gnu)
+-      fort_flags="$opt_flags $fort_debug_flags -mtune=native -ffree-form -cpp -DGNU $fort_vspec_flags $lib_flags -I$QUICK_HOME/build/include/$buildtype -J$QUICK_HOME/build/include/$buildtype"
++      fort_flags="$opt_flags $fort_debug_flags -march=native -ffree-form -cpp -DGNU $fort_vspec_flags $lib_flags -I$QUICK_HOME/build/include/$buildtype -J$QUICK_HOME/build/include/$buildtype"
+       if [ "$cuda" = 'yes' ] || [ "$cudampi" = 'yes' ]; then
+         cflags="-lgfortran -L$CUDA_HOME/lib64 -lcuda -lm -lcudart -lcudadevrt -lcublas -lcusolver"
+ 		if [ `echo "$cudaversion < 10.0 "| bc` -gt 0 ]; then  
+@@ -1347,10 +1347,10 @@ for buildtype in $buildtypes; do
+   # set dlfind flags
+   case "$compiler" in
+     gnu)
+-      fort_ext_lib_flags="$opt_flags $fort_debug_flags -mtune=native -ffree-form -cpp -DGNU $fort_vspec_flags $lib_flags -J$QUICK_HOME/build/include/common"
++      fort_ext_lib_flags="$opt_flags $fort_debug_flags -march=native -ffree-form -cpp -DGNU $fort_vspec_flags $lib_flags -J$QUICK_HOME/build/include/common"
+       ;;
+     intel|pgi|nvidia)
+-      fort_ext_lib_flags="$opt_flags $fort_debug_flags -mtune=native -ffree-form -cpp -DGNU $fort_vspec_flags $lib_flags -module$QUICK_HOME/build/include/common"
++      fort_ext_lib_flags="$opt_flags $fort_debug_flags -march=native -ffree-form -cpp -DGNU $fort_vspec_flags $lib_flags -module$QUICK_HOME/build/include/common"
+       ;;
+   esac
+ 
+diff --git a/AmberTools/src/quick/quick-cmake/QUICKCudaConfig.cmake b/AmberTools/src/quick/quick-cmake/QUICKCudaConfig.cmake
+index 47237c77..68fc071f 100644
+--- a/AmberTools/src/quick/quick-cmake/QUICKCudaConfig.cmake
++++ b/AmberTools/src/quick/quick-cmake/QUICKCudaConfig.cmake
+@@ -220,7 +220,7 @@ if(HIP)
+     if(OPTIMIZE)
+         list(APPEND AMD_HIP_FLAGS -O2 -ffast-math)
+ 
+-        set(OPT_CXXFLAGS ${OPT_CXXFLAGS} -O2 -mtune=native)
++        set(OPT_CXXFLAGS ${OPT_CXXFLAGS} -O2 -march=native)
+ 
+     else()
+         list(APPEND AMD_HIP_FLAGS -O0)
+diff --git a/AmberTools/src/tcpb-cpp/configure b/AmberTools/src/tcpb-cpp/configure
+index ada8a1df..e40866e2 100755
+--- a/AmberTools/src/tcpb-cpp/configure
++++ b/AmberTools/src/tcpb-cpp/configure
+@@ -59,9 +59,9 @@ if arg[0].lower() in ('gnu', 'gcc'):
+    f90flags = ['-fPIC', '-Wall']
+ 
+    if opt.opt:
+-      cppflags.extend(['-O3', '-mtune=native'])
+-      f90flags.extend(['-O3', '-mtune=native'])
+-      ldflags.extend(['-O3', '-mtune=native'])
++      cppflags.extend(['-O3', '-march=native'])
++      f90flags.extend(['-O3', '-march=native'])
++      ldflags.extend(['-O3', '-march=native'])
+    else:
+       cppflags.append('-O0')
+       f90flags.append('-O0')
+diff --git a/cmake/CompilerFlags.cmake b/cmake/CompilerFlags.cmake
+index fba09518..e9a971cd 100644
+--- a/cmake/CompilerFlags.cmake
++++ b/cmake/CompilerFlags.cmake
+@@ -73,9 +73,9 @@ if("${CMAKE_C_COMPILER_ID}" STREQUAL "GNU")
+ 		if(SSE)
+ 			if(TARGET_ARCH STREQUAL x86_64)
+           		#-mfpmath=sse is default for x86_64, no need to specific it
+-          		set(OPT_CFLAGS ${OPT_CFLAGS} "-mtune=native")
++          		set(OPT_CFLAGS ${OPT_CFLAGS} "-march=native")
+         	else() # i386 needs to be told to use sse prior to using -mfpmath=sse
+-          		set(OPT_CFLAGS "${OPT_CFLAGS} -mtune=native -msse -mfpmath=sse")
++          		set(OPT_CFLAGS "${OPT_CFLAGS} -march=native -msse -mfpmath=sse")
+          	endif()
+          endif()
+ 	endif()    
+@@ -117,9 +117,9 @@ if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
+ 		if(SSE)
+ 			if(TARGET_ARCH STREQUAL x86_64)
+           		#-mfpmath=sse is default for x86_64, no need to specific it
+-          		set(OPT_CXXFLAGS ${OPT_CXXFLAGS} "-mtune=native")
++          		set(OPT_CXXFLAGS ${OPT_CXXFLAGS} "-march=native")
+         	else() # i386 needs to be told to use sse prior to using -mfpmath=sse
+-          		set(OPT_CXXFLAGS "${OPT_CXXFLAGS} -mtune=native -msse -mfpmath=sse")
++          		set(OPT_CXXFLAGS "${OPT_CXXFLAGS} -march=native -msse -mfpmath=sse")
+          	endif()
+          endif()
+ 	endif()    
+@@ -155,9 +155,9 @@ if("${CMAKE_Fortran_COMPILER_ID}" STREQUAL "GNU")
+ 		if(SSE)
+ 			if(TARGET_ARCH STREQUAL x86_64)
+           		#-mfpmath=sse is default for x86_64, no need to specific it
+-          		set(OPT_FFLAGS ${OPT_FFLAGS} -mtune=native)
++          		set(OPT_FFLAGS ${OPT_FFLAGS} -march=native)
+         	else() # i386 needs to be told to use sse prior to using -mfpmath=sse
+-          		set(OPT_FFLAGS ${OPT_FFLAGS} -mtune=native -msse -mfpmath=sse)
++          		set(OPT_FFLAGS ${OPT_FFLAGS} -march=native -msse -mfpmath=sse)
+          	endif()
+          endif()
+ 	endif()
+@@ -195,7 +195,7 @@ endif()
+ if("${CMAKE_C_COMPILER_ID}" STREQUAL "Clang" OR "${CMAKE_C_COMPILER_ID}" STREQUAL "AppleClang")
+ 	add_flags(C -Wall -Wno-unused-function)
+ 	
+-	list(APPEND OPT_CFLAGS "-mtune=native")
++	list(APPEND OPT_CFLAGS "-march=native")
+ 	
+ 	#if we are crosscompiling and using clang, tell CMake this
+ 	if(CROSSCOMPILE)
+@@ -214,7 +214,7 @@ endif()
+ if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang" OR "${CMAKE_CXX_COMPILER_ID}" STREQUAL "AppleClang")
+ 	add_flags(CXX -Wall -Wno-unused-function)
+ 	
+-	list(APPEND OPT_CXXFLAGS "-mtune=native")
++	list(APPEND OPT_CXXFLAGS "-march=native")
+ 	
+ 	if(CROSSCOMPILE)
+ 		set(CMAKE_CXX_COMPILER_TARGET ${TARGET_TRIPLE})
+diff --git a/recipe_at/fake-bin/cc1 b/recipe_at/fake-bin/cc1
+index 940b3608..29600ddc 100644
+--- a/recipe_at/fake-bin/cc1
++++ b/recipe_at/fake-bin/cc1
+@@ -11,7 +11,7 @@
+ # which runs
+ #     x86_64-apple-darwin13.4.0-gfortran -E -dM -
+ # Looking at the verbose output this is trying to run:
+-#     cc1 -E -quiet -v -D__DYNAMIC__ - -fPIC -mmacosx-version-min=10.9 -mtune=generic -dM
++#     cc1 -E -quiet -v -D__DYNAMIC__ - -fPIC -mmacosx-version-min=10.9 -march=generic -dM
+ # The -quiet argument must be removed from the arguments as this isn't supported by clang
+ # Adding this file to PATH hacks around these issues
+ 
