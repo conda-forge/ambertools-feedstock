@@ -79,6 +79,11 @@ if [[ "${build_platform}" != "${target_platform}" ]]; then
 
     CMAKE_FLAGS+=" -DUSE_HOST_TOOLS=TRUE"
     CMAKE_FLAGS+=" -DHOST_TOOLS_DIR=${BUILD_PREFIX}/amber_host_tools"
+	if [[ "$target_platform" == "osx-arm64" ]]; then
+		echo "editing out mtune native for mtune apple-m1"
+		# This is super hacky -- but now that we built the host tools, we need to change the flag to build for m1
+		find ../ \( -type d -name .git -prune \) -o -type f -print0 | xargs -0 sed -i 's/-mtune=native/-mcpu=apple-m1/g'
+	fi
 fi
 
 # Build AmberTools with cmake
