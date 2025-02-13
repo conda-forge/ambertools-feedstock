@@ -66,7 +66,7 @@ if [[ "${build_platform}" != "${target_platform}" ]]; then
     # Build host tools first
     mkdir -p ${BUILD_PREFIX}/amber_host_tools
     mkdir -p build_host_tools
-    cd build_host_tools
+    cd build_host_tools || exit
 	CC=${CC_FOR_BUILD} 
 	CXX=${CXX_FOR_BUILD}
 	FC=${FC_FOR_BUILD}
@@ -84,11 +84,12 @@ if [[ "${build_platform}" != "${target_platform}" ]]; then
 		# This is super hacky -- but now that we built the host tools, we need to change the flag to build for m1
 		find ../ \( -type d -name .git -prune \) -o -type f -print0 | xargs -0 sed -i 's/-mtune=native/-march=armv8.3-a/g'
 	fi
+	cd ${BUILD_PREFIX} || exit
 fi
 
 # Build AmberTools with cmake
 mkdir -p build
-cd build
+cd build || exit
 # Now we go back to the target arch
 CC=${CC_TARGET}
 CXX=${CXX_TARGET}
