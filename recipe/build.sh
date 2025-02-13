@@ -74,8 +74,8 @@ if [[ "${build_platform}" != "${target_platform}" ]]; then
         -DBUILD_HOST_TOOLS=TRUE \
         -DCOMPILER=MANUAL \
         -DCMAKE_INSTALL_PREFIX="${BUILD_PREFIX}/amber_host_tools"
-	make
-	make install
+	VERBOSE=1 make
+	VERBOSE=1 make install
 
     CMAKE_FLAGS+=" -DUSE_HOST_TOOLS=TRUE"
     CMAKE_FLAGS+=" -DHOST_TOOLS_DIR=${BUILD_PREFIX}/amber_host_tools"
@@ -124,8 +124,8 @@ cmake ${CMAKE_ARGS} ${SRC_DIR} ${CMAKE_FLAGS} \
     -DCUDA=${ENABLE_CUDA} \
     -DTRUST_SYSTEM_LIBS=TRUE
 
-make
-make install
+VERBOSE=1 make
+VERBOSE=1 make install
 
 
 # Export AMBERHOME automatically
