@@ -83,6 +83,8 @@ if [[ "${build_platform}" != "${target_platform}" ]]; then
 		echo "editing out mtune native for mtune apple-m1"
 		# This is super hacky -- but now that we built the host tools, we need to change the flag to build for m1
 		find ../ \( -type d -name .git -prune \) -o -type f -print0 | xargs -0 sed -i 's/-mtune=native/-march=armv8.3-a/g'
+		# Add arm64 to the LDFLAGS 
+		export LDFLAGS="{$LDFLAGS} -arch arm64"
 	fi
 	cd ${BUILD_PREFIX} || exit
 fi
