@@ -82,12 +82,12 @@ if [[ "${build_platform}" != "${target_platform}" ]]; then
 	if [[ "$target_platform" == "osx-arm64" ]]; then
 		echo "editing out mtune native for mtune apple-m1"
 		# This is super hacky -- but now that we built the host tools, we need to change the flag to build for m1
-		find ../ \( -type d -name .git -prune \) -o -type f -print0 | xargs -0 sed -i 's/-mtune=native/-march=armv8.3-a/g'
-		find ../ \( -type d -name .git -prune \) -o -type f -print0 | xargs -0 sed -i 's/CXX -stdlib=libc++/CXX -stdlib=libc++ -arch armv8.3-a/g'
+		#find ../ \( -type d -name .git -prune \) -o -type f -print0 | xargs -0 sed -i 's/-mtune=native/-march=armv8.3-a/g'
+		#find ../ \( -type d -name .git -prune \) -o -type f -print0 | xargs -0 sed -i 's/CXX -stdlib=libc++/CXX -stdlib=libc++ -arch armv8.3-a/g'
 		# Add arm64 to the LDFLAGS 
-		export LDFLAGS="$LDFLAGS -arch arm64"
+		#export LDFLAGS="$LDFLAGS -arch arm64"
 		# add arm stuff to as many flags as I can think of
-		#CMAKE_FLAGS+=" -DCMAKE_OSX_ARCHITECTURES=arm64" # This would be good to have normally but I don't feel like patching cmake/TargetArch.cmake right now
+		CMAKE_FLAGS+=" -DCMAKE_OSX_ARCHITECTURES=arm64" # This would be good to have normally but I don't feel like patching cmake/TargetArch.cmake right now
 	fi
 	cd ${BUILD_PREFIX} || exit
 fi
