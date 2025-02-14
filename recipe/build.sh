@@ -87,7 +87,7 @@ if [[ "${build_platform}" != "${target_platform}" ]]; then
 		# Add arm64 to the LDFLAGS 
 		export LDFLAGS="$LDFLAGS -arch arm64"
 		# add arm stuff to as many flags as I can think of
-		CMAKE_FLAGS+=" -DCMAKE_OSX_ARCHITECTURES=arm64"
+		#CMAKE_FLAGS+=" -DCMAKE_OSX_ARCHITECTURES=arm64" # This would be good to have normally but I don't feel like patching cmake/TargetArch.cmake right now
 	fi
 	cd ${BUILD_PREFIX} || exit
 fi
