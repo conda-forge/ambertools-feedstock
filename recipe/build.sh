@@ -88,7 +88,7 @@ if [[ "${build_platform}" != "${target_platform}" ]]; then
 		# Add arm64 to the LDFLAGS 
 		#export LDFLAGS="$LDFLAGS -arch arm64"
 		# Tell cmake now we want to build osx-arm64
-		CMAKE_FLAGS+=" -DCMAKE_OSX_ARCHITECTURES=arm64 -DCROSSCOMPILE=TRUE"
+		CMAKE_FLAGS+=" -DCMAKE_OSX_ARCHITECTURES=arm64 -DCROSSCOMPILE=TRUE -DTARGET_TRIPLE=arm64 "
 	fi
 	cd ${BUILD_PREFIX} || exit
 fi
