@@ -43,13 +43,13 @@ llvm_openmp:
 macos_machine:
 - x86_64-apple-darwin13.4.0
 mpi:
-- nompi
+- mpich
 mpich:
 - '4'
 netcdf_fortran:
 - '4.6'
 numpy:
-- '1.26'
+- '2'
 openmpi:
 - '5'
 openssl:
@@ -61,7 +61,7 @@ pin_run_as_build:
     min_pin: x.x
     max_pin: x.x
 python:
-- 3.12.* *_cpython
+- 3.13.* *_cp313
 readline:
 - '8'
 target_platform:
