@@ -84,6 +84,7 @@ if [[ "${build_platform}" != "${target_platform}" ]]; then
 		# This is super hacky -- but now that we built the host tools, we need to change the flag to build for m1
 		# TODO see if just removing -mtune=native is enough
 		find ../ \( -type d -name .git -prune \) -o -type f -print0 | xargs -0 sed -i 's/-mtune=native/-march=armv8.3-a/g'
+        find ../ \( -type d -name .git -prune \) -o -type f -print0 | xargs -0 sed -i 's/-bundle /-bundle -arch arm64 /g'
 		#find ../ \( -type d -name .git -prune \) -o -type f -print0 | xargs -0 sed -i 's/CXX -stdlib=libc++/CXX -stdlib=libc++ -arch armv8.3-a/g'
 		# Add arm64 to the LDFLAGS 
 		#export LDFLAGS="$LDFLAGS -arch arm64"
