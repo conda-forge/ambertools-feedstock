@@ -129,6 +129,7 @@ requirements:
     - parmed >=4.0.0,<5.0.0a0
     - {{ mpi }}  # [mpi != 'nompi']
     - mpi4py  # [mpi != 'nompi']
+    - mkl  # [mpi != 'nompi']
     - __cuda  # [not osx and cuda_compiler_version != "None"]
   run_constrained:
     - ambermini ==9999999999
