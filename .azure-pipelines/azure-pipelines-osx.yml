@@ -20,10 +20,6 @@ jobs:
         CONFIG: osx_64_mpimpichnumpy1.26python3.12.____cpython
         UPLOAD_PACKAGES: 'True'
         SHORT_CONFIG: osx_64_mpimpichnumpy1.26python3.12.____cpython
-      osx_64_mpimpichnumpy2python3.13.____cp313:
-        CONFIG: osx_64_mpimpichnumpy2python3.13.____cp313
-        UPLOAD_PACKAGES: 'True'
-        SHORT_CONFIG: osx_64_mpimpichnumpy2python3.13.____cp313
       osx_64_mpinompinumpy1.22python3.10.____cpython:
         CONFIG: osx_64_mpinompinumpy1.22python3.10.____cpython
         UPLOAD_PACKAGES: 'True'
@@ -36,10 +32,6 @@ jobs:
         CONFIG: osx_64_mpinompinumpy1.26python3.12.____cpython
         UPLOAD_PACKAGES: 'True'
         SHORT_CONFIG: osx_64_mpinompinumpy1.26python3.12.____cpython
-      osx_64_mpinompinumpy2python3.13.____cp313:
-        CONFIG: osx_64_mpinompinumpy2python3.13.____cp313
-        UPLOAD_PACKAGES: 'True'
-        SHORT_CONFIG: osx_64_mpinompinumpy2python3.13.____cp313
       osx_64_mpiopenmpinumpy1.22python3.10.____cpython:
         CONFIG: osx_64_mpiopenmpinumpy1.22python3.10.____cpython
         UPLOAD_PACKAGES: 'True'
@@ -52,10 +44,6 @@ jobs:
         CONFIG: osx_64_mpiopenmpinumpy1.26python3.12.____cpython
         UPLOAD_PACKAGES: 'True'
         SHORT_CONFIG: osx_64_mpiopenmpinumpy1.26python3.12.____cpython
-      osx_64_mpiopenmpinumpy2python3.13.____cp313:
-        CONFIG: osx_64_mpiopenmpinumpy2python3.13.____cp313
-        UPLOAD_PACKAGES: 'True'
-        SHORT_CONFIG: osx_64_mpiopenmpinumpy2python3.13.____cp313
       osx_arm64_mpimpichnumpy1.22python3.10.____cpython:
         CONFIG: osx_arm64_mpimpichnumpy1.22python3.10.____cpython
         UPLOAD_PACKAGES: 'True'
@@ -68,10 +56,6 @@ jobs:
         CONFIG: osx_arm64_mpimpichnumpy1.26python3.12.____cpython
         UPLOAD_PACKAGES: 'True'
         SHORT_CONFIG: osx_arm64_mpimpichnumpy1.26python3._h6f639f3986
-      osx_arm64_mpimpichnumpy2python3.13.____cp313:
-        CONFIG: osx_arm64_mpimpichnumpy2python3.13.____cp313
-        UPLOAD_PACKAGES: 'True'
-        SHORT_CONFIG: osx_arm64_mpimpichnumpy2python3.13.____cp313
       osx_arm64_mpinompinumpy1.22python3.10.____cpython:
         CONFIG: osx_arm64_mpinompinumpy1.22python3.10.____cpython
         UPLOAD_PACKAGES: 'True'
@@ -84,10 +68,6 @@ jobs:
         CONFIG: osx_arm64_mpinompinumpy1.26python3.12.____cpython
         UPLOAD_PACKAGES: 'True'
         SHORT_CONFIG: osx_arm64_mpinompinumpy1.26python3._hb200f75c3b
-      osx_arm64_mpinompinumpy2python3.13.____cp313:
-        CONFIG: osx_arm64_mpinompinumpy2python3.13.____cp313
-        UPLOAD_PACKAGES: 'True'
-        SHORT_CONFIG: osx_arm64_mpinompinumpy2python3.13.____cp313
       osx_arm64_mpiopenmpinumpy1.22python3.10.____cpython:
         CONFIG: osx_arm64_mpiopenmpinumpy1.22python3.10.____cpython
         UPLOAD_PACKAGES: 'True'
@@ -100,10 +80,6 @@ jobs:
         CONFIG: osx_arm64_mpiopenmpinumpy1.26python3.12.____cpython
         UPLOAD_PACKAGES: 'True'
         SHORT_CONFIG: osx_arm64_mpiopenmpinumpy1.26python_h7829e1e6dd
-      osx_arm64_mpiopenmpinumpy2python3.13.____cp313:
-        CONFIG: osx_arm64_mpiopenmpinumpy2python3.13.____cp313
-        UPLOAD_PACKAGES: 'True'
-        SHORT_CONFIG: osx_arm64_mpiopenmpinumpy2python3.13.____cp313
   timeoutInMinutes: 360
   variables: {}
 
