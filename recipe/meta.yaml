@@ -4,8 +4,14 @@
 {% set version = "23.6" %}
 # use run or skip
 {% set unit_tests = "skip" %}
-{% set build = 5 %}
+{% set build = 6 %}
 {% set build = build + 100 %}  # [mpi == 'nompi' and cuda_compiler_version == "None"]
+
+{% if cuda_compiler_version != "None" %}
+{% set cuda_major = environ.get("cuda_compiler_version", "11.8").split(".")[0] | int %}
+{% else %}
+{% set cuda_major = 0 %}
+{% endif %}
 
 package:
   name: {{ name|lower }}
@@ -17,13 +23,23 @@ source:
   patches:
     - patches/do_not_symlink_missing_ff12pol.patch
     - patches/do_not_install_vendored_parmed.patch
-    - patches/remove_mtune_native_for_m1.patch  # [arm64]
+    #- patches/remove_mtune_native_for_m1.patch  # [arm64]
+    #- patches/replace_mtune_with_mcpu.patch  # [arm64]
     - patches/remove_nab2c_and_friends.patch  # [arm64]
+    - patches/add_arm64_arch.patch  # [arm64]
+    - patches/dont_muck_with_CXX_and_CC_envars.patch  # [arm64]
     - patches/0001-do-not-clean-compiler-flags.patch
+    - patches/0001-use-find_package-CUDAToolkit-instead-of-find_package.patch
+    - patches/0002-rely-on-DCMAKE_CUDA_ARCHITECTURES.patch
+    - patches/0003-look-in-right-place-for-libcudadevrt.a.patch
+    - patches/0004-adapt-CMake-function-calls-that-were-due-to-find_pac.patch
+    - patches/0005-set-enable_language-CUDA-in-a-bunch-of-places.patch
 
 build:
   number: {{ build }}
   skip: True  # [win or py<310 or ppc64le or aarch64]
+  skip: True  # [cuda_compiler_version != "None"]
+  skip: True  # [py >312]
   script_env:
     - unit_tests={{ unit_tests }}
   string: cuda_{{ cuda_compiler_version }}_{{ mpi }}_py{{ CONDA_PY }}h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}
@@ -79,6 +95,19 @@ requirements:
     - openssl
     - {{ mpi }}  # [mpi != 'nompi']
     - mpi4py  # [mpi != 'nompi']
+    {% if cuda_major >= 12 %}
+    - cuda-version {{ cuda_compiler_version }}
+    # for libcudadevrt.a
+    - cuda-cudart-static
+    # for cicc; split off starting from CUDA 12.2
+    # - cuda-nvvm-tools
+    - cuda-nvtx-dev
+    - libcublas-dev
+    - libcufft-dev
+    - libcurand-dev
+    - libcusolver-dev
+    - libcusparse-dev
+    {% endif %}
   run:
     - python
     - setuptools
@@ -101,6 +130,8 @@ requirements:
     - parmed >=4.0.0,<5.0.0a0
     - {{ mpi }}  # [mpi != 'nompi']
     - mpi4py  # [mpi != 'nompi']
+    # See if this fixes the missing mkl error in a few builds
+    - mkl  # [linux]
     - __cuda  # [not osx and cuda_compiler_version != "None"]
   run_constrained:
     - ambermini ==9999999999

@@ -1,0 +1,123 @@
+From b952a59b5913c95a6bbed72380d08ae51bebadff Mon Sep 17 00:00:00 2001
+From: "H. Vetinari" <h.vetinari@gmx.com>
+Date: Wed, 28 Aug 2024 14:38:55 +1100
+Subject: [PATCH 4/5] adapt CMake function calls that were due to
+ `find_package(CUDA)`
+
+---
+ AmberTools/src/cpptraj/src/cuda_kernels/CMakeLists.txt    | 2 +-
+ AmberTools/src/mdgx/CMakeLists.txt                        | 4 ++--
+ AmberTools/src/pbsa/CMakeLists.txt                        | 6 ++++--
+ AmberTools/src/quick/src/cuda/CMakeLists.txt              | 8 ++++----
+ AmberTools/src/quick/src/hip/CMakeLists.txt               | 8 ++++----
+ .../src/quick/src/libxc/maple2c_device/CMakeLists.txt     | 4 ++--
+ 6 files changed, 17 insertions(+), 15 deletions(-)
+
+diff --git a/AmberTools/src/cpptraj/src/cuda_kernels/CMakeLists.txt b/AmberTools/src/cpptraj/src/cuda_kernels/CMakeLists.txt
+index 9d24d429..fcf2ceae 100644
+--- a/AmberTools/src/cpptraj/src/cuda_kernels/CMakeLists.txt
++++ b/AmberTools/src/cpptraj/src/cuda_kernels/CMakeLists.txt
+@@ -1,6 +1,6 @@
+ set(CPPTRAJ_CUDA_SOURCES core_kernels.cu kernel_wrappers.cu GistCudaCalc.cu GistCudaSetup.cu kernel_rdf.cu)
+ 
+-cuda_add_library(cpptraj_cuda_routines STATIC ${CPPTRAJ_CUDA_SOURCES})
++add_library(cpptraj_cuda_routines STATIC ${CPPTRAJ_CUDA_SOURCES})
+ #make_pic_if_needed does not appear to work for NVCC. Instead, added
+ # logic to $CPPTRAJHOME/CMakeLists.txt
+ #make_pic_if_needed(cpptraj_cuda_routines)
+diff --git a/AmberTools/src/mdgx/CMakeLists.txt b/AmberTools/src/mdgx/CMakeLists.txt
+index aab6c029..7a15126c 100644
+--- a/AmberTools/src/mdgx/CMakeLists.txt
++++ b/AmberTools/src/mdgx/CMakeLists.txt
+@@ -104,8 +104,8 @@ endif()
+ if (CUDA AND EXISTS "${CUDA_nvidia-ml_LIBRARY}") # make sure we have the extra nvidia-ml library we need
+     
+ 	# no need to make a common object library since there is no shared library version for cuda
+-	cuda_add_executable(mdgx.cuda ${MDGX_SOURCES} ${MDGX_CUDA_SOURCES} 
+-		OPTIONS -DCUDA) # this applies -DCUDA to the .cu files
++	add_executable(mdgx.cuda ${MDGX_SOURCES} ${MDGX_CUDA_SOURCES})
++	target_compile_options(mdgx.cuda PRIVATE -DCUDA) # this applies -DCUDA to the .cu files
+ 	target_compile_definitions(mdgx.cuda PRIVATE CUDA) # this applies -DCUDA to the .c files
+ 
+ 	target_link_libraries(mdgx.cuda curand cudadevrt nvidia-ml fftw netlib amber_common netcdff netcdf)
+diff --git a/AmberTools/src/pbsa/CMakeLists.txt b/AmberTools/src/pbsa/CMakeLists.txt
+index 5ae043bc..5d570b3a 100644
+--- a/AmberTools/src/pbsa/CMakeLists.txt
++++ b/AmberTools/src/pbsa/CMakeLists.txt
+@@ -154,7 +154,8 @@ if(CUDA)
+ 		-DCUDA_MG) # [DCUDA_MG, NULL - for other CUDA solvers]
+ 
+ 	if(libtorch_ENABLED AND CUDNN)
+-		cuda_add_executable(pbsa.cuda ${EXECUTABLE_SOURCES} ${TORCH_SOURCES} ${PBSA_CUDA_CUDA_SOURCES} OPTIONS ${PBSA_CUDA_DEFINITIONS})
++		add_executable(pbsa.cuda ${EXECUTABLE_SOURCES} ${TORCH_SOURCES} ${PBSA_CUDA_CUDA_SOURCES})
++		target_compile_options(pbsa.cuda PRIVATE ${PBSA_CUDA_DEFINITIONS})
+ 		target_link_libraries(pbsa.cuda cublas cusparse netlib amber_common netcdff netcdf ${LIBTORCH_LIBRARIES})
+ 		target_include_directories(pbsa.cuda PRIVATE ${LIBTORCH_INCLUDE_DIRS})
+ 
+@@ -162,7 +163,8 @@ if(CUDA)
+ 		# Matrix format macro DIA/CSR is also required to make pb_lsolver.F90 correctly compiled, DIA by default
+ 		target_compile_definitions(pbsa.cuda PRIVATE nvCUDA DIA TORCH)
+ 	else()
+-		cuda_add_executable(pbsa.cuda ${EXECUTABLE_SOURCES} ${PBSA_CUDA_CUDA_SOURCES} ${PBSA_CUDA_CXX_SOURCES} OPTIONS ${PBSA_CUDA_DEFINITIONS})
++		add_executable(pbsa.cuda ${EXECUTABLE_SOURCES} ${PBSA_CUDA_CUDA_SOURCES} ${PBSA_CUDA_CXX_SOURCES})
++		target_compile_options(pbsa.cuda PRIVATE ${PBSA_CUDA_DEFINITIONS})
+ 		target_link_libraries(pbsa.cuda cublas cusparse netlib amber_common netcdff netcdf)
+ 
+ 		# tell the Fortran code to use the cuda versions of routines
+diff --git a/AmberTools/src/quick/src/cuda/CMakeLists.txt b/AmberTools/src/quick/src/cuda/CMakeLists.txt
+index 38976b0e..c936c92a 100644
+--- a/AmberTools/src/quick/src/cuda/CMakeLists.txt
++++ b/AmberTools/src/quick/src/cuda/CMakeLists.txt
+@@ -1,12 +1,12 @@
+ set(QUICK_CUDA_SOURCE gpu.cu gpu_type.cu gpu_get2e.cu gpu_oei.cu gpu_lri.cu xc_redistribute.cpp)
+      
+-#sadly FindCUDA doesn't support OBJECT libraries, so we have to use a static cuda_add_library
+-cuda_add_library(quick_cuda_kernels STATIC ${QUICK_CUDA_SOURCE} OPTIONS ${CUDA_DEVICE_CODE_FLAGS} -DCUDA) 
++add_library(quick_cuda_kernels STATIC ${QUICK_CUDA_SOURCE})
++target_compile_options(quick_cuda_kernels PRIVATE ${CUDA_DEVICE_CODE_FLAGS} -DCUDA)
+ target_link_libraries(quick_cuda_kernels xc_gpu xc_cuda)
+ 
+ if(MPI)
+-	cuda_add_library(quick_cuda_kernels_mpi STATIC ${QUICK_CUDA_SOURCE} 
+-	OPTIONS ${CUDA_DEVICE_CODE_FLAGS} -DMPIV -DCUDA_MPIV) 
++	add_library(quick_cuda_kernels_mpi STATIC ${QUICK_CUDA_SOURCE})
++	target_compile_options(quick_cuda_kernels_mpi PRIVATE ${CUDA_DEVICE_CODE_FLAGS} -DMPIV -DCUDA_MPIV)
+ 	target_compile_definitions(quick_cuda_kernels_mpi PRIVATE CUDA_MPIV)
+ 	set_property(TARGET quick_cuda_kernels_mpi PROPERTY POSITION_INDEPENDENT_CODE TRUE)
+ 	target_link_libraries(quick_cuda_kernels_mpi xc_gpu xc_cuda)
+diff --git a/AmberTools/src/quick/src/hip/CMakeLists.txt b/AmberTools/src/quick/src/hip/CMakeLists.txt
+index 32a2ca27..4d6f9c19 100644
+--- a/AmberTools/src/quick/src/hip/CMakeLists.txt
++++ b/AmberTools/src/quick/src/hip/CMakeLists.txt
+@@ -1,12 +1,12 @@
+ set(QUICK_HIP_SOURCE gpu.cu gpu_type.cu gpu_get2e.cu gpu_oei.cu gpu_lri.cu xc_redistribute.cpp)
+      
+-#sadly FindCUDA doesn't support OBJECT libraries, so we have to use a static cuda_add_library
+-cuda_add_library(quick_${QUICK_GPU_TARGET_NAME}_kernels STATIC ${QUICK_HIP_SOURCE} OPTIONS ${CUDA_DEVICE_CODE_FLAGS} -DHIP)
++add_library(quick_${QUICK_GPU_TARGET_NAME}_kernels STATIC ${QUICK_HIP_SOURCE})
++target_compile_options(quick_${QUICK_GPU_TARGET_NAME}_kernels PRIVATE ${CUDA_DEVICE_CODE_FLAGS} -DHIP)
+ target_link_libraries(quick_${QUICK_GPU_TARGET_NAME}_kernels xc_gpu xc_${QUICK_GPU_TARGET_NAME})
+ 
+ if(MPI)
+-	cuda_add_library(quick_${QUICK_GPU_TARGET_NAME}_kernels_mpi STATIC ${QUICK_HIP_SOURCE} 
+-	OPTIONS ${CUDA_DEVICE_CODE_FLAGS} -DMPIV -DHIP_MPIV) 
++	add_library(quick_${QUICK_GPU_TARGET_NAME}_kernels_mpi STATIC ${QUICK_HIP_SOURCE})
++	target_compile_options(quick_${QUICK_GPU_TARGET_NAME}_kernels_mpi PRIVATE ${CUDA_DEVICE_CODE_FLAGS} -DMPIV -DHIP_MPIV)
+ 	target_compile_definitions(quick_${QUICK_GPU_TARGET_NAME}_kernels_mpi PRIVATE HIP_MPIV)
+ 	set_property(TARGET quick_${QUICK_GPU_TARGET_NAME}_kernels_mpi PROPERTY POSITION_INDEPENDENT_CODE TRUE)
+ 	target_link_libraries(quick_${QUICK_GPU_TARGET_NAME}_kernels_mpi xc_gpu xc_${QUICK_GPU_TARGET_NAME})
+diff --git a/AmberTools/src/quick/src/libxc/maple2c_device/CMakeLists.txt b/AmberTools/src/quick/src/libxc/maple2c_device/CMakeLists.txt
+index ef56d8c3..98ae9658 100644
+--- a/AmberTools/src/quick/src/libxc/maple2c_device/CMakeLists.txt
++++ b/AmberTools/src/quick/src/libxc/maple2c_device/CMakeLists.txt
+@@ -45,8 +45,8 @@ else()
+         set(CUDA_SEPARABLE_COMPILATION TRUE)
+ endif()
+ 
+-cuda_add_library(xc_${QUICK_GPU_TARGET_NAME} STATIC ${LIBXC_CUDA_SOURCES}
+-        OPTIONS
++add_library(xc_${QUICK_GPU_TARGET_NAME} STATIC ${LIBXC_CUDA_SOURCES})
++target_compile_options(xc_${QUICK_GPU_TARGET_NAME} PRIVATE
+         ${GPU_RDC_FLAGS}
+         ${CUDA_DEVICE_CODE_FLAGS}
+         -I${CMAKE_CURRENT_SOURCE_DIR}/..
