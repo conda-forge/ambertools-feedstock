@@ -28,12 +28,12 @@ source:
     - patches/remove_nab2c_and_friends.patch  # [arm64]
     - patches/add_arm64_arch.patch  # [arm64]
     - patches/dont_muck_with_CXX_and_CC_envars.patch  # [arm64]
-    - patches/0001-do-not-clean-compiler-flags.patch
-    - patches/0001-use-find_package-CUDAToolkit-instead-of-find_package.patch
-    - patches/0002-rely-on-DCMAKE_CUDA_ARCHITECTURES.patch
-    - patches/0003-look-in-right-place-for-libcudadevrt.a.patch
-    - patches/0004-adapt-CMake-function-calls-that-were-due-to-find_pac.patch
-    - patches/0005-set-enable_language-CUDA-in-a-bunch-of-places.patch
+    #- patches/0001-do-not-clean-compiler-flags.patch
+    #- patches/0001-use-find_package-CUDAToolkit-instead-of-find_package.patch
+    #- patches/0002-rely-on-DCMAKE_CUDA_ARCHITECTURES.patch
+    #- patches/0003-look-in-right-place-for-libcudadevrt.a.patch
+    #- patches/0004-adapt-CMake-function-calls-that-were-due-to-find_pac.patch
+    #- patches/0005-set-enable_language-CUDA-in-a-bunch-of-places.patch
 
 build:
   number: {{ build }}
