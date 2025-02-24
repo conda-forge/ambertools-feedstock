@@ -25,7 +25,7 @@ source:
     - patches/do_not_install_vendored_parmed.patch
     #- patches/remove_mtune_native_for_m1.patch  # [arm64]
     #- patches/replace_mtune_with_mcpu.patch  # [arm64]
-    - patches/remove_nab2c_and_friends.patch  # [arm64]
+    #- patches/remove_nab2c_and_friends.patch  # [arm64]
     - patches/add_arm64_arch.patch  # [arm64]
     - patches/dont_muck_with_CXX_and_CC_envars.patch  # [arm64]
     #- patches/0001-do-not-clean-compiler-flags.patch
