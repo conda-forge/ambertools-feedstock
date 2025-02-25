@@ -41,13 +41,13 @@ liblapack:
 libnetcdf:
 - 4.9.2
 mpi:
-- nompi
+- openmpi
 mpich:
 - '4'
 netcdf_fortran:
 - '4.6'
 numpy:
-- '2'
+- '1.22'
 openmpi:
 - '5'
 openssl:
@@ -59,7 +59,7 @@ pin_run_as_build:
     min_pin: x.x
     max_pin: x.x
 python:
-- 3.13.* *_cp313
+- 3.10.* *_cpython
 readline:
 - '8'
 target_platform:
