@@ -1,10 +1,10 @@
 {% set name = "AmberTools" %}
 # Versioning scheme uses AmberTools major release as MAJOR version number, patch level as MINOR version number
 # Update the MINOR version number as new patch releases come out
-{% set version = "23.6" %}
+{% set version = "24.8" %}
 # use run or skip
 {% set unit_tests = "skip" %}
-{% set build = 6 %}
+{% set build = 0 %}
 {% set build = build + 100 %}  # [mpi == 'nompi' and cuda_compiler_version == "None"]
 
 {% if cuda_compiler_version != "None" %}
@@ -18,28 +18,29 @@ package:
   version: {{ version }}
 
 source:
-  url: https://ambermd.org/downloads/AmberTools23_rc6.tar.bz2
-  sha256: debb52e6ef2e1b4eaa917a8b4d4934bd2388659c660501a81ea044903bf9ee9d
+  url: https://ambermd.org/downloads/AmberTools24_rc5.tar.bz2
+  sha256: 52fb4fb3370a89b7ce738a2dc3e513c2fc1943fde4b4381846d9e75cc48d840f
   patches:
     - patches/do_not_symlink_missing_ff12pol.patch
     - patches/do_not_install_vendored_parmed.patch
     #- patches/remove_mtune_native_for_m1.patch  # [arm64]
     #- patches/replace_mtune_with_mcpu.patch  # [arm64]
-    - patches/remove_nab2c_and_friends.patch  # [arm64]
+    #- patches/remove_nab2c_and_friends.patch  # [arm64]
     - patches/add_arm64_arch.patch  # [arm64]
     - patches/dont_muck_with_CXX_and_CC_envars.patch  # [arm64]
     - patches/0001-do-not-clean-compiler-flags.patch
-    - patches/0001-use-find_package-CUDAToolkit-instead-of-find_package.patch
-    - patches/0002-rely-on-DCMAKE_CUDA_ARCHITECTURES.patch
-    - patches/0003-look-in-right-place-for-libcudadevrt.a.patch
-    - patches/0004-adapt-CMake-function-calls-that-were-due-to-find_pac.patch
-    - patches/0005-set-enable_language-CUDA-in-a-bunch-of-places.patch
+    - patches/cythonize-py313.patch  # [py == 313]
+    #- patches/0001-use-find_package-CUDAToolkit-instead-of-find_package.patch
+    #- patches/0002-rely-on-DCMAKE_CUDA_ARCHITECTURES.patch
+    #- patches/0003-look-in-right-place-for-libcudadevrt.a.patch
+    #- patches/0004-adapt-CMake-function-calls-that-were-due-to-find_pac.patch
+    #- patches/0005-set-enable_language-CUDA-in-a-bunch-of-places.patch
 
 build:
   number: {{ build }}
   skip: True  # [win or py<310 or ppc64le or aarch64]
   skip: True  # [cuda_compiler_version != "None"]
-  skip: True  # [py >312]
+  skip: True  # [py == 313 and osx and x86_64]
   script_env:
     - unit_tests={{ unit_tests }}
   string: cuda_{{ cuda_compiler_version }}_{{ mpi }}_py{{ CONDA_PY }}h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}
