@@ -29,6 +29,7 @@ source:
     - patches/add_arm64_arch.patch  # [arm64]
     - patches/dont_muck_with_CXX_and_CC_envars.patch  # [arm64]
     - patches/0001-do-not-clean-compiler-flags.patch
+    - cythonize-py313.patch  # [py312]
     #- patches/0001-use-find_package-CUDAToolkit-instead-of-find_package.patch
     #- patches/0002-rely-on-DCMAKE_CUDA_ARCHITECTURES.patch
     #- patches/0003-look-in-right-place-for-libcudadevrt.a.patch
@@ -39,7 +40,6 @@ build:
   number: {{ build }}
   skip: True  # [win or py<310 or ppc64le or aarch64]
   skip: True  # [cuda_compiler_version != "None"]
-  skip: True  # [py >312]
   script_env:
     - unit_tests={{ unit_tests }}
   string: cuda_{{ cuda_compiler_version }}_{{ mpi }}_py{{ CONDA_PY }}h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}
