@@ -35,7 +35,7 @@ fortran_compiler_version:
 libblas:
 - 3.9.* *netlib
 libboost_devel:
-- '1.84'
+- '1.86'
 liblapack:
 - 3.9.* *netlib
 libnetcdf:
@@ -45,13 +45,13 @@ llvm_openmp:
 macos_machine:
 - x86_64-apple-darwin13.4.0
 mpi:
-- mpich
+- openmpi
 mpich:
 - '4'
 netcdf_fortran:
 - '4.6'
 numpy:
-- '1.26'
+- '2.0'
 openmpi:
 - '5'
 openssl:

@@ -1,7 +1,7 @@
 MACOSX_DEPLOYMENT_TARGET:
-- '11.0'
+- '10.13'
 MACOSX_SDK_VERSION:
-- '11.0'
+- '10.13'
 arpack:
 - '3.9'
 bzip2:
@@ -13,7 +13,7 @@ c_compiler_version:
 c_stdlib:
 - macosx_deployment_target
 c_stdlib_version:
-- '11.0'
+- '10.13'
 channel_sources:
 - conda-forge
 channel_targets:
@@ -35,7 +35,7 @@ fortran_compiler_version:
 libblas:
 - 3.9.* *netlib
 libboost_devel:
-- '1.84'
+- '1.86'
 liblapack:
 - 3.9.* *netlib
 libnetcdf:
@@ -43,15 +43,15 @@ libnetcdf:
 llvm_openmp:
 - '18'
 macos_machine:
-- arm64-apple-darwin20.0.0
+- x86_64-apple-darwin13.4.0
 mpi:
-- nompi
+- mpich
 mpich:
 - '4'
 netcdf_fortran:
 - '4.6'
 numpy:
-- '1.23'
+- '2.0'
 openmpi:
 - '5'
 openssl:
@@ -63,11 +63,11 @@ pin_run_as_build:
     min_pin: x.x
     max_pin: x.x
 python:
-- 3.11.* *_cpython
+- 3.12.* *_cpython
 readline:
 - '8'
 target_platform:
-- osx-arm64
+- osx-64
 zip_keys:
 - - c_compiler_version
   - cxx_compiler_version
