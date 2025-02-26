@@ -45,13 +45,13 @@ llvm_openmp:
 macos_machine:
 - x86_64-apple-darwin13.4.0
 mpi:
-- mpich
+- nompi
 mpich:
 - '4'
 netcdf_fortran:
 - '4.6'
 numpy:
-- '1.22'
+- '2.0'
 openmpi:
 - '5'
 openssl:

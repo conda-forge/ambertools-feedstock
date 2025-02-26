@@ -41,13 +41,13 @@ liblapack:
 libnetcdf:
 - 4.9.2
 mpi:
-- mpich
+- openmpi
 mpich:
 - '4'
 netcdf_fortran:
 - '4.6'
 numpy:
-- '1.23'
+- '2.0'
 openmpi:
 - '5'
 openssl:
