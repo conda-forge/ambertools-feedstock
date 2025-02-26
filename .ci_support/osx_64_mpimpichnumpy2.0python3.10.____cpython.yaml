@@ -35,7 +35,7 @@ fortran_compiler_version:
 libblas:
 - 3.9.* *netlib
 libboost_devel:
-- '1.84'
+- '1.86'
 liblapack:
 - 3.9.* *netlib
 libnetcdf:
@@ -51,7 +51,7 @@ mpich:
 netcdf_fortran:
 - '4.6'
 numpy:
-- '1.22'
+- '2.0'
 openmpi:
 - '5'
 openssl:
