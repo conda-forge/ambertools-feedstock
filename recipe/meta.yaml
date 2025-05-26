@@ -4,7 +4,7 @@
 {% set version = "25.0" %}
 # use run or skip
 {% set unit_tests = "skip" %}
-{% set build = 1 %}
+{% set build = 0 %}
 {% set build = build + 100 %}  # [mpi == 'nompi' and cuda_compiler_version == "None"]
 
 {% if cuda_compiler_version != "None" %}
@@ -28,7 +28,7 @@ source:
     #- patches/remove_nab2c_and_friends.patch  # [arm64]
     - patches/add_arm64_arch.patch  # [arm64]
     - patches/dont_muck_with_CXX_and_CC_envars.patch  # [arm64]
-    - patches/0001-do-not-clean-compiler-flags.patch
+    #- patches/0001-do-not-clean-compiler-flags.patch
     - patches/cythonize-py313.patch  # [py == 313]
     #- patches/0001-use-find_package-CUDAToolkit-instead-of-find_package.patch
     #- patches/0002-rely-on-DCMAKE_CUDA_ARCHITECTURES.patch
