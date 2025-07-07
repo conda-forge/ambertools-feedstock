@@ -19,7 +19,7 @@ channel_targets:
 cuda_compiler:
 - cuda-nvcc
 cuda_compiler_version:
-- None
+- '12.6'
 cxx_compiler:
 - gxx
 cxx_compiler_version:
@@ -41,7 +41,7 @@ liblapack:
 libnetcdf:
 - 4.9.2
 mpi:
-- nompi
+- mpich
 mpich:
 - '4'
 netcdf_fortran:
@@ -59,7 +59,7 @@ pin_run_as_build:
     min_pin: x.x
     max_pin: x.x
 python:
-- 3.13.* *_cp313
+- 3.10.* *_cpython
 readline:
 - '8'
 target_platform:

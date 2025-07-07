@@ -8,6 +8,66 @@ jobs:
     vmImage: ubuntu-latest
   strategy:
     matrix:
+      linux_64_cuda_compiler_version12.6mpimpichpython3.10.____cpython:
+        CONFIG: linux_64_cuda_compiler_version12.6mpimpichpython3.10.____cpython
+        UPLOAD_PACKAGES: 'True'
+        DOCKER_IMAGE: quay.io/condaforge/linux-anvil-x86_64:alma9
+        SHORT_CONFIG: linux_64_cuda_compiler_version12.6mpimpi_h8def309c
+      linux_64_cuda_compiler_version12.6mpimpichpython3.11.____cpython:
+        CONFIG: linux_64_cuda_compiler_version12.6mpimpichpython3.11.____cpython
+        UPLOAD_PACKAGES: 'True'
+        DOCKER_IMAGE: quay.io/condaforge/linux-anvil-x86_64:alma9
+        SHORT_CONFIG: linux_64_cuda_compiler_version12.6mpimpi_hbdca9c9e
+      linux_64_cuda_compiler_version12.6mpimpichpython3.12.____cpython:
+        CONFIG: linux_64_cuda_compiler_version12.6mpimpichpython3.12.____cpython
+        UPLOAD_PACKAGES: 'True'
+        DOCKER_IMAGE: quay.io/condaforge/linux-anvil-x86_64:alma9
+        SHORT_CONFIG: linux_64_cuda_compiler_version12.6mpimpi_hdf3e5526
+      linux_64_cuda_compiler_version12.6mpimpichpython3.13.____cp313:
+        CONFIG: linux_64_cuda_compiler_version12.6mpimpichpython3.13.____cp313
+        UPLOAD_PACKAGES: 'True'
+        DOCKER_IMAGE: quay.io/condaforge/linux-anvil-x86_64:alma9
+        SHORT_CONFIG: linux_64_cuda_compiler_version12.6mpimpi_h5b48fb67
+      linux_64_cuda_compiler_version12.6mpinompipython3.10.____cpython:
+        CONFIG: linux_64_cuda_compiler_version12.6mpinompipython3.10.____cpython
+        UPLOAD_PACKAGES: 'True'
+        DOCKER_IMAGE: quay.io/condaforge/linux-anvil-x86_64:alma9
+        SHORT_CONFIG: linux_64_cuda_compiler_version12.6mpinom_h6565e277
+      linux_64_cuda_compiler_version12.6mpinompipython3.11.____cpython:
+        CONFIG: linux_64_cuda_compiler_version12.6mpinompipython3.11.____cpython
+        UPLOAD_PACKAGES: 'True'
+        DOCKER_IMAGE: quay.io/condaforge/linux-anvil-x86_64:alma9
+        SHORT_CONFIG: linux_64_cuda_compiler_version12.6mpinom_h60cae82a
+      linux_64_cuda_compiler_version12.6mpinompipython3.12.____cpython:
+        CONFIG: linux_64_cuda_compiler_version12.6mpinompipython3.12.____cpython
+        UPLOAD_PACKAGES: 'True'
+        DOCKER_IMAGE: quay.io/condaforge/linux-anvil-x86_64:alma9
+        SHORT_CONFIG: linux_64_cuda_compiler_version12.6mpinom_haf383edd
+      linux_64_cuda_compiler_version12.6mpinompipython3.13.____cp313:
+        CONFIG: linux_64_cuda_compiler_version12.6mpinompipython3.13.____cp313
+        UPLOAD_PACKAGES: 'True'
+        DOCKER_IMAGE: quay.io/condaforge/linux-anvil-x86_64:alma9
+        SHORT_CONFIG: linux_64_cuda_compiler_version12.6mpinom_h51ebcb92
+      linux_64_cuda_compiler_version12.6mpiopenmpipython3.10.____cpython:
+        CONFIG: linux_64_cuda_compiler_version12.6mpiopenmpipython3.10.____cpython
+        UPLOAD_PACKAGES: 'True'
+        DOCKER_IMAGE: quay.io/condaforge/linux-anvil-x86_64:alma9
+        SHORT_CONFIG: linux_64_cuda_compiler_version12.6mpiope_hfaacdb43
+      linux_64_cuda_compiler_version12.6mpiopenmpipython3.11.____cpython:
+        CONFIG: linux_64_cuda_compiler_version12.6mpiopenmpipython3.11.____cpython
+        UPLOAD_PACKAGES: 'True'
+        DOCKER_IMAGE: quay.io/condaforge/linux-anvil-x86_64:alma9
+        SHORT_CONFIG: linux_64_cuda_compiler_version12.6mpiope_he62e2186
+      linux_64_cuda_compiler_version12.6mpiopenmpipython3.12.____cpython:
+        CONFIG: linux_64_cuda_compiler_version12.6mpiopenmpipython3.12.____cpython
+        UPLOAD_PACKAGES: 'True'
+        DOCKER_IMAGE: quay.io/condaforge/linux-anvil-x86_64:alma9
+        SHORT_CONFIG: linux_64_cuda_compiler_version12.6mpiope_h390d2610
+      linux_64_cuda_compiler_version12.6mpiopenmpipython3.13.____cp313:
+        CONFIG: linux_64_cuda_compiler_version12.6mpiopenmpipython3.13.____cp313
+        UPLOAD_PACKAGES: 'True'
+        DOCKER_IMAGE: quay.io/condaforge/linux-anvil-x86_64:alma9
+        SHORT_CONFIG: linux_64_cuda_compiler_version12.6mpiope_hca4add00
       linux_64_cuda_compiler_versionNonempimpichpython3.10.____cpython:
         CONFIG: linux_64_cuda_compiler_versionNonempimpichpython3.10.____cpython
         UPLOAD_PACKAGES: 'True'
