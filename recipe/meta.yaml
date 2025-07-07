@@ -127,7 +127,7 @@ requirements:
     # See if this fixes the missing mkl error in a few builds
     - mkl  # [linux]
     - cuda-toolkit >=12.6,<12.8  # [cuda_compiler_version != "None"]
-    - __cuda # [not osx and cuda_compiler_version != "None"]
+    - __cuda  # [not osx and cuda_compiler_version != "None"]
   run_constrained:
     - ambermini ==9999999999
     - packmol ==9999999999
