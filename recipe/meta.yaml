@@ -7,12 +7,6 @@
 {% set build = 1 %}
 {% set build = build + 100 %}  # [mpi == 'nompi' and cuda_compiler_version == "None"]
 
-{% if cuda_compiler_version != "None" %}
-{% set cuda_major = environ.get("cuda_compiler_version", "11.8").split(".")[0] | int %}
-{% else %}
-{% set cuda_major = 0 %}
-{% endif %}
-
 package:
   name: {{ name|lower }}
   version: {{ version }}
@@ -70,6 +64,7 @@ requirements:
     - {{ compiler('cuda') }}  # [cuda_compiler_version != "None"]
     - coreutils  # [cuda_compiler_version != "None"]
     - {{ mpi }}  # [build_platform != target_platform and mpi == "openmpi"]
+    - cuda-toolkit >=12.6,<12.8  # [cuda_compiler_version != "None"]
   host:
     - python
     - setuptools
@@ -96,8 +91,7 @@ requirements:
     - openssl
     - {{ mpi }}  # [mpi != 'nompi']
     - mpi4py  # [mpi != 'nompi']
-    {% if cuda_major >= 12 %}
-    - cuda-version {{ cuda_compiler_version }}
+    - cuda-toolkit >=12.6,<12.8  # [cuda_compiler_version != "None"]
     # for libcudadevrt.a
     - cuda-cudart-static
     # for cicc; split off starting from CUDA 12.2
@@ -108,7 +102,6 @@ requirements:
     - libcurand-dev
     - libcusolver-dev
     - libcusparse-dev
-    {% endif %}
   run:
     - python
     - setuptools
@@ -133,7 +126,7 @@ requirements:
     - mpi4py  # [mpi != 'nompi']
     # See if this fixes the missing mkl error in a few builds
     - mkl  # [linux]
-    - __cuda  # [not osx and cuda_compiler_version != "None"]
+    - cuda-toolkit >=12.6,<12.8  # [cuda_compiler_version != "None"]
   run_constrained:
     - ambermini ==9999999999
     - packmol ==9999999999
