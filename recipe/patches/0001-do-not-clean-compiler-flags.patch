@@ -11,16 +11,14 @@ diff --git a/AmberTools/src/quick/CMakeLists.txt b/AmberTools/src/quick/CMakeLis
 index 475f6d80e9..5c7feb9a10 100644
 --- a/AmberTools/src/quick/CMakeLists.txt
 +++ b/AmberTools/src/quick/CMakeLists.txt
-@@ -55,9 +55,6 @@ set(NO_OPT_FFLAGS -O0)
- set(NO_OPT_CFLAGS -O0)
- set(NO_OPT_CXXFLAGS -O0)
+@@ -50,10 +50,6 @@
+ set_property(DIRECTORY . PROPERTY COMPILE_DEFINITIONS $<$<CONFIG:Debug>:DEBUG>)
  
+ option(WARNINGS "Enable warnings." FALSE)
+-
+-set(CMAKE_Fortran_FLAGS "")
 -set(CMAKE_C_FLAGS "")
 -set(CMAKE_CXX_FLAGS "")
--set(CMAKE_Fortran_FLAGS "")
  
- # GNU
- # --------------------------------------------------------------------
--- 
-2.41.0
-
+ set(OPT_FFLAGS "")
+ set(OPT_CFLAGS "")
