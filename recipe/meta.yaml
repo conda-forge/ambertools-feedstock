@@ -4,7 +4,7 @@
 {% set version = "24.8" %}
 # use run or skip
 {% set unit_tests = "skip" %}
-{% set build = 1 %}
+{% set build = 2 %}
 {% set build = build + 100 %}  # [mpi == 'nompi' and cuda_compiler_version == "None"]
 
 {% if cuda_compiler_version != "None" %}
