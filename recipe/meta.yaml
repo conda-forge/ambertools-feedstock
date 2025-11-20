@@ -159,7 +159,6 @@ test:
 {% endif %}
   # commands: check run_test.sh for CLI tests
   imports:
-    - parmed
     - pdb4amber
     - pymsmt
     - pytraj
