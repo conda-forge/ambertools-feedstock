@@ -12,8 +12,6 @@ index 475f6d80e9..5c7feb9a10 100644
 --- a/AmberTools/src/quick/CMakeLists.txt
 +++ b/AmberTools/src/quick/CMakeLists.txt
 @@ -55,9 +55,6 @@ set(NO_OPT_FFLAGS -O0)
- set(NO_OPT_CFLAGS -O0)
- set(NO_OPT_CXXFLAGS -O0)
  
 -set(CMAKE_C_FLAGS "")
 -set(CMAKE_CXX_FLAGS "")
