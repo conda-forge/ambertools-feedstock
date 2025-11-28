@@ -2,7 +2,7 @@ diff --git a/AmberTools/src/pysander/setup.py b/AmberTools/src/pysander/setup.py
 index 580c108a..eb88757a 100644
 --- a/AmberTools/src/pysander/setup.py
 +++ b/AmberTools/src/pysander/setup.py
-@@ -6,15 +6,6 @@ from os.path import join
+@@ -6,20 +6,6 @@ from os.path import join
  import sys
  
  
@@ -15,7 +15,11 @@ index 580c108a..eb88757a 100644
 -elif os.environ.get('CC', '').endswith('pgcc'):
 -    os.environ['CXX'] = 'g++'
 -    os.environ['CC'] = 'gcc'
- 
+-# nvc++ chockes on specific flags like  -fwrapv, -fno-strict-overflow or -ggdb.
+-elif os.environ.get('CC', '').endswith('nvc'):
+-    os.environ['CXX'] = 'g++'
+-    os.environ['CC'] = 'gcc'
+-
  sander_extension_source = 'sander/src/pysandermodule.c'
  sanderles_extension_source = 'sanderles/src/pysandermodule.c'
 diff --git a/AmberTools/src/pytraj/setup.py b/AmberTools/src/pytraj/setup.py
