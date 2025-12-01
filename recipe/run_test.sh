@@ -101,7 +101,7 @@ if [[ $cuda_compiler_version != "None" ]]; then
     ldd "$(which cpptraj.cuda)"
 fi
 draw_membrane2
-# edgembar -h
+edgembar -h
 espgen -h
 espgen.py -h
 FEW.pl -h
