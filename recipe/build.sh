@@ -1,7 +1,6 @@
 set -euxo pipefail
 
 # Upgrade AmberTools source to the patch level specified by the MINOR version in $PKG_VERSION
-./update_amber --check-updates
 export PATCH_LEVEL=$(echo $PKG_VERSION | cut -d. -f2)
 if [[ $PATCH_LEVEL != 0 ]]; then
     for n in {1..5}; do
