@@ -55,7 +55,7 @@ requirements:
     - llvm-openmp  # [osx]
     - make
     - matplotlib-base                        # [build_platform != target_platform]
-    - numpy                                  # [build_platform != target_platform]
+    - numpy <2.3                             # [build_platform != target_platform]
     - openssl
     - patch
     - perl
@@ -72,7 +72,7 @@ requirements:
   host:
     - python
     - setuptools
-    - numpy
+    - numpy <2.3
     - scipy
     - matplotlib-base
     - bzip2
@@ -113,7 +113,7 @@ requirements:
     - python
     - setuptools
     - perl
-    - numpy
+    - numpy <2.3
     - scipy
     - matplotlib-base
     - joblib
