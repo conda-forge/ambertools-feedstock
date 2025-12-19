@@ -29,7 +29,7 @@ source:
     - patches/add_arm64_arch.patch  # [arm64]
     - patches/dont_muck_with_CXX_and_CC_envars.patch  # [arm64]
     - patches/0001-do-not-clean-compiler-flags.patch
-    - patches/cythonize-py313.patch # [py == 313]
+    - patches/cythonize-py313.patch  # [py == 313]
     #- patches/0001-use-find_package-CUDAToolkit-instead-of-find_package.patch
     #- patches/0002-rely-on-DCMAKE_CUDA_ARCHITECTURES.patch
     #- patches/0003-look-in-right-place-for-libcudadevrt.a.patch
