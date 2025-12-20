@@ -16,10 +16,6 @@ jobs:
         CONFIG: osx_64_mpimpichpython3.11.____cpython
         UPLOAD_PACKAGES: 'True'
         SHORT_CONFIG: osx_64_mpimpichpython3.11.____cpython
-      osx_64_mpimpichpython3.12.____cpython:
-        CONFIG: osx_64_mpimpichpython3.12.____cpython
-        UPLOAD_PACKAGES: 'True'
-        SHORT_CONFIG: osx_64_mpimpichpython3.12.____cpython
       osx_64_mpinompipython3.10.____cpython:
         CONFIG: osx_64_mpinompipython3.10.____cpython
         UPLOAD_PACKAGES: 'True'
@@ -28,10 +24,6 @@ jobs:
         CONFIG: osx_64_mpinompipython3.11.____cpython
         UPLOAD_PACKAGES: 'True'
         SHORT_CONFIG: osx_64_mpinompipython3.11.____cpython
-      osx_64_mpinompipython3.12.____cpython:
-        CONFIG: osx_64_mpinompipython3.12.____cpython
-        UPLOAD_PACKAGES: 'True'
-        SHORT_CONFIG: osx_64_mpinompipython3.12.____cpython
       osx_64_mpiopenmpipython3.10.____cpython:
         CONFIG: osx_64_mpiopenmpipython3.10.____cpython
         UPLOAD_PACKAGES: 'True'
@@ -40,10 +32,6 @@ jobs:
         CONFIG: osx_64_mpiopenmpipython3.11.____cpython
         UPLOAD_PACKAGES: 'True'
         SHORT_CONFIG: osx_64_mpiopenmpipython3.11.____cpython
-      osx_64_mpiopenmpipython3.12.____cpython:
-        CONFIG: osx_64_mpiopenmpipython3.12.____cpython
-        UPLOAD_PACKAGES: 'True'
-        SHORT_CONFIG: osx_64_mpiopenmpipython3.12.____cpython
       osx_arm64_mpimpichpython3.10.____cpython:
         CONFIG: osx_arm64_mpimpichpython3.10.____cpython
         UPLOAD_PACKAGES: 'True'
@@ -52,6 +40,10 @@ jobs:
         CONFIG: osx_arm64_mpimpichpython3.11.____cpython
         UPLOAD_PACKAGES: 'True'
         SHORT_CONFIG: osx_arm64_mpimpichpython3.11.____cpython
+      osx_arm64_mpimpichpython3.12.____cpython:
+        CONFIG: osx_arm64_mpimpichpython3.12.____cpython
+        UPLOAD_PACKAGES: 'True'
+        SHORT_CONFIG: osx_arm64_mpimpichpython3.12.____cpython
       osx_arm64_mpimpichpython3.13.____cp313:
         CONFIG: osx_arm64_mpimpichpython3.13.____cp313
         UPLOAD_PACKAGES: 'True'
@@ -64,6 +56,10 @@ jobs:
         CONFIG: osx_arm64_mpinompipython3.11.____cpython
         UPLOAD_PACKAGES: 'True'
         SHORT_CONFIG: osx_arm64_mpinompipython3.11.____cpython
+      osx_arm64_mpinompipython3.12.____cpython:
+        CONFIG: osx_arm64_mpinompipython3.12.____cpython
+        UPLOAD_PACKAGES: 'True'
+        SHORT_CONFIG: osx_arm64_mpinompipython3.12.____cpython
       osx_arm64_mpinompipython3.13.____cp313:
         CONFIG: osx_arm64_mpinompipython3.13.____cp313
         UPLOAD_PACKAGES: 'True'
@@ -76,6 +72,10 @@ jobs:
         CONFIG: osx_arm64_mpiopenmpipython3.11.____cpython
         UPLOAD_PACKAGES: 'True'
         SHORT_CONFIG: osx_arm64_mpiopenmpipython3.11.____cpython
+      osx_arm64_mpiopenmpipython3.12.____cpython:
+        CONFIG: osx_arm64_mpiopenmpipython3.12.____cpython
+        UPLOAD_PACKAGES: 'True'
+        SHORT_CONFIG: osx_arm64_mpiopenmpipython3.12.____cpython
       osx_arm64_mpiopenmpipython3.13.____cp313:
         CONFIG: osx_arm64_mpiopenmpipython3.13.____cp313
         UPLOAD_PACKAGES: 'True'
