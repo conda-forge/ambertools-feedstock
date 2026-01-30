@@ -5,93 +5,117 @@
 jobs:
 - job: osx
   pool:
-    vmImage: macOS-13
+    vmImage: macOS-15
   strategy:
     matrix:
-      osx_64_mpimpichnumpy2.0python3.10.____cpython:
-        CONFIG: osx_64_mpimpichnumpy2.0python3.10.____cpython
+      osx_64_mpimpichpython3.10.____cpython:
+        CONFIG: osx_64_mpimpichpython3.10.____cpython
         UPLOAD_PACKAGES: 'True'
-        SHORT_CONFIG: osx_64_mpimpichnumpy2.0python3.10.____cpython
-      osx_64_mpimpichnumpy2.0python3.11.____cpython:
-        CONFIG: osx_64_mpimpichnumpy2.0python3.11.____cpython
+        SHORT_CONFIG: osx_64_mpimpichpython3.10.____cpython
+      osx_64_mpimpichpython3.11.____cpython:
+        CONFIG: osx_64_mpimpichpython3.11.____cpython
         UPLOAD_PACKAGES: 'True'
-        SHORT_CONFIG: osx_64_mpimpichnumpy2.0python3.11.____cpython
-      osx_64_mpimpichnumpy2.0python3.12.____cpython:
-        CONFIG: osx_64_mpimpichnumpy2.0python3.12.____cpython
+        SHORT_CONFIG: osx_64_mpimpichpython3.11.____cpython
+      osx_64_mpimpichpython3.12.____cpython:
+        CONFIG: osx_64_mpimpichpython3.12.____cpython
         UPLOAD_PACKAGES: 'True'
-        SHORT_CONFIG: osx_64_mpimpichnumpy2.0python3.12.____cpython
-      osx_64_mpinompinumpy2.0python3.10.____cpython:
-        CONFIG: osx_64_mpinompinumpy2.0python3.10.____cpython
+        SHORT_CONFIG: osx_64_mpimpichpython3.12.____cpython
+      osx_64_mpimpichpython3.14.____cp314:
+        CONFIG: osx_64_mpimpichpython3.14.____cp314
         UPLOAD_PACKAGES: 'True'
-        SHORT_CONFIG: osx_64_mpinompinumpy2.0python3.10.____cpython
-      osx_64_mpinompinumpy2.0python3.11.____cpython:
-        CONFIG: osx_64_mpinompinumpy2.0python3.11.____cpython
+        SHORT_CONFIG: osx_64_mpimpichpython3.14.____cp314
+      osx_64_mpinompipython3.10.____cpython:
+        CONFIG: osx_64_mpinompipython3.10.____cpython
         UPLOAD_PACKAGES: 'True'
-        SHORT_CONFIG: osx_64_mpinompinumpy2.0python3.11.____cpython
-      osx_64_mpinompinumpy2.0python3.12.____cpython:
-        CONFIG: osx_64_mpinompinumpy2.0python3.12.____cpython
+        SHORT_CONFIG: osx_64_mpinompipython3.10.____cpython
+      osx_64_mpinompipython3.11.____cpython:
+        CONFIG: osx_64_mpinompipython3.11.____cpython
         UPLOAD_PACKAGES: 'True'
-        SHORT_CONFIG: osx_64_mpinompinumpy2.0python3.12.____cpython
-      osx_64_mpiopenmpinumpy2.0python3.10.____cpython:
-        CONFIG: osx_64_mpiopenmpinumpy2.0python3.10.____cpython
+        SHORT_CONFIG: osx_64_mpinompipython3.11.____cpython
+      osx_64_mpinompipython3.12.____cpython:
+        CONFIG: osx_64_mpinompipython3.12.____cpython
         UPLOAD_PACKAGES: 'True'
-        SHORT_CONFIG: osx_64_mpiopenmpinumpy2.0python3.10.____cpython
-      osx_64_mpiopenmpinumpy2.0python3.11.____cpython:
-        CONFIG: osx_64_mpiopenmpinumpy2.0python3.11.____cpython
+        SHORT_CONFIG: osx_64_mpinompipython3.12.____cpython
+      osx_64_mpinompipython3.14.____cp314:
+        CONFIG: osx_64_mpinompipython3.14.____cp314
         UPLOAD_PACKAGES: 'True'
-        SHORT_CONFIG: osx_64_mpiopenmpinumpy2.0python3.11.____cpython
-      osx_64_mpiopenmpinumpy2.0python3.12.____cpython:
-        CONFIG: osx_64_mpiopenmpinumpy2.0python3.12.____cpython
+        SHORT_CONFIG: osx_64_mpinompipython3.14.____cp314
+      osx_64_mpiopenmpipython3.10.____cpython:
+        CONFIG: osx_64_mpiopenmpipython3.10.____cpython
         UPLOAD_PACKAGES: 'True'
-        SHORT_CONFIG: osx_64_mpiopenmpinumpy2.0python3.12.____cpython
-      osx_arm64_mpimpichnumpy2.0python3.10.____cpython:
-        CONFIG: osx_arm64_mpimpichnumpy2.0python3.10.____cpython
+        SHORT_CONFIG: osx_64_mpiopenmpipython3.10.____cpython
+      osx_64_mpiopenmpipython3.11.____cpython:
+        CONFIG: osx_64_mpiopenmpipython3.11.____cpython
         UPLOAD_PACKAGES: 'True'
-        SHORT_CONFIG: osx_arm64_mpimpichnumpy2.0python3.10.____cpython
-      osx_arm64_mpimpichnumpy2.0python3.11.____cpython:
-        CONFIG: osx_arm64_mpimpichnumpy2.0python3.11.____cpython
+        SHORT_CONFIG: osx_64_mpiopenmpipython3.11.____cpython
+      osx_64_mpiopenmpipython3.12.____cpython:
+        CONFIG: osx_64_mpiopenmpipython3.12.____cpython
         UPLOAD_PACKAGES: 'True'
-        SHORT_CONFIG: osx_arm64_mpimpichnumpy2.0python3.11.____cpython
-      osx_arm64_mpimpichnumpy2.0python3.12.____cpython:
-        CONFIG: osx_arm64_mpimpichnumpy2.0python3.12.____cpython
+        SHORT_CONFIG: osx_64_mpiopenmpipython3.12.____cpython
+      osx_64_mpiopenmpipython3.14.____cp314:
+        CONFIG: osx_64_mpiopenmpipython3.14.____cp314
         UPLOAD_PACKAGES: 'True'
-        SHORT_CONFIG: osx_arm64_mpimpichnumpy2.0python3.12.____cpython
-      osx_arm64_mpimpichnumpy2python3.13.____cp313:
-        CONFIG: osx_arm64_mpimpichnumpy2python3.13.____cp313
+        SHORT_CONFIG: osx_64_mpiopenmpipython3.14.____cp314
+      osx_arm64_mpimpichpython3.10.____cpython:
+        CONFIG: osx_arm64_mpimpichpython3.10.____cpython
         UPLOAD_PACKAGES: 'True'
-        SHORT_CONFIG: osx_arm64_mpimpichnumpy2python3.13.____cp313
-      osx_arm64_mpinompinumpy2.0python3.10.____cpython:
-        CONFIG: osx_arm64_mpinompinumpy2.0python3.10.____cpython
+        SHORT_CONFIG: osx_arm64_mpimpichpython3.10.____cpython
+      osx_arm64_mpimpichpython3.11.____cpython:
+        CONFIG: osx_arm64_mpimpichpython3.11.____cpython
         UPLOAD_PACKAGES: 'True'
-        SHORT_CONFIG: osx_arm64_mpinompinumpy2.0python3.10.____cpython
-      osx_arm64_mpinompinumpy2.0python3.11.____cpython:
-        CONFIG: osx_arm64_mpinompinumpy2.0python3.11.____cpython
+        SHORT_CONFIG: osx_arm64_mpimpichpython3.11.____cpython
+      osx_arm64_mpimpichpython3.12.____cpython:
+        CONFIG: osx_arm64_mpimpichpython3.12.____cpython
         UPLOAD_PACKAGES: 'True'
-        SHORT_CONFIG: osx_arm64_mpinompinumpy2.0python3.11.____cpython
-      osx_arm64_mpinompinumpy2.0python3.12.____cpython:
-        CONFIG: osx_arm64_mpinompinumpy2.0python3.12.____cpython
+        SHORT_CONFIG: osx_arm64_mpimpichpython3.12.____cpython
+      osx_arm64_mpimpichpython3.13.____cp313:
+        CONFIG: osx_arm64_mpimpichpython3.13.____cp313
         UPLOAD_PACKAGES: 'True'
-        SHORT_CONFIG: osx_arm64_mpinompinumpy2.0python3.12.____cpython
-      osx_arm64_mpinompinumpy2python3.13.____cp313:
-        CONFIG: osx_arm64_mpinompinumpy2python3.13.____cp313
+        SHORT_CONFIG: osx_arm64_mpimpichpython3.13.____cp313
+      osx_arm64_mpimpichpython3.14.____cp314:
+        CONFIG: osx_arm64_mpimpichpython3.14.____cp314
         UPLOAD_PACKAGES: 'True'
-        SHORT_CONFIG: osx_arm64_mpinompinumpy2python3.13.____cp313
-      osx_arm64_mpiopenmpinumpy2.0python3.10.____cpython:
-        CONFIG: osx_arm64_mpiopenmpinumpy2.0python3.10.____cpython
+        SHORT_CONFIG: osx_arm64_mpimpichpython3.14.____cp314
+      osx_arm64_mpinompipython3.10.____cpython:
+        CONFIG: osx_arm64_mpinompipython3.10.____cpython
         UPLOAD_PACKAGES: 'True'
-        SHORT_CONFIG: osx_arm64_mpiopenmpinumpy2.0python3_h1b9ce0c0ac
-      osx_arm64_mpiopenmpinumpy2.0python3.11.____cpython:
-        CONFIG: osx_arm64_mpiopenmpinumpy2.0python3.11.____cpython
+        SHORT_CONFIG: osx_arm64_mpinompipython3.10.____cpython
+      osx_arm64_mpinompipython3.11.____cpython:
+        CONFIG: osx_arm64_mpinompipython3.11.____cpython
         UPLOAD_PACKAGES: 'True'
-        SHORT_CONFIG: osx_arm64_mpiopenmpinumpy2.0python3_h9270980e31
-      osx_arm64_mpiopenmpinumpy2.0python3.12.____cpython:
-        CONFIG: osx_arm64_mpiopenmpinumpy2.0python3.12.____cpython
+        SHORT_CONFIG: osx_arm64_mpinompipython3.11.____cpython
+      osx_arm64_mpinompipython3.12.____cpython:
+        CONFIG: osx_arm64_mpinompipython3.12.____cpython
         UPLOAD_PACKAGES: 'True'
-        SHORT_CONFIG: osx_arm64_mpiopenmpinumpy2.0python3_h9493c3ac16
-      osx_arm64_mpiopenmpinumpy2python3.13.____cp313:
-        CONFIG: osx_arm64_mpiopenmpinumpy2python3.13.____cp313
+        SHORT_CONFIG: osx_arm64_mpinompipython3.12.____cpython
+      osx_arm64_mpinompipython3.13.____cp313:
+        CONFIG: osx_arm64_mpinompipython3.13.____cp313
         UPLOAD_PACKAGES: 'True'
-        SHORT_CONFIG: osx_arm64_mpiopenmpinumpy2python3.13.____cp313
+        SHORT_CONFIG: osx_arm64_mpinompipython3.13.____cp313
+      osx_arm64_mpinompipython3.14.____cp314:
+        CONFIG: osx_arm64_mpinompipython3.14.____cp314
+        UPLOAD_PACKAGES: 'True'
+        SHORT_CONFIG: osx_arm64_mpinompipython3.14.____cp314
+      osx_arm64_mpiopenmpipython3.10.____cpython:
+        CONFIG: osx_arm64_mpiopenmpipython3.10.____cpython
+        UPLOAD_PACKAGES: 'True'
+        SHORT_CONFIG: osx_arm64_mpiopenmpipython3.10.____cpython
+      osx_arm64_mpiopenmpipython3.11.____cpython:
+        CONFIG: osx_arm64_mpiopenmpipython3.11.____cpython
+        UPLOAD_PACKAGES: 'True'
+        SHORT_CONFIG: osx_arm64_mpiopenmpipython3.11.____cpython
+      osx_arm64_mpiopenmpipython3.12.____cpython:
+        CONFIG: osx_arm64_mpiopenmpipython3.12.____cpython
+        UPLOAD_PACKAGES: 'True'
+        SHORT_CONFIG: osx_arm64_mpiopenmpipython3.12.____cpython
+      osx_arm64_mpiopenmpipython3.13.____cp313:
+        CONFIG: osx_arm64_mpiopenmpipython3.13.____cp313
+        UPLOAD_PACKAGES: 'True'
+        SHORT_CONFIG: osx_arm64_mpiopenmpipython3.13.____cp313
+      osx_arm64_mpiopenmpipython3.14.____cp314:
+        CONFIG: osx_arm64_mpiopenmpipython3.14.____cp314
+        UPLOAD_PACKAGES: 'True'
+        SHORT_CONFIG: osx_arm64_mpiopenmpipython3.14.____cp314
   timeoutInMinutes: 360
   variables: {}
 
