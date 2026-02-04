@@ -5,6 +5,8 @@
 #cxx_compiler_version:   # [osx]
 #  - 15                  # [osx]
 mpi:
-  - openmpi
-  - mpich
-  - nompi
+- openmpi
+- mpich
+- nompi
+github_actions_labels:
+- cirun-openstack-cpu-large
