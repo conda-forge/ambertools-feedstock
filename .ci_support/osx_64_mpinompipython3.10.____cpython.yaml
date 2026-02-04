@@ -39,7 +39,7 @@ libboost_devel:
 liblapack:
 - 3.9.* *netlib
 libnetcdf:
-- 4.9.2
+- 4.9.3
 llvm_openmp:
 - '19'
 macos_machine:
@@ -50,8 +50,6 @@ mpich:
 - '4'
 netcdf_fortran:
 - '4.6'
-numpy:
-- '2'
 openmpi:
 - '4'
 openssl:
