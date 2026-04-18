@@ -1,4 +1,3 @@
-{% set name = "AmberTools" %}
 # Versioning scheme uses AmberTools major release as MAJOR version number, patch level as MINOR version number
 # Update the MINOR version number as new patch releases come out
 {% set version = "24.8" %}
@@ -14,8 +13,8 @@
 {% endif %}
 
 package:
-  name: {{ name|lower }}
-  version: {{ version }}
+  name: ambertools
+  version: "{{ version }}"
 
 source:
   url: https://ambermd.org/downloads/AmberTools24_rc5.tar.bz2
