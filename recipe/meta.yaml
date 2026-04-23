@@ -1,10 +1,10 @@
 {% set name = "AmberTools" %}
 # Versioning scheme uses AmberTools major release as MAJOR version number, patch level as MINOR version number
 # Update the MINOR version number as new patch releases come out
-{% set version = "24.8" %}
+{% set version = "25.3" %}
 # use run or skip
 {% set unit_tests = "skip" %}
-{% set build = 1 %}
+{% set build = 0 %}
 {% set build = build + 100 %}  # [mpi == 'nompi' and cuda_compiler_version == "None"]
 
 {% if cuda_compiler_version != "None" %}
@@ -18,8 +18,8 @@ package:
   version: {{ version }}
 
 source:
-  url: https://ambermd.org/downloads/AmberTools24_rc5.tar.bz2
-  sha256: 52fb4fb3370a89b7ce738a2dc3e513c2fc1943fde4b4381846d9e75cc48d840f
+  url: https://ambermd.org/downloads/ambertools25_rc7.tar.bz2
+  sha256: ac009b2adeb25ccd2191db28905b867df49240e038dc590f423edf0d84f8a13b
   patches:
     - patches/do_not_symlink_missing_ff12pol.patch
     - patches/do_not_install_vendored_parmed.patch
@@ -41,6 +41,7 @@ build:
   skip: True  # [win or py<310 or ppc64le or aarch64]
   skip: True  # [cuda_compiler_version != "None"]
   skip: True  # [py == 313 and osx and x86_64]
+  skip: True  # [py == 312 and osx and x86_64]
   script_env:
     - unit_tests={{ unit_tests }}
   string: cuda_{{ cuda_compiler_version }}_{{ mpi }}_py{{ CONDA_PY }}h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}
@@ -49,14 +50,14 @@ requirements:
   build:
     - bc
     - bison
-    - cmake
+    - cmake <4
     - cross-python_{{ target_platform }}     # [build_platform != target_platform]
     - flex
     - libgomp      # [linux and not aarch64]
     - llvm-openmp  # [osx]
     - make
     - matplotlib-base                        # [build_platform != target_platform]
-    - numpy                                  # [build_platform != target_platform]
+    - numpy <2.3                             # [build_platform != target_platform]
     - openssl
     - patch
     - perl
@@ -73,7 +74,7 @@ requirements:
   host:
     - python
     - setuptools
-    - numpy
+    - numpy <2.3
     - scipy
     - matplotlib-base
     - bzip2
@@ -94,6 +95,7 @@ requirements:
     - libgomp      # [linux and not aarch64]
     - parmed =4
     - openssl
+    - nlopt
     - {{ mpi }}  # [mpi != 'nompi']
     - mpi4py  # [mpi != 'nompi']
     {% if cuda_major >= 12 %}
@@ -113,7 +115,7 @@ requirements:
     - python
     - setuptools
     - perl
-    - numpy
+    - numpy <2.3
     - scipy
     - matplotlib-base
     - joblib
@@ -129,6 +131,7 @@ requirements:
     - llvm-openmp  # [osx]
     - libgomp      # [linux and not aarch64]
     - parmed >=4.0.0,<5.0.0a0
+    - nlopt
     - {{ mpi }}  # [mpi != 'nompi']
     - mpi4py  # [mpi != 'nompi']
     # See if this fixes the missing mkl error in a few builds
