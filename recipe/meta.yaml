@@ -4,7 +4,7 @@
 {% set version = "24.8" %}
 # use run or skip
 {% set unit_tests = "skip" %}
-{% set build = 1 %}
+{% set build = 2 %}
 {% set build = build + 100 %}  # [mpi == 'nompi' and cuda_compiler_version == "None"]
 
 {% if cuda_compiler_version != "None" %}
@@ -38,7 +38,7 @@ source:
 
 build:
   number: {{ build }}
-  skip: True  # [win or py<310 or ppc64le or aarch64]
+  skip: True  # [win or py<310 or ppc64le]
   skip: True  # [cuda_compiler_version != "None"]
   skip: True  # [py == 313 and osx and x86_64]
   script_env:
@@ -49,14 +49,14 @@ requirements:
   build:
     - bc
     - bison
-    - cmake
+    - cmake <4
     - cross-python_{{ target_platform }}     # [build_platform != target_platform]
     - flex
     - libgomp      # [linux and not aarch64]
     - llvm-openmp  # [osx]
     - make
     - matplotlib-base                        # [build_platform != target_platform]
-    - numpy                                  # [build_platform != target_platform]
+    - numpy <2.3                             # [build_platform != target_platform]
     - openssl
     - patch
     - perl
@@ -73,7 +73,7 @@ requirements:
   host:
     - python
     - setuptools
-    - numpy
+    - numpy <2.3
     - scipy
     - matplotlib-base
     - bzip2
@@ -113,7 +113,7 @@ requirements:
     - python
     - setuptools
     - perl
-    - numpy
+    - numpy <2.3
     - scipy
     - matplotlib-base
     - joblib
@@ -132,7 +132,7 @@ requirements:
     - {{ mpi }}  # [mpi != 'nompi']
     - mpi4py  # [mpi != 'nompi']
     # See if this fixes the missing mkl error in a few builds
-    - mkl  # [linux]
+    - mkl  # [linux and x86_64]
     - __cuda  # [not osx and cuda_compiler_version != "None"]
   run_constrained:
     - ambermini ==9999999999
