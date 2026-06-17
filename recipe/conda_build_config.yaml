@@ -8,5 +8,5 @@ mpi:
 - openmpi
 - mpich
 - nompi
-github_actions_labels:
-- cirun-openstack-cpu-large
+github_actions_labels:      # [linux]
+- cirun-openstack-cpu-large  # [linux]
