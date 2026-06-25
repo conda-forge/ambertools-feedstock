@@ -15,7 +15,7 @@
 
 package:
   name: {{ name|lower }}
-  version: {{ version }}
+  version: "{{ version }}"
 
 source:
   url: https://ambermd.org/downloads/AmberTools24_rc5.tar.bz2
