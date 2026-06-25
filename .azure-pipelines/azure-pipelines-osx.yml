@@ -8,8 +8,8 @@ jobs:
     vmImage: $(VMIMAGE)
   strategy:
     matrix:
-      osx_64_mpimpichpython3.10.____cpython:
-        CONFIG: osx_64_mpimpichpython3.10.____cpython
+      osx_64_python3.10.____cpython:
+        CONFIG: osx_64_python3.10.____cpython
         UPLOAD_PACKAGES: 'True'
         VMIMAGE: macOS-15
         build_workspace_dir: ~/miniforge3/conda-bld
@@ -18,9 +18,9 @@ jobs:
         resize_partitions: false
         store_build_artifacts: true
         tools_install_dir: ~/miniforge3
-        CONFIG_SHORT: osx_64_mpimpichpython3.10.____cpython
-      osx_64_mpimpichpython3.11.____cpython:
-        CONFIG: osx_64_mpimpichpython3.11.____cpython
+        CONFIG_SHORT: osx_64_python3.10.____cpython
+      osx_64_python3.11.____cpython:
+        CONFIG: osx_64_python3.11.____cpython
         UPLOAD_PACKAGES: 'True'
         VMIMAGE: macOS-15
         build_workspace_dir: ~/miniforge3/conda-bld
@@ -29,9 +29,9 @@ jobs:
         resize_partitions: false
         store_build_artifacts: true
         tools_install_dir: ~/miniforge3
-        CONFIG_SHORT: osx_64_mpimpichpython3.11.____cpython
-      osx_64_mpimpichpython3.12.____cpython:
-        CONFIG: osx_64_mpimpichpython3.12.____cpython
+        CONFIG_SHORT: osx_64_python3.11.____cpython
+      osx_64_python3.12.____cpython:
+        CONFIG: osx_64_python3.12.____cpython
         UPLOAD_PACKAGES: 'True'
         VMIMAGE: macOS-15
         build_workspace_dir: ~/miniforge3/conda-bld
@@ -40,9 +40,9 @@ jobs:
         resize_partitions: false
         store_build_artifacts: true
         tools_install_dir: ~/miniforge3
-        CONFIG_SHORT: osx_64_mpimpichpython3.12.____cpython
-      osx_64_mpinompipython3.10.____cpython:
-        CONFIG: osx_64_mpinompipython3.10.____cpython
+        CONFIG_SHORT: osx_64_python3.12.____cpython
+      osx_arm64_python3.10.____cpython:
+        CONFIG: osx_arm64_python3.10.____cpython
         UPLOAD_PACKAGES: 'True'
         VMIMAGE: macOS-15
         build_workspace_dir: ~/miniforge3/conda-bld
@@ -51,9 +51,9 @@ jobs:
         resize_partitions: false
         store_build_artifacts: true
         tools_install_dir: ~/miniforge3
-        CONFIG_SHORT: osx_64_mpinompipython3.10.____cpython
-      osx_64_mpinompipython3.11.____cpython:
-        CONFIG: osx_64_mpinompipython3.11.____cpython
+        CONFIG_SHORT: osx_arm64_python3.10.____cpython
+      osx_arm64_python3.11.____cpython:
+        CONFIG: osx_arm64_python3.11.____cpython
         UPLOAD_PACKAGES: 'True'
         VMIMAGE: macOS-15
         build_workspace_dir: ~/miniforge3/conda-bld
@@ -62,9 +62,9 @@ jobs:
         resize_partitions: false
         store_build_artifacts: true
         tools_install_dir: ~/miniforge3
-        CONFIG_SHORT: osx_64_mpinompipython3.11.____cpython
-      osx_64_mpinompipython3.12.____cpython:
-        CONFIG: osx_64_mpinompipython3.12.____cpython
+        CONFIG_SHORT: osx_arm64_python3.11.____cpython
+      osx_arm64_python3.12.____cpython:
+        CONFIG: osx_arm64_python3.12.____cpython
         UPLOAD_PACKAGES: 'True'
         VMIMAGE: macOS-15
         build_workspace_dir: ~/miniforge3/conda-bld
@@ -73,9 +73,9 @@ jobs:
         resize_partitions: false
         store_build_artifacts: true
         tools_install_dir: ~/miniforge3
-        CONFIG_SHORT: osx_64_mpinompipython3.12.____cpython
-      osx_64_mpiopenmpipython3.10.____cpython:
-        CONFIG: osx_64_mpiopenmpipython3.10.____cpython
+        CONFIG_SHORT: osx_arm64_python3.12.____cpython
+      osx_arm64_python3.13.____cp313:
+        CONFIG: osx_arm64_python3.13.____cp313
         UPLOAD_PACKAGES: 'True'
         VMIMAGE: macOS-15
         build_workspace_dir: ~/miniforge3/conda-bld
@@ -84,161 +84,7 @@ jobs:
         resize_partitions: false
         store_build_artifacts: true
         tools_install_dir: ~/miniforge3
-        CONFIG_SHORT: osx_64_mpiopenmpipython3.10.____cpython
-      osx_64_mpiopenmpipython3.11.____cpython:
-        CONFIG: osx_64_mpiopenmpipython3.11.____cpython
-        UPLOAD_PACKAGES: 'True'
-        VMIMAGE: macOS-15
-        build_workspace_dir: ~/miniforge3/conda-bld
-        free_disk_space: quick
-        pagefile_size: 0
-        resize_partitions: false
-        store_build_artifacts: true
-        tools_install_dir: ~/miniforge3
-        CONFIG_SHORT: osx_64_mpiopenmpipython3.11.____cpython
-      osx_64_mpiopenmpipython3.12.____cpython:
-        CONFIG: osx_64_mpiopenmpipython3.12.____cpython
-        UPLOAD_PACKAGES: 'True'
-        VMIMAGE: macOS-15
-        build_workspace_dir: ~/miniforge3/conda-bld
-        free_disk_space: quick
-        pagefile_size: 0
-        resize_partitions: false
-        store_build_artifacts: true
-        tools_install_dir: ~/miniforge3
-        CONFIG_SHORT: osx_64_mpiopenmpipython3.12.____cpython
-      osx_arm64_mpimpichpython3.10.____cpython:
-        CONFIG: osx_arm64_mpimpichpython3.10.____cpython
-        UPLOAD_PACKAGES: 'True'
-        VMIMAGE: macOS-15
-        build_workspace_dir: ~/miniforge3/conda-bld
-        free_disk_space: quick
-        pagefile_size: 0
-        resize_partitions: false
-        store_build_artifacts: true
-        tools_install_dir: ~/miniforge3
-        CONFIG_SHORT: osx_arm64_mpimpichpython3.10.____cpython
-      osx_arm64_mpimpichpython3.11.____cpython:
-        CONFIG: osx_arm64_mpimpichpython3.11.____cpython
-        UPLOAD_PACKAGES: 'True'
-        VMIMAGE: macOS-15
-        build_workspace_dir: ~/miniforge3/conda-bld
-        free_disk_space: quick
-        pagefile_size: 0
-        resize_partitions: false
-        store_build_artifacts: true
-        tools_install_dir: ~/miniforge3
-        CONFIG_SHORT: osx_arm64_mpimpichpython3.11.____cpython
-      osx_arm64_mpimpichpython3.12.____cpython:
-        CONFIG: osx_arm64_mpimpichpython3.12.____cpython
-        UPLOAD_PACKAGES: 'True'
-        VMIMAGE: macOS-15
-        build_workspace_dir: ~/miniforge3/conda-bld
-        free_disk_space: quick
-        pagefile_size: 0
-        resize_partitions: false
-        store_build_artifacts: true
-        tools_install_dir: ~/miniforge3
-        CONFIG_SHORT: osx_arm64_mpimpichpython3.12.____cpython
-      osx_arm64_mpimpichpython3.13.____cp313:
-        CONFIG: osx_arm64_mpimpichpython3.13.____cp313
-        UPLOAD_PACKAGES: 'True'
-        VMIMAGE: macOS-15
-        build_workspace_dir: ~/miniforge3/conda-bld
-        free_disk_space: quick
-        pagefile_size: 0
-        resize_partitions: false
-        store_build_artifacts: true
-        tools_install_dir: ~/miniforge3
-        CONFIG_SHORT: osx_arm64_mpimpichpython3.13.____cp313
-      osx_arm64_mpinompipython3.10.____cpython:
-        CONFIG: osx_arm64_mpinompipython3.10.____cpython
-        UPLOAD_PACKAGES: 'True'
-        VMIMAGE: macOS-15
-        build_workspace_dir: ~/miniforge3/conda-bld
-        free_disk_space: quick
-        pagefile_size: 0
-        resize_partitions: false
-        store_build_artifacts: true
-        tools_install_dir: ~/miniforge3
-        CONFIG_SHORT: osx_arm64_mpinompipython3.10.____cpython
-      osx_arm64_mpinompipython3.11.____cpython:
-        CONFIG: osx_arm64_mpinompipython3.11.____cpython
-        UPLOAD_PACKAGES: 'True'
-        VMIMAGE: macOS-15
-        build_workspace_dir: ~/miniforge3/conda-bld
-        free_disk_space: quick
-        pagefile_size: 0
-        resize_partitions: false
-        store_build_artifacts: true
-        tools_install_dir: ~/miniforge3
-        CONFIG_SHORT: osx_arm64_mpinompipython3.11.____cpython
-      osx_arm64_mpinompipython3.12.____cpython:
-        CONFIG: osx_arm64_mpinompipython3.12.____cpython
-        UPLOAD_PACKAGES: 'True'
-        VMIMAGE: macOS-15
-        build_workspace_dir: ~/miniforge3/conda-bld
-        free_disk_space: quick
-        pagefile_size: 0
-        resize_partitions: false
-        store_build_artifacts: true
-        tools_install_dir: ~/miniforge3
-        CONFIG_SHORT: osx_arm64_mpinompipython3.12.____cpython
-      osx_arm64_mpinompipython3.13.____cp313:
-        CONFIG: osx_arm64_mpinompipython3.13.____cp313
-        UPLOAD_PACKAGES: 'True'
-        VMIMAGE: macOS-15
-        build_workspace_dir: ~/miniforge3/conda-bld
-        free_disk_space: quick
-        pagefile_size: 0
-        resize_partitions: false
-        store_build_artifacts: true
-        tools_install_dir: ~/miniforge3
-        CONFIG_SHORT: osx_arm64_mpinompipython3.13.____cp313
-      osx_arm64_mpiopenmpipython3.10.____cpython:
-        CONFIG: osx_arm64_mpiopenmpipython3.10.____cpython
-        UPLOAD_PACKAGES: 'True'
-        VMIMAGE: macOS-15
-        build_workspace_dir: ~/miniforge3/conda-bld
-        free_disk_space: quick
-        pagefile_size: 0
-        resize_partitions: false
-        store_build_artifacts: true
-        tools_install_dir: ~/miniforge3
-        CONFIG_SHORT: osx_arm64_mpiopenmpipython3.10.____cpython
-      osx_arm64_mpiopenmpipython3.11.____cpython:
-        CONFIG: osx_arm64_mpiopenmpipython3.11.____cpython
-        UPLOAD_PACKAGES: 'True'
-        VMIMAGE: macOS-15
-        build_workspace_dir: ~/miniforge3/conda-bld
-        free_disk_space: quick
-        pagefile_size: 0
-        resize_partitions: false
-        store_build_artifacts: true
-        tools_install_dir: ~/miniforge3
-        CONFIG_SHORT: osx_arm64_mpiopenmpipython3.11.____cpython
-      osx_arm64_mpiopenmpipython3.12.____cpython:
-        CONFIG: osx_arm64_mpiopenmpipython3.12.____cpython
-        UPLOAD_PACKAGES: 'True'
-        VMIMAGE: macOS-15
-        build_workspace_dir: ~/miniforge3/conda-bld
-        free_disk_space: quick
-        pagefile_size: 0
-        resize_partitions: false
-        store_build_artifacts: true
-        tools_install_dir: ~/miniforge3
-        CONFIG_SHORT: osx_arm64_mpiopenmpipython3.12.____cpython
-      osx_arm64_mpiopenmpipython3.13.____cp313:
-        CONFIG: osx_arm64_mpiopenmpipython3.13.____cp313
-        UPLOAD_PACKAGES: 'True'
-        VMIMAGE: macOS-15
-        build_workspace_dir: ~/miniforge3/conda-bld
-        free_disk_space: quick
-        pagefile_size: 0
-        resize_partitions: false
-        store_build_artifacts: true
-        tools_install_dir: ~/miniforge3
-        CONFIG_SHORT: osx_arm64_mpiopenmpipython3.13.____cp313
+        CONFIG_SHORT: osx_arm64_python3.13.____cp313
   timeoutInMinutes: 360
   variables: {}
 
