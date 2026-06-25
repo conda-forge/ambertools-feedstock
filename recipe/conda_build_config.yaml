@@ -8,3 +8,5 @@ mpi:
   - openmpi
   - mpich
   - nompi
+github_actions_labels:
+  - depot-ubuntu-24.04-arm-8  # [aarch64]
