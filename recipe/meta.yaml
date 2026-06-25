@@ -78,7 +78,7 @@ requirements:
     - matplotlib-base
     - bzip2
     - zlib
-    - libboost-devel
+    - libboost-devel ==1.86
     - libnetcdf
     - netcdf-fortran
     - pthread-stubs
