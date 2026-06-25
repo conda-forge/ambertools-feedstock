@@ -34,8 +34,6 @@ github_actions_labels:
 - depot-ubuntu-24.04-arm-8
 libblas:
 - 3.9.* *netlib
-libboost_devel:
-- '1.88'
 liblapack:
 - 3.9.* *netlib
 libnetcdf:
