@@ -4,6 +4,10 @@
 #  - 15                  # [osx]
 #cxx_compiler_version:   # [osx]
 #  - 15                  # [osx]
+c_compiler_version:         # [linux]
+  - 13.2.0                  # [linux]
+cxx_compiler_version:       # [linux]
+  - 13.2.0                  # [linux]
 mpi:
   - openmpi
   - mpich
