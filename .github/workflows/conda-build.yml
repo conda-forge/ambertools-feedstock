@@ -168,6 +168,150 @@ jobs:
             resize_partitions: False
             runs_on: ['ubuntu-latest']
             tools_install_dir: ~/miniforge3
+          - CONFIG: linux_aarch64_cuda_compiler_versionNonempimpichpython3.10.____cpython
+            DOCKER_IMAGE: quay.io/condaforge/linux-anvil-aarch64:alma9
+            STORE_BUILD_ARTIFACTS: False
+            UPLOAD_PACKAGES: True
+            build_workspace_dir: build_artifacts
+            docker_run_args: 
+            free_disk_space: skip
+            os: ubuntu
+            pagefile_size: 0
+            resize_partitions: False
+            runs_on: ['depot-ubuntu-24.04-arm-8']
+            tools_install_dir: ~/miniforge3
+          - CONFIG: linux_aarch64_cuda_compiler_versionNonempimpichpython3.11.____cpython
+            DOCKER_IMAGE: quay.io/condaforge/linux-anvil-aarch64:alma9
+            STORE_BUILD_ARTIFACTS: False
+            UPLOAD_PACKAGES: True
+            build_workspace_dir: build_artifacts
+            docker_run_args: 
+            free_disk_space: skip
+            os: ubuntu
+            pagefile_size: 0
+            resize_partitions: False
+            runs_on: ['depot-ubuntu-24.04-arm-8']
+            tools_install_dir: ~/miniforge3
+          - CONFIG: linux_aarch64_cuda_compiler_versionNonempimpichpython3.12.____cpython
+            DOCKER_IMAGE: quay.io/condaforge/linux-anvil-aarch64:alma9
+            STORE_BUILD_ARTIFACTS: False
+            UPLOAD_PACKAGES: True
+            build_workspace_dir: build_artifacts
+            docker_run_args: 
+            free_disk_space: skip
+            os: ubuntu
+            pagefile_size: 0
+            resize_partitions: False
+            runs_on: ['depot-ubuntu-24.04-arm-8']
+            tools_install_dir: ~/miniforge3
+          - CONFIG: linux_aarch64_cuda_compiler_versionNonempimpichpython3.13.____cp313
+            DOCKER_IMAGE: quay.io/condaforge/linux-anvil-aarch64:alma9
+            STORE_BUILD_ARTIFACTS: False
+            UPLOAD_PACKAGES: True
+            build_workspace_dir: build_artifacts
+            docker_run_args: 
+            free_disk_space: skip
+            os: ubuntu
+            pagefile_size: 0
+            resize_partitions: False
+            runs_on: ['depot-ubuntu-24.04-arm-8']
+            tools_install_dir: ~/miniforge3
+          - CONFIG: linux_aarch64_cuda_compiler_versionNonempinompipython3.10.____cpython
+            DOCKER_IMAGE: quay.io/condaforge/linux-anvil-aarch64:alma9
+            STORE_BUILD_ARTIFACTS: False
+            UPLOAD_PACKAGES: True
+            build_workspace_dir: build_artifacts
+            docker_run_args: 
+            free_disk_space: skip
+            os: ubuntu
+            pagefile_size: 0
+            resize_partitions: False
+            runs_on: ['depot-ubuntu-24.04-arm-8']
+            tools_install_dir: ~/miniforge3
+          - CONFIG: linux_aarch64_cuda_compiler_versionNonempinompipython3.11.____cpython
+            DOCKER_IMAGE: quay.io/condaforge/linux-anvil-aarch64:alma9
+            STORE_BUILD_ARTIFACTS: False
+            UPLOAD_PACKAGES: True
+            build_workspace_dir: build_artifacts
+            docker_run_args: 
+            free_disk_space: skip
+            os: ubuntu
+            pagefile_size: 0
+            resize_partitions: False
+            runs_on: ['depot-ubuntu-24.04-arm-8']
+            tools_install_dir: ~/miniforge3
+          - CONFIG: linux_aarch64_cuda_compiler_versionNonempinompipython3.12.____cpython
+            DOCKER_IMAGE: quay.io/condaforge/linux-anvil-aarch64:alma9
+            STORE_BUILD_ARTIFACTS: False
+            UPLOAD_PACKAGES: True
+            build_workspace_dir: build_artifacts
+            docker_run_args: 
+            free_disk_space: skip
+            os: ubuntu
+            pagefile_size: 0
+            resize_partitions: False
+            runs_on: ['depot-ubuntu-24.04-arm-8']
+            tools_install_dir: ~/miniforge3
+          - CONFIG: linux_aarch64_cuda_compiler_versionNonempinompipython3.13.____cp313
+            DOCKER_IMAGE: quay.io/condaforge/linux-anvil-aarch64:alma9
+            STORE_BUILD_ARTIFACTS: False
+            UPLOAD_PACKAGES: True
+            build_workspace_dir: build_artifacts
+            docker_run_args: 
+            free_disk_space: skip
+            os: ubuntu
+            pagefile_size: 0
+            resize_partitions: False
+            runs_on: ['depot-ubuntu-24.04-arm-8']
+            tools_install_dir: ~/miniforge3
+          - CONFIG: linux_aarch64_cuda_compiler_versionNonempiopenmpipython3.10.____cpython
+            DOCKER_IMAGE: quay.io/condaforge/linux-anvil-aarch64:alma9
+            STORE_BUILD_ARTIFACTS: False
+            UPLOAD_PACKAGES: True
+            build_workspace_dir: build_artifacts
+            docker_run_args: 
+            free_disk_space: skip
+            os: ubuntu
+            pagefile_size: 0
+            resize_partitions: False
+            runs_on: ['depot-ubuntu-24.04-arm-8']
+            tools_install_dir: ~/miniforge3
+          - CONFIG: linux_aarch64_cuda_compiler_versionNonempiopenmpipython3.11.____cpython
+            DOCKER_IMAGE: quay.io/condaforge/linux-anvil-aarch64:alma9
+            STORE_BUILD_ARTIFACTS: False
+            UPLOAD_PACKAGES: True
+            build_workspace_dir: build_artifacts
+            docker_run_args: 
+            free_disk_space: skip
+            os: ubuntu
+            pagefile_size: 0
+            resize_partitions: False
+            runs_on: ['depot-ubuntu-24.04-arm-8']
+            tools_install_dir: ~/miniforge3
+          - CONFIG: linux_aarch64_cuda_compiler_versionNonempiopenmpipython3.12.____cpython
+            DOCKER_IMAGE: quay.io/condaforge/linux-anvil-aarch64:alma9
+            STORE_BUILD_ARTIFACTS: False
+            UPLOAD_PACKAGES: True
+            build_workspace_dir: build_artifacts
+            docker_run_args: 
+            free_disk_space: skip
+            os: ubuntu
+            pagefile_size: 0
+            resize_partitions: False
+            runs_on: ['depot-ubuntu-24.04-arm-8']
+            tools_install_dir: ~/miniforge3
+          - CONFIG: linux_aarch64_cuda_compiler_versionNonempiopenmpipython3.13.____cp313
+            DOCKER_IMAGE: quay.io/condaforge/linux-anvil-aarch64:alma9
+            STORE_BUILD_ARTIFACTS: False
+            UPLOAD_PACKAGES: True
+            build_workspace_dir: build_artifacts
+            docker_run_args: 
+            free_disk_space: skip
+            os: ubuntu
+            pagefile_size: 0
+            resize_partitions: False
+            runs_on: ['depot-ubuntu-24.04-arm-8']
+            tools_install_dir: ~/miniforge3
     steps:
 
     - name: Checkout code

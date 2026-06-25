@@ -30,6 +30,8 @@ fortran_compiler:
 - gfortran
 fortran_compiler_version:
 - '14'
+github_actions_labels:
+- depot-ubuntu-24.04-arm-8
 libblas:
 - 3.9.* *netlib
 libboost_devel:
