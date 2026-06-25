@@ -4,13 +4,7 @@
 #  - 15                  # [osx]
 #cxx_compiler_version:   # [osx]
 #  - 15                  # [osx]
-c_compiler_version:         # [linux]
-  - "13.2.0"                  # [linux]
-cxx_compiler_version:       # [linux]
-  - "13.2.0"                  # [linux]
 mpi:
-  - openmpi
-  - mpich
   - nompi
 github_actions_labels:
   - depot-ubuntu-24.04-arm-8  # [aarch64]
