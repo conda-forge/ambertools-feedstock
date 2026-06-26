@@ -82,7 +82,7 @@ jobs:
             os: ubuntu
             pagefile_size: 0
             resize_partitions: False
-            runs_on: ['depot-ubuntu-24.04-arm-8']
+            runs_on: ['ubuntu-24.04-arm']
             tools_install_dir: ~/miniforge3
           - CONFIG: linux_aarch64_cuda_compiler_versionNonepython3.11.____cpython
             DOCKER_IMAGE: quay.io/condaforge/linux-anvil-aarch64:alma9
@@ -94,7 +94,7 @@ jobs:
             os: ubuntu
             pagefile_size: 0
             resize_partitions: False
-            runs_on: ['depot-ubuntu-24.04-arm-8']
+            runs_on: ['ubuntu-24.04-arm']
             tools_install_dir: ~/miniforge3
           - CONFIG: linux_aarch64_cuda_compiler_versionNonepython3.12.____cpython
             DOCKER_IMAGE: quay.io/condaforge/linux-anvil-aarch64:alma9
@@ -106,7 +106,7 @@ jobs:
             os: ubuntu
             pagefile_size: 0
             resize_partitions: False
-            runs_on: ['depot-ubuntu-24.04-arm-8']
+            runs_on: ['ubuntu-24.04-arm']
             tools_install_dir: ~/miniforge3
           - CONFIG: linux_aarch64_cuda_compiler_versionNonepython3.13.____cp313
             DOCKER_IMAGE: quay.io/condaforge/linux-anvil-aarch64:alma9
@@ -118,7 +118,7 @@ jobs:
             os: ubuntu
             pagefile_size: 0
             resize_partitions: False
-            runs_on: ['depot-ubuntu-24.04-arm-8']
+            runs_on: ['ubuntu-24.04-arm']
             tools_install_dir: ~/miniforge3
     steps:
 
