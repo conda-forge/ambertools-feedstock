@@ -33,11 +33,11 @@ fortran_compiler_version:
 libblas:
 - 3.9.* *netlib
 libboost_devel:
-- '1.86'
+- '1.88'
 liblapack:
 - 3.9.* *netlib
 libnetcdf:
-- 4.9.2
+- 4.9.3
 mpi:
 - mpich
 mpich:
@@ -45,7 +45,7 @@ mpich:
 netcdf_fortran:
 - '4.6'
 nlopt:
-- '2.10'
+- '2.11'
 openmpi:
 - '5'
 openssl:
@@ -57,7 +57,7 @@ pin_run_as_build:
     min_pin: x.x
     max_pin: x.x
 python:
-- 3.10.* *_cpython
+- 3.13.* *_cp313
 readline:
 - '8'
 target_platform:
