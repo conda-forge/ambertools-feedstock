@@ -15,7 +15,7 @@
 
 package:
   name: {{ name|lower }}
-  version: {{ version }}
+  version: "{{ version }}"
 
 source:
   url: https://ambermd.org/downloads/ambertools25_rc7.tar.bz2
