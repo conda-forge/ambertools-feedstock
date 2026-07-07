@@ -42,6 +42,8 @@ mpich:
 - '4'
 netcdf_fortran:
 - '4.6'
+numpy:
+- '2'
 openmpi:
 - '4'
 openssl:
