@@ -17,3 +17,5 @@ provider:
   osx_arm64: default
 test: native_and_emulated
 upload_on_branch: main
+workflow_settings: 
+  store_build_artifacts: true
