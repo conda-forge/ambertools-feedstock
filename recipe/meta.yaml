@@ -4,7 +4,7 @@
 {% set version = "24.8" %}
 # use run or skip
 {% set unit_tests = "skip" %}
-{% set build = 1 %}
+{% set build = 2 %}
 {% set build = build + 100 %}  # [mpi == 'nompi' and cuda_compiler_version == "None"]
 
 {% if cuda_compiler_version != "None" %}
@@ -15,7 +15,7 @@
 
 package:
   name: {{ name|lower }}
-  version: {{ version }}
+  version: "{{ version }}"
 
 source:
   url: https://ambermd.org/downloads/AmberTools24_rc5.tar.bz2
@@ -38,9 +38,11 @@ source:
 
 build:
   number: {{ build }}
-  skip: True  # [win or py<310 or ppc64le or aarch64]
+  skip: True  # [win or py<310 or ppc64le]
   skip: True  # [cuda_compiler_version != "None"]
   skip: True  # [py == 313 and osx and x86_64]
+  skip: True  # [py == 310 and osx and x86_64]
+  skip: True  # [py == 311 and osx and x86_64]
   script_env:
     - unit_tests={{ unit_tests }}
   string: cuda_{{ cuda_compiler_version }}_{{ mpi }}_py{{ CONDA_PY }}h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}
@@ -49,7 +51,7 @@ requirements:
   build:
     - bc
     - bison
-    - cmake
+    - cmake <4
     - cross-python_{{ target_platform }}     # [build_platform != target_platform]
     - flex
     - libgomp      # [linux and not aarch64]
@@ -78,7 +80,7 @@ requirements:
     - matplotlib-base
     - bzip2
     - zlib
-    - libboost-devel
+    - libboost-devel ==1.86
     - libnetcdf
     - netcdf-fortran
     - pthread-stubs
@@ -132,7 +134,7 @@ requirements:
     - {{ mpi }}  # [mpi != 'nompi']
     - mpi4py  # [mpi != 'nompi']
     # See if this fixes the missing mkl error in a few builds
-    - mkl  # [linux]
+    - mkl  # [linux and x86_64]
     - __cuda  # [not osx and cuda_compiler_version != "None"]
   run_constrained:
     - ambermini ==9999999999

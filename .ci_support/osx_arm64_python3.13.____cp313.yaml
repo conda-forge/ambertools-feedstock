@@ -9,7 +9,7 @@ bzip2:
 c_compiler:
 - clang
 c_compiler_version:
-- '18'
+- '19'
 c_stdlib:
 - macosx_deployment_target
 c_stdlib_version:
@@ -19,33 +19,31 @@ channel_sources:
 channel_targets:
 - conda-forge main
 cuda_compiler:
-- None
+- cuda-nvcc
 cuda_compiler_version:
 - None
 cxx_compiler:
 - clangxx
 cxx_compiler_version:
-- '18'
+- '19'
 fftw:
 - '3'
 fortran_compiler:
 - gfortran
 fortran_compiler_version:
-- '13'
+- '14'
 libblas:
 - 3.9.* *netlib
-libboost_devel:
-- '1.86'
 liblapack:
 - 3.9.* *netlib
 libnetcdf:
-- 4.9.2
+- 4.9.3
 llvm_openmp:
-- '18'
+- '19'
 macos_machine:
 - arm64-apple-darwin20.0.0
 mpi:
-- openmpi
+- nompi
 mpich:
 - '4'
 netcdf_fortran:
@@ -53,9 +51,9 @@ netcdf_fortran:
 numpy:
 - '2'
 openmpi:
-- '5'
+- '4'
 openssl:
-- '3'
+- '3.5'
 perl:
 - 5.32.1
 pin_run_as_build:
@@ -72,7 +70,5 @@ zip_keys:
 - - c_compiler_version
   - cxx_compiler_version
   - fortran_compiler_version
-- - python
-  - numpy
 zlib:
 - '1'

@@ -2,7 +2,9 @@ azure:
   store_build_artifacts: true
   free_disk_space: true
 build_platform:
-  osx_arm64: osx_64
+  osx_arm64: osx_arm64
+  linux_aarch64: linux_aarch64
+  linux_ppc64le: linux_64
 conda_build:
   pkg_format: '2'
 conda_forge_output_validation: true
@@ -10,6 +12,10 @@ github:
   branch_name: main
   tooling_branch_name: main
 provider:
-  linux_ppc64le: azure
+  linux_ppc64le: default
+  linux_aarch64: default
+  osx_arm64: default
 test: native_and_emulated
 upload_on_branch: main
+workflow_settings: 
+  store_build_artifacts: true
