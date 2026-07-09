@@ -1,0 +1,46 @@
+diff --git a/AmberTools/src/mmpbsa_py/MMPBSA_mods/commandlineparser.py b/AmberTools/src/mmpbsa_py/MMPBSA_mods/commandlineparser.py
+index 6b89958e..d9c7acd9 100644
+--- a/AmberTools/src/mmpbsa_py/MMPBSA_mods/commandlineparser.py
++++ b/AmberTools/src/mmpbsa_py/MMPBSA_mods/commandlineparser.py
+@@ -3,7 +3,7 @@ This module contains classes and such that are responsible for parsing
+ command-line arguments for MMPBSA.py.  All of the files specified for use
+ in MMPBSA.py will be assigned as attributes to the returned class.
+ 
+-                          GPL LICENSE INFO                             
++                          GPL LICENSE INFO
+ 
+   Copyright (C) 2009  Dwight McGee, Billy Miller III, and Jason Swails
+ 
+@@ -16,7 +16,7 @@ in MMPBSA.py will be assigned as attributes to the returned class.
+   but WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   GNU General Public License for more details.
+-   
++
+   You should have received a copy of the GNU General Public License
+   along with this program; if not, write to the Free Software
+   Foundation, Inc., 59 Temple Place - Suite 330,
+@@ -55,7 +55,7 @@ group.add_argument('-prefix', dest='prefix', default='_MMPBSA_',
+ # CZ/UCI Addition:
+ # This part is for automatic setup of membrane
+ ################################################################################
+-group.add_argument('-A','-automem', dest='automem', default=['P'], nargs='*', 
++group.add_argument('-A','-automem', dest='automem', default=['P'], nargs='*',
+                   help='''Allow automatic placement of membrane based on the \
+                   trajectories. The membrane thickness and location is computed \
+ 	 	  based on the chosen head group atoms of the lipid molecules. \
+@@ -91,12 +91,12 @@ group.add_argument('-deo', dest='dec_energies', metavar='FILE',
+                   residue in decomposition calculations. File name forced to end
+                   in [.csv]. This file is only written when specified on the
+                   command-line.''')
+-group.add_argument_group('Input Topology Files', '''These topology files must be
++group = parser.add_argument_group('Input Topology Files', '''These topology files must be
+                       consistent with each other. ante-MMPBSA.py can be used to
+                       generate consistent topology files if necessary.''')
+ 
+ # GBNSR6
+-group.add_argument('-td', dest='temp_directory', help='''Directory which all GBNSR6 temporary 
++group.add_argument('-td', dest='temp_directory', help='''Directory which all GBNSR6 temporary
+                                                                 files will be stored in''', metavar='<GBNSR6>',
+                    default='tmp')
+ 

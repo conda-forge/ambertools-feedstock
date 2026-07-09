@@ -76,6 +76,19 @@ jobs:
             resize_partitions: False
             runs_on: ['ubuntu-latest']
             tools_install_dir: ~/miniforge3
+          - CONFIG: linux_64_cuda_compiler_versionNonepython3.14.____cp314
+            CONFIG_SHORT: linux_64_cuda_compiler_versionNonepython_ha12e3867
+            DOCKER_IMAGE: quay.io/condaforge/linux-anvil-x86_64:alma9
+            STORE_BUILD_ARTIFACTS: True
+            UPLOAD_PACKAGES: True
+            build_workspace_dir: build_artifacts
+            docker_run_args: 
+            free_disk_space: skip
+            os: ubuntu
+            pagefile_size: 0
+            resize_partitions: False
+            runs_on: ['ubuntu-latest']
+            tools_install_dir: ~/miniforge3
           - CONFIG: linux_aarch64_cuda_compiler_versionNonepython3.10.____cpython
             CONFIG_SHORT: linux_aarch64_cuda_compiler_versionNonep_h9166da89
             DOCKER_IMAGE: quay.io/condaforge/linux-anvil-aarch64:alma9
@@ -117,6 +130,19 @@ jobs:
             tools_install_dir: ~/miniforge3
           - CONFIG: linux_aarch64_cuda_compiler_versionNonepython3.13.____cp313
             CONFIG_SHORT: linux_aarch64_cuda_compiler_versionNonep_h35b9d921
+            DOCKER_IMAGE: quay.io/condaforge/linux-anvil-aarch64:alma9
+            STORE_BUILD_ARTIFACTS: True
+            UPLOAD_PACKAGES: True
+            build_workspace_dir: build_artifacts
+            docker_run_args: 
+            free_disk_space: skip
+            os: ubuntu
+            pagefile_size: 0
+            resize_partitions: False
+            runs_on: ['ubuntu-24.04-arm']
+            tools_install_dir: ~/miniforge3
+          - CONFIG: linux_aarch64_cuda_compiler_versionNonepython3.14.____cp314
+            CONFIG_SHORT: linux_aarch64_cuda_compiler_versionNonep_h78b29237
             DOCKER_IMAGE: quay.io/condaforge/linux-anvil-aarch64:alma9
             STORE_BUILD_ARTIFACTS: True
             UPLOAD_PACKAGES: True

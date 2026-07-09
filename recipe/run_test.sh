@@ -5,6 +5,31 @@ set -euxo pipefail
 # Debug installed versions
 conda list
 
+# Some cli commands fail in a flaky way, see
+# https://github.com/conda-forge/ambertools-feedstock/pull/189#issuecomment-4919781590
+# so we have a retry function
+
+retry() {
+  local max_attempts="$1"
+  shift
+
+  local attempt=1
+  local status=0
+
+  until "$@"; do
+    status=$?
+
+    if [ "$attempt" -ge "$max_attempts" ]; then
+      echo "Command failed after ${attempt} attempt(s): $*" >&2
+      return "$status"
+    fi
+
+    echo "Command failed with status ${status}; retrying ${attempt}/${max_attempts}: $*" >&2
+    attempt=$((attempt + 1))
+    sleep 2
+  done
+}
+
 ### These commands can't be tested from CLI without input arguments
 # addles -h
 # AddToBox -h
@@ -130,7 +155,8 @@ PdbSearcher.py -h
 prepgen -h
 ProScrs.py -h
 # reduce -V || true | grep -q "reduce."
-resp -h
+echo 'resp does not support -h; "unknown flag: -h" means it launched successfully.'
+retry 3 resp -h
 respgen -h
 saxs_md -h
 sqm -h
