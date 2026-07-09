@@ -155,6 +155,7 @@ PdbSearcher.py -h
 prepgen -h
 ProScrs.py -h
 # reduce -V || true | grep -q "reduce."
+echo 'resp does not support -h; "unknown flag: -h" means it launched successfully.'
 retry 3 resp -h
 respgen -h
 saxs_md -h
