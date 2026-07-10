@@ -99,6 +99,7 @@ requirements:
     - openssl
     - {{ mpi }}  # [mpi != 'nompi']
     - mpi4py  # [mpi != 'nompi']
+    - nlopt
     {% if cuda_major >= 12 %}
     - cuda-version {{ cuda_compiler_version }}
     # for libcudadevrt.a
