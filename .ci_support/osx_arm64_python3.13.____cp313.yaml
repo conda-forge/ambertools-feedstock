@@ -48,6 +48,8 @@ mpich:
 - '4'
 netcdf_fortran:
 - '4.6'
+nlopt:
+- '2.11'
 numpy:
 - '2'
 openmpi:

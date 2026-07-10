@@ -35,13 +35,15 @@ libblas:
 liblapack:
 - 3.9.* *netlib
 libnetcdf:
-- 4.9.3
+- 4.10.0
 mpi:
 - nompi
 mpich:
 - '4'
 netcdf_fortran:
 - '4.6'
+nlopt:
+- '2.11'
 numpy:
 - '2'
 openmpi:
