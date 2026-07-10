@@ -148,6 +148,16 @@ requirements:
     # See if this fixes the missing mkl error in a few builds
     - mkl  # [linux and x86_64]
     - __cuda  # [not osx and cuda_compiler_version != "None"]
+    - networkx
+    - numba
+    - gemmi
+    - rich
+    - biopython
+    - freesasa
+    - scikit-learn
+    - sympy
+    - pydantic
+    - psutil
   run_constrained:
     - ambermini ==9999999999
     - packmol ==9999999999
