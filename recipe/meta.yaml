@@ -27,7 +27,6 @@ source:
     #- patches/replace_mtune_with_mcpu.patch  # [arm64]
     #- patches/remove_nab2c_and_friends.patch  # [arm64]
     - patches/add_arm64_arch.patch  # [arm64]
-    - patches/dont_muck_with_CXX_and_CC_envars.patch  # [arm64]
     - patches/0001-do-not-clean-compiler-flags.patch
     - patches/cythonize-py313_py314.patch  # [py == 313 or py == 314]
     - patches/argparse_py314.patch  # [py == 314]
