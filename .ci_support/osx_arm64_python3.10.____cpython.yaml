@@ -37,7 +37,7 @@ libblas:
 liblapack:
 - 3.9.* *netlib
 libnetcdf:
-- 4.10.0
+- 4.10.1
 llvm_openmp:
 - '19'
 macos_machine:
