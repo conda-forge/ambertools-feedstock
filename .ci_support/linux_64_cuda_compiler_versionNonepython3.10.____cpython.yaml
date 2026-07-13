@@ -35,7 +35,7 @@ libblas:
 liblapack:
 - 3.9.* *netlib
 libnetcdf:
-- 4.10.0
+- 4.10.1
 mpi:
 - nompi
 mpich:
