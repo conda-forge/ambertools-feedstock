@@ -1,7 +1,7 @@
 {% set name = "AmberTools" %}
 # Versioning scheme uses AmberTools major release as MAJOR version number, patch level as MINOR version number
 # Update the MINOR version number as new patch releases come out
-{% set version = "25.3" %}
+{% set version = "26.0" %}
 # use run or skip
 {% set unit_tests = "skip" %}
 {% set build = 0 %}
@@ -18,8 +18,8 @@ package:
   version: "{{ version }}"
 
 source:
-  url: https://ambermd.org/downloads/ambertools25_rc7.tar.bz2
-  sha256: ac009b2adeb25ccd2191db28905b867df49240e038dc590f423edf0d84f8a13b
+  url: https://ambermd.org/downloads/ambertools26_rc7.tar.bz2
+  sha256: 5d46eef3c2bb7d5bf9e8c0c38add34406ea67e3f0e4097ac9d11d8a544538c9c
   patches:
     - patches/do_not_symlink_missing_ff12pol.patch
     - patches/do_not_install_vendored_parmed.patch
@@ -27,7 +27,6 @@ source:
     #- patches/replace_mtune_with_mcpu.patch  # [arm64]
     #- patches/remove_nab2c_and_friends.patch  # [arm64]
     - patches/add_arm64_arch.patch  # [arm64]
-    - patches/dont_muck_with_CXX_and_CC_envars.patch  # [arm64]
     - patches/0001-do-not-clean-compiler-flags.patch
     - patches/cythonize-py313_py314.patch  # [py == 313 or py == 314]
     - patches/argparse_py314.patch  # [py == 314]
@@ -100,6 +99,16 @@ requirements:
     - {{ mpi }}  # [mpi != 'nompi']
     - mpi4py  # [mpi != 'nompi']
     - nlopt
+    - networkx
+    - numba
+    - gemmi
+    - rich
+    - biopython
+    - freesasa
+    - scikit-learn
+    - sympy
+    - pydantic
+    - psutil
     {% if cuda_major >= 12 %}
     - cuda-version {{ cuda_compiler_version }}
     # for libcudadevrt.a
@@ -138,6 +147,16 @@ requirements:
     # See if this fixes the missing mkl error in a few builds
     - mkl  # [linux and x86_64]
     - __cuda  # [not osx and cuda_compiler_version != "None"]
+    - networkx
+    - numba
+    - gemmi
+    - rich
+    - biopython
+    - freesasa
+    - scikit-learn
+    - sympy
+    - pydantic
+    - psutil
   run_constrained:
     - ambermini ==9999999999
     - packmol ==9999999999
