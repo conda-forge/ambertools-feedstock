@@ -4,7 +4,7 @@
 {% set version = "26.0" %}
 # use run or skip
 {% set unit_tests = "skip" %}
-{% set build = 0 %}
+{% set build = 1 %}
 {% set build = build + 100 %}  # [mpi == 'nompi' and cuda_compiler_version == "None"]
 
 {% if cuda_compiler_version != "None" %}
@@ -30,6 +30,7 @@ source:
     - patches/0001-do-not-clean-compiler-flags.patch
     - patches/cythonize-py313_py314.patch  # [py == 313 or py == 314]
     - patches/argparse_py314.patch  # [py == 314]
+    - patches/boost_system_header_only.patch
     #- patches/0001-use-find_package-CUDAToolkit-instead-of-find_package.patch
     #- patches/0002-rely-on-DCMAKE_CUDA_ARCHITECTURES.patch
     #- patches/0003-look-in-right-place-for-libcudadevrt.a.patch
@@ -80,7 +81,7 @@ requirements:
     - matplotlib-base
     - bzip2
     - zlib
-    - libboost-devel ==1.86
+    - libboost-devel
     - libnetcdf
     - netcdf-fortran
     - pthread-stubs

@@ -9,7 +9,7 @@ bzip2:
 c_compiler:
 - clang
 c_compiler_version:
-- '19'
+- '21'
 c_stdlib:
 - macosx_deployment_target
 c_stdlib_version:
@@ -25,21 +25,23 @@ cuda_compiler_version:
 cxx_compiler:
 - clangxx
 cxx_compiler_version:
-- '19'
+- '21'
 fftw:
 - '3'
 fortran_compiler:
 - gfortran
 fortran_compiler_version:
-- '14'
+- '15'
 libblas:
 - 3.9.* *netlib
+libboost_devel:
+- '1.88'
 liblapack:
 - 3.9.* *netlib
 libnetcdf:
 - 4.10.1
 llvm_openmp:
-- '19'
+- '21'
 macos_machine:
 - x86_64-apple-darwin13.4.0
 mpi:
@@ -53,7 +55,7 @@ nlopt:
 numpy:
 - '2'
 openmpi:
-- '4'
+- '5'
 openssl:
 - '3.5'
 perl:

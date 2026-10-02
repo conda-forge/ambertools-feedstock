@@ -1,0 +1,31 @@
+--- a/cmake/3rdPartyTools.cmake
++++ b/cmake/3rdPartyTools.cmake
+@@ -575,7 +575,7 @@
+ if(NEED_boost)
+
+ 	set(Boost_DETAILED_FAILURE_MSG TRUE)
+-	find_package(Boost COMPONENTS thread system program_options iostreams regex timer chrono filesystem graph)
++	find_package(Boost COMPONENTS thread program_options iostreams regex timer chrono filesystem graph OPTIONAL_COMPONENTS system)
+
+ 	set(EXT_BOOST_OK ${Boost_FOUND})
+
+@@ -1246,7 +1246,7 @@
+ 	endif()
+
+ 	set(BOOST_LIBS_TO_IMPORT chrono filesystem graph iostreams
+-	program_options regex system thread timer)
++	program_options regex thread timer)
+
+ 	foreach(BOOST_LIB ${BOOST_LIBS_TO_IMPORT})
+ 		string(TOUPPER "${BOOST_LIB}" BOOST_LIB_UCASE)
+@@ -1261,6 +1261,10 @@
+ 	add_library(boost_headers INTERFACE)
+ 	set_property(TARGET boost_headers PROPERTY INTERFACE_INCLUDE_DIRECTORIES ${Boost_INCLUDE_DIRS})
+
++	# Boost.System is header-only since 1.69; its stub library was removed in 1.89
++	add_library(boost_system INTERFACE)
++	set_property(TARGET boost_system PROPERTY INTERFACE_INCLUDE_DIRECTORIES ${Boost_INCLUDE_DIRS})
++
+
+ elseif(boost_INTERNAL)
+
